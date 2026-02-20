@@ -57,6 +57,41 @@ forge script script/Deploy.s.sol:DeployScript \
 # Actualiza la dirección en frontend/.env.local
 ```
 
+## 🤖 Skills para Agentes IA (Opcional)
+
+> Si usas un agente de IA para programar (Claude, Cursor, OpenClaw, etc.), estas skills le ayudan a entender mejor Monad.
+
+### Skills recomendadas:
+
+| Skill | Descripción | Instalación |
+|-------|-------------|-------------|
+| `monad-development` | Deploy, verificación, configuración de contratos en Monad | `clawhub install monad-development` |
+| `nad-fun` | Crear y tradear tokens en nad.fun (launchpad de Monad) | `clawhub install nad-fun` |
+
+### ¿Qué hacen estas skills?
+
+**monad-development:**
+- Configuración correcta de Foundry para Monad (evm_version: prague)
+- API de faucet para fondear wallets automáticamente
+- Verificación en todos los explorers con una sola llamada
+- Frontend con viem/wagmi pre-configurado
+
+**nad-fun:**
+- Crear tokens con bonding curves
+- Trading y quotes
+- Integración con el launchpad de Monad
+
+### Instalación (si usas OpenClaw/ClawHub):
+
+```bash
+clawhub install monad-development
+clawhub install nad-fun
+```
+
+O manualmente desde: https://clawhub.com
+
+> **Nota:** Esto es opcional. Si no usas agentes IA, puedes ignorar esta sección.
+
 ## 📦 Qué incluye
 
 ### Contratos (`/contracts`)
