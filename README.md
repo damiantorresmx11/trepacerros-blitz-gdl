@@ -2,31 +2,59 @@
 
 > Full Stack template para construir en Monad — ERC1155 + Next.js + Privy
 
-## ⚡ Quick Start
+## 🚀 Contrato Ya Deployado!
+
+**No necesitas deployar nada** — el contrato ya está en Monad Testnet:
+
+📍 **`0xC056DA0254ba095b0BfDBe688910ff5905aBAe70`**
+
+[Ver en Explorer](https://monad-testnet.socialscan.io/address/0xC056DA0254ba095b0BfDBe688910ff5905aBAe70)
+
+## ⚡ Quick Start (Solo Frontend)
 
 ```bash
 # 1. Clonar
 git clone https://github.com/fruterito101/monad-blitz-starter.git
-cd monad-blitz-starter
+cd monad-blitz-starter/frontend
 
-# 2. Setup contratos
+# 2. Instalar dependencias
+npm install
+
+# 3. Configurar Privy
+cp .env.example .env.local
+# Editar .env.local con tu NEXT_PUBLIC_PRIVY_APP_ID
+# (El contrato ya está configurado!)
+
+# 4. Correr
+npm run dev
+```
+
+Abre http://localhost:3000 y listo! 🎉
+
+## 📝 Crear tu cuenta de Privy
+
+1. Ve a https://dashboard.privy.io
+2. Crea una cuenta (gratis)
+3. Crea una nueva App
+4. Copia el **App ID** 
+5. Pégalo en tu `.env.local`
+
+## 🔧 Si quieres deployar tu propio contrato
+
+```bash
+# Setup contratos
 cd contracts
 cp .env.example .env
 # Editar .env con tu private key
 forge install
 forge build
 
-# 3. Deploy a Monad Testnet
+# Deploy a Monad Testnet
 forge script script/Deploy.s.sol:DeployScript \
   --rpc-url https://testnet-rpc.monad.xyz \
   --broadcast
 
-# 4. Setup frontend
-cd ../frontend
-cp .env.example .env.local
-# Editar con tu Privy App ID y contract address
-npm install
-npm run dev
+# Actualiza la dirección en frontend/.env.local
 ```
 
 ## 📦 Qué incluye
