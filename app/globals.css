@@ -2,7 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --monad-purple: #836EF9;
+}
+
 body {
-  background: linear-gradient(180deg, #0a0a0f 0%, #1a1a2e 100%);
-  min-height: 100vh;
+  background: #000;
+  color: #fff;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #836EF9;
+  border-radius: 3px;
 }

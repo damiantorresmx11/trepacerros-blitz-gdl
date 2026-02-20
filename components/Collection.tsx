@@ -6,9 +6,9 @@ import { BLITZ_COLLECTION_ADDRESS, BLITZ_COLLECTION_ABI } from '@/lib/contracts'
 import { MintButton } from './MintButton'
 
 const ITEMS = [
-  { id: 1, emoji: '🏅', color: 'from-yellow-500/20 to-amber-900/20', border: 'border-yellow-500/30' },
-  { id: 2, emoji: '🎫', color: 'from-blue-500/20 to-blue-900/20', border: 'border-blue-500/30' },
-  { id: 3, emoji: '👑', color: 'from-purple-500/20 to-purple-900/20', border: 'border-purple-500/30' },
+  { id: 1, icon: '★', label: 'Badge' },
+  { id: 2, icon: '◆', label: 'Pass' },
+  { id: 3, icon: '◇', label: 'OG' },
 ]
 
 export function Collection() {
@@ -38,11 +38,11 @@ export function Collection() {
         {ITEMS.map((item) => (
           <div 
             key={item.id}
-            className="bg-gray-900 rounded-xl p-8 animate-pulse"
+            className="bg-black/50 border border-monad-purple/20 rounded-2xl p-8 animate-pulse"
           >
-            <div className="h-20 bg-gray-800 rounded-full w-20 mx-auto mb-4"></div>
-            <div className="h-6 bg-gray-800 rounded mb-2 mx-auto w-2/3"></div>
-            <div className="h-4 bg-gray-800 rounded mx-auto w-1/2"></div>
+            <div className="h-20 bg-monad-purple/10 rounded-full w-20 mx-auto mb-4"></div>
+            <div className="h-6 bg-monad-purple/10 rounded mb-2 mx-auto w-2/3"></div>
+            <div className="h-4 bg-monad-purple/10 rounded mx-auto w-1/2"></div>
           </div>
         ))}
       </div>
@@ -67,29 +67,29 @@ export function Collection() {
         return (
           <div 
             key={item.id}
-            className={`bg-gradient-to-br ${item.color} rounded-xl p-8 border ${item.border} hover:scale-105 transition-all duration-300`}
+            className="bg-black/50 border border-monad-purple/30 rounded-2xl p-8 hover:border-monad-purple/60 transition-all duration-300"
           >
-            {/* Emoji */}
-            <div className="text-7xl text-center mb-6 hover:animate-bounce cursor-default">
-              {item.emoji}
+            {/* Icon */}
+            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-monad-purple/20 flex items-center justify-center">
+              <span className="text-4xl text-monad-purple">{item.icon}</span>
             </div>
             
             {/* Name */}
-            <h3 className="text-2xl font-bold text-center mb-2">{name}</h3>
+            <h3 className="text-xl font-bold text-center mb-2 text-white">{name}</h3>
             
             {/* Supply */}
             <div className="text-center text-gray-400 text-sm mb-4">
               {maxSupply > 0n 
-                ? `${currentSupply.toString()} / ${maxSupply.toString()} minteados`
-                : `${currentSupply.toString()} minteados • Ilimitado ∞`
+                ? `${currentSupply.toString()} / ${maxSupply.toString()}`
+                : `${currentSupply.toString()} minted`
               }
             </div>
 
             {/* Progress bar (if limited) */}
             {maxSupply > 0n && (
-              <div className="w-full bg-gray-800 rounded-full h-2 mb-4">
+              <div className="w-full bg-black rounded-full h-1 mb-4">
                 <div 
-                  className="bg-monad-purple h-2 rounded-full transition-all duration-500"
+                  className="bg-monad-purple h-1 rounded-full transition-all duration-500"
                   style={{ width: `${progress}%` }}
                 ></div>
               </div>
@@ -98,8 +98,8 @@ export function Collection() {
             {/* User balance */}
             {userAddress && balance !== undefined && balance > 0n && (
               <div className="text-center mb-4">
-                <span className="bg-monad-purple/30 text-monad-purple px-4 py-2 rounded-full text-sm font-semibold">
-                  ✨ Tienes: {balance.toString()}
+                <span className="text-monad-purple text-sm font-medium">
+                  You own: {balance.toString()}
                 </span>
               </div>
             )}
@@ -113,9 +113,7 @@ export function Collection() {
               />
             ) : (
               <div className="text-center">
-                <span className="bg-red-500/20 text-red-400 px-4 py-2 rounded-full text-sm font-semibold">
-                  ❌ Agotado
-                </span>
+                <span className="text-gray-500 text-sm">Sold out</span>
               </div>
             )}
           </div>

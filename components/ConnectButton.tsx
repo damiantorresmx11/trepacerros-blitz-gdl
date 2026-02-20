@@ -11,9 +11,9 @@ export function ConnectButton() {
     return (
       <button 
         disabled
-        className="bg-gray-600 text-white px-6 py-3 rounded-lg opacity-50"
+        className="bg-black border border-gray-800 text-gray-600 px-4 py-2 rounded-lg text-sm"
       >
-        Cargando...
+        Loading...
       </button>
     )
   }
@@ -22,9 +22,9 @@ export function ConnectButton() {
     return (
       <button 
         onClick={login}
-        className="bg-monad-purple hover:bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold transition-all"
+        className="bg-monad-purple hover:bg-monad-purple/80 text-white px-4 py-2 rounded-lg font-medium transition-all text-sm"
       >
-        🔐 Conectar
+        Connect
       </button>
     )
   }
@@ -32,22 +32,21 @@ export function ConnectButton() {
   const wallet = wallets[0]
   const shortAddress = wallet?.address 
     ? `${wallet.address.slice(0, 6)}...${wallet.address.slice(-4)}`
-    : 'Sin wallet'
+    : 'No wallet'
 
   return (
-    <div className="flex items-center gap-4">
-      <div className="text-sm">
-        <div className="text-gray-400">Conectado como</div>
-        <div className="font-mono text-monad-purple">{shortAddress}</div>
+    <div className="flex items-center gap-3">
+      <div className="text-right">
+        <div className="font-mono text-monad-purple text-sm">{shortAddress}</div>
         {user?.email && (
           <div className="text-gray-500 text-xs">{user.email.address}</div>
         )}
       </div>
       <button 
         onClick={logout}
-        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm transition-all"
+        className="bg-black border border-monad-purple/30 hover:border-monad-purple text-white px-3 py-1.5 rounded-lg text-sm transition-all"
       >
-        Salir
+        Exit
       </button>
     </div>
   )

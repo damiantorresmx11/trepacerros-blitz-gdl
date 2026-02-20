@@ -22,32 +22,32 @@ export function WalletInfo() {
   const balanceFormatted = balance ? parseFloat(balance.formatted).toFixed(4) : '0'
 
   return (
-    <div className="bg-gradient-to-r from-monad-purple/20 to-purple-900/20 rounded-xl p-6 mb-8 border border-monad-purple/30">
+    <div className="bg-black/50 border border-monad-purple/20 rounded-xl p-6 mb-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <div className="text-sm text-gray-400 mb-1">Tu Wallet</div>
-          <div className="font-mono text-lg text-white">{shortAddress}</div>
+          <div className="text-sm text-gray-400 mb-1">Wallet</div>
+          <div className="font-mono text-white">{shortAddress}</div>
         </div>
         <div>
           <div className="text-sm text-gray-400 mb-1">Balance</div>
-          <div className="text-lg font-bold text-monad-purple">{balanceFormatted} MON</div>
+          <div className="font-bold text-monad-purple">{balanceFormatted} MON</div>
         </div>
         <div className="flex gap-2">
           <a
             href={`https://monad-testnet.socialscan.io/address/${wallet.address}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-sm transition-all"
+            className="bg-black border border-monad-purple/30 hover:border-monad-purple px-4 py-2 rounded-lg text-sm transition-all text-gray-300 hover:text-white"
           >
-            🔍 Ver en Explorer
+            Explorer
           </a>
           <a
             href="https://faucet.monad.xyz"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-monad-purple hover:bg-purple-600 px-4 py-2 rounded-lg text-sm transition-all"
+            className="bg-monad-purple hover:bg-monad-purple/80 px-4 py-2 rounded-lg text-sm transition-all text-white"
           >
-            🚰 Obtener MON
+            Get MON
           </a>
         </div>
       </div>

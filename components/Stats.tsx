@@ -43,33 +43,30 @@ export function Stats() {
     return (
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
         {[1,2,3,4].map(i => (
-          <div key={i} className="bg-gray-900/50 rounded-xl p-6 animate-pulse">
-            <div className="h-8 bg-gray-800 rounded mb-2"></div>
-            <div className="h-4 bg-gray-800 rounded w-2/3"></div>
+          <div key={i} className="bg-black/50 border border-monad-purple/20 rounded-xl p-6 animate-pulse">
+            <div className="h-8 bg-monad-purple/10 rounded mb-2"></div>
+            <div className="h-4 bg-monad-purple/10 rounded w-2/3"></div>
           </div>
         ))}
       </div>
     )
   }
 
+  const stats = [
+    { value: totalItems?.toString() || '3', label: 'Items' },
+    { value: totalMinted.toString(), label: 'Minted' },
+    { value: 'ERC1155', label: 'Standard' },
+    { value: '10K', label: 'TPS' },
+  ]
+
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-      <div className="bg-gradient-to-br from-purple-900/50 to-gray-900 rounded-xl p-6 border border-purple-500/20">
-        <div className="text-3xl font-bold text-monad-purple">{totalItems?.toString() || '3'}</div>
-        <div className="text-gray-400 text-sm">Items Disponibles</div>
-      </div>
-      <div className="bg-gradient-to-br from-blue-900/50 to-gray-900 rounded-xl p-6 border border-blue-500/20">
-        <div className="text-3xl font-bold text-blue-400">{totalMinted.toString()}</div>
-        <div className="text-gray-400 text-sm">Total Minteados</div>
-      </div>
-      <div className="bg-gradient-to-br from-green-900/50 to-gray-900 rounded-xl p-6 border border-green-500/20">
-        <div className="text-3xl font-bold text-green-400">ERC1155</div>
-        <div className="text-gray-400 text-sm">Tipo de Contrato</div>
-      </div>
-      <div className="bg-gradient-to-br from-orange-900/50 to-gray-900 rounded-xl p-6 border border-orange-500/20">
-        <div className="text-3xl font-bold text-orange-400">10K TPS</div>
-        <div className="text-gray-400 text-sm">Monad Speed</div>
-      </div>
+      {stats.map((stat, i) => (
+        <div key={i} className="bg-black/50 border border-monad-purple/20 rounded-xl p-6 hover:border-monad-purple/40 transition-all">
+          <div className="text-2xl font-bold text-monad-purple">{stat.value}</div>
+          <div className="text-gray-400 text-sm">{stat.label}</div>
+        </div>
+      ))}
     </div>
   )
 }
