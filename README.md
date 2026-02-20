@@ -2,34 +2,91 @@
 
 > Full Stack template para construir en Monad — ERC1155 + Next.js + Privy
 
-## 🚀 Contrato Ya Deployado!
+## 🎯 Contrato de Ejemplo
 
-**No necesitas deployar nada** — el contrato ya está en Monad Testnet:
+Este contrato ya está deployado para que veas cómo funciona:
 
-📍 **`0xC056DA0254ba095b0BfDBe688910ff5905aBAe70`**
+📍 **`0xC056DA0254ba095b0BfDBe688910ff5905aBAe70`** (Ejemplo)
 
 [Ver en Explorer](https://monad-testnet.socialscan.io/address/0xC056DA0254ba095b0BfDBe688910ff5905aBAe70)
 
-## ⚡ Quick Start (Solo Frontend)
+> ⚠️ **Para el hackathon:** Debes deployar TU PROPIO contrato. Este es solo una referencia.
+
+---
+
+## 🛤️ Elige tu Camino
+
+### 🟢 Soy nuevo + Uso agente IA
+> "Mi agente me ayuda con todo"
+
+1. Dale a tu agente los [skills de abajo](#-skills-para-agentes-ia-opcional)
+2. Pídele: "Ayúdame a deployar un contrato ERC1155 en Monad testnet"
+3. El agente te guía paso a paso
+
+### 🟡 Soy nuevo + Sin agente
+> "Quiero la opción más fácil"
+
+1. Usa **[Remix](https://docs.monad.xyz/guides/deploy-smart-contract/remix)** (en el browser, no instalas nada)
+2. Copia el contrato de `contracts/src/BlitzCollection.sol`
+3. Sigue la guía de Monad
+
+### 🔵 Ya sé programar
+> "Dame las herramientas"
+
+1. Usa **[Foundry](https://docs.monad.xyz/guides/deploy-smart-contract/foundry)** o **[Hardhat](https://docs.monad.xyz/guides/deploy-smart-contract/hardhat)**
+2. Clona este repo y modifica el contrato
+3. Deploya con el script incluido
+
+### 🟣 Soy pro
+> "Solo necesito los RPCs"
+
+```
+Testnet RPC: https://testnet-rpc.monad.xyz
+Mainnet RPC: https://rpc.monad.xyz
+Chain ID Testnet: 10143
+Chain ID Mainnet: 143
+Faucet: https://faucet.monad.xyz
+Explorer: https://monad-testnet.socialscan.io
+```
+
+## ⚡ Quick Start
+
+### Opción A: Probar el ejemplo (5 min)
 
 ```bash
-# 1. Clonar
 git clone https://github.com/fruterito101/monad-blitz-starter.git
 cd monad-blitz-starter/frontend
-
-# 2. Instalar dependencias
 npm install
-
-# 3. Configurar Privy
 cp .env.example .env.local
-# Editar .env.local con tu NEXT_PUBLIC_PRIVY_APP_ID
-# (El contrato ya está configurado!)
-
-# 4. Correr
+# Crear cuenta en dashboard.privy.io y pegar App ID
 npm run dev
 ```
 
-Abre http://localhost:3000 y listo! 🎉
+### Opción B: Deployar tu propio contrato (15 min)
+
+```bash
+git clone https://github.com/fruterito101/monad-blitz-starter.git
+cd monad-blitz-starter/contracts
+
+# Instalar dependencias
+forge install
+
+# Fondear wallet desde https://faucet.monad.xyz
+
+# Deploy
+forge script script/Deploy.s.sol:DeployScript \
+  --rpc-url https://testnet-rpc.monad.xyz \
+  --private-key TU_PRIVATE_KEY \
+  --broadcast
+
+# Copiar la dirección de TU contrato a frontend/.env.local
+```
+
+### Opción C: Pedir ayuda a un agente IA
+
+> "Clona este repo y ayúdame a deployar mi propio contrato ERC1155 en Monad"
+> 
+> https://github.com/fruterito101/monad-blitz-starter
 
 ## 📝 Crear tu cuenta de Privy
 
