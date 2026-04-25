@@ -233,7 +233,7 @@ export default function ProfilePage() {
                           <div className="font-semibold text-[13px]">{name}</div>
                           <div className="lb-meta">{formatDate(r.timestamp)}</div>
                         </div>
-                        <div className="ledger-amt neg">{r.claimed ? "Claimed" : "Pending"}</div>
+                        <div className="ledger-amt" style={{ color: r.claimed ? "var(--muted)" : "var(--moss)" }}>{r.claimed ? "Canjeado" : "Activo"}</div>
                       </div>
                     );
                   })}
