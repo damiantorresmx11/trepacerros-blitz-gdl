@@ -174,7 +174,7 @@ export default function LeaderboardPage() {
         {address && (
           <div
             className="solid-card p-4 flex items-center justify-between"
-            style={{ background: "color-mix(in oklch, var(--color-cd-ember, #e85d2a) 8%, var(--color-cd-paper, #fdfcf7))", borderColor: "var(--color-cd-ember, #e85d2a)", borderWidth: "2px" }}
+            style={{ background: "#fdf5f0", borderColor: "#d4742a", borderWidth: "2px" }}
           >
             <div className="flex items-center gap-3">
               <div

@@ -267,7 +267,7 @@ export default function WikiPage() {
 
         {/* Did you know */}
         <section>
-          <div className="solid-card p-5 !border-cd-moss/30 !bg-[color-mix(in_oklch,#2d5a3e_6%,#fdfcf7)]">
+          <div className="solid-card p-5 !border-cd-moss/30" style={{ backgroundColor: "#f5faf6" }}>
             <span className="font-big-shoulders uppercase text-[11px] tracking-[0.15em] text-cd-moss font-bold">
               ¿Sabías que?
             </span>

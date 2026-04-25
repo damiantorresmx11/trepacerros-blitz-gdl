@@ -8,6 +8,7 @@ import { HeroIllustration } from "@/components/HeroIllustration";
 import { usePrimaBalance, useHikerStats, useUserNFTs } from "@/hooks/useRastros";
 import { TOKEN_DISPLAY_NAME } from "@/lib/tokens";
 import { ConnectButton } from "@/components/ConnectButton";
+import { useCountUp } from "@/hooks/useCountUp";
 
 function getGreeting(): string {
   const hour = new Date().getHours();
@@ -163,7 +164,14 @@ function AuthenticatedDashboard() {
   const { totalKg, hikes, isLoading: statsLoading } = useHikerStats(address);
   const { nfts } = useUserNFTs(address);
 
-  const kgFormatted = (Number(totalKg) / 1000).toFixed(1);
+  const kgRaw = Number(totalKg) / 1000;
+  const balanceRaw = Math.floor(Number(formatted));
+  const hikesRaw = Number(hikes);
+
+  const animatedBalance = useCountUp(balanceRaw);
+  const animatedKg = useCountUp(Math.round(kgRaw * 10)) / 10; // animate to 1 decimal
+  const animatedHikes = useCountUp(hikesRaw);
+
   const recentNfts = nfts.slice(0, 3);
   const greeting = getGreeting();
 
@@ -215,21 +223,21 @@ function AuthenticatedDashboard() {
         <div className="solid-card p-3 flex flex-col items-center">
           <span className="font-mono text-[9px] tracking-[0.16em] uppercase text-cd-muted">Balance</span>
           <span className="font-mono text-2xl md:text-3xl font-black text-cd-ink mt-1">
-            {Math.floor(Number(formatted))}
+            {animatedBalance.toLocaleString()}
           </span>
           <span className="font-mono text-[10px] text-cd-ember font-bold mt-0.5">{TOKEN_DISPLAY_NAME}</span>
         </div>
         <div className="solid-card p-3 flex flex-col items-center">
           <span className="font-mono text-[9px] tracking-[0.16em] uppercase text-cd-muted">Recolectado</span>
           <span className="font-mono text-2xl md:text-3xl font-black text-cd-ink mt-1">
-            {statsLoading ? "..." : kgFormatted}
+            {statsLoading ? "..." : animatedKg.toFixed(1)}
           </span>
           <span className="font-mono text-[10px] text-cd-muted mt-0.5">KG TOTAL</span>
         </div>
         <div className="solid-card p-3 flex flex-col items-center">
           <span className="font-mono text-[9px] tracking-[0.16em] uppercase text-cd-muted">Trepadas</span>
           <span className="font-mono text-2xl md:text-3xl font-black text-cd-ink mt-1">
-            {statsLoading ? "..." : hikes.toString()}
+            {statsLoading ? "..." : animatedHikes.toLocaleString()}
           </span>
           <span className="font-mono text-[10px] text-cd-muted mt-0.5">SESIONES</span>
         </div>

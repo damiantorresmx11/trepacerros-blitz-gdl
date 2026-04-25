@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/Toast";
 import { useAccount } from "wagmi";
 import { AppShell } from "@/components/AppShell";
 import { ConnectButton } from "@/components/ConnectButton";
@@ -246,6 +247,8 @@ export default function RewardsPage() {
     if (!selectedReward) setConfirmError(null);
   }, [selectedReward]);
 
+  const { toast } = useToast();
+
   async function handleConfirm() {
     if (!selectedReward) return;
     setIsProcessing(true);
@@ -263,10 +266,13 @@ export default function RewardsPage() {
       }
       const txHash = await redeem(selectedReward.id);
       setVoucher({ reward: selectedReward, txHash });
+      toast(`Voucher canjeado: ${selectedReward.name}`, "success");
       setSelectedReward(null);
       refetchBalance();
     } catch (err) {
-      setConfirmError(err instanceof Error ? err.message : "No se pudo completar el canje.");
+      const msg = err instanceof Error ? err.message : "No se pudo completar el canje.";
+      setConfirmError(msg);
+      toast(msg, "error");
     } finally {
       setIsProcessing(false);
     }

@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import confetti from "canvas-confetti";
+import { useToast } from "@/components/ui/Toast";
 import { useAccount } from "wagmi";
 import { uploadFileToPinata, uploadJSONToPinata } from "@/lib/pinata";
 import { useMintHike } from "@/hooks/useRastros";
@@ -85,6 +87,7 @@ function shortHash(hash: string): string {
 export function SubmitHike({ stats, points: _points, onMinted, onCancel }: SubmitHikeProps) {
   const { address } = useAccount();
   const { mintHike, isPending: mintPending, reset: resetMint } = useMintHike();
+  const { toast } = useToast();
 
   const [photo, setPhoto] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
@@ -158,6 +161,7 @@ export function SubmitHike({ stats, points: _points, onMinted, onCancel }: Submi
     try {
       setStage("uploading-photo");
       setErrorMsg(null);
+      toast("Subiendo foto a IPFS...", "info");
       const photoResult = await uploadFileToPinata(
         photo,
         `rastro-photo-${Date.now()}`
@@ -165,9 +169,9 @@ export function SubmitHike({ stats, points: _points, onMinted, onCancel }: Submi
       photoIpfsUri = photoResult.ipfsUri;
     } catch (err) {
       console.error("[SubmitHike] photo upload failed:", err);
-      setErrorMsg(
-        `No se pudo subir la foto a IPFS: ${err instanceof Error ? err.message : "error desconocido"}`
-      );
+      const msg = `No se pudo subir la foto a IPFS: ${err instanceof Error ? err.message : "error desconocido"}`;
+      setErrorMsg(msg);
+      toast(msg, "error");
       setStage("error");
       return;
     }
@@ -232,6 +236,7 @@ export function SubmitHike({ stats, points: _points, onMinted, onCancel }: Submi
     // ── Step 3: Mint ────────────────────────────────────────────────────────
     try {
       setStage("minting");
+      toast("Confirmando en Monad...", "info");
       const hash = await mintHike({
         to: address,
         tokenURI: metadataIpfsUri,
@@ -244,12 +249,15 @@ export function SubmitHike({ stats, points: _points, onMinted, onCancel }: Submi
       });
       setTxHash(hash);
       setStage("success");
+      // Celebrate!
+      confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ["#d4742a", "#2d5a3e", "#3d7a52"] });
+      toast("NFT minteado exitosamente!", "success");
       onMinted?.(hash);
     } catch (err) {
       console.error("[SubmitHike] mint failed:", err);
-      setErrorMsg(
-        `Error al mintear el NFT: ${err instanceof Error ? err.message : "error desconocido"}`
-      );
+      const msg = `Error al mintear: ${err instanceof Error ? err.message : "error desconocido"}`;
+      setErrorMsg(msg);
+      toast(msg, "error");
       setStage("error");
       return;
     }

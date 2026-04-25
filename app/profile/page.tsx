@@ -18,6 +18,7 @@ import {
 } from "@/hooks/useRewards";
 import { CATEGORY_INFO, type RewardCategory } from "@/data/rewards";
 import { TOKEN_DISPLAY_NAME } from "@/lib/tokens";
+import { useCountUp } from "@/hooks/useCountUp";
 
 const CATEGORY_ORDER: RewardCategory[] = [
   "IMMEDIATE", "EXPERIENCE", "OUTDOOR", "SUSTAINABILITY",
@@ -71,6 +72,7 @@ export default function ProfilePage() {
   }
 
   const shortAddr = address ? `${address.slice(0, 6)}...${address.slice(-4)}` : "";
+  const animatedBalance = useCountUp(Math.floor(Number(formatted)));
   const displayName = user?.email?.address?.split("@")[0] || shortAddr;
 
   return (
@@ -135,7 +137,7 @@ export default function ProfilePage() {
                 </span>
                 <div className="flex items-baseline gap-2">
                   <span className="font-mono text-5xl font-black leading-none text-cd-ink">
-                    {isBalanceLoading ? "..." : Math.floor(Number(formatted))}
+                    {isBalanceLoading ? "..." : animatedBalance.toLocaleString()}
                   </span>
                   <span className="font-mono text-sm font-bold text-cd-ember">{TOKEN_DISPLAY_NAME}</span>
                 </div>
@@ -252,7 +254,7 @@ export default function ProfilePage() {
                       >
                         <div
                           className="w-9 h-9 rounded-[10px] flex items-center justify-center"
-                          style={{ background: "color-mix(in oklch, var(--color-cd-moss, #2d5a3e) 16%, var(--color-cd-paper, #fdfcf7))", color: "var(--color-cd-moss, #2d5a3e)" }}
+                          style={{ background: "#e8f2ea", color: "#2d5a3e" }}
                         >
                           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M3 20l5.5-9 4 6 3-4L21 20z" />
@@ -285,7 +287,7 @@ export default function ProfilePage() {
                       >
                         <div
                           className="w-9 h-9 rounded-[10px] flex items-center justify-center"
-                          style={{ background: "color-mix(in oklch, var(--color-cd-ember, #e85d2a) 16%, var(--color-cd-paper, #fdfcf7))", color: "var(--color-cd-ember, #e85d2a)" }}
+                          style={{ background: "#fceee5", color: "#d4742a" }}
                         >
                           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M3 6h18l-2 13H5z" />
