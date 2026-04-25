@@ -18,9 +18,9 @@ function AuthenticatedDashboard() {
   const recentNfts = nfts.slice(0, 3);
 
   return (
-    <div className="flex flex-col gap-6 font-lexend">
+    <div className="flex flex-col md:grid md:grid-cols-2 md:items-start gap-6 font-lexend">
       {/* Map Hero */}
-      <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden -mx-5 w-[calc(100%+40px)]">
+      <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden -mx-5 w-[calc(100%+40px)] md:mx-0 md:w-full md:row-span-3">
         <img
           className="w-full h-full object-cover"
           src="https://picsum.photos/seed/trepacerros-hero/800/600"
@@ -126,7 +126,7 @@ function LandingHero() {
   const { login } = usePrivy();
   return (
     <div className="min-h-screen bg-[#fcf9f8] flex flex-col items-center justify-center px-5 font-lexend">
-      <div className="max-w-[480px] w-full text-center space-y-8">
+      <div className="max-w-[480px] md:max-w-[600px] w-full text-center space-y-8">
         <div className="flex items-center justify-center gap-2 mb-4">
           <span className="material-symbols-outlined text-[#2D5A27] text-4xl">landscape</span>
           <span className="font-black text-[#2D5A27] tracking-widest uppercase text-3xl">TREPACERROS</span>

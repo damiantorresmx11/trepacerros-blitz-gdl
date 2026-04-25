@@ -58,9 +58,9 @@ export default function HikePage() {
 
   return (
     <AppShell>
-      <div className="font-lexend flex flex-col gap-4">
+      <div className="font-lexend flex flex-col md:grid md:grid-cols-5 gap-4">
         {!isConnected || !address ? (
-          <div className="flex flex-col items-center gap-6 py-12 text-center">
+          <div className="flex flex-col items-center gap-6 py-12 text-center md:col-span-5">
             <span className="material-symbols-outlined text-tc-primary text-5xl">hiking</span>
             <h2 className="text-tc-headline-md font-semibold text-tc-primary">Conecta tu wallet</h2>
             <p className="text-sm text-tc-on-surface-variant">
@@ -71,8 +71,8 @@ export default function HikePage() {
         ) : (
           <>
             {/* Map */}
-            <div className="relative -mx-5 -mt-4">
-              <div className="w-full aspect-square">
+            <div className="relative -mx-5 -mt-4 md:mx-0 md:mt-0 md:col-span-3 md:row-span-2">
+              <div className="w-full aspect-square md:aspect-[4/3] md:rounded-2xl md:overflow-hidden">
                 <HikeMap
                   points={mapPoints}
                   height={400}
@@ -95,7 +95,7 @@ export default function HikePage() {
             </div>
 
             {/* Stats Glass Card */}
-            <div className="bg-white/95 backdrop-blur-xl rounded-[2rem] p-6 shadow-2xl border border-white/40 flex flex-col gap-6 -mt-16 relative z-10 mx-0">
+            <div className="bg-white/95 backdrop-blur-xl rounded-[2rem] p-6 shadow-2xl border border-white/40 flex flex-col gap-6 -mt-16 md:mt-0 relative z-10 mx-0 md:col-span-2">
               <div className="grid grid-cols-3 gap-2">
                 <div className="flex flex-col items-center">
                   <span className="text-stone-500 font-space-grotesk text-[10px] uppercase">Distance</span>
@@ -192,11 +192,11 @@ export default function HikePage() {
       {/* Submit Modal */}
       {showSubmitModal && (
         <div
-          className="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-start justify-center overflow-y-auto"
+          className="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-start md:items-center justify-center overflow-y-auto"
           role="dialog"
           aria-modal="true"
         >
-          <div className="w-full max-w-[480px] min-h-screen bg-[#fcf9f8] rounded-none shadow-xl">
+          <div className="w-full max-w-[480px] md:max-w-lg min-h-screen md:min-h-0 md:max-h-[90vh] md:overflow-y-auto bg-[#fcf9f8] rounded-none md:rounded-3xl shadow-xl">
             <div className="flex items-center justify-between px-5 py-4 border-b border-stone-200 sticky top-0 bg-[#fcf9f8] z-10">
               <div className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-tc-primary" style={{ fontVariationSettings: "'FILL' 1" }}>

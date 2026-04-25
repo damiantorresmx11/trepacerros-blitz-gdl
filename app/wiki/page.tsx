@@ -15,8 +15,8 @@ const CATEGORY_ICONS: Record<string, string> = {
 
 function TrashDetailModal({ item, onClose }: { item: TrashTypeInfo; onClose: () => void }) {
   return (
-    <div className="fixed inset-0 z-[100] flex items-end justify-center bg-black/50 backdrop-blur-sm">
-      <div className="w-full max-w-[480px] bg-[#fcf9f8] text-tc-on-surface rounded-t-3xl shadow-xl p-6 font-lexend max-h-[85vh] overflow-y-auto">
+    <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center bg-black/50 backdrop-blur-sm">
+      <div className="w-full max-w-[480px] md:max-w-lg bg-[#fcf9f8] text-tc-on-surface rounded-t-3xl md:rounded-3xl shadow-xl p-6 font-lexend max-h-[85vh] overflow-y-auto">
         <div className="flex items-start justify-between gap-4 mb-4">
           <div className="flex items-center gap-3">
             <span className="text-3xl">{item.icono}</span>
@@ -86,7 +86,7 @@ export default function WikiPage() {
 
   return (
     <AppShell>
-      <div className="font-lexend flex flex-col gap-6">
+      <div className="font-lexend flex flex-col gap-6 md:max-w-5xl">
         {/* Header */}
         <section>
           <h1 className="text-tc-headline-lg font-semibold text-tc-primary mb-2">Wiki de Residuos</h1>
@@ -110,13 +110,13 @@ export default function WikiPage() {
         {/* Materials Grid */}
         <section>
           <h3 className="text-tc-headline-md font-semibold text-tc-primary mb-4">Categorias de Impacto</h3>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             {filtered.map((item, idx) => (
               <button
                 key={item.id}
                 onClick={() => setSelected(item)}
                 className={`bg-white rounded-3xl p-4 shadow-sm border border-stone-100 flex flex-col gap-3 text-left hover:shadow-md transition-shadow ${
-                  idx === 0 ? "col-span-2" : ""
+                  idx === 0 ? "col-span-2 md:col-span-1" : ""
                 }`}
               >
                 <div className="flex justify-between items-start">

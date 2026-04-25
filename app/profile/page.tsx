@@ -64,7 +64,7 @@ export default function ProfilePage() {
 
   return (
     <AppShell>
-      <div className="font-lexend flex flex-col gap-6">
+      <div className="font-lexend flex flex-col gap-6 md:max-w-4xl">
         {!isConnected ? (
           <div className="flex flex-col items-center gap-6 py-12 text-center">
             <span className="material-symbols-outlined text-tc-primary text-5xl">person</span>
@@ -116,7 +116,7 @@ export default function ProfilePage() {
             </div>
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="bg-tc-primary-container text-white p-5 rounded-[24px] shadow-sm">
                 <span className="text-tc-headline-md font-semibold leading-none">
                   {isStatsLoading ? "..." : kgFormatted} <small className="text-xs">KG</small>

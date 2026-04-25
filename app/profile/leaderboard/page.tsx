@@ -44,7 +44,7 @@ export default function LeaderboardPage() {
 
   return (
     <AppShell>
-      <div className="font-lexend flex flex-col gap-6">
+      <div className="font-lexend flex flex-col gap-6 md:max-w-2xl md:mx-auto">
         <section>
           <h1 className="text-tc-headline-lg font-semibold text-tc-primary mb-1">Top Trepacerros GDL</h1>
           <p className="text-tc-body-md text-tc-on-surface-variant">The local guardians of our trails. Ranked by total impact.</p>

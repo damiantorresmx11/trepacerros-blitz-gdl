@@ -45,8 +45,8 @@ function ConfirmModal({
   const info = catKey ? CATEGORY_INFO[catKey] : null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-end justify-center bg-black/50 backdrop-blur-sm">
-      <div className="w-full max-w-[480px] bg-[#fcf9f8] text-tc-on-surface rounded-t-3xl shadow-xl p-6 font-lexend">
+    <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center bg-black/50 backdrop-blur-sm">
+      <div className="w-full max-w-[480px] bg-[#fcf9f8] text-tc-on-surface rounded-t-3xl md:rounded-3xl shadow-xl p-6 font-lexend">
         <div className="flex items-start justify-between gap-4 mb-4">
           <h3 className="text-tc-headline-md font-semibold">Confirmar canje</h3>
           <button onClick={onClose} disabled={isPending} className="text-stone-400 hover:text-tc-on-surface" aria-label="Cerrar">
@@ -97,8 +97,8 @@ function ConfirmModal({
 function VoucherModal({ reward, txHash, onClose }: { reward: RewardOnChain; txHash: `0x${string}`; onClose: () => void }) {
   const router = useRouter();
   return (
-    <div className="fixed inset-0 z-[100] flex items-end justify-center bg-black/50 backdrop-blur-sm">
-      <div className="w-full max-w-[480px] bg-[#fcf9f8] text-tc-on-surface rounded-t-3xl shadow-xl p-6 font-lexend">
+    <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center bg-black/50 backdrop-blur-sm">
+      <div className="w-full max-w-[480px] bg-[#fcf9f8] text-tc-on-surface rounded-t-3xl md:rounded-3xl shadow-xl p-6 font-lexend">
         <div className="flex items-center gap-3 mb-4">
           <span className="material-symbols-outlined text-[#FF6B00] text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
           <h3 className="text-tc-headline-md font-semibold">Canje exitoso</h3>
@@ -287,7 +287,7 @@ export default function RewardsPage() {
               <p className="text-center text-tc-on-surface-variant py-12">No hay recompensas en esta categoria.</p>
             )}
             {filtered.length > 0 && (
-              <div className="grid grid-cols-1 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {filtered.map((r) => (
                   <RewardCard key={r.id.toString()} reward={r} balance={balance} onClick={setSelectedReward} />
                 ))}

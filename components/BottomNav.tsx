@@ -15,7 +15,7 @@ export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] z-50 bg-[#FDFCF8] rounded-t-2xl border-t border-stone-200 shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
+    <nav className="md:hidden fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] z-50 bg-[#FDFCF8] rounded-t-2xl border-t border-stone-200 shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
       <div className="flex justify-around items-center w-full h-20 px-2 pb-[env(safe-area-inset-bottom)]">
         {tabs.map((tab) => {
           const isActive =

@@ -55,7 +55,7 @@ export default function HikeSelectPage() {
         </div>
 
         {/* Route Cards */}
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col md:grid md:grid-cols-2 gap-6">
           {CERROS.map((cerro) => {
             const isSelected = selectedSlug === cerro.slug;
             const diffStyle = DIFFICULTY_COLORS[cerro.dificultad] || DIFFICULTY_COLORS.Baja;
@@ -104,7 +104,7 @@ export default function HikeSelectPage() {
 
         {/* Floating CTA */}
         {selectedSlug && (
-          <div className="sticky bottom-24 z-40">
+          <div className="sticky bottom-24 md:bottom-6 z-40 md:col-span-2">
             <button
               onClick={handleStart}
               className="w-full bg-[#FF6B00] text-white py-4 rounded-2xl shadow-xl flex items-center justify-center gap-3 active:scale-95 transition-transform"

@@ -16,7 +16,7 @@ export function TopNav() {
     : "";
 
   return (
-    <header className="bg-[#FDFCF8] border-b border-stone-200 shadow-sm fixed top-0 z-50 w-full max-w-[480px] left-1/2 -translate-x-1/2">
+    <header className="md:hidden bg-[#FDFCF8] border-b border-stone-200 shadow-sm fixed top-0 z-50 w-full max-w-[480px] left-1/2 -translate-x-1/2">
       <div className="flex justify-between items-center px-4 h-16">
         <Link href="/" className="flex items-center gap-2">
           <span className="material-symbols-outlined text-[#2D5A27]">
