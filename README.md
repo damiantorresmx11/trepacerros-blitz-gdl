@@ -1,231 +1,102 @@
-# 🟣 Monad Blitz Starter
+# Trepacerros
 
-> Full Stack template para construir en Monad — ERC1155 + Next.js + Privy
+**Tus huellas, tu impacto.**
 
-## 🎯 Contrato de Ejemplo
-
-Este contrato ya está deployado para que veas cómo funciona:
-
-📍 **`0xC056DA0254ba095b0BfDBe688910ff5905aBAe70`** (Ejemplo)
-
-[Ver en Explorer](https://monad-testnet.socialscan.io/address/0xC056DA0254ba095b0BfDBe688910ff5905aBAe70)
-
-> ⚠️ **Para el hackathon:** Debes deployar TU PROPIO contrato. Este es solo una referencia.
+> Hackathon Monad Blitz Guadalajara 2026 -- Frutero Club x Monad
 
 ---
 
-## 🛤️ Elige tu Camino
+## El problema
 
-### 🟢 Soy nuevo + Uso agente IA
-> "Mi agente me ayuda con todo"
+Jalisco registro mas de 60 incendios forestales en la temporada seca 2025, muchos de origen humano. Los senderos del Area Metropolitana de Guadalajara (Bosque La Primavera, Cerro del Colli, Bosque Los Colomos, Bosque Metropolitano) acumulan basura que amplifica el riesgo: una botella de vidrio concentra luz solar, una colilla contamina 50 litros de agua.
 
-1. Dale a tu agente los [skills de abajo](#-skills-para-agentes-ia-opcional)
-2. Pídele: "Ayúdame a deployar un contrato ERC1155 en Monad testnet"
-3. El agente te guía paso a paso
+No hay incentivos tangibles para limpiar. Los voluntarios no tienen forma de verificar su impacto ni recibir reconocimiento.
 
-### 🟡 Soy nuevo + Sin agente
-> "Quiero la opción más fácil"
+## La solucion
 
-1. Usa **[Remix](https://docs.monad.xyz/guides/deploy-smart-contract/remix)** (en el browser, no instalas nada)
-2. Copia el contrato de `contracts/src/BlitzCollection.sol`
-3. Sigue la guía de Monad
+Trepacerros convierte cada hike de limpieza en impacto verificable on-chain:
 
-### 🔵 Ya sé programar
-> "Dame las herramientas"
+1. **Trepa** -- Graba tu ruta GPS en tiempo real mientras recoges basura en senderos de GDL
+2. **Verifica** -- Sube foto de la basura recolectada, clasifica por tipo (PET, vidrio, metal, organico, peligroso) y mintea un NFT unico con los datos de tu contribucion
+3. **Gana** -- Recibe tokens $CERRO (ERC-20) proporcionales al peso y tipo de basura. Redimelos por recompensas locales: cervezas artesanales, cafe, gear de hiking, experiencias
 
-1. Usa **[Foundry](https://docs.monad.xyz/guides/deploy-smart-contract/foundry)** o **[Hardhat](https://docs.monad.xyz/guides/deploy-smart-contract/hardhat)**
-2. Clona este repo y modifica el contrato
-3. Deploya con el script incluido
+## Demo: flow E2E
 
-### 🟣 Soy pro
-> "Solo necesito los RPCs"
+1. Entra a la app, conecta wallet via Privy (email/Google/wallet)
+2. Dashboard con mapa, balance $CERRO y stats del hiker
+3. Selecciona ruta en `/hike/select` (4 cerros con datos reales)
+4. Inicia trepada: tracking GPS en vivo con mapa Leaflet
+5. Termina trepada: ve distancia, duracion, elevacion
+6. Abre Proof-of-Clean: sube foto, selecciona tipo de basura, estima peso
+7. Metadata sube a IPFS (Pinata), NFT se mintea en Monad testnet
+8. Tokens $CERRO se acreditan automaticamente
+9. Redime en el Marketplace: cerveza, cafe, gear, donaciones
+10. Perfil muestra balance, stats, actividad on-chain, vouchers
+11. Wiki de Residuos: aprende sobre cada material y donde reciclarlo en GDL
+12. Leaderboard: top hikers por kg total recolectado
 
-```
-Testnet RPC: https://testnet-rpc.monad.xyz
-Mainnet RPC: https://rpc.monad.xyz
-Chain ID Testnet: 10143
-Chain ID Mainnet: 143
-Faucet: https://faucet.monad.xyz
-Explorer: https://monad-testnet.socialscan.io
-```
+## Stack tecnico
 
-## ⚡ Quick Start
+| Capa | Tecnologia |
+|---|---|
+| Blockchain | Monad Testnet (chain 10143) |
+| Contratos | Solidity (Foundry) -- ERC-721 (NFT), ERC-20 (token), Registry |
+| Frontend | Next.js 14 App Router, TypeScript |
+| Styling | Tailwind CSS + Stitch (Google) design system |
+| Fonts | Lexend, Space Grotesk, Material Symbols Outlined |
+| Auth | Privy (email/Google/wallet) |
+| Web3 | wagmi v2 + viem |
+| IPFS | Pinata |
+| Mapa | Leaflet + react-leaflet (SSR-safe) |
+| GPS | Browser Geolocation API con Haversine |
 
-### Opción A: Probar el ejemplo (5 min)
+## Contratos deployados (Monad Testnet)
+
+| Contrato | Address | Funcion |
+|---|---|---|
+| PrimaToken (ERC-20) | [`0xd4Bf2c611f382Cd51ff484276CE6c008016de881`](https://testnet.monadexplorer.com/address/0xd4Bf2c611f382Cd51ff484276CE6c008016de881) | Token $CERRO (symbol: PRIMA) |
+| RastroNFT (ERC-721) | [`0x6b4D0F9024479219af325D6Cca5aBa3AFec76952`](https://testnet.monadexplorer.com/address/0x6b4D0F9024479219af325D6Cca5aBa3AFec76952) | NFT de cada hike de limpieza |
+| RewardRegistry | [`0x4327566658bA16a37d804e8738AD283170a53b27`](https://testnet.monadexplorer.com/address/0x4327566658bA16a37d804e8738AD283170a53b27) | Catalogo de 41 recompensas canjeables |
+
+## Como correr local
 
 ```bash
-git clone https://github.com/fruterito101/monad-blitz-starter.git
+git clone <repo-url>
 cd monad-blitz-starter
-npm install
-cp .env.example .env.local
-# Crear cuenta en dashboard.privy.io y pegar App ID
-npm run dev
+pnpm install
+
+# .env.local
+NEXT_PUBLIC_PRIVY_APP_ID=<tu-privy-app-id>
+NEXT_PUBLIC_CONTRACT_ADDRESS=0xC056DA0254ba095b0BfDBe688910ff5905aBAe70
+PINATA_JWT=<tu-pinata-jwt>
+NEXT_PUBLIC_GATEWAY_URL=https://gateway.pinata.cloud/ipfs
+
+pnpm dev
+# Abre http://localhost:3000
 ```
 
-### Opción B: Deployar tu propio contrato (15 min)
+Requiere Node 18+, pnpm.
 
-```bash
-git clone https://github.com/fruterito101/monad-blitz-starter.git
-cd monad-blitz-starter/contracts
+## Rutas de la app
 
-# Instalar dependencias
-forge install
+| Ruta | Descripcion |
+|---|---|
+| `/` | Landing (no auth) / Dashboard (auth) |
+| `/hike` | Tracking GPS + Proof-of-Clean + mint |
+| `/hike/select` | Seleccion de ruta (4 cerros GDL) |
+| `/rewards` | Marketplace de recompensas |
+| `/profile` | Perfil, balance, actividad on-chain |
+| `/profile/leaderboard` | Top hikers por kg recolectado |
+| `/wiki` | Wiki de residuos + guia de reciclaje |
+| `/gallery` | Galeria de NFTs minteados |
+| `/blitz-demo` | Demo original del Blitz starter (legacy) |
 
-# Fondear wallet desde https://faucet.monad.xyz
+## Equipo
 
-# Deploy
-forge script script/Deploy.s.sol:DeployScript \
-  --rpc-url https://testnet-rpc.monad.xyz \
-  --private-key TU_PRIVATE_KEY \
-  --broadcast
+Proyecto individual -- Hackathon Monad Blitz GDL 2026
 
-# Copiar la dirección de TU contrato a .env.local (en la raíz)
-```
+Construido con Claude Code (Anthropic) como copiloto de desarrollo.
 
-### Opción C: Pedir ayuda a un agente IA
+## Licencia
 
-> "Clona este repo y ayúdame a deployar mi propio contrato ERC1155 en Monad"
-> 
-> https://github.com/fruterito101/monad-blitz-starter
-
-## 📝 Crear tu cuenta de Privy
-
-1. Ve a https://dashboard.privy.io
-2. Crea una cuenta (gratis)
-3. Crea una nueva App
-4. Copia el **App ID** 
-5. Pégalo en tu `.env.local`
-
-## 🔧 Si quieres deployar tu propio contrato
-
-```bash
-# Setup contratos
-cd contracts
-cp .env.example .env
-# Editar .env con tu private key
-forge install
-forge build
-
-# Deploy a Monad Testnet
-forge script script/Deploy.s.sol:DeployScript \
-  --rpc-url https://testnet-rpc.monad.xyz \
-  --broadcast
-
-# Actualiza la dirección en frontend/.env.local
-```
-
-## 🤖 Skills para Agentes IA (Opcional)
-
-> Si usas un agente de IA para programar (Claude, Cursor, OpenClaw, etc.), estas skills le ayudan a entender mejor Monad.
-
-### Skills recomendadas (Moltiverse):
-
-| Skill | Descripción | Link |
-|-------|-------------|------|
-| **nad.fun** | Crear y tradear tokens en nad.fun | [clawhub.ai/portdeveloper/nadfun](https://www.clawhub.ai/portdeveloper/nadfun) |
-| **nad.fun token creation** | Flujo detallado de creación de tokens | [clawhub.ai/therealharpaljadeja/nadfun-token-creation](https://www.clawhub.ai/therealharpaljadeja/nadfun-token-creation) |
-| **monad-development** | Wallets, contratos, verificación | [gist.github.com/moltilad/...](https://gist.github.com/moltilad/31707d0fc206b960f4cbb13ea11954c2) |
-
-### Documentación para Agentes:
-
-| Recurso | URL |
-|---------|-----|
-| Nad.fun Skill | https://nad.fun/skill.md |
-| Nad.fun Token Creation | https://nad.fun/create.md |
-| Nad.fun Trading | https://nad.fun/trading.md |
-| Monad Docs | https://docs.monad.xyz |
-| Monad LLMs.txt | https://docs.monad.xyz/llms.txt |
-
-### APIs útiles:
-
-```bash
-# Faucet (fondear wallet testnet)
-POST https://agents.devnads.com/v1/faucet
-{"chainId": 10143, "address": "0x..."}
-
-# Verificación de contratos
-POST https://agents.devnads.com/v1/verify
-```
-
-### RPCs:
-
-| Network | RPC |
-|---------|-----|
-| Testnet | https://testnet-rpc.monad.xyz |
-| Mainnet | https://rpc.monad.xyz |
-
-### 📥 Links directos para tu agente:
-
-Copia estos links y dáselos a tu agente para que los descargue:
-
-```
-https://nad.fun/llms.txt
-https://raw.githubusercontent.com/portdeveloper/skills/refs/heads/master/skills/monad-development/SKILL.md
-```
-
-### Ejemplo de uso:
-
-Dale este mensaje a tu agente:
-
-> "Instálate estas skills y crea un token en nad.fun para mi app. 
-> Ya que esté tu wallet me la pasas para mandarte $MON"
-> 
-> - https://nad.fun/llms.txt
-> - https://raw.githubusercontent.com/portdeveloper/skills/refs/heads/master/skills/monad-development/SKILL.md
-
-### 🔗 Recurso principal:
-
-**[Moltiverse Resources (Notion)](https://monad-foundation.notion.site/Moltiverse-resources-2fb6367594f280c3820adf679d9b35ff)** — Todas las skills, docs y recursos en un solo lugar.
-
-> **Nota:** Esto es opcional. Si no usas agentes IA, puedes ignorar esta sección.
-
-## 📦 Qué incluye
-
-### Contratos (`/contracts`)
-- **BlitzCollection.sol** — ERC1155 con mint público
-- Configurado para Monad (evm_version: prague)
-- Deploy script listo
-- Verificación incluida
-
-### Frontend (raíz del proyecto)
-- **Next.js 14** con App Router
-- **Privy** para auth (Google, Email, Wallet)
-- **wagmi + viem** para interacción con contrato
-- Componentes listos para usar
-- **Vercel-ready** — solo conecta y deploya
-
-## 🔧 Configuración
-
-### Contratos
-
-1. Obtén testnet MON del [faucet](https://faucet.monad.xyz)
-2. Copia tu private key a `.env`
-3. Deploya con `forge script`
-
-### Frontend
-
-1. Crea una app en [Privy Dashboard](https://dashboard.privy.io)
-2. Copia el App ID a `.env.local`
-3. Agrega la dirección del contrato deployado
-4. `npm run dev`
-
-## 🌐 Networks
-
-| Network | Chain ID | RPC |
-|---------|----------|-----|
-| Testnet | 10143 | https://testnet-rpc.monad.xyz |
-| Mainnet | 143 | https://rpc.monad.xyz |
-
-## 📚 Recursos
-
-- [Monad Docs](https://docs.monad.xyz)
-- [Privy Docs](https://docs.privy.io)
-- [Foundry Book](https://book.getfoundry.sh)
-
-## 🆘 Troubleshooting
-
-Ver [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) para errores comunes.
-
----
-
-Made with 🍓 by [Frutero](https://frutero.club) para Monad Blitz CDMX
+MIT
