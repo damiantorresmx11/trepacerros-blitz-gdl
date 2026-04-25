@@ -4,9 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useAccount } from "wagmi";
 import { usePrivy } from "@privy-io/react-auth";
-import { Card } from "@/components/ui/Card";
-import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
+import { AppShell } from "@/components/AppShell";
 import { ConnectButton } from "@/components/ConnectButton";
 import {
   useUserNFTs,
@@ -19,141 +17,23 @@ import {
   type UserRedemption,
 } from "@/hooks/useRewards";
 import { CATEGORY_INFO, type RewardCategory } from "@/data/rewards";
+import { TOKEN_DISPLAY_NAME } from "@/lib/tokens";
 
 const CATEGORY_ORDER: RewardCategory[] = [
-  "IMMEDIATE",
-  "EXPERIENCE",
-  "OUTDOOR",
-  "SUSTAINABILITY",
-  "DONATION",
-  "SERVICE",
-  "MERCH",
-  "EXCLUSIVE",
+  "IMMEDIATE", "EXPERIENCE", "OUTDOOR", "SUSTAINABILITY",
+  "DONATION", "SERVICE", "MERCH", "EXCLUSIVE",
 ];
-
-function shortAddress(addr: string): string {
-  if (!addr) return "";
-  return `${addr.slice(0, 6)}…${addr.slice(-4)}`;
-}
 
 function shortHash(hash: string): string {
   if (!hash) return "";
-  return `${hash.slice(0, 10)}…${hash.slice(-6)}`;
+  return `${hash.slice(0, 10)}...${hash.slice(-6)}`;
 }
 
 function formatDate(ts: bigint): string {
   const ms = Number(ts) * 1000;
   const d = new Date(ms);
-  if (Number.isNaN(d.getTime())) return "—";
-  return d.toLocaleDateString("es-MX", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
-}
-
-function loginMethodLabel(user: ReturnType<typeof usePrivy>["user"]): string | null {
-  if (!user) return null;
-  if (user.email?.address) return user.email.address;
-  if (user.google?.email) return user.google.email;
-  if (user.wallet?.address) return "Wallet conectada";
-  return null;
-}
-
-interface NftStripProps {
-  nfts: UserNFT[];
-}
-
-function NftStrip({ nfts }: NftStripProps) {
-  const items = nfts.slice(0, 3);
-  if (items.length === 0) {
-    return (
-      <Card className="bg-background border border-dashed border-foreground/15">
-        <p className="text-sm text-foreground/60 text-center py-2">
-          Aún no minteas ningún rastro.{" "}
-          <Link href="/hike" className="text-primary underline">
-            Inicia tu primer hike
-          </Link>
-          .
-        </p>
-      </Card>
-    );
-  }
-  return (
-    <div className="grid grid-cols-3 gap-3">
-      {items.map((nft) => {
-        const kg = (Number(nft.rastro.trashGrams) / 1000).toFixed(1);
-        return (
-          <Link
-            key={nft.tokenId.toString()}
-            href="/gallery"
-            className="block"
-          >
-            <Card className="p-3 bg-background border border-foreground/10 hover:border-primary/40 transition-colors">
-              <div className="aspect-square bg-primary/10 rounded-lg flex items-center justify-center text-3xl mb-2">
-                <span aria-hidden="true">🥾</span>
-              </div>
-              <p className="font-display text-sm leading-tight">
-                #{nft.tokenId.toString()}
-              </p>
-              <p className="text-xs text-foreground/60">{kg} kg</p>
-            </Card>
-          </Link>
-        );
-      })}
-    </div>
-  );
-}
-
-interface VoucherRowProps {
-  redemption: UserRedemption;
-}
-
-function VoucherRow({ redemption }: VoucherRowProps) {
-  const name =
-    redemption.reward?.name ?? `Recompensa #${redemption.rewardId.toString()}`;
-  const catIdx = redemption.reward?.category;
-  const catKey =
-    catIdx !== undefined ? CATEGORY_ORDER[catIdx] : undefined;
-  const info = catKey ? CATEGORY_INFO[catKey] : null;
-
-  return (
-    <Card className="p-4 bg-background border border-foreground/10">
-      <div className="flex items-start gap-3">
-        <div
-          className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0"
-          style={{
-            background: info ? `${info.color}20` : "#A8A8A020",
-          }}
-          aria-hidden="true"
-        >
-          {info?.icon ?? "🎁"}
-        </div>
-        <div className="flex-1 min-w-0">
-          <div className="flex items-start justify-between gap-2">
-            <h3 className="font-display text-base leading-snug truncate">
-              {name}
-            </h3>
-            {redemption.claimed ? (
-              <Badge variant="success" className="shrink-0">
-                Reclamado
-              </Badge>
-            ) : (
-              <Badge variant="warning" className="shrink-0">
-                Pendiente
-              </Badge>
-            )}
-          </div>
-          <p className="text-xs text-foreground/60 mt-1">
-            {formatDate(redemption.timestamp)}
-          </p>
-          <p className="text-[11px] text-foreground/55 font-mono mt-2 break-all">
-            {shortHash(redemption.voucherCode)}
-          </p>
-        </div>
-      </div>
-    </Card>
-  );
+  if (Number.isNaN(d.getTime())) return "--";
+  return d.toLocaleDateString("es-MX", { day: "2-digit", month: "short", year: "numeric" });
 }
 
 export default function ProfilePage() {
@@ -163,16 +43,12 @@ export default function ProfilePage() {
   const { nfts, isLoading: isNftsLoading } = useUserNFTs(address);
   const { totalKg, hikes, isLoading: isStatsLoading } = useHikerStats(address);
   const { formatted, isLoading: isBalanceLoading } = usePrimaBalance(address);
-  const {
-    redemptions,
-    isLoading: isRedemptionsLoading,
-  } = useUserRedemptions(address);
+  const { redemptions, isLoading: isRedemptionsLoading } = useUserRedemptions(address);
 
   const [copied, setCopied] = useState(false);
 
   const kgFormatted = useMemo(() => {
-    const kg = totalKg / 1000n;
-    return kg.toString();
+    return (Number(totalKg) / 1000).toFixed(1);
   }, [totalKg]);
 
   async function copyAddress() {
@@ -181,152 +57,186 @@ export default function ProfilePage() {
       await navigator.clipboard.writeText(address);
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
-    } catch {
-      // ignore
-    }
+    } catch { /* ignore */ }
   }
 
-  const loginLabel = loginMethodLabel(user);
+  const shortAddr = address ? `${address.slice(0, 6)}...${address.slice(-4)}` : "";
 
   return (
-    <main className="min-h-screen bg-background text-foreground font-sans pb-12">
-      <header className="sticky top-0 z-30 bg-background/95 backdrop-blur border-b border-foreground/10">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
-          <Link
-            href="/"
-            className="text-sm text-foreground/70 hover:text-foreground"
-          >
-            ← Inicio
-          </Link>
-          <h1 className="font-display text-lg sm:text-xl">Mi perfil</h1>
-          <div className="w-12" />
-        </div>
-      </header>
-
-      {!isConnected ? (
-        <section className="max-w-md mx-auto px-5 py-16 text-center">
-          <h2 className="font-display text-3xl mb-3">Conecta tu wallet</h2>
-          <p className="text-foreground/70 mb-8">
-            Tu perfil, NFTs y vouchers viven on-chain. Conéctate para verlos.
-          </p>
-          <div className="flex justify-center">
+    <AppShell>
+      <div className="font-lexend flex flex-col gap-6">
+        {!isConnected ? (
+          <div className="flex flex-col items-center gap-6 py-12 text-center">
+            <span className="material-symbols-outlined text-tc-primary text-5xl">person</span>
+            <h2 className="text-tc-headline-md font-semibold text-tc-primary">Conecta tu wallet</h2>
+            <p className="text-sm text-tc-on-surface-variant">
+              Tu perfil, NFTs y vouchers viven on-chain. Conectate para verlos.
+            </p>
             <ConnectButton />
           </div>
-        </section>
-      ) : (
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6 space-y-6">
-          {/* Wallet card */}
-          <Card className="bg-background border border-foreground/10">
-            <p className="text-[11px] uppercase tracking-wide text-foreground/55 mb-1">
-              Tu wallet
-            </p>
-            <button
-              onClick={copyAddress}
-              className="font-mono text-base text-foreground hover:text-primary transition-colors"
-              title="Copiar dirección"
-            >
-              {address ? shortAddress(address) : "—"}
-              <span className="ml-2 text-xs text-foreground/50">
-                {copied ? "¡Copiado!" : "(toca para copiar)"}
-              </span>
-            </button>
-            {loginLabel && (
-              <p className="text-xs text-foreground/60 mt-1">
-                Login: {loginLabel}
-              </p>
-            )}
-            <div className="mt-4 pt-4 border-t border-foreground/10">
-              <p className="text-[11px] uppercase tracking-wide text-foreground/55">
-                Balance PRIMA
-              </p>
-              <p className="font-display text-4xl text-primary leading-none mt-1">
-                {isBalanceLoading ? "…" : formatted}
-              </p>
+        ) : (
+          <>
+            {/* Profile Header */}
+            <div className="flex flex-col items-center text-center">
+              <div className="relative mb-4">
+                <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-lg bg-tc-surface-container flex items-center justify-center">
+                  <span className="material-symbols-outlined text-tc-primary text-4xl">person</span>
+                </div>
+                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-[#FF6B00] text-white px-4 py-1 rounded-full shadow-md">
+                  <span className="font-bold text-[12px] uppercase tracking-wider">Hiker</span>
+                </div>
+              </div>
+              <h1 className="text-tc-headline-lg font-semibold text-tc-primary mb-1">
+                {user?.email?.address?.split("@")[0] || shortAddr}
+              </h1>
+              <div className="flex items-center gap-2 text-tc-on-surface-variant">
+                <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
+                <span className="font-space-grotesk text-tc-label-web3 text-xs uppercase tracking-widest">Verified on Monad</span>
+              </div>
             </div>
-          </Card>
 
-          {/* Hiker stats */}
-          <div className="grid grid-cols-3 gap-3">
-            <Card className="bg-background border border-foreground/10 p-4 text-center">
-              <p className="font-display text-2xl text-primary">
-                {isNftsLoading ? "…" : nfts.length}
-              </p>
-              <p className="text-xs text-foreground/60 mt-1">NFTs</p>
-            </Card>
-            <Card className="bg-background border border-foreground/10 p-4 text-center">
-              <p className="font-display text-2xl text-primary">
-                {isStatsLoading ? "…" : kgFormatted}
-              </p>
-              <p className="text-xs text-foreground/60 mt-1">kg recogidos</p>
-            </Card>
-            <Card className="bg-background border border-foreground/10 p-4 text-center">
-              <p className="font-display text-2xl text-primary">
-                {isStatsLoading ? "…" : hikes.toString()}
-              </p>
-              <p className="text-xs text-foreground/60 mt-1">hikes</p>
-            </Card>
-          </div>
+            {/* Balance Card */}
+            <div className="bg-white p-6 rounded-[32px] shadow-sm border border-tc-surface-container-highest">
+              <div className="flex items-center justify-between">
+                <div>
+                  <span className="font-bold text-[10px] uppercase text-stone-500 block mb-1">Total Balance</span>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-tc-display font-bold text-tc-primary">
+                      {isBalanceLoading ? "..." : Math.floor(Number(formatted))}
+                    </span>
+                    <span className="font-space-grotesk text-sm font-bold text-[#FF6B00]">{TOKEN_DISPLAY_NAME}</span>
+                  </div>
+                </div>
+                <button onClick={copyAddress} className="bg-tc-primary-container text-white p-3 rounded-2xl shadow-sm">
+                  <span className="material-symbols-outlined">
+                    {copied ? "check" : "account_balance_wallet"}
+                  </span>
+                </button>
+              </div>
+            </div>
 
-          {/* Recent NFTs */}
-          <section>
-            <div className="flex items-center justify-between mb-3">
-              <h2 className="font-display text-xl">Últimos rastros</h2>
-              {nfts.length > 0 && (
-                <Link
-                  href="/gallery"
-                  className="text-sm text-primary hover:underline"
-                >
-                  Ver todos
-                </Link>
+            {/* Stats Grid */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-tc-primary-container text-white p-5 rounded-[24px] shadow-sm">
+                <span className="text-tc-headline-md font-semibold leading-none">
+                  {isStatsLoading ? "..." : kgFormatted} <small className="text-xs">KG</small>
+                </span>
+                <span className="font-bold text-[10px] uppercase opacity-80 mt-1 block">Collected</span>
+              </div>
+              <div className="bg-white p-5 rounded-[24px] shadow-sm border border-tc-surface-container-highest">
+                <span className="text-tc-headline-md font-semibold leading-none text-tc-primary">
+                  {isStatsLoading ? "..." : hikes.toString()}
+                </span>
+                <span className="font-bold text-[10px] uppercase text-stone-500 mt-1 block">Hikes</span>
+              </div>
+            </div>
+
+            {/* Leaderboard Button */}
+            <Link
+              href="/profile/leaderboard"
+              className="bg-[#FF6B00] text-white p-4 rounded-2xl flex items-center justify-between active:scale-95 transition-transform"
+            >
+              <div className="flex items-center gap-3">
+                <span className="material-symbols-outlined">military_tech</span>
+                <span className="font-bold uppercase tracking-wider text-sm">Leaderboard</span>
+              </div>
+              <span className="material-symbols-outlined">chevron_right</span>
+            </Link>
+
+            {/* On-Chain Activity */}
+            <section>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-tc-headline-md font-semibold text-tc-primary">On-Chain Activity</h2>
+              </div>
+
+              {/* Recent NFTs */}
+              {isNftsLoading ? (
+                <p className="text-sm text-tc-on-surface-variant">Cargando...</p>
+              ) : nfts.length === 0 ? (
+                <div className="bg-white rounded-2xl p-6 border border-dashed border-stone-300 text-center">
+                  <p className="text-sm text-tc-on-surface-variant mb-3">
+                    Aun no minteas ningun rastro.
+                  </p>
+                  <Link href="/hike" className="text-tc-primary font-semibold text-sm underline">
+                    Inicia tu primer hike
+                  </Link>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-3">
+                  {nfts.slice(0, 5).map((nft) => {
+                    const kg = (Number(nft.rastro.trashGrams) / 1000).toFixed(1);
+                    return (
+                      <div key={nft.tokenId.toString()} className="bg-white p-4 rounded-2xl border border-stone-100 shadow-sm flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-600">
+                            <span className="material-symbols-outlined">token</span>
+                          </div>
+                          <div>
+                            <p className="font-bold text-[12px] text-tc-primary">
+                              Rastro #{nft.tokenId.toString()} - {kg} kg
+                            </p>
+                            <p className="text-[10px] text-stone-400">NFT minted</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-1 bg-stone-50 px-2 py-1 rounded-md">
+                          <span className="material-symbols-outlined text-[10px] text-stone-400" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
+                          <span className="font-space-grotesk text-[8px] text-stone-400 uppercase">Monad</span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                  {nfts.length > 5 && (
+                    <Link href="/gallery" className="text-center text-sm text-tc-primary font-semibold">
+                      Ver todos ({nfts.length})
+                    </Link>
+                  )}
+                </div>
               )}
-            </div>
-            <NftStrip nfts={nfts} />
-          </section>
+            </section>
 
-          {/* Vouchers */}
-          <section>
-            <h2 className="font-display text-xl mb-3">Mis vouchers</h2>
-            {isRedemptionsLoading && (
-              <p className="text-sm text-foreground/60">Cargando vouchers…</p>
-            )}
-            {!isRedemptionsLoading && redemptions.length === 0 && (
-              <Card className="bg-background border border-dashed border-foreground/15 text-center py-8">
-                <p className="text-sm text-foreground/70 mb-4">
-                  Aún no has canjeado recompensas — explora el catálogo.
-                </p>
-                <Link href="/rewards">
-                  <Button variant="primary" size="md">
-                    Ver recompensas
-                  </Button>
-                </Link>
-              </Card>
-            )}
+            {/* Vouchers */}
             {redemptions.length > 0 && (
-              <ul className="space-y-3">
-                {redemptions.map((r) => (
-                  <li key={r.id.toString()}>
-                    <VoucherRow redemption={r} />
-                  </li>
-                ))}
-              </ul>
+              <section>
+                <h2 className="text-tc-headline-md font-semibold text-tc-primary mb-4">Mis Vouchers</h2>
+                <div className="flex flex-col gap-3">
+                  {redemptions.map((r) => {
+                    const name = r.reward?.name ?? `Recompensa #${r.rewardId.toString()}`;
+                    const catIdx = r.reward?.category;
+                    const catKey = catIdx !== undefined ? CATEGORY_ORDER[catIdx] : undefined;
+                    const info = catKey ? CATEGORY_INFO[catKey] : null;
+                    return (
+                      <div key={r.id.toString()} className="bg-white p-4 rounded-2xl border border-stone-100 shadow-sm flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center text-[#FF6B00]">
+                            <span className="text-xl">{info?.icon ?? "🎁"}</span>
+                          </div>
+                          <div>
+                            <p className="font-bold text-[12px] text-tc-primary">{name}</p>
+                            <p className="text-[10px] text-stone-400">{formatDate(r.timestamp)}</p>
+                          </div>
+                        </div>
+                        <span className={`text-[10px] font-bold uppercase px-2 py-1 rounded-full ${
+                          r.claimed ? "bg-green-50 text-green-700" : "bg-orange-50 text-[#FF6B00]"
+                        }`}>
+                          {r.claimed ? "Claimed" : "Pending"}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </section>
             )}
-          </section>
 
-          {/* Logout */}
-          <div className="pt-4">
-            <Button
-              variant="ghost"
-              size="md"
-              onClick={() => {
-                void logout();
-              }}
-              className="w-full"
+            {/* Logout */}
+            <button
+              onClick={() => { void logout(); }}
+              className="w-full border-2 border-stone-300 text-stone-500 font-bold py-4 rounded-xl uppercase tracking-widest hover:bg-stone-50 transition-colors"
             >
-              Cerrar sesión
-            </Button>
-          </div>
-        </div>
-      )}
-    </main>
+              Cerrar sesion
+            </button>
+          </>
+        )}
+      </div>
+    </AppShell>
   );
 }
