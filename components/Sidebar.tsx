@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const tabs = [
@@ -15,22 +16,53 @@ const tabs = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const [dark, setDark] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("theme");
+    if (saved === "dark" || (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      setDark(true);
+      document.body.setAttribute("data-theme", "dark");
+    }
+  }, []);
+
+  function toggleTheme() {
+    const next = !dark;
+    setDark(next);
+    document.body.setAttribute("data-theme", next ? "dark" : "light");
+    localStorage.setItem("theme", next ? "dark" : "light");
+  }
 
   return (
-    <aside className="hidden md:flex fixed left-0 top-0 bottom-0 w-72 flex-col z-40 bg-cd-paper/80 backdrop-blur-2xl border-r border-cd-line shadow-2xl shadow-cd-ink/5 p-6 topo-bg">
+    <aside
+      className="hidden md:flex fixed left-0 top-0 bottom-0 w-72 flex-col z-40 p-6 topo-bg"
+      style={{
+        background: "color-mix(in oklch, var(--paper) 80%, transparent)",
+        backdropFilter: "blur(40px) saturate(150%)",
+        WebkitBackdropFilter: "blur(40px) saturate(150%)",
+        borderRight: "1px solid var(--line)",
+        boxShadow: "var(--shadow-2)",
+      }}
+    >
       {/* Brand */}
-      <Link
-        href="/"
-        className="flex items-center gap-3 mb-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cd-ember rounded-lg"
-      >
-        <div className="w-10 h-10 rounded-lg bg-cd-moss flex items-center justify-center">
-          <span className="material-symbols-outlined text-white text-xl">landscape</span>
+      <Link href="/" className="flex items-center gap-2 mb-10 focus-visible:outline-none">
+        <div
+          className="w-7 h-7 rounded-lg grid place-items-center"
+          style={{ background: "var(--ink)", color: "var(--bg)", boxShadow: "var(--shadow-1)" }}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M3 20l5.5-9 4 6 3-4L21 20z" /></svg>
         </div>
         <div>
-          <h1 className="font-big-shoulders text-xl font-extrabold text-cd-ink tracking-tight leading-none uppercase">
-            Trepacerros
-          </h1>
-          <p className="font-mono text-[10px] text-cd-muted tracking-wider mt-0.5">
+          <span
+            className="font-big-shoulders font-extrabold text-[22px] tracking-[.04em]"
+            style={{ color: "var(--ink)" }}
+          >
+            TREPACERROS
+          </span>
+          <p
+            className="font-mono text-[9px] tracking-[.18em] uppercase"
+            style={{ color: "var(--moss)" }}
+          >
             HIGH-ALTITUDE TECH
           </p>
         </div>
@@ -40,9 +72,7 @@ export function Sidebar() {
       <nav className="flex-1 flex flex-col gap-1" aria-label="Main navigation">
         {tabs.map((tab, i) => {
           const isActive =
-            tab.href === "/"
-              ? pathname === "/"
-              : pathname.startsWith(tab.href);
+            tab.href === "/" ? pathname === "/" : pathname.startsWith(tab.href);
           return (
             <motion.div
               key={tab.href}
@@ -53,18 +83,16 @@ export function Sidebar() {
               <Link
                 href={tab.href}
                 aria-current={isActive ? "page" : undefined}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-transform duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cd-ember ${
-                  isActive
-                    ? "bg-cd-ember/10 text-cd-ember shadow-inner-sm"
-                    : "text-cd-ink/60 hover:text-cd-ink hover:translate-x-1"
-                }`}
+                className="flex items-center gap-3 px-4 py-3 rounded-2xl tap"
+                style={{
+                  background: isActive ? "color-mix(in oklch, var(--ember) 18%, transparent)" : "transparent",
+                  color: isActive ? "var(--ember)" : "var(--muted)",
+                }}
               >
-                <span
-                  className={`material-symbols-outlined text-xl ${isActive ? "icon-fill" : ""}`}
-                >
+                <span className={`material-symbols-outlined text-[22px] ${isActive ? "icon-fill" : ""}`}>
                   {tab.icon}
                 </span>
-                <span className="font-lexend font-semibold uppercase tracking-widest text-[11px]">
+                <span className="font-lexend font-semibold uppercase tracking-[.05em] text-[10px]">
                   {tab.label}
                 </span>
               </Link>
@@ -73,11 +101,26 @@ export function Sidebar() {
         })}
       </nav>
 
+      {/* Dark mode toggle */}
+      <button
+        onClick={toggleTheme}
+        className="flex items-center gap-3 px-4 py-3 rounded-2xl tap mb-3"
+        style={{ color: "var(--muted)" }}
+      >
+        <span className="material-symbols-outlined text-[22px]">
+          {dark ? "light_mode" : "dark_mode"}
+        </span>
+        <span className="font-lexend font-semibold uppercase tracking-[.05em] text-[10px]">
+          {dark ? "Modo claro" : "Modo oscuro"}
+        </span>
+      </button>
+
       {/* CTA Button */}
       <Link
         href="/hike"
-        className="mt-auto w-full py-3 px-4 bg-cd-ember text-white rounded-xl font-big-shoulders text-lg font-bold uppercase tracking-wide text-center shadow-lg border border-white/20 hover:opacity-90 transition-opacity duration-200 haptic-active focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cd-ember focus-visible:ring-offset-2"
+        className="btn btn-primary w-full text-center font-big-shoulders text-[15px] font-bold uppercase tracking-[.02em]"
       >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 20l5.5-9 4 6 3-4L21 20z" /></svg>
         Start Trepada
       </Link>
     </aside>

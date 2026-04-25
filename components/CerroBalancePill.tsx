@@ -20,18 +20,28 @@ function CerroBalancePillInner() {
 
   if (pathname === "/hike" || !authenticated || !address) return null;
 
+  const shortAddr = `${address.slice(0, 6)}…${address.slice(-4)}`;
+
   return (
     <button
       onClick={() => router.push("/profile")}
-      className="fixed top-4 right-4 md:top-6 md:right-8 z-50 glass-pill rounded-full px-4 py-2 flex items-center gap-2 haptic-active cursor-pointer hover:bg-white/80 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cd-ember"
+      className="wallet-chip fixed top-4 right-4 md:top-6 md:right-8 z-50 tap"
       aria-label={`${TOKEN_DISPLAY_NAME} balance: ${rawValue}. Tap to view profile.`}
     >
-      <span className="material-symbols-outlined text-cd-ember text-lg icon-fill">toll</span>
-      <span className="font-mono font-bold text-sm text-cd-ink tabular-nums">
-        {isLoading ? "..." : animatedValue.toLocaleString()}
+      <span
+        className="w-2 h-2 rounded-full"
+        style={{
+          background: "oklch(0.7 0.18 145)",
+          boxShadow: "0 0 0 3px oklch(0.7 0.18 145 / .25)",
+          animation: "wallet-pulse 2s infinite",
+        }}
+      />
+      <span className="font-mono text-[11px]" style={{ color: "var(--ink)" }}>
+        {shortAddr}
       </span>
-      <span className="font-mono text-xs text-cd-muted">
-        {TOKEN_DISPLAY_NAME}
+      <span style={{ opacity: 0.3 }}>|</span>
+      <span className="font-mono text-[11px] font-semibold" style={{ color: "var(--ember)" }}>
+        {isLoading ? "..." : animatedValue.toLocaleString()} {TOKEN_DISPLAY_NAME}
       </span>
     </button>
   );
