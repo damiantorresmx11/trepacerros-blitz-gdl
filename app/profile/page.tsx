@@ -64,7 +64,7 @@ export default function ProfilePage() {
 
   return (
     <AppShell>
-      <div className="font-lexend flex flex-col gap-6 md:max-w-4xl">
+      <div className="font-lexend flex flex-col gap-6">
         {!isConnected ? (
           <div className="flex flex-col items-center gap-6 py-12 text-center">
             <span className="material-symbols-outlined text-tc-primary text-5xl">person</span>

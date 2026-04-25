@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePrivy } from "@privy-io/react-auth";
 import { useAccount } from "wagmi";
 import { AppShell } from "@/components/AppShell";
+import { HeroIllustration } from "@/components/HeroIllustration";
 import { usePrimaBalance, useHikerStats, useUserNFTs } from "@/hooks/useRastros";
 import { TOKEN_DISPLAY_NAME } from "@/lib/tokens";
 import { ConnectButton } from "@/components/ConnectButton";
@@ -20,12 +21,8 @@ function AuthenticatedDashboard() {
   return (
     <div className="flex flex-col md:grid md:grid-cols-2 md:items-start gap-6 font-lexend">
       {/* Map Hero */}
-      <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden -mx-5 w-[calc(100%+40px)] md:mx-0 md:w-full md:row-span-3">
-        <img
-          className="w-full h-full object-cover"
-          src="https://picsum.photos/seed/trepacerros-hero/800/600"
-          alt="Mapa de senderos de Guadalajara"
-        />
+      <div className="relative w-full aspect-[4/3] md:aspect-[16/9] rounded-3xl overflow-hidden -mx-5 w-[calc(100%+40px)] md:mx-0 md:w-full md:row-span-3">
+        <HeroIllustration className="w-full h-full" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#fcf9f8] via-transparent to-transparent" />
         <div className="absolute bottom-4 left-5 right-5">
           <Link
@@ -133,11 +130,7 @@ function LandingHero() {
         </div>
 
         <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden">
-          <img
-            className="w-full h-full object-cover"
-            src="https://picsum.photos/seed/trepacerros-landing/800/600"
-            alt="Senderos de Guadalajara"
-          />
+          <HeroIllustration className="w-full h-full" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           <div className="absolute bottom-6 left-6 right-6 text-white text-left">
             <h1 className="text-tc-headline-lg font-semibold leading-tight">

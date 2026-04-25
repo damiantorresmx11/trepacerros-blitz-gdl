@@ -170,10 +170,53 @@ const TRANSFER_EVENT = parseAbiItem(
   "event Transfer(address indexed from, address indexed to, uint256 indexed tokenId)",
 );
 
+// RastroNFT was deployed around this block on Monad testnet
+const RASTRO_NFT_DEPLOY_BLOCK = 27651400n;
+const LOG_CHUNK_SIZE = 10000n;
+
 interface TransferLogArgs {
   from?: `0x${string}`;
   to?: `0x${string}`;
   tokenId?: bigint;
+}
+
+async function getPaginatedLogs(
+  publicClient: NonNullable<ReturnType<typeof usePublicClient>>,
+  address: `0x${string}`,
+  toAddress: `0x${string}`,
+): Promise<Array<Log & { args: TransferLogArgs }>> {
+  const latestBlock = await publicClient.getBlockNumber();
+  const allLogs: Array<Log & { args: TransferLogArgs }> = [];
+
+  let toBlock = latestBlock;
+  let fromBlock = toBlock > LOG_CHUNK_SIZE
+    ? toBlock - LOG_CHUNK_SIZE + 1n
+    : RASTRO_NFT_DEPLOY_BLOCK;
+  if (fromBlock < RASTRO_NFT_DEPLOY_BLOCK) fromBlock = RASTRO_NFT_DEPLOY_BLOCK;
+
+  while (toBlock >= RASTRO_NFT_DEPLOY_BLOCK) {
+    try {
+      const chunk = (await publicClient.getLogs({
+        address,
+        event: TRANSFER_EVENT,
+        args: { to: toAddress },
+        fromBlock,
+        toBlock,
+      })) as Array<Log & { args: TransferLogArgs }>;
+      allLogs.push(...chunk);
+    } catch {
+      // If chunk is still too large, silently skip (best-effort)
+    }
+
+    if (fromBlock <= RASTRO_NFT_DEPLOY_BLOCK) break;
+    toBlock = fromBlock - 1n;
+    fromBlock = toBlock > LOG_CHUNK_SIZE
+      ? toBlock - LOG_CHUNK_SIZE + 1n
+      : RASTRO_NFT_DEPLOY_BLOCK;
+    if (fromBlock < RASTRO_NFT_DEPLOY_BLOCK) fromBlock = RASTRO_NFT_DEPLOY_BLOCK;
+  }
+
+  return allLogs;
 }
 
 export function useUserNFTs(
@@ -187,14 +230,8 @@ export function useUserNFTs(
     queryFn: async (): Promise<UserNFT[]> => {
       if (!address || !publicClient) return [];
 
-      // 1. Get all Transfer logs where `to == address`
-      const logs = (await publicClient.getLogs({
-        address: CONTRACTS.RASTRO_NFT,
-        event: TRANSFER_EVENT,
-        args: { to: address },
-        fromBlock: 0n,
-        toBlock: "latest",
-      })) as Array<Log & { args: TransferLogArgs }>;
+      // 1. Get Transfer logs in paginated chunks to avoid 413 errors
+      const logs = await getPaginatedLogs(publicClient, CONTRACTS.RASTRO_NFT, address);
 
       // 2. Collect unique tokenIds
       const tokenIdSet = new Set<bigint>();

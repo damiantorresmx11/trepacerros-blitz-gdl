@@ -86,7 +86,7 @@ export default function WikiPage() {
 
   return (
     <AppShell>
-      <div className="font-lexend flex flex-col gap-6 md:max-w-5xl">
+      <div className="font-lexend flex flex-col gap-6">
         {/* Header */}
         <section>
           <h1 className="text-tc-headline-lg font-semibold text-tc-primary mb-2">Wiki de Residuos</h1>
