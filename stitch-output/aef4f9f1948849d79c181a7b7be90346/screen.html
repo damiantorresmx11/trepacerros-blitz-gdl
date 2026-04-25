@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;family=Space+Grotesk:wght@300..700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#154212",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed-variant": "#23501e",
+                    "surface-bright": "#fcf9f8",
+                    "on-primary": "#ffffff",
+                    "inverse-primary": "#a1d494",
+                    "secondary-fixed": "#e4e4cc",
+                    "secondary": "#5e604d",
+                    "inverse-on-surface": "#f3f0ef",
+                    "secondary-fixed-dim": "#c8c8b0",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-surface-variant": "#42493e",
+                    "on-error": "#ffffff",
+                    "on-primary-container": "#9dd090",
+                    "surface-container-low": "#f6f3f2",
+                    "surface-container-highest": "#e5e2e1",
+                    "on-tertiary-container": "#ffb272",
+                    "background": "#fcf9f8",
+                    "on-secondary-container": "#636451",
+                    "surface-container-high": "#eae7e7",
+                    "error-container": "#ffdad6",
+                    "surface": "#fcf9f8",
+                    "error": "#ba1a1a",
+                    "tertiary": "#5a2e00",
+                    "tertiary-fixed": "#ffdcc3",
+                    "outline": "#72796e",
+                    "on-primary-fixed": "#002201",
+                    "on-tertiary-fixed": "#2f1500",
+                    "outline-variant": "#c2c9bb",
+                    "tertiary-container": "#7b4100",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#1b1b1c",
+                    "tertiary-fixed-dim": "#ffb77d",
+                    "primary-container": "#2d5a27",
+                    "inverse-surface": "#303030",
+                    "on-secondary-fixed": "#1b1d0e",
+                    "on-tertiary-fixed-variant": "#6e3900",
+                    "surface-dim": "#dcd9d9",
+                    "primary-fixed-dim": "#a1d494",
+                    "primary-fixed": "#bcf0ae",
+                    "on-background": "#1b1b1c",
+                    "surface-variant": "#e5e2e1",
+                    "surface-container": "#f0eded",
+                    "surface-tint": "#3b6934",
+                    "on-secondary-fixed-variant": "#474836",
+                    "secondary-container": "#e1e1c9"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "md": "24px",
+                    "lg": "40px",
+                    "gutter": "16px",
+                    "container-margin": "20px",
+                    "xl": "64px",
+                    "xs": "4px",
+                    "sm": "12px"
+            },
+            "fontFamily": {
+                    "body-md": ["Lexend"],
+                    "headline-lg": ["Lexend"],
+                    "body-lg": ["Lexend"],
+                    "label-web3": ["Space Grotesk"],
+                    "cta-text": ["Lexend"],
+                    "headline-md": ["Lexend"],
+                    "display-lg": ["Lexend"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-web3": ["14px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "cta-text": ["16px", {"lineHeight": "1.0", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .map-overlay-path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 0;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body-md text-on-background min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="sticky top-0 w-full z-40 flex justify-between items-center px-5 h-16 bg-[#FDFBF7] dark:bg-stone-950 border-b border-stone-200 dark:border-stone-800 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-[#2D5A27]">
+<img alt="User avatar profile" class="w-full h-full object-cover" data-alt="Close up portrait of a young man with rugged outdoor features, wearing a green utility cap, natural outdoor lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUvzYdzucC61trQ9kMyyE_nB3AeDxfaT6GU_tt0WPqo1JSmrRiCMf8hSv-102-tHs8cGnG9AuGj80Ot3iiRe6u2y_YabhmY0HTm4tQbdPkeoYhrTjOzUd83iCJhgY-IagtJKkFb0XwKX-79rA6-6dU4RXkjMYc_FB0iC17Ysb2hi1wa8pFNvFKEUbAvpNkIorPPm7NZXvIrWz9mU5nlyTgD4vTjqmDHfr24I66za8ypvv7EWTg1k-KNjYz__DyC_hdW_zuk43vnqM"/>
+</div>
+<h1 class="text-2xl font-black text-[#FF6B00] tracking-tighter font-['Lexend'] uppercase">TREPADA</h1>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 bg-stone-100 dark:bg-stone-900 rounded-full">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="font-label-web3 text-label-web3 text-[#2D5A27] dark:text-emerald-500">0x7...4E2</span>
+</div>
+</header>
+<main class="max-w-[480px] mx-auto px-container-margin pt-md">
+<!-- COMPLETED TREPADA Status Header -->
+<div class="flex items-center justify-between mb-sm">
+<div class="flex flex-col">
+<span class="font-cta-text text-[12px] uppercase tracking-widest text-[#FF6B00]">Mission Report</span>
+<h2 class="font-headline-md text-headline-md text-primary">COMPLETED TREPADA</h2>
+</div>
+<div class="bg-[#2D5A27] text-white px-3 py-1 rounded-lg font-cta-text text-[12px]">
+                +50 XP
+            </div>
+</div>
+<!-- Map Section with Satellite View -->
+<div class="relative w-full aspect-square rounded-3xl overflow-hidden shadow-lg mb-md group border-4 border-white">
+<img class="w-full h-full object-cover grayscale-[20%] contrast-125" data-alt="high-resolution satellite view of a rugged mountainous terrain in Mexico with deep green canyons and dusty trails" data-location="Guadalajara" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfxor4IuvbRE8rbIAwGFsYV8puK_G033dkX6QXQVFHRQLsGLhp2QjdZY_0ZsYWJNxH9iwUiUenYHhpM2vVXDnq-0dBXuHR2uXAr3_Rv4paQyboYaBF_uQT4toLSp6Q2T77xkQySXixCAB4ul7xSXraU6ny5nIYSOwhgCH_ln5h1iEEggF_pu9O2XHUnKDsNzgU2w1YMYny0iA2AEEsHVr2a44WIQhdWd0ieVnatiXvh4E2GlmSa9FQ8YvMi-ff8Ohp7y-tnd0l2p8"/>
+<!-- GPS Path SVG Overlay -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" viewbox="0 0 400 400">
+<path class="drop-shadow-[0_0_8px_rgba(74,222,128,0.8)]" d="M 100 300 L 150 250 L 140 180 L 220 160 L 280 100 L 320 140 L 300 220 L 250 280 L 180 340" fill="none" stroke="#4ade80" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"></path>
+<!-- Start Point -->
+<circle cx="100" cy="300" fill="#FF6B00" r="6" stroke="white" stroke-width="2"></circle>
+<!-- End Point -->
+<circle cx="180" cy="340" fill="#154212" r="8" stroke="white" stroke-width="3"></circle>
+</svg>
+<!-- Map Label Overlay -->
+<div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-xl shadow-sm border border-stone-200">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-[#2D5A27]">location_on</span>
+<span class="font-label-web3 text-stone-700">Barranca de Huentitán</span>
+</div>
+</div>
+</div>
+<!-- Summary Statistics Bento Grid -->
+<div class="grid grid-cols-2 gap-gutter mb-md">
+<!-- Route Finished Main Card -->
+<div class="col-span-2 bg-white p-md rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-stone-100 flex flex-col items-center text-center">
+<div class="w-12 h-12 bg-orange-50 rounded-full flex items-center justify-center mb-sm">
+<span class="material-symbols-outlined text-[#FF6B00] text-3xl" data-weight="fill">check_circle</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-xs">Route Finished</h3>
+<p class="font-body-md text-stone-500">Eco-warrior session successfully verified on-chain.</p>
+</div>
+<!-- Stats Mini Cards -->
+<div class="bg-white p-sm rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-stone-100 flex flex-col items-center">
+<span class="font-cta-text text-[12px] text-stone-400 uppercase tracking-tighter mb-xs">Distance</span>
+<span class="font-display-lg text-headline-lg text-[#2D5A27]">2.4 KM</span>
+</div>
+<div class="bg-white p-sm rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-stone-100 flex flex-col items-center">
+<span class="font-cta-text text-[12px] text-stone-400 uppercase tracking-tighter mb-xs">Trash Removed</span>
+<span class="font-display-lg text-headline-lg text-[#FF6B00]">1.5 KG</span>
+</div>
+</div>
+<!-- Token Rewards Section -->
+<div class="bg-primary p-md rounded-3xl relative overflow-hidden mb-lg shadow-xl">
+<!-- Decorative background elements -->
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-emerald-400/10 rounded-full blur-3xl"></div>
+<div class="flex justify-between items-center relative z-10">
+<div>
+<h4 class="text-white font-headline-md">Impact Reward</h4>
+<p class="text-emerald-300 font-body-md text-sm">ECO-Tokens minted to your wallet</p>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-white font-display-lg text-[28px]">+12.5 ECO</span>
+<span class="bg-emerald-500/20 text-emerald-300 text-[10px] px-2 py-0.5 rounded-full border border-emerald-500/30">PENDING BLOCK</span>
+</div>
+</div>
+</div>
+<!-- Action Grid -->
+<div class="flex flex-col gap-sm">
+<button class="w-full bg-[#FF6B00] text-white py-4 rounded-2xl font-cta-text text-cta-text uppercase tracking-widest shadow-lg active:scale-[0.98] transition-transform">
+                Share Achievement
+            </button>
+<button class="w-full bg-white border-2 border-primary text-primary py-4 rounded-2xl font-cta-text text-cta-text uppercase tracking-widest active:scale-[0.98] transition-transform">
+                View Collection Log
+            </button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-white/90 dark:bg-stone-900/90 backdrop-blur-md border-t border-stone-100 dark:border-stone-800 shadow-[0_-4px_20px_rgba(0,0,0,0.04)]">
+<a class="flex flex-col items-center justify-center text-[#FF6B00] bg-orange-50 dark:bg-orange-950/30 rounded-xl px-3 py-1 active:translate-y-0.5 transition-all" href="#">
+<span class="material-symbols-outlined" data-weight="fill">map</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase mt-1">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-500 hover:text-[#2D5A27] dark:hover:text-emerald-300 active:translate-y-0.5 transition-all" href="#">
+<span class="material-symbols-outlined">cleaning_services</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase mt-1">Mission</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-500 hover:text-[#2D5A27] dark:hover:text-emerald-300 active:translate-y-0.5 transition-all" href="#">
+<span class="material-symbols-outlined">military_tech</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase mt-1">Ranks</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-500 hover:text-[#2D5A27] dark:hover:text-emerald-300 active:translate-y-0.5 transition-all" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase mt-1">Backpack</span>
+</a>
+</nav>
+</body></html>

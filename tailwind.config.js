@@ -7,21 +7,83 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // Legacy Monad Blitz (keep for /blitz-demo)
         monad: {
           purple: '#836EF9',
           dark: '#1a1a2e',
         },
-        // Rastros palette (top-level: no conflicts with existing tokens)
-        primary: '#2A5C3E',     // forest green
-        accent: '#B8572C',      // terracotta
-        background: '#F5F1E8',  // warm cream
+        // Legacy Rastros palette (keep for existing landing)
+        primary: '#2A5C3E',
+        accent: '#B8572C',
+        background: '#F5F1E8',
         foreground: '#1A1A1A',
         warm: '#FF6B35',
         muted: '#A8A8A0',
+        // ─── Stitch / Trepacerros design tokens (Material 3) ───
+        tc: {
+          primary: '#154212',
+          'on-primary': '#ffffff',
+          'primary-container': '#2d5a27',
+          'on-primary-container': '#9dd090',
+          secondary: '#5e604d',
+          'on-secondary': '#ffffff',
+          'secondary-container': '#e1e1c9',
+          'on-secondary-container': '#636451',
+          tertiary: '#5a2e00',
+          'on-tertiary': '#ffffff',
+          'tertiary-container': '#7b4100',
+          'on-tertiary-container': '#ffb272',
+          error: '#ba1a1a',
+          'on-error': '#ffffff',
+          'error-container': '#ffdad6',
+          'on-error-container': '#93000a',
+          surface: '#fcf9f8',
+          'on-surface': '#1b1b1c',
+          'on-surface-variant': '#42493e',
+          'surface-container': '#f0eded',
+          'surface-container-low': '#f6f3f2',
+          'surface-container-high': '#eae7e7',
+          'surface-container-highest': '#e5e2e1',
+          'surface-container-lowest': '#ffffff',
+          outline: '#72796e',
+          'outline-variant': '#c2c9bb',
+          'inverse-surface': '#303030',
+          'inverse-on-surface': '#f3f0ef',
+          'inverse-primary': '#a1d494',
+          'primary-fixed': '#bcf0ae',
+          'primary-fixed-dim': '#a1d494',
+          'tertiary-fixed': '#ffdcc3',
+          'tertiary-fixed-dim': '#ffb77d',
+          'secondary-fixed': '#e4e4cc',
+          'secondary-fixed-dim': '#c8c8b0',
+          orange: '#FF6B00',
+        },
       },
       fontFamily: {
         display: ['var(--font-fraunces)', 'serif'],
         sans: ['var(--font-dm-sans)', 'system-ui', 'sans-serif'],
+        // Stitch fonts
+        lexend: ['var(--font-lexend)', 'sans-serif'],
+        'space-grotesk': ['var(--font-space-grotesk)', 'sans-serif'],
+      },
+      fontSize: {
+        'tc-display': ['48px', { lineHeight: '1.1', letterSpacing: '-0.02em', fontWeight: '700' }],
+        'tc-headline-lg': ['32px', { lineHeight: '1.2', fontWeight: '600' }],
+        'tc-headline-md': ['24px', { lineHeight: '1.3', fontWeight: '600' }],
+        'tc-body-lg': ['18px', { lineHeight: '1.6', fontWeight: '400' }],
+        'tc-body-md': ['16px', { lineHeight: '1.6', fontWeight: '400' }],
+        'tc-label-web3': ['14px', { lineHeight: '1.0', letterSpacing: '0.05em', fontWeight: '500' }],
+        'tc-cta': ['16px', { lineHeight: '1.0', fontWeight: '700' }],
+      },
+      spacing: {
+        'tc-xs': '4px',
+        'tc-base': '8px',
+        'tc-sm': '12px',
+        'tc-gutter': '16px',
+        'tc-md': '24px',
+        'tc-lg': '40px',
+        'tc-xl': '64px',
+        'tc-margin': '20px',
       },
     },
   },

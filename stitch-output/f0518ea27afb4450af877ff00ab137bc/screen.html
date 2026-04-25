@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#2f1500",
+                    "on-secondary-container": "#636451",
+                    "primary-fixed": "#bcf0ae",
+                    "on-tertiary-container": "#ffb272",
+                    "surface-dim": "#dcd9d9",
+                    "secondary": "#5e604d",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#c2c9bb",
+                    "error-container": "#ffdad6",
+                    "primary-fixed-dim": "#a1d494",
+                    "tertiary": "#5a2e00",
+                    "background": "#fcf9f8",
+                    "secondary-fixed-dim": "#c8c8b0",
+                    "tertiary-container": "#7b4100",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed": "#ffdcc3",
+                    "inverse-surface": "#303030",
+                    "outline": "#72796e",
+                    "on-secondary-fixed": "#1b1d0e",
+                    "on-background": "#1b1b1c",
+                    "surface-container": "#f0eded",
+                    "on-primary-container": "#9dd090",
+                    "on-error-container": "#93000a",
+                    "inverse-on-surface": "#f3f0ef",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb77d",
+                    "surface": "#fcf9f8",
+                    "on-primary-fixed": "#002201",
+                    "inverse-primary": "#a1d494",
+                    "surface-bright": "#fcf9f8",
+                    "on-tertiary-fixed-variant": "#6e3900",
+                    "secondary-fixed": "#e4e4cc",
+                    "on-surface": "#1b1b1c",
+                    "on-primary": "#ffffff",
+                    "primary": "#154212",
+                    "surface-tint": "#3b6934",
+                    "secondary-container": "#e1e1c9",
+                    "primary-container": "#2d5a27",
+                    "surface-container-high": "#eae7e7",
+                    "on-primary-fixed-variant": "#23501e",
+                    "surface-container-highest": "#e5e2e1",
+                    "surface-variant": "#e5e2e1",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed-variant": "#474836",
+                    "surface-container-low": "#f6f3f2",
+                    "on-surface-variant": "#42493e",
+                    "safety-orange": "#FF6B00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "gutter": "16px",
+                    "sm": "12px",
+                    "md": "24px",
+                    "base": "8px",
+                    "xl": "64px",
+                    "lg": "40px",
+                    "container-margin": "20px"
+            },
+            "fontFamily": {
+                    "cta-text": ["Lexend"],
+                    "headline-lg": ["Lexend"],
+                    "body-md": ["Lexend"],
+                    "display-lg": ["Lexend"],
+                    "label-web3": ["Space Grotesk"],
+                    "headline-md": ["Lexend"],
+                    "body-lg": ["Lexend"]
+            },
+            "fontSize": {
+                    "cta-text": ["16px", {"lineHeight": "1.0", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-web3": ["14px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fcf9f8;
+            margin: 0;
+            padding: 0;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md">
+<!-- TopAppBar Shell -->
+<header class="bg-[#FDFCF8] dark:bg-stone-900 border-b border-stone-200 dark:border-stone-800 shadow-sm fixed top-0 left-0 right-0 z-50">
+<div class="flex justify-between items-center px-4 h-16 w-full max-w-[480px] mx-auto">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#2D5A27] dark:text-green-400" data-icon="landscape">landscape</span>
+<h1 class="text-lg font-black text-[#2D5A27] dark:text-green-500 tracking-widest uppercase font-headline-lg">TREPACERROS</h1>
+</div>
+<div class="bg-surface-container-highest px-3 py-1.5 rounded-full flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-green-500"></span>
+<span class="font-label-web3 text-label-web3 text-on-surface">0x...4F21 | 450 $CERRO</span>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32 px-container-margin max-w-[480px] mx-auto min-h-screen">
+<!-- Category Toggles -->
+<div class="flex gap-sm overflow-x-auto pb-md no-scrollbar mb-md">
+<button class="flex-none px-md py-sm bg-primary-container text-on-primary font-cta-text text-cta-text rounded-xl shadow-sm border border-primary-container">
+                All
+            </button>
+<button class="flex-none px-md py-sm bg-white text-secondary font-cta-text text-cta-text rounded-xl border border-outline-variant hover:border-primary-container transition-colors">
+                Chelas
+            </button>
+<button class="flex-none px-md py-sm bg-white text-secondary font-cta-text text-cta-text rounded-xl border border-outline-variant hover:border-primary-container transition-colors">
+                Café
+            </button>
+<button class="flex-none px-md py-sm bg-white text-secondary font-cta-text text-cta-text rounded-xl border border-outline-variant hover:border-primary-container transition-colors">
+                Outdoor Gear
+            </button>
+</div>
+<!-- Featured Section (Bento Style) -->
+<div class="mb-lg">
+<h2 class="font-headline-md text-headline-md mb-base text-primary">Limited Drops</h2>
+<div class="grid grid-cols-1 gap-base">
+<div class="bg-white rounded-[24px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-stone-100 p-base">
+<div class="relative h-48 rounded-[18px] overflow-hidden">
+<img alt="Hiking Socks" class="w-full h-full object-cover" data-alt="Premium technical hiking socks displayed on a rustic wooden bench with natural sunlight and deep shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqEQouMF9Dd1aLe5Els9lpS9-ssFqDGymsqPmywgjVKwW7qdvkZ3QLQ6lHxhnszEhPybpAqNFQonlv_MniOApqbhmcBqpVMmc5Eigf-th-GfHfntYg1UULUquJ4YVARq5YfQdjd3slksEO0vk2ADaHZhqR79SSutC6VBG-gB6FP6U8qk02gJkH9WH9l9-aIQQiJF7u2Y3FSN7K5PfadWQz9OU3B3ZVdinl3-FM1FDXMuz-CezXOSKSxvc0knzey9SDyBV20ERJpFU"/>
+<div class="absolute top-sm right-sm bg-[#FF6B00] text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                            Top Pick
+                        </div>
+</div>
+<div class="p-sm flex justify-between items-end">
+<div>
+<h3 class="font-headline-md text-body-lg text-on-surface">Hiking Socks</h3>
+<div class="flex items-center gap-1 text-[#FF6B00] font-bold">
+<span class="material-symbols-outlined text-[18px]" data-icon="token">token</span>
+<span>120 $CERRO</span>
+</div>
+</div>
+<button class="bg-[#FF6B00] text-white font-cta-text text-cta-text px-md py-sm rounded-xl uppercase tracking-tight shadow-lg shadow-orange-500/20 active:scale-95 transition-all">
+                            Redeem
+                        </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Catalog Grid -->
+<div class="mb-xl">
+<h2 class="font-headline-md text-headline-md mb-base text-primary">Local Rewards</h2>
+<div class="grid grid-cols-1 gap-md">
+<!-- Card 1 -->
+<div class="bg-white rounded-[24px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-stone-100 flex flex-col">
+<div class="h-40 overflow-hidden">
+<img alt="Cerveza Loba" class="w-full h-full object-cover" data-alt="A cold craft beer bottle condensation droplets in a sunlit Guadalajara brewery patio with lush greenery background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZkZUVxRDhjGQWK3EP29pIG89odyiOMdHHxa28IxUoGEzpQS9EHTLe2NZJ8Gmfjz9g-DOxtq9Ca4ewbjOcJo8MbISoMKLbKRe9Ieus19kNida6O7f96tDdGfaTWUtmu7e26rmxkor4diwN0fZPWeEalTz60e9j6p4jDepXFNj1REOsUc4AH4IxrjP61Y4fqc7Li83NYo9qarTZX0BPiHeDTpOtowKZNvVMhA1CgBRaQPzRydgj7Kw8HG2uo5jaL0kfE3mQMpMSINQ"/>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h3 class="font-headline-md text-body-lg text-on-surface">Cerveza Loba</h3>
+<p class="text-secondary text-sm">Artisan Brewery Reward</p>
+</div>
+<div class="flex items-center gap-1 text-[#FF6B00] font-bold">
+<span class="material-symbols-outlined text-[18px]" data-icon="token">token</span>
+<span>50 $CERRO</span>
+</div>
+</div>
+<button class="w-full bg-[#FF6B00] text-white font-cta-text text-cta-text py-md rounded-xl uppercase tracking-tight shadow-lg shadow-orange-500/20 active:scale-95 transition-all">
+                            Redeem
+                        </button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-white rounded-[24px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-stone-100 flex flex-col">
+<div class="h-40 overflow-hidden">
+<img alt="Café Estelar" class="w-full h-full object-cover" data-alt="Expertly poured latte art in a ceramic cup on a stone table with soft morning mountain light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjVVfFvovKtuG-gsLUTqFKQ7HpkSanRpi7cykP9Lb0wiNrlh8cp6I613rCDpiqn5-i2-teZcApUHdCZCsHCO7Z-FNbchFBwC35y9ktxPHsIPl7alOJ7T7UPEp0w0Jhy8pVRwRT1E8-oWvCTHzuhikRpzGN0kUZLc9ANRsfATjiYJIg8TDNL9dJiYIE01PLXV9Z03ywFrIeKtagQDQ9otJmi5mA7AuKiny8KpDKcKZ1UmDQtGKZ_BUdynFpJ5KhiBVa2jaPllbK6lc"/>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h3 class="font-headline-md text-body-lg text-on-surface">Café Estelar</h3>
+<p class="text-secondary text-sm">Fresh Roasted Coffee</p>
+</div>
+<div class="flex items-center gap-1 text-[#FF6B00] font-bold">
+<span class="material-symbols-outlined text-[18px]" data-icon="token">token</span>
+<span>30 $CERRO</span>
+</div>
+</div>
+<button class="w-full bg-[#FF6B00] text-white font-cta-text text-cta-text py-md rounded-xl uppercase tracking-tight shadow-lg shadow-orange-500/20 active:scale-95 transition-all">
+                            Redeem
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar Shell -->
+<nav class="bg-[#FDFCF8] dark:bg-stone-900 fixed bottom-0 w-full max-w-[480px] left-1/2 -translate-x-1/2 rounded-t-2xl border-t border-stone-200 dark:border-stone-800 shadow-[0_-4px_12px_rgba(0,0,0,0.05)] z-50">
+<div class="flex justify-around items-center w-full h-20 pb-safe px-2">
+<!-- Map -->
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-3 py-1 transition-all hover:text-orange-500">
+<span class="material-symbols-outlined mb-1" data-icon="explore">explore</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase tracking-tighter">Map</span>
+</div>
+<!-- Clean -->
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-3 py-1 transition-all hover:text-orange-500">
+<span class="material-symbols-outlined mb-1" data-icon="add_a_photo">add_a_photo</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase tracking-tighter">Clean</span>
+</div>
+<!-- Shop (Active) -->
+<div class="flex flex-col items-center justify-center text-[#FF6B00] bg-orange-50 dark:bg-orange-900/20 rounded-xl px-3 py-1 transition-all">
+<span class="material-symbols-outlined mb-1" data-icon="storefront">storefront</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase tracking-tighter">Shop</span>
+</div>
+<!-- Rank -->
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-3 py-1 transition-all hover:text-orange-500">
+<span class="material-symbols-outlined mb-1" data-icon="military_tech">military_tech</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase tracking-tighter">Rank</span>
+</div>
+<!-- Profile -->
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-3 py-1 transition-all hover:text-orange-500">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase tracking-tighter">Profile</span>
+</div>
+</div>
+</nav>
+</body></html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed": "#2f1500",
+                      "on-secondary-container": "#636451",
+                      "primary-fixed": "#bcf0ae",
+                      "on-tertiary-container": "#ffb272",
+                      "surface-dim": "#dcd9d9",
+                      "secondary": "#5e604d",
+                      "on-secondary": "#ffffff",
+                      "outline-variant": "#c2c9bb",
+                      "error-container": "#ffdad6",
+                      "primary-fixed-dim": "#a1d494",
+                      "tertiary": "#5a2e00",
+                      "background": "#fcf9f8",
+                      "secondary-fixed-dim": "#c8c8b0",
+                      "tertiary-container": "#7b4100",
+                      "error": "#ba1a1a",
+                      "tertiary-fixed": "#ffdcc3",
+                      "inverse-surface": "#303030",
+                      "outline": "#72796e",
+                      "on-secondary-fixed": "#1b1d0e",
+                      "on-background": "#1b1b1c",
+                      "surface-container": "#f0eded",
+                      "on-primary-container": "#9dd090",
+                      "on-error-container": "#93000a",
+                      "inverse-on-surface": "#f3f0ef",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed-dim": "#ffb77d",
+                      "surface": "#fcf9f8",
+                      "on-primary-fixed": "#002201",
+                      "inverse-primary": "#a1d494",
+                      "surface-bright": "#fcf9f8",
+                      "on-tertiary-fixed-variant": "#6e3900",
+                      "secondary-fixed": "#e4e4cc",
+                      "on-surface": "#1b1b1c",
+                      "on-primary": "#ffffff",
+                      "primary": "#154212",
+                      "surface-tint": "#3b6934",
+                      "secondary-container": "#e1e1c9",
+                      "primary-container": "#2d5a27",
+                      "surface-container-high": "#eae7e7",
+                      "on-primary-fixed-variant": "#23501e",
+                      "surface-container-highest": "#e5e2e1",
+                      "surface-variant": "#e5e2e1",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-fixed-variant": "#474836",
+                      "surface-container-low": "#f6f3f2",
+                      "on-surface-variant": "#42493e"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xs": "4px",
+                      "gutter": "16px",
+                      "sm": "12px",
+                      "md": "24px",
+                      "base": "8px",
+                      "xl": "64px",
+                      "lg": "40px",
+                      "container-margin": "20px"
+              },
+              "fontFamily": {
+                      "cta-text": ["Lexend"],
+                      "headline-lg": ["Lexend"],
+                      "body-md": ["Lexend"],
+                      "display-lg": ["Lexend"],
+                      "label-web3": ["Space Grotesk"],
+                      "headline-md": ["Lexend"],
+                      "body-lg": ["Lexend"]
+              },
+              "fontSize": {
+                      "cta-text": ["16px", {"lineHeight": "1.0", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-web3": ["14px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body { background-color: #fcf9f8; }
+        .active-scale:active { transform: scale(0.95); transition: transform 0.1s ease-in-out; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="font-body-md text-on-background selection:bg-on-tertiary-container selection:text-white">
+<!-- Top Navigation Shell -->
+<header class="fixed top-0 z-50 w-full max-w-[480px] left-1/2 -translate-x-1/2 bg-[#FDFCF8] dark:bg-stone-900 border-b border-stone-200 dark:border-stone-800 shadow-sm px-4 h-16 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#2D5A27] dark:text-green-400" data-icon="landscape">landscape</span>
+<span class="text-lg font-black text-[#2D5A27] dark:text-green-500 tracking-widest uppercase font-['Lexend']">TREPACERROS</span>
+</div>
+<div class="bg-surface-container-low px-3 py-1.5 rounded-full flex items-center gap-2 border border-outline-variant/30 active-scale">
+<span class="font-label-web3 text-label-web3 text-on-surface">0x...4F21</span>
+<div class="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+<span class="font-label-web3 text-label-web3 font-bold text-primary">450 $CERRO</span>
+</div>
+</header>
+<main class="w-full max-w-[480px] mx-auto pt-24 pb-32 px-container-margin">
+<!-- Header Section -->
+<section class="mb-lg">
+<h1 class="font-headline-lg text-headline-lg text-primary mb-xs">Top Trepacerros GDL</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">The local guardians of our trails. Ranked by total impact.</p>
+</section>
+<!-- Podium / High-Contrast Bento Top 3 -->
+<section class="grid grid-cols-3 gap-sm items-end mb-xl">
+<!-- Rank 2 -->
+<div class="flex flex-col items-center">
+<div class="relative mb-base">
+<div class="w-16 h-16 rounded-full border-4 border-slate-300 overflow-hidden shadow-lg">
+<img class="w-full h-full object-cover" data-alt="Portrait of a smiling young man in a grey beanie against a soft outdoor background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAU7V6NqVCNFy5G3Rwj_MPKBnmHalgHoSw4W5uU4LojeEgAnPUkmjG2rS8K0JzgWFDEy0z1JB1NDqphXJP1_RB2C2LW5lGnK9O9i1IUCeLb4Jh7rKnk80V05x6jwxRQoc8FVmnKcdL2oL2OlGT8t4s1f_Uok3j7m5SETUjHMeiGlnFktAj3CjAeOfD4ax0raUs25FwwFMbWNAr4pIA9La0UoAHtuCrswm8CCL7uC5VTrkyZxQXalYZjYCY9o_ldAWXMUcGo6euvs7Q"/>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-slate-400 text-white rounded-full w-6 h-6 flex items-center justify-center text-[10px] font-bold border-2 border-white">2</div>
+</div>
+<p class="font-cta-text text-[12px] text-center truncate w-full">SANTI_TRLS</p>
+<p class="font-label-web3 text-primary font-bold">128 KG</p>
+</div>
+<!-- Rank 1 (The Star) -->
+<div class="flex flex-col items-center">
+<div class="relative mb-base scale-110">
+<div class="w-24 h-24 rounded-full border-4 border-amber-400 overflow-hidden shadow-xl ring-4 ring-amber-400/20">
+<img class="w-full h-full object-cover" data-alt="Close-up of a happy woman with curly hair wearing hiking gear in a sunlit forest" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6ubX1x5uTd8Fym0Qtx2Q6GnoG8jMDMip4uo4R3opmek7PHsO9toNcGwKjurWmNLKTZPwumc97rIaFSdKOIV9vnDm6o5JOTI1g5ZmG-kxve9sHOBOj-5Va17_JmAIhOtKQjbXLK95rxBsuGgS6ySHId8JvunKeWqbdrJft-5cHwlGgYki1LHJE0ea3Qcb-J75z98sVuWXB87p-xLoWgZj2GJeraIVYz8YivbQjvZWkHjjEvmPlzpRsov4JEsdWtmkEt-gl3JcAA2A"/>
+</div>
+<div class="absolute -top-4 left-1/2 -translate-x-1/2">
+<span class="material-symbols-outlined text-amber-400 text-3xl" data-icon="military_tech" data-weight="fill" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-amber-400 text-white rounded-full w-8 h-8 flex items-center justify-center text-[14px] font-bold border-2 border-white shadow-md">1</div>
+</div>
+<p class="font-cta-text text-body-md text-center truncate w-full mt-2">SOFIA_ECO</p>
+<div class="bg-amber-100 dark:bg-amber-900/30 px-3 py-0.5 rounded-full mt-1">
+<p class="font-label-web3 text-[#FF6B00] font-black text-body-md">214 KG</p>
+</div>
+</div>
+<!-- Rank 3 -->
+<div class="flex flex-col items-center">
+<div class="relative mb-base">
+<div class="w-16 h-16 rounded-full border-4 border-amber-700 overflow-hidden shadow-lg">
+<img class="w-full h-full object-cover" data-alt="Portrait of a middle-aged man with short beard and glasses looking confidently at the camera outdoors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMM0CjJ-h8jaffLRffiu_EI9szHfTC08bfiOLNuN7V_pWQtX6F2zMxUGfVrO-bQETjhyKc_eq7Zdg3qW9eKtVyI-Xlg5z-HJe2EDk0JymAiVJZ44ay5JX3jkMjYkQ2w7ULCCnhoMnDfGuYRgI4mnY7g49mBG5XsT5m12T3321fJwKCTekPvy01lMt0vPclBl99vmb-59a-05nlyFBNaNendM4LVOiJqQYuUolZH7_fgEl4Kw_-igRcd3JaAGCWvvGsBXzgI6KBuqM"/>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-amber-700 text-white rounded-full w-6 h-6 flex items-center justify-center text-[10px] font-bold border-2 border-white">3</div>
+</div>
+<p class="font-cta-text text-[12px] text-center truncate w-full">BETO_MTB</p>
+<p class="font-label-web3 text-primary font-bold">95 KG</p>
+</div>
+</section>
+<!-- Ranking List -->
+<section class="space-y-sm">
+<div class="flex items-center justify-between px-4 pb-2 text-[12px] font-bold text-on-surface-variant uppercase tracking-widest border-b border-outline-variant/30">
+<span>Rank / User</span>
+<span>Total Collected</span>
+</div>
+<!-- Rank 4 -->
+<div class="flex items-center justify-between p-4 bg-white rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.04)] border border-stone-100 active-scale cursor-pointer">
+<div class="flex items-center gap-sm">
+<span class="font-label-web3 text-on-surface-variant font-bold w-4">4</span>
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Young man with short dark hair smiling outdoors with natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAHN3N9dTszgHpkI5EA5kz8B5zYwjb7PAx-lxwK-UEGxj5exhdhu8biZyu4Ge4sAYjwJc6LwLAc3USd5qwx91e5X7q3cfvulYic6f41ASUCjp9tqBA2v2h5ZgY-Po4USO6nEayXTHpTUOUGEpgcrIQWQVCx4MQawifx45Z42t-9DkMvhTYmw9HxWY5Y7YfnvUrbr4wE2lu_uaaN-e1sdODHGe5JuwhaY0u7OiqnvwD4frr8ASK8Ffm6K3_giIeEeNr_0e9sKyRtVE"/>
+</div>
+<div>
+<p class="font-cta-text text-body-md">MARCO_S</p>
+<p class="text-[12px] text-on-surface-variant">La Primavera Elite</p>
+</div>
+</div>
+<div class="flex flex-col items-end flex-row">
+<button class="text-stone-300 hover:text-error transition-colors mr-2 self-center active-scale"><span class="material-symbols-outlined text-[18px]">flag</span></button><span class="font-label-web3 font-bold text-primary">82 KG</span>
+<span class="text-[10px] text-green-600">+1.2 this week</span>
+</div>
+</div>
+<!-- Rank 5 -->
+<div class="flex items-center justify-between p-4 bg-white rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.04)] border border-stone-100 active-scale cursor-pointer">
+<div class="flex items-center gap-sm">
+<span class="font-label-web3 text-on-surface-variant font-bold w-4">5</span>
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Candid portrait of a young woman with long hair looking away in soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIHB5PMfdwZ1nj5ixru35p72ulGTBK232zjoXFfCNBOofC8UQylW6AzbCEmq7BOVipz8QbuS20Ml4d6zM3O_09g6Shvc14t12Q4Yzc7EVEeiPH6dMzJCDXWfnqOJotkOHb1kjbLvbIRGAahn9S2S4P_pyJRrTaDEeHG0MbM3ZZRLgXfk2gF9jZgfIZF1iQ7P_jd_CxLbBAqeIFBciQEKXJ4ZQJtw_4GfRgHQi13CVux6iIF_DwELSDggJqs6lB6c_Z5bn0GxAKFwk"/>
+</div>
+<div>
+<p class="font-cta-text text-body-md">LUISA_GDL</p>
+<p class="text-[12px] text-on-surface-variant">Barranca Specialist</p>
+</div>
+</div>
+<div class="flex flex-col items-end flex-row">
+<button class="text-stone-300 hover:text-error transition-colors mr-2 self-center active-scale"><span class="material-symbols-outlined text-[18px]">flag</span></button><span class="font-label-web3 font-bold text-primary">77 KG</span>
+<span class="text-[10px] text-on-surface-variant">Consistent</span>
+</div>
+</div>
+<!-- Rank 6 -->
+<div class="flex items-center justify-between p-4 bg-white rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.04)] border border-stone-100 active-scale cursor-pointer">
+<div class="flex items-center gap-sm">
+<span class="font-label-web3 text-on-surface-variant font-bold w-4">6</span>
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Stylish young woman with medium-length dark hair and neutral expression outdoors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXbkYO-FhSNBqTaZoMohvfyyXf714kl87HNSDU91mLfcJoKkzcea8rIVJCvs58459AxQWFUR41bVeJqsGND0S5zdb2j7j1lPfDYYype9I0FFJOA-g0s09wuppaNbmOzXOvzIfw3_YP-y4KYHrpXG9mBn-iLxhnHEVFtZw1tfzE4Vt9q_sFguyKwxoZwDIaZbaB6wsXV75_FeRuv28Rx5qYGSVJJ4eSNRbEHhT_pLwI0ExCO_CAyIm8I11GKoRnQEmza14skim771k"/>
+</div>
+<div>
+<p class="font-cta-text text-body-md">PAU_TRK</p>
+<p class="text-[12px] text-on-surface-variant">Cerro del Tesoro</p>
+</div>
+</div>
+<div class="flex flex-col items-end flex-row">
+<button class="text-stone-300 hover:text-error transition-colors mr-2 self-center active-scale"><span class="material-symbols-outlined text-[18px]">flag</span></button><span class="font-label-web3 font-bold text-primary">69 KG</span>
+<span class="text-[10px] text-green-600">+4.5 this week</span>
+</div>
+</div>
+<!-- User Context (Sticky Bottom Rank) -->
+<div class="flex justify-center pt-2 pb-4"><button class="flex items-center gap-1 text-[11px] font-semibold text-on-surface-variant/60 uppercase tracking-wider hover:text-error transition-colors"><span class="material-symbols-outlined text-[14px]">report</span>Reportar irregularidad</button></div><div class="mt-lg p-sm bg-orange-50 dark:bg-orange-950/20 rounded-2xl border-2 border-orange-200 dark:border-orange-800/40 flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<div class="w-12 h-12 rounded-full bg-[#FF6B00] flex items-center justify-center text-white font-black">42</div>
+<div>
+<p class="font-cta-text text-primary">YOU (TREP_83)</p>
+<p class="text-[12px] text-on-tertiary-fixed-variant">12.5 KG collected total</p>
+</div>
+</div>
+<button class="bg-[#FF6B00] text-white px-4 py-2 rounded-xl font-cta-text text-[14px] active-scale">CLEAN NOW</button>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Shell -->
+<nav class="fixed bottom-0 w-full max-w-[480px] left-1/2 -translate-x-1/2 bg-[#FDFCF8] dark:bg-stone-900 rounded-t-2xl border-t border-stone-200 dark:border-stone-800 shadow-[0_-4px_12px_rgba(0,0,0,0.05)] h-20 pb-safe px-2 flex justify-around items-center z-50">
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-3 py-1 hover:text-orange-500 transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="explore">explore</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase tracking-tighter">Map</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-3 py-1 hover:text-orange-500 transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="add_a_photo">add_a_photo</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase tracking-tighter">Clean</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-3 py-1 hover:text-orange-500 transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="storefront">storefront</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase tracking-tighter">Shop</span>
+</a>
+<!-- Active State: Rank -->
+<a class="flex flex-col items-center justify-center text-[#FF6B00] bg-orange-50 dark:bg-orange-900/20 rounded-xl px-3 py-1 transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="military_tech">military_tech</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase tracking-tighter">Rank</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-3 py-1 hover:text-orange-500 transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase tracking-tighter">Profile</span>
+</a>
+</nav>
+</body></html>

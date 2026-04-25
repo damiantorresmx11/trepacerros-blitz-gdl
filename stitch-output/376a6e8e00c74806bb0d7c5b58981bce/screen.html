@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#9dd090",
+                        "inverse-on-surface": "#f3f0ef",
+                        "on-primary": "#ffffff",
+                        "background": "#fcf9f8",
+                        "outline": "#72796e",
+                        "on-secondary-fixed": "#1b1d0e",
+                        "on-secondary-container": "#636451",
+                        "primary-fixed": "#bcf0ae",
+                        "on-tertiary-container": "#ffb272",
+                        "on-primary-fixed": "#002201",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#ffdcc3",
+                        "secondary-container": "#e1e1c9",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#2d5a27",
+                        "on-surface-variant": "#42493e",
+                        "on-surface": "#1b1b1c",
+                        "surface-container": "#f0eded",
+                        "primary": "#154212",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#e4e4cc",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#303030",
+                        "primary-fixed-dim": "#a1d494",
+                        "on-tertiary-fixed": "#2f1500",
+                        "on-tertiary-fixed-variant": "#6e3900",
+                        "secondary-fixed-dim": "#c8c8b0",
+                        "surface-container-highest": "#e5e2e1",
+                        "surface-container-high": "#eae7e7",
+                        "on-background": "#1b1b1c",
+                        "surface-dim": "#dcd9d9",
+                        "surface-bright": "#fcf9f8",
+                        "tertiary-container": "#7b4100",
+                        "surface-container-low": "#f6f3f2",
+                        "outline-variant": "#c2c9bb",
+                        "inverse-primary": "#a1d494",
+                        "tertiary": "#5a2e00",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#fcf9f8",
+                        "on-secondary-fixed-variant": "#474836",
+                        "on-primary-fixed-variant": "#23501e",
+                        "surface-variant": "#e5e2e1",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb77d",
+                        "surface-tint": "#3b6934",
+                        "secondary": "#5e604d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "gutter": "16px",
+                        "xs": "4px",
+                        "lg": "40px",
+                        "container-margin": "20px",
+                        "base": "8px",
+                        "md": "24px",
+                        "xl": "64px"
+                    },
+                    "fontFamily": {
+                        "cta-text": ["Lexend"],
+                        "display-lg": ["Lexend"],
+                        "body-lg": ["Lexend"],
+                        "headline-lg": ["Lexend"],
+                        "label-web3": ["Space Grotesk"],
+                        "headline-md": ["Lexend"],
+                        "body-md": ["Lexend"]
+                    },
+                    "fontSize": {
+                        "cta-text": ["16px", {"lineHeight": "1.0", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "label-web3": ["14px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { background-color: #F5F5DC; } /* Earthy Cream */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .eco-glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-background selection:bg-tertiary-fixed-dim">
+<!-- TopAppBar -->
+<header class="bg-[#F5F5DC] text-[#2D5A27] font-['Lexend'] font-bold tracking-tight shadow-[0_4px_20px_rgba(0,0,0,0.04)] border-b border-stone-200 docked full-width top-0 sticky z-50">
+<div class="flex justify-between items-center w-full px-5 py-3 max-w-[480px] mx-auto">
+<div class="flex items-center gap-3">
+<button class="transition-all duration-200 active:scale-95 hover:bg-stone-100 p-2 rounded-full">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="text-xl font-black text-[#2D5A27] uppercase">TREPACERROS</h1>
+</div>
+<div class="flex items-center gap-2">
+<div class="bg-surface-container-lowest px-3 py-1.5 rounded-full border border-outline-variant flex items-center gap-2 shadow-sm">
+<span class="font-label-web3 text-label-web3 text-primary">0x7a...4b2</span>
+<div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-[480px] mx-auto px-container-margin pb-32">
+<!-- Hero Section -->
+<section class="mt-lg mb-lg">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-base">Wiki de Residuos</h2>
+<p class="font-body-lg text-body-lg text-secondary-container bg-primary-container p-gutter rounded-xl text-on-primary-container">
+                Conoce tus materiales y aprende a darles una segunda vida.
+            </p>
+</section>
+<!-- Buscador de Materiales -->
+<section class="mb-lg">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-12 pr-4 py-4 bg-white border border-outline-variant rounded-xl focus:ring-2 focus:ring-[#FF6B00] focus:border-transparent outline-none transition-all shadow-sm font-body-md" placeholder="Busca un material (ej. PET, vidrio)..." type="text"/>
+</div>
+</section>
+<!-- Categorías de Impacto (Asymmetric Bento-like Grid) -->
+<section class="mb-lg">
+<h3 class="font-headline-md text-headline-md text-primary mb-gutter">Categorías de Impacto</h3>
+<div class="grid grid-cols-2 gap-base">
+<!-- PET Card -->
+<div class="col-span-2 bg-white rounded-3xl p-gutter shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-stone-100 flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div class="w-12 h-12 bg-primary-fixed rounded-2xl flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">water_bottle</span>
+</div>
+<span class="bg-[#FF6B00]/10 text-[#FF6B00] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Alta Reciclabilidad</span>
+</div>
+<div>
+<h4 class="font-cta-text text-cta-text text-primary mb-1">Botellas PET</h4>
+<p class="font-body-md text-secondary-fixed-variant leading-tight">Preparación: Enjuaga, escurre y aplasta para ahorrar espacio en la mochila.</p>
+</div>
+<img class="w-full h-32 object-cover rounded-2xl" data-alt="Close up of compressed clear plastic PET bottles ready for recycling against a clean green background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxG6J2dtypVfSs-_MYMY1ahUNJLg5QAiLidRTxHLJVm5lng0_5k5ObgJLurubGotBIwvKZLXcpKNFv4Tjj7jQffWwiK9ycvAT9Q8zn4xSL76PGkYYiTLA9LrTvaeMQCmyEtA8W6b85HO8qil79PF33HURghx-CCsIUvF1m2rytc7Tgi0N9rxrEXlhRTl1L0jMBMo9reNPnRTx1nsWiCZtp8dY5_aCcXlp754TJNkWmrkIF-XWpHNZlQEmxcK_3g_MPEpu8tyIF7mY"/>
+</div>
+<!-- Aluminum Card -->
+<div class="bg-white rounded-3xl p-gutter shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-stone-100">
+<div class="w-10 h-10 bg-secondary-fixed rounded-xl flex items-center justify-center text-secondary mb-3">
+<span class="material-symbols-outlined">inventory_2</span>
+</div>
+<h4 class="font-cta-text text-cta-text text-primary mb-1">Aluminio</h4>
+<p class="text-xs text-secondary-fixed-variant">100% Reciclable. Retira el exceso de líquido.</p>
+</div>
+<!-- Envolturas Card -->
+<div class="bg-white rounded-3xl p-gutter shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-stone-100">
+<div class="w-10 h-10 bg-tertiary-fixed rounded-xl flex items-center justify-center text-tertiary mb-3">
+<span class="material-symbols-outlined">layers</span>
+</div>
+<h4 class="font-cta-text text-cta-text text-primary mb-1">Envolturas</h4>
+<p class="text-xs text-secondary-fixed-variant">Plásticos flexibles. Busca el sello de reciclaje.</p>
+</div>
+</div>
+</section>
+<!-- Guía de Reciclaje (Step-by-Step) -->
+<section class="mb-lg">
+<h3 class="font-headline-md text-headline-md text-primary mb-gutter">Guía de Reciclaje</h3>
+<div class="space-y-4">
+<div class="flex items-center gap-gutter bg-surface-container-lowest p-gutter rounded-2xl border-l-4 border-primary shadow-sm">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold">1</div>
+<div>
+<h5 class="font-cta-text text-primary">Limpia</h5>
+<p class="text-sm text-secondary-fixed-variant">Asegúrate de que los envases no tengan restos orgánicos.</p>
+</div>
+</div>
+<div class="flex items-center gap-gutter bg-surface-container-lowest p-gutter rounded-2xl border-l-4 border-primary shadow-sm">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold">2</div>
+<div>
+<h5 class="font-cta-text text-primary">Separa</h5>
+<p class="text-sm text-secondary-fixed-variant">Organiza por tipo de material en tu estación de casa.</p>
+</div>
+</div>
+<div class="flex items-center gap-gutter bg-[#FF6B00] p-gutter rounded-2xl border-l-4 border-white shadow-md">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-white text-[#FF6B00] flex items-center justify-center font-bold">3</div>
+<div class="text-white">
+<h5 class="font-cta-text">Trepa y valida</h5>
+<p class="text-sm opacity-90">Llévalo a un punto de recolección en el cerro y gana tokens.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Eco-Tips de Reuso -->
+<section class="mb-lg">
+<h3 class="font-headline-md text-headline-md text-primary mb-gutter">Eco-Tips de Reuso</h3>
+<div class="bg-white rounded-3xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.04)]">
+<div class="relative h-40">
+<img class="w-full h-full object-cover" data-alt="Creative reuse of containers as indoor plant pots in a bright eco-friendly room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAGYN7hoqlo6VLbULA1-VsgIKUkWpRIj0K_l7FCLe5_RTjfJoM0EGuDtuykTzFAVASb-1doRNzkjcc7d5XSXwNeY9tLPjgJsFkCNs0xzsp6G6LNxBydKVDDoCdu4oZMylnyg2qTfAPxniJPwo8ZmPXznC63pLW8WrfW5CkSjKUee0LMuB4W4PrXKxmxz1zsdHP04V9urSfMHiPTBLrxtDTP5zE1Hf9rfOlkk70lY0aegdG5zzori_O-VjzfqBx3CKGwHjr8_2LWX4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<span class="bg-tertiary-container text-white px-2 py-0.5 rounded text-[10px] uppercase font-bold">Pro-Tip</span>
+<h4 class="font-cta-text">Macetas de Frascos</h4>
+</div>
+</div>
+<div class="p-gutter">
+<p class="font-body-md text-secondary-fixed-variant">Antes de reciclar vidrio, considera usarlo para conservas o como macetas hidropónicas. El vidrio es eterno, ¡aprovéchalo!</p>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 right-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 max-w-[480px] mx-auto bg-white dark:bg-stone-950 rounded-t-3xl border-t border-stone-100 shadow-[0_-4px_20px_rgba(0,0,0,0.04)]">
+<button class="flex flex-col items-center justify-center text-[#2D5A27]/60 transition-transform duration-200 active:scale-90 px-3 py-1">
+<span class="material-symbols-outlined">home</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase mt-1">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#2D5A27]/60 transition-transform duration-200 active:scale-90 px-3 py-1">
+<span class="material-symbols-outlined">terrain</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase mt-1">Trails</span>
+</button>
+<!-- ACTIVE TAB: Wiki -->
+<button class="flex flex-col items-center justify-center bg-[#2D5A27] text-white rounded-xl px-3 py-1 transition-transform duration-200 active:scale-90">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">recycling</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase mt-1">Wiki</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#2D5A27]/60 transition-transform duration-200 active:scale-90 px-3 py-1">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase mt-1">Impact</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#2D5A27]/60 transition-transform duration-200 active:scale-90 px-3 py-1">
+<span class="material-symbols-outlined">person</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase mt-1">Profile</span>
+</button>
+</nav>
+<!-- Contextual FAB (Hidden as per relevance check, Wiki is educational, not transactional) -->
+</body></html>

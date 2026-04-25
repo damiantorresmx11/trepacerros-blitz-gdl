@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trepacerros - Selecciona tu Ruta</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#ffb77d",
+                        "on-surface": "#1b1b1c",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#bcf0ae",
+                        "on-secondary-fixed-variant": "#474836",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#3b6934",
+                        "on-primary-fixed-variant": "#23501e",
+                        "tertiary-container": "#7b4100",
+                        "on-primary-container": "#9dd090",
+                        "on-secondary-container": "#636451",
+                        "on-secondary-fixed": "#1b1d0e",
+                        "secondary-fixed-dim": "#c8c8b0",
+                        "primary-container": "#2d5a27",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#42493e",
+                        "secondary": "#5e604d",
+                        "tertiary": "#5a2e00",
+                        "surface-container-low": "#f6f3f2",
+                        "surface-variant": "#e5e2e1",
+                        "tertiary-fixed": "#ffdcc3",
+                        "on-primary-fixed": "#002201",
+                        "secondary-fixed": "#e4e4cc",
+                        "on-tertiary-fixed-variant": "#6e3900",
+                        "surface-container": "#f0eded",
+                        "secondary-container": "#e1e1c9",
+                        "surface-container-highest": "#e5e2e1",
+                        "error": "#ba1a1a",
+                        "primary": "#154212",
+                        "outline": "#72796e",
+                        "on-tertiary-fixed": "#2f1500",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#a1d494",
+                        "surface-dim": "#dcd9d9",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#a1d494",
+                        "inverse-surface": "#303030",
+                        "on-background": "#1b1b1c",
+                        "outline-variant": "#c2c9bb",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#eae7e7",
+                        "surface": "#fcf9f8",
+                        "on-tertiary-container": "#ffb272",
+                        "surface-bright": "#fcf9f8",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f3f0ef",
+                        "background": "#fcf9f8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "40px",
+                        "container-margin": "20px",
+                        "xl": "64px",
+                        "gutter": "16px",
+                        "xs": "4px",
+                        "base": "8px",
+                        "sm": "12px",
+                        "md": "24px"
+                    },
+                    "fontFamily": {
+                        "label-web3": ["Space Grotesk"],
+                        "headline-md": ["Lexend"],
+                        "headline-lg": ["Lexend"],
+                        "display-lg": ["Lexend"],
+                        "body-md": ["Lexend"],
+                        "body-lg": ["Lexend"],
+                        "cta-text": ["Lexend"]
+                    },
+                    "fontSize": {
+                        "label-web3": ["14px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "cta-text": ["16px", {"lineHeight": "1.0", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fcf9f8;
+            color: #1b1b1c;
+        }
+        .route-card-active {
+            outline: 3px solid #FF6B00;
+            outline-offset: 2px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md bg-background min-h-screen flex flex-col items-center">
+<!-- TopAppBar -->
+<header class="bg-[#FDFCF8] dark:bg-stone-900 border-b border-stone-200 dark:border-stone-800 shadow-sm fixed top-0 z-50 w-full max-w-[480px] mx-auto flex justify-between items-center px-4 h-16">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#2D5A27] dark:text-green-400" data-icon="landscape">landscape</span>
+<span class="font-['Lexend'] font-black text-[#2D5A27] dark:text-green-500 tracking-widest uppercase text-lg">TREPACERROS</span>
+</div>
+<div class="bg-surface-container rounded-full px-3 py-1 flex items-center gap-2">
+<span class="font-label-web3 text-label-web3 text-on-surface-variant">0x...4F21 | 450 $CERRO</span>
+</div>
+</header>
+<!-- Main Content -->
+<main class="w-full max-w-[480px] pt-24 pb-32 px-container-margin flex flex-col gap-md">
+<section class="flex flex-col gap-xs">
+<h1 class="font-headline-lg text-headline-lg text-primary">Selecciona tu Ruta</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Elige un sendero que necesite atención hoy y comienza tu misión de limpieza.</p>
+</section>
+<!-- Route Filter/Search (Implicit feature for modern UI) -->
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-xl focus:ring-2 focus:ring-tertiary-container focus:border-transparent outline-none transition-all font-body-md" placeholder="Buscar sendero o región..." type="text"/>
+</div>
+<!-- Route List -->
+<div class="flex flex-col gap-md">
+<!-- Route Card 1 -->
+<div class="relative group rounded-[2rem] overflow-hidden shadow-sm bg-surface-container-lowest border border-surface-variant transition-all hover:shadow-md cursor-pointer">
+<div class="h-48 w-full relative">
+<img class="w-full h-full object-cover" data-alt="vibrant forest landscape in Guadalajara with tall pine trees and sunlight filtering through the canopy at dawn" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBX42-rbLSDauK-6qWMYRyx9K_t20ZPbxKuUJT7S8fMM7_gQvyEYqTQCWVdLqN32FP3GihphQQA5cXtijtIhAwF1CFwQaqHBwoXt5JIruCktBwhEYHJEG8iRsE2UDWNY43t1zyokrynF7jgDdKwwRDIrQm9Ntvfkdr2HHIQMJAFDYC4U1jH3Y853RnBwL1-JnGFUz3TZGTcqLUiQ1vrxsg4AzprLXmq_JN7Ue17WqishkWMASKe6ECtwwEWTUbFb3h9DWud6kiwIU"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute top-4 right-4 bg-primary text-on-primary px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase">
+                        Fácil
+                    </div>
+</div>
+<div class="p-md flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md text-on-surface">Bosque de la Primavera</h3>
+<div class="flex items-center gap-1 text-tertiary-container">
+<span class="material-symbols-outlined text-sm" data-icon="distance">distance</span>
+<span class="text-xs font-bold">4.2 km</span>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-error-container/20 p-2 rounded-lg">
+<span class="material-symbols-outlined text-error" data-icon="delete_sweep">delete_sweep</span>
+<div class="flex flex-col">
+<span class="text-[10px] uppercase tracking-widest font-bold text-error">Nivel de Residuos</span>
+<span class="text-body-md font-bold text-on-error-container leading-none">Alto</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Route Card 2 (Selected State Example) -->
+<div class="relative group rounded-[2rem] overflow-hidden shadow-md bg-surface-container-lowest border-2 border-[#FF6B00] transition-all cursor-pointer">
+<div class="h-48 w-full relative">
+<img class="w-full h-full object-cover" data-alt="rugged volcanic mountain peak in Mexico with rocky terrain and sparse green vegetation under a bright blue sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHJ498z5E8PUoEAfv2GzI-CvTAwYs5O95L7IB5WgUF3QE_H_PWEz3Fluocr_dpK_Vhn2e6BIylWEApgkOOz3ZPzeNA4n-n7z13werGT7cAu4AhAFxTBCu7OmesTcVFDzmJ-vN26Gt8B3J7bnLURjNCk5jY-zKKSNYaQDrc8ZZwQopuBuar99dfZ0Abm7nV9hJhLogllOIuI4kyE2r7mr2ad_KyYw5Uz5DFwwQ2LI803IOXSP1B6bPpRBohB20RvMBacqzrswhhMQo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute top-4 right-4 bg-tertiary-container text-on-tertiary px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase">
+                        Moderada
+                    </div>
+<div class="absolute top-4 left-4 bg-[#FF6B00] text-white p-2 rounded-full shadow-lg">
+<span class="material-symbols-outlined" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<div class="p-md flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md text-on-surface">Cerro del Colli</h3>
+<div class="flex items-center gap-1 text-tertiary-container">
+<span class="material-symbols-outlined text-sm" data-icon="distance">distance</span>
+<span class="text-xs font-bold">6.8 km</span>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-tertiary-fixed-dim/20 p-2 rounded-lg">
+<span class="material-symbols-outlined text-tertiary-container" data-icon="delete_sweep">delete_sweep</span>
+<div class="flex flex-col">
+<span class="text-[10px] uppercase tracking-widest font-bold text-tertiary-container">Nivel de Residuos</span>
+<span class="text-body-md font-bold text-on-tertiary-container leading-none">Medio</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Route Card 3 -->
+<div class="relative group rounded-[2rem] overflow-hidden shadow-sm bg-surface-container-lowest border border-surface-variant transition-all hover:shadow-md cursor-pointer">
+<div class="h-48 w-full relative">
+<img class="w-full h-full object-cover" data-alt="deep canyon with river at the bottom and lush green cliffs during sunset with hazy warm atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCumGe0jHQvU14b52x3jM3vQvHhaLlhIQvIjmnhfqOyGrOxf4EHpHipouyBAcVCG4Qebh4EUqsJpg1x1zMxrQQY4Cd-JtDO8WkRgLT2Mt4LIwjs8WT7YrS-BhT09yo9NeqmBS8reDwJxSHOyu0aeXxHMYsh5zVACo6UzD1RllmgJuFQ9BEnP9Me3PpA7YlB0xs7sl2E322plWcaJ93UYX0i_DRiz-FszIZ0FkdBEzAqzHj1PgXpJ3KpYQmCtCMxV3Mbq9Y5CtOOPI0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute top-4 right-4 bg-error text-on-error px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase">
+                        Difícil
+                    </div>
+</div>
+<div class="p-md flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md text-on-surface">Barranca de Huentitán</h3>
+<div class="flex items-center gap-1 text-tertiary-container">
+<span class="material-symbols-outlined text-sm" data-icon="distance">distance</span>
+<span class="text-xs font-bold">12.5 km</span>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-error-container/20 p-2 rounded-lg">
+<span class="material-symbols-outlined text-error" data-icon="delete_sweep">delete_sweep</span>
+<div class="flex flex-col">
+<span class="text-[10px] uppercase tracking-widest font-bold text-error">Nivel de Residuos</span>
+<span class="text-body-md font-bold text-on-error-container leading-none">Muy Alto</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button - Start Cleaning (Only visible on selection) -->
+<div class="fixed bottom-24 left-1/2 -translate-x-1/2 w-full max-w-[480px] px-container-margin z-40">
+<button class="w-full bg-[#FF6B00] text-white py-4 rounded-2xl shadow-xl flex items-center justify-center gap-3 active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="eco" style="font-variation-settings: 'FILL' 1;">eco</span>
+<span class="font-cta-text text-cta-text uppercase tracking-widest">EMPEZAR LIMPIEZA</span>
+</button>
+</div>
+<!-- BottomNavBar -->
+<nav class="bg-[#FDFCF8] dark:bg-stone-900 fixed bottom-0 w-full max-w-[480px] left-1/2 -translate-x-1/2 rounded-t-2xl border-t border-stone-200 dark:border-stone-800 shadow-[0_-4px_12px_rgba(0,0,0,0.05)] z-50">
+<div class="flex justify-around items-center w-full h-20 pb-safe px-2">
+<!-- Map -->
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-3 py-1 hover:text-orange-500 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase tracking-tighter">Map</span>
+</a>
+<!-- Clean (Active) -->
+<a class="flex flex-col items-center justify-center text-[#FF6B00] bg-orange-50 dark:bg-orange-900/20 rounded-xl px-3 py-1 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="add_a_photo" style="font-variation-settings: 'FILL' 1;">add_a_photo</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase tracking-tighter">Clean</span>
+</a>
+<!-- Shop -->
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-3 py-1 hover:text-orange-500 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase tracking-tighter">Shop</span>
+</a>
+<!-- Rank -->
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-3 py-1 hover:text-orange-500 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="military_tech">military_tech</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase tracking-tighter">Rank</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-3 py-1 hover:text-orange-500 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Lexend'] text-[10px] font-semibold uppercase tracking-tighter">Profile</span>
+</a>
+</div>
+</nav>
+</body></html>
