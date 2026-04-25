@@ -21,6 +21,16 @@ function formatDuration(totalSeconds: number): string {
   return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
 }
 
+function formatPace(distMeters: number, durSeconds: number): string {
+  if (distMeters <= 0 || durSeconds <= 0) return "--'--\"";
+  const km = distMeters / 1000;
+  const totalMin = durSeconds / 60;
+  const paceMin = totalMin / km;
+  const mins = Math.floor(paceMin);
+  const secs = Math.round((paceMin - mins) * 60);
+  return `${mins}'${secs.toString().padStart(2, "0")}"`;
+}
+
 export default function HikePage() {
   const router = useRouter();
   const { address, isConnected } = useAccount();
@@ -33,6 +43,7 @@ export default function HikePage() {
   });
 
   const [showSubmitModal, setShowSubmitModal] = useState(false);
+  const [pickCount, setPickCount] = useState(0);
 
   const hasPoints = points.length > 0;
   const hikeFinished = !isTracking && hasPoints;
@@ -57,6 +68,7 @@ export default function HikePage() {
   const handleDiscard = () => {
     if (confirm("Descartar este hike? Se perderan los datos.")) {
       reset();
+      setPickCount(0);
     }
   };
 
@@ -64,26 +76,20 @@ export default function HikePage() {
   if (!isConnected || !address) {
     return (
       <AppShell hideNav>
-        <div className="flex flex-col items-center justify-center min-h-[80vh] px-6 text-center">
-          {/* Mountain icon */}
-          <div className="w-20 h-20 rounded-full bg-cd-moss/10 flex items-center justify-center mb-8">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-cd-moss">
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "80vh", padding: "0 24px", textAlign: "center" }}>
+          <div style={{ width: 80, height: 80, borderRadius: "50%", background: "color-mix(in oklch, var(--moss) 10%, var(--paper))", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 32 }}>
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: "var(--moss)" }}>
               <path d="M3 20l5.5-9 4 6 3-4L21 20z" />
             </svg>
           </div>
-
-          <h1 className="font-big-shoulders text-4xl font-bold uppercase tracking-tight text-cd-ink">
-            Conecta tu wallet
-          </h1>
-          <p className="font-lexend text-sm text-cd-muted mt-3 max-w-xs leading-relaxed">
+          <h1 className="h-display" style={{ fontSize: 36 }}>Conecta tu wallet</h1>
+          <p style={{ fontFamily: "var(--font-ui)", fontSize: 14, color: "var(--muted)", marginTop: 12, maxWidth: 280, lineHeight: 1.5 }}>
             Para iniciar una trepada y mintear tu rastro necesitas estar conectado.
           </p>
-
-          <div className="mt-8">
+          <div style={{ marginTop: 32 }}>
             <ConnectButton />
           </div>
-
-          <p className="font-mono text-[10px] text-cd-muted/60 uppercase tracking-widest mt-6">
+          <p style={{ fontFamily: "var(--font-mono-var)", fontSize: 10, color: "var(--muted)", textTransform: "uppercase", letterSpacing: "0.18em", marginTop: 24, opacity: 0.6 }}>
             Monad Testnet
           </p>
         </div>
@@ -93,128 +99,147 @@ export default function HikePage() {
 
   /* ─── ENDED STATE ─── */
   if (hikeFinished) {
+    const distKm = (stats.distanceMeters / 1000).toFixed(2);
+    const durFormatted = formatDuration(stats.durationSeconds);
+    const elevGain = Math.round(stats.elevationGain);
+    const cerroEarned = Math.round(pickCount * 12 + elevGain * 0.2);
+
     return (
       <AppShell hideNav>
-        <div className="flex flex-col min-h-screen bg-cd-bg">
+        <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", background: "var(--bg)", padding: "0 18px" }}>
+
           {/* Header */}
-          <div className="text-center pt-10 pb-4 px-6">
-            <span className="font-lexend text-xs uppercase tracking-widest text-cd-muted">
-              Trepada completada
-            </span>
-            <h1 className="font-big-shoulders text-5xl font-bold uppercase text-cd-ink mt-2 leading-[0.9]">
-              Buena<br />trepada!
+          <div style={{ textAlign: "center", marginTop: 16 }}>
+            <div className="eyebrow" style={{ justifyContent: "center" }}>
+              <span>TREPADA COMPLETADA</span>
+            </div>
+            <h1 className="h-display" style={{ fontSize: 48, marginTop: 12, lineHeight: 0.9 }}>
+              ¡Buena<br />trepada!
             </h1>
-            <p className="font-mono text-[11px] text-cd-muted tracking-wider mt-3 uppercase">
-              {formatDuration(stats.durationSeconds)}
-            </p>
-          </div>
-
-          {/* Map preview */}
-          <div className="mx-4 rounded-card overflow-hidden border border-cd-line">
-            <HikeMap points={mapPoints} height={200} className="w-full h-[200px]" />
-          </div>
-
-          {/* Summary stats grid */}
-          <div className="grid grid-cols-2 gap-3 mx-4 mt-4">
-            <div className="solid-card p-4 flex flex-col items-center">
-              <span className="font-lexend text-[10px] uppercase tracking-widest text-cd-muted">Distancia</span>
-              <span className="font-mono font-bold text-3xl text-cd-ink mt-1">
-                {(stats.distanceMeters / 1000).toFixed(2)}
-              </span>
-              <span className="font-mono text-[10px] text-cd-muted uppercase tracking-wider">KM</span>
-            </div>
-            <div className="solid-card p-4 flex flex-col items-center">
-              <span className="font-lexend text-[10px] uppercase tracking-widest text-cd-muted">Tiempo</span>
-              <span className="font-mono font-bold text-3xl text-cd-ink mt-1">
-                {formatDuration(stats.durationSeconds)}
-              </span>
-              <span className="font-mono text-[10px] text-cd-muted uppercase tracking-wider">HH:MM</span>
-            </div>
-            <div className="solid-card p-4 flex flex-col items-center">
-              <span className="font-lexend text-[10px] uppercase tracking-widest text-cd-muted">Elevacion</span>
-              <span className="font-mono font-bold text-3xl text-cd-ember mt-1">
-                +{Math.round(stats.elevationGain)}
-              </span>
-              <span className="font-mono text-[10px] text-cd-muted uppercase tracking-wider">MTS</span>
-            </div>
-            <div className="solid-card p-4 flex flex-col items-center">
-              <span className="font-lexend text-[10px] uppercase tracking-widest text-cd-muted">Puntos GPS</span>
-              <span className="font-mono font-bold text-3xl text-cd-ink mt-1">
-                {points.length}
-              </span>
-              <span className="font-mono text-[10px] text-cd-muted uppercase tracking-wider">COORDS</span>
+            <div style={{ fontFamily: "var(--font-mono-var)", fontSize: 11, color: "var(--muted)", letterSpacing: "0.1em", marginTop: 8, textTransform: "uppercase" }}>
+              EL DIENTE · {new Date().toLocaleDateString("es-MX", { weekday: "short", day: "numeric", month: "short" }).toUpperCase()} · {durFormatted}
             </div>
           </div>
 
-          {/* Validation badge */}
-          <div className="flex justify-center mt-5 px-4">
-            {validation.valid ? (
-              <div className="flex items-center gap-2 bg-cd-moss/10 text-cd-moss px-5 py-2.5 rounded-pill">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-                <span className="font-lexend text-sm font-semibold">Hike valido — listo para mintear</span>
+          {/* Big reward card */}
+          <div className="card" style={{ padding: 24, textAlign: "center", marginTop: 20, background: "linear-gradient(180deg, oklch(0.96 0.04 80), oklch(0.92 0.06 60))" }}>
+            <div className="eyebrow" style={{ justifyContent: "center" }}><span>RECOMPENSA MINTEADA</span></div>
+            <div className="h-display" style={{ fontSize: 64, marginTop: 8, lineHeight: 1, color: "var(--ember)" }}>+{cerroEarned}</div>
+            <div style={{ fontFamily: "var(--font-mono-var)", fontSize: 14, fontWeight: 600, color: "var(--ember)" }}>$CERRO</div>
+            <div style={{ display: "flex", gap: 8, marginTop: 16, justifyContent: "center", flexWrap: "wrap" }}>
+              <span className="chip">+38 XP</span>
+              <span className="chip chip-moss">2x MULTIPLIER</span>
+              <span className="chip chip-ember">TX FIRMADA</span>
+            </div>
+          </div>
+
+          {/* Summary stats */}
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 16 }}>
+            <div className="card stat" style={{ flex: 1, minWidth: "42%" }}>
+              <span className="lbl">Distancia</span>
+              <span className="val" style={{ fontFamily: "var(--font-mono-var)" }}>{distKm}</span>
+              <span className="sub">KM</span>
+            </div>
+            <div className="card stat" style={{ flex: 1, minWidth: "42%" }}>
+              <span className="lbl">Tiempo</span>
+              <span className="val" style={{ fontFamily: "var(--font-mono-var)" }}>{durFormatted}</span>
+              <span className="sub">HORAS</span>
+            </div>
+            <div className="card stat" style={{ flex: 1, minWidth: "42%" }}>
+              <span className="lbl">Recogido</span>
+              <span className="val" style={{ fontFamily: "var(--font-mono-var)" }}>{pickCount}</span>
+              <span className="sub">PIEZAS</span>
+            </div>
+            <div className="card stat" style={{ flex: 1, minWidth: "42%" }}>
+              <span className="lbl">Elevacion</span>
+              <span className="val" style={{ fontFamily: "var(--font-mono-var)" }}>+{elevGain}</span>
+              <span className="sub">METROS</span>
+            </div>
+          </div>
+
+          {/* Material breakdown */}
+          <div className="card" style={{ padding: 16, marginTop: 16 }}>
+            <div className="eyebrow" style={{ marginBottom: 12 }}><span>DESGLOSE DE MATERIALES</span></div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                  <div className="wiki-icon" style={{ width: 32, height: 32, borderRadius: 10 }}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 2h6l-1 5h-4z" /><rect x="7" y="7" width="10" height="14" rx="2" /></svg>
+                  </div>
+                  <span style={{ fontWeight: 600, fontSize: 13 }}>Botellas PET</span>
+                </div>
+                <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                  <span className="mult">x1.5</span>
+                  <span style={{ fontFamily: "var(--font-mono-var)", fontSize: 13, fontWeight: 700 }}>{Math.ceil(pickCount * 0.57)} · +{Math.ceil(pickCount * 0.57) * 12}</span>
+                </div>
               </div>
-            ) : (
-              <div className="flex items-center gap-2 bg-cd-ember/10 text-cd-ember px-5 py-2.5 rounded-pill">
-                <span className="font-lexend text-sm font-semibold">{validation.reason ?? "Hike invalido"}</span>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                  <div className="wiki-icon" style={{ width: 32, height: 32, borderRadius: 10, background: "color-mix(in oklch, var(--ember) 18%, var(--paper))", color: "var(--ember)" }}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="6" y="3" width="12" height="18" rx="2" /></svg>
+                  </div>
+                  <span style={{ fontWeight: 600, fontSize: 13 }}>Latas aluminio</span>
+                </div>
+                <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                  <span className="mult">x2.0</span>
+                  <span style={{ fontFamily: "var(--font-mono-var)", fontSize: 13, fontWeight: 700 }}>{Math.floor(pickCount * 0.29)} · +{Math.floor(pickCount * 0.29) * 16}</span>
+                </div>
               </div>
-            )}
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                  <div className="wiki-icon" style={{ width: 32, height: 32, borderRadius: 10 }}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 8l4-5h6l4 5v13H5z" /></svg>
+                  </div>
+                  <span style={{ fontWeight: 600, fontSize: 13 }}>Vidrio</span>
+                </div>
+                <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                  <span className="mult">x1.5</span>
+                  <span style={{ fontFamily: "var(--font-mono-var)", fontSize: 13, fontWeight: 700 }}>{Math.floor(pickCount * 0.14)} · +{Math.floor(pickCount * 0.14) * 12}</span>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Error */}
+          {/* Validation */}
           {error && (
-            <div className="mx-4 mt-4 bg-red-50 text-red-700 rounded-xl p-3 text-sm font-lexend">
+            <div className="card" style={{ padding: 14, marginTop: 12, borderColor: "oklch(0.55 0.18 25 / .3)", background: "oklch(0.95 0.02 25)", color: "oklch(0.4 0.18 25)", fontSize: 13 }}>
               {error}
             </div>
           )}
 
           {/* Actions */}
-          <div className="flex flex-col gap-3 mx-4 mt-6 pb-10">
-            <button
-              onClick={handleMintClick}
-              disabled={!validation.valid}
-              className="w-full bg-cd-ember text-white font-big-shoulders font-bold text-lg py-4 rounded-xl uppercase tracking-wider shadow-[0_8px_24px_rgba(212,116,42,0.35)] haptic-active transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Mintear NFT
-            </button>
-            <button
-              onClick={handleDiscard}
-              className="w-full border-2 border-cd-moss text-cd-moss font-big-shoulders font-bold text-lg py-4 rounded-xl uppercase tracking-wider haptic-active transition-colors hover:bg-cd-moss/5"
-            >
-              Descartar
-            </button>
-          </div>
+          <button className="btn btn-primary" style={{ marginTop: 20 }} onClick={handleMintClick} disabled={!validation.valid}>
+            MINTEAR NFT
+          </button>
+          <button className="btn btn-secondary" style={{ marginTop: 12, marginBottom: 40 }} onClick={handleDiscard}>
+            Descartar
+          </button>
         </div>
 
         {/* Submit Modal */}
         {showSubmitModal && (
           <div
-            className="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-start md:items-center justify-center overflow-y-auto"
+            style={{ position: "fixed", inset: 0, zIndex: 100, background: "rgba(0,0,0,.5)", backdropFilter: "blur(8px)", display: "flex", alignItems: "flex-start", justifyContent: "center", overflowY: "auto" }}
             role="dialog"
             aria-modal="true"
           >
-            <div className="w-full max-w-[480px] md:max-w-lg min-h-screen md:min-h-0 md:max-h-[90vh] md:overflow-y-auto bg-cd-paper rounded-none md:rounded-card shadow-premium">
-              <div className="flex items-center justify-between px-5 py-4 border-b border-cd-line sticky top-0 bg-cd-paper z-10">
-                <div className="flex items-center gap-2">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-cd-moss">
+            <div style={{ width: "100%", maxWidth: 480, minHeight: "100vh", background: "var(--paper)" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 20px", borderBottom: "1px solid var(--line)", position: "sticky", top: 0, background: "var(--paper)", zIndex: 10 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: "var(--moss)" }}>
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <h2 className="font-big-shoulders text-xl font-bold text-cd-ink uppercase tracking-tight">
+                  <h2 style={{ fontFamily: "var(--font-display)", fontSize: 20, fontWeight: 800, color: "var(--ink)", textTransform: "uppercase", letterSpacing: "0.01em", margin: 0 }}>
                     Proof-of-Clean
                   </h2>
                 </div>
-                <button
-                  onClick={handleCancelModal}
-                  className="text-cd-muted hover:text-cd-ink p-1 transition-colors"
-                  aria-label="Cerrar"
-                >
+                <button onClick={handleCancelModal} style={{ background: "none", border: 0, cursor: "pointer", color: "var(--muted)", padding: 4 }} aria-label="Cerrar">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
                   </svg>
                 </button>
               </div>
-              <div className="p-5">
+              <div style={{ padding: 20 }}>
                 <SubmitHike
                   stats={stats}
                   points={mapPoints}
@@ -232,174 +257,227 @@ export default function HikePage() {
   /* ─── IDLE + ACTIVE STATES ─── */
   return (
     <AppShell hideNav>
-      <div className="flex flex-col min-h-screen bg-cd-bg">
-        {/* ─── Map area ─── */}
-        <div className="relative w-full">
-          <div className={`w-full ${isTracking ? "h-[55vh]" : "h-[320px]"} transition-all duration-500`}>
-            <HikeMap points={mapPoints} height={isTracking ? 500 : 320} className="w-full h-full" />
+      <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", background: "var(--bg)" }}>
+
+        {/* ──── IDLE STATE ──── */}
+        {!isTracking && !hasPoints && (
+          <div style={{ padding: "0 18px" }}>
+
+            {/* Eyebrow */}
+            <div className="eyebrow" style={{ marginTop: 16 }}>
+              <span>SENDERO SELECCIONADO</span>
+              <span className="tick" />
+              <span>2X</span>
+            </div>
+
+            {/* Title */}
+            <h1 className="h-display" style={{ fontSize: 36, marginTop: 8, lineHeight: 0.95 }}>
+              Cerro<br />El Diente
+            </h1>
+
+            {/* Subtitle meta */}
+            <div style={{ fontFamily: "var(--font-mono-var)", fontSize: 11, color: "var(--muted)", letterSpacing: "0.1em", marginTop: 8, textTransform: "uppercase" }}>
+              5.8 KM · DIFICULTAD MEDIA · ~1H 45M
+            </div>
+
+            {/* Map stage */}
+            <div className="map-stage" style={{ height: 240, marginTop: 16 }}>
+              <div className="map-grid" />
+              <svg style={{ position: "absolute", inset: 0 }} viewBox="0 0 400 240" preserveAspectRatio="none">
+                <ellipse cx={120} cy={180} rx={110} ry={60} fill="oklch(0.85 0.08 145 / .55)" />
+                <ellipse cx={290} cy={80} rx={100} ry={50} fill="oklch(0.85 0.08 145 / .55)" />
+                <path d="M40 200 Q100 140 180 130 T 360 50" stroke="oklch(0.78 0.02 150)" strokeWidth="3" fill="none" />
+                <path d="M40 200 Q100 140 180 130 T 360 50" stroke="var(--ember)" strokeWidth="3" fill="none" strokeDasharray="6 6" opacity={0.6} />
+                <circle cx={40} cy={200} r={6} fill="var(--moss)" />
+                <circle cx={360} cy={50} r={8} fill="var(--ember)" />
+              </svg>
+              <div style={{ position: "absolute", bottom: 12, left: 14, right: 14, display: "flex", gap: 8, justifyContent: "space-between" }}>
+                <div className="chip" style={{ background: "rgba(255,255,255,.8)" }}>
+                  <span style={{ fontFamily: "var(--font-mono-var)" }}>START</span>
+                </div>
+                <div className="chip chip-ember">
+                  <span style={{ fontFamily: "var(--font-mono-var)" }}>CUMBRE 1,820m</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Elevation profile */}
+            <div className="card" style={{ padding: 14, marginTop: 12 }}>
+              <div className="eyebrow" style={{ marginBottom: 8 }}>
+                <span>PERFIL ELEVACION</span>
+                <span className="tick" />
+                <span style={{ fontFamily: "var(--font-mono-var)" }}>+420M</span>
+              </div>
+              <svg viewBox="0 0 320 80" style={{ width: "100%", height: 80 }}>
+                <defs>
+                  <linearGradient id="ele" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stopColor="oklch(0.7 0.1 145)" stopOpacity={0.6} />
+                    <stop offset="1" stopColor="oklch(0.7 0.1 145)" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <path d="M0 70 L20 60 L50 50 L90 30 L130 38 L170 22 L210 28 L250 14 L290 6 L320 12 L320 80 L0 80 Z" fill="url(#ele)" />
+                <path d="M0 70 L20 60 L50 50 L90 30 L130 38 L170 22 L210 28 L250 14 L290 6 L320 12" fill="none" stroke="var(--moss)" strokeWidth="2" />
+              </svg>
+              <div style={{ display: "flex", justifyContent: "space-between", fontFamily: "var(--font-mono-var)", color: "var(--muted)", fontSize: 10, letterSpacing: "0.1em" }}>
+                <span>1,400 M</span>
+                <span>1,820 M</span>
+              </div>
+            </div>
+
+            {/* Chip badges */}
+            <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
+              <div className="chip chip-moss">DIFICULTAD MEDIA</div>
+              <div className="chip chip-ember">MULTIPLICADOR x2</div>
+            </div>
+
+            {/* Trepadores cerca */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 20, marginBottom: 8 }}>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 20, color: "var(--ink)", margin: 0 }}>Trepadores cerca</h2>
+              <span className="chip chip-moss">
+                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "currentColor", display: "inline-block" }} />
+                3 ACTIVOS
+              </span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <div className="buddy">
+                <div className="av" />
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 700, fontSize: 13 }}>@chivasreciclas</div>
+                  <div style={{ fontFamily: "var(--font-mono-var)", fontSize: 10, letterSpacing: "0.05em", color: "var(--muted)" }}>EN RUTA · 1.2 KM</div>
+                </div>
+                <button className="btn-secondary" style={{ height: 32, padding: "0 12px", fontSize: 11, borderRadius: 99, border: "1px solid var(--line)", background: "var(--paper)", cursor: "pointer" }}>SALUDAR</button>
+              </div>
+              <div className="buddy">
+                <div className="av b" />
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 700, fontSize: 13 }}>@gdl_huellaverde</div>
+                  <div style={{ fontFamily: "var(--font-mono-var)", fontSize: 10, letterSpacing: "0.05em", color: "var(--muted)" }}>CUMBRE · 0.4 KM</div>
+                </div>
+                <button className="btn-secondary" style={{ height: 32, padding: "0 12px", fontSize: 11, borderRadius: 99, border: "1px solid var(--line)", background: "var(--paper)", cursor: "pointer" }}>SALUDAR</button>
+              </div>
+            </div>
+
+            {/* Start button */}
+            <button className="btn btn-primary" style={{ marginTop: 20 }} onClick={start}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+              INICIAR TREPADA
+            </button>
+            <div style={{ color: "var(--muted)", textAlign: "center", marginTop: 8, fontSize: 11, paddingBottom: 40 }}>
+              El GPS empezara a registrar tu ruta y bolsas recolectadas.
+            </div>
           </div>
+        )}
 
-          {/* Live indicator (tracking only) */}
-          {isTracking && (
-            <div className="absolute top-4 left-4 z-10 flex items-center gap-2 solid-card px-3 py-1.5 !rounded-pill shadow-lg">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cd-ember opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cd-ember" />
-              </span>
-              <span className="font-lexend text-[10px] text-cd-ink uppercase tracking-widest font-semibold">
-                Live Mission
-              </span>
-            </div>
-          )}
+        {/* ──── ACTIVE (TRACKING) STATE ──── */}
+        {isTracking && (
+          <div style={{ display: "flex", flexDirection: "column" }}>
 
-          {/* GPS locked badge (tracking only) */}
-          {isTracking && (
-            <div className="absolute top-4 right-4 z-10 solid-card px-3 py-1.5 !rounded-pill shadow-lg flex items-center gap-1.5 gps-glow">
-              <span className="inline-block w-2 h-2 rounded-full bg-green-400" />
-              <span className="font-mono text-[10px] text-cd-moss uppercase tracking-wider font-semibold">GPS</span>
-            </div>
-          )}
-
-          {/* Timer chip over map (tracking only) */}
-          {isTracking && (
-            <div className="absolute bottom-4 right-4 z-10 solid-card px-3 py-1.5 !rounded-pill shadow-lg">
-              <span className="font-mono text-sm font-bold text-cd-ink">{formatDuration(stats.durationSeconds)}</span>
-            </div>
-          )}
-        </div>
-
-        {/* ─── Content below map ─── */}
-        <div className="flex-1 px-4 pb-10 -mt-6 relative z-10">
-
-          {/* ──── IDLE STATE ──── */}
-          {!isTracking && !hasPoints && (
-            <div className="flex flex-col">
-              {/* Trail info card */}
-              <div className="solid-card p-6">
-                <span className="font-lexend text-[10px] uppercase tracking-widest text-cd-muted">
-                  Sendero seleccionado
-                </span>
-                <h1 className="font-big-shoulders text-4xl font-bold uppercase text-cd-ink mt-2 leading-[0.95]">
-                  Trepada libre
-                </h1>
-                <p className="font-mono text-[11px] text-cd-muted tracking-wider mt-3 uppercase">
-                  GPS auto-tracking · Distancia libre · Sin limite
-                </p>
-
-                {/* Trail meta chips */}
-                <div className="flex gap-2 mt-4 flex-wrap">
-                  <span className="coordinate-chip">GPS ACTIVO</span>
-                  <span className="coordinate-chip">MONAD TESTNET</span>
+            {/* Map stage with live header */}
+            <div className="map-stage" style={{ height: 340, borderRadius: 0 }}>
+              <div className="liveheader">
+                <div className="live-tag">
+                  <span className="pulse" />
+                  EN VIVO
+                </div>
+                <div className="chip" style={{ background: "rgba(255,255,255,.85)" }}>
+                  <span style={{ fontFamily: "var(--font-mono-var)" }}>{formatDuration(stats.durationSeconds)}</span>
                 </div>
               </div>
 
-              {/* Info hints */}
-              <div className="solid-card p-4 mt-3 flex items-start gap-3">
-                <div className="w-8 h-8 rounded-full bg-cd-moss/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-cd-moss">
-                    <circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" />
-                  </svg>
+              {/* HikeMap inside map-stage */}
+              <HikeMap points={mapPoints} height={340} className="w-full h-full" />
+
+              {/* Pulse dot */}
+              <div className="pulse-dot" style={{ position: "absolute", left: "53%", top: "53%" }} />
+
+              {/* Elevation chip */}
+              <div style={{ position: "absolute", bottom: 12, right: 14 }}>
+                <div className="chip" style={{ background: "rgba(255,255,255,.85)", fontFamily: "var(--font-mono-var)" }}>
+                  +{Math.round(stats.elevationGain)}M
                 </div>
+              </div>
+            </div>
+
+            {/* Content pad */}
+            <div style={{ padding: "0 18px" }}>
+
+              {/* Live HUD */}
+              <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
+                <div className="card stat" style={{ flex: 1 }}>
+                  <span className="lbl">Distancia</span>
+                  <span className="hud-num" style={{ fontFamily: "var(--font-mono-var)" }}>{(stats.distanceMeters / 1000).toFixed(2)}</span>
+                  <span className="sub">KM</span>
+                </div>
+                <div className="card stat" style={{ flex: 1 }}>
+                  <span className="lbl">Pace</span>
+                  <span className="hud-num" style={{ fontFamily: "var(--font-mono-var)" }}>{formatPace(stats.distanceMeters, stats.durationSeconds)}</span>
+                  <span className="sub">MIN/KM</span>
+                </div>
+                <div className="card stat" style={{ flex: 1 }}>
+                  <span className="lbl">Elevacion</span>
+                  <span className="hud-num" style={{ fontFamily: "var(--font-mono-var)" }}>+{Math.round(stats.elevationGain)}</span>
+                  <span className="sub">MTS</span>
+                </div>
+              </div>
+
+              {/* Pickup counter (pickbar) */}
+              <div className="pickbar" style={{ marginTop: 12 }}>
                 <div>
-                  <p className="font-lexend text-sm text-cd-ink font-medium">Como funciona</p>
-                  <p className="font-lexend text-xs text-cd-muted mt-1 leading-relaxed">
-                    El GPS registrara tu ruta automaticamente. Al terminar podras mintear un NFT como prueba de tu trepada.
-                  </p>
-                </div>
-              </div>
-
-              {/* Start CTA */}
-              <button
-                onClick={start}
-                className="w-full bg-cd-ember text-white font-big-shoulders font-bold text-xl py-5 rounded-xl mt-6 shadow-[0_8px_30px_rgba(212,116,42,0.4)] haptic-active transition-transform flex items-center justify-center gap-3 uppercase tracking-wider"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-                Iniciar trepada
-              </button>
-
-              <p className="font-mono text-[10px] text-cd-muted/60 text-center mt-4 uppercase tracking-widest">
-                El GPS empezara a registrar tu ruta
-              </p>
-            </div>
-          )}
-
-          {/* ──── ACTIVE (TRACKING) STATE ──── */}
-          {isTracking && (
-            <div className="flex flex-col">
-              {/* Live stats HUD */}
-              <div className="solid-card p-5">
-                <div className="grid grid-cols-3 gap-3">
-                  {/* Distance */}
-                  <div className="flex flex-col items-center">
-                    <span className="font-lexend text-[10px] uppercase tracking-widest text-cd-muted">
-                      Distancia
-                    </span>
-                    <span className="font-mono font-bold text-3xl text-cd-ink leading-none mt-1">
-                      {(stats.distanceMeters / 1000).toFixed(2)}
-                    </span>
-                    <span className="font-mono text-[10px] text-cd-muted uppercase tracking-wider mt-0.5">KM</span>
-                  </div>
-
-                  {/* Duration */}
-                  <div className="flex flex-col items-center border-x border-cd-line">
-                    <span className="font-lexend text-[10px] uppercase tracking-widest text-cd-muted">
-                      Duracion
-                    </span>
-                    <span className="font-mono font-bold text-3xl text-cd-ink leading-none mt-1">
-                      {formatDuration(stats.durationSeconds)}
-                    </span>
-                  </div>
-
-                  {/* Elevation */}
-                  <div className="flex flex-col items-center">
-                    <span className="font-lexend text-[10px] uppercase tracking-widest text-cd-muted">
-                      Elevacion
-                    </span>
-                    <span className="font-mono font-bold text-3xl text-cd-ember leading-none mt-1">
-                      +{Math.round(stats.elevationGain)}
-                    </span>
-                    <span className="font-mono text-[10px] text-cd-muted uppercase tracking-wider mt-0.5">MTS</span>
+                  <div className="small">RECOLECTADO</div>
+                  <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                    <span className="count">{pickCount}</span>
+                    <span style={{ fontFamily: "var(--font-mono-var)", fontSize: 11, opacity: 0.6 }}>x{(pickCount * 0.17).toFixed(1)}KG</span>
                   </div>
                 </div>
+                <div style={{ flex: 1 }} />
+                <div style={{ textAlign: "right" }}>
+                  <div className="small" style={{ opacity: 0.5 }}>GANADO HOY</div>
+                  <div style={{ display: "flex", gap: 4, alignItems: "center", justifyContent: "flex-end" }}>
+                    <span className="count" style={{ fontSize: 30, color: "var(--ember)" }}>+{pickCount * 12}</span>
+                    <span style={{ fontFamily: "var(--font-mono-var)", fontSize: 11, opacity: 0.6, paddingBottom: 6 }}>$CERRO</span>
+                  </div>
+                </div>
+                <button className="pick-btn" onClick={() => setPickCount((c) => c + 1)}>+1</button>
               </div>
 
-              {/* Pickup counter bar */}
-              <div className="solid-card p-4 mt-3 flex items-center justify-between">
-                <div>
-                  <span className="font-lexend text-[10px] uppercase tracking-widest text-cd-muted block">
-                    Puntos GPS
-                  </span>
-                  <span className="font-mono font-bold text-2xl text-cd-ink">{points.length}</span>
-                  <span className="font-mono text-[10px] text-cd-muted ml-1">coords</span>
+              {/* Last pickup card */}
+              {pickCount > 0 && (
+                <div className="card" style={{ padding: 14, marginTop: 12 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+                    <span className="eyebrow"><span>ULTIMA RECOLECCION</span></span>
+                    <span className="mult">x1.5</span>
+                  </div>
+                  <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+                    <div className="photo" style={{ width: 72, height: 72, flexShrink: 0 }}>FOTO</div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontWeight: 700, fontSize: 14 }}>Botella PET — 600ml</div>
+                      <div style={{ fontFamily: "var(--font-mono-var)", fontSize: 11, color: "var(--muted)", letterSpacing: "0.05em" }}>
+                        HACE {pickCount} MIN · {points.length > 0 ? `${points[points.length - 1].lat.toFixed(4)}°N` : "GPS"}
+                      </div>
+                      <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
+                        <span className="chip chip-ember" style={{ fontFamily: "var(--font-mono-var)" }}>+12 $CERRO</span>
+                        <span className="chip">PET #{pickCount}</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="coordinate-chip flex items-center gap-1">
-                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-400 gps-glow" />
-                  <span>TRACKING</span>
-                </div>
-              </div>
+              )}
 
               {/* Error */}
               {error && (
-                <div className="solid-card mt-3 p-3 !border-red-200 !bg-red-50 text-red-700 text-sm font-lexend">
+                <div className="card" style={{ padding: 14, marginTop: 12, borderColor: "oklch(0.55 0.18 25 / .3)", background: "oklch(0.95 0.02 25)", color: "oklch(0.4 0.18 25)", fontSize: 13 }}>
                   {error}
                 </div>
               )}
 
-              {/* End CTA */}
-              <button
-                onClick={stop}
-                className="w-full bg-cd-ember text-white font-big-shoulders font-bold text-xl py-5 rounded-xl mt-6 shadow-[0_8px_30px_rgba(212,116,42,0.4)] haptic-active transition-transform flex items-center justify-center gap-3 uppercase tracking-wider"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <rect x="6" y="6" width="12" height="12" rx="2" />
-                </svg>
-                Terminar trepada
+              {/* End button */}
+              <button className="btn btn-danger" style={{ marginTop: 20, marginBottom: 40 }} onClick={stop}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2" /></svg>
+                TERMINAR TREPADA
               </button>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </AppShell>
   );

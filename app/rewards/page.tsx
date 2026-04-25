@@ -23,6 +23,10 @@ const CATEGORY_ORDER: RewardCategory[] = [
   "DONATION", "SERVICE", "MERCH", "EXCLUSIVE",
 ];
 
+const FILTER_LABELS = [
+  "Todos", "Chelas y Cafe", "Comida", "Eventos", "Equipo Outdoor", "Donaciones",
+];
+
 const APPROVE_FLAG_KEY = "rastros_prima_approved";
 const EXPLORER_TX = "https://testnet.monadexplorer.com/tx/";
 
@@ -34,7 +38,7 @@ function categoryFromIndex(idx: number): RewardCategory | undefined {
   return CATEGORY_ORDER[idx];
 }
 
-/* ─── Confirm Modal (Claude Design) ──────────────────────────────────────── */
+/* ─── Confirm Modal ──────────────────────────────────────── */
 
 function ConfirmModal({
   reward, onConfirm, onClose, isPending, errorMessage,
@@ -68,7 +72,7 @@ function ConfirmModal({
         <p className="text-sm text-cd-muted mb-5 leading-relaxed">{reward.description}</p>
 
         {/* Cost card */}
-        <div className="solid-card px-4 py-3 mb-5 flex items-baseline justify-between">
+        <div className="card" style={{ padding: "12px 16px", marginBottom: 20, display: "flex", alignItems: "baseline", justifyContent: "space-between" }}>
           <span className="text-sm text-cd-muted">Costo</span>
           <span className="font-mono font-bold text-xl text-cd-ember">
             {formatPrima(reward.costInPrima)} <span className="text-sm text-cd-muted font-lexend font-normal">{TOKEN_DISPLAY_NAME}</span>
@@ -85,14 +89,14 @@ function ConfirmModal({
           <button
             onClick={onConfirm}
             disabled={isPending}
-            className="w-full bg-cd-ember text-white font-big-shoulders uppercase tracking-widest font-bold py-4 rounded-xl haptic-active shadow-lg disabled:opacity-50 transition-all"
+            className="btn btn-primary"
           >
             {isPending ? "Procesando..." : "Confirmar canje"}
           </button>
           <button
             onClick={onClose}
             disabled={isPending}
-            className="w-full border-2 border-cd-line text-cd-muted font-big-shoulders uppercase tracking-widest font-bold py-4 rounded-xl hover:border-cd-ink hover:text-cd-ink transition-colors"
+            className="btn btn-secondary"
           >
             Cancelar
           </button>
@@ -102,7 +106,7 @@ function ConfirmModal({
   );
 }
 
-/* ─── Voucher Modal (Claude Design) ──────────────────────────────────────── */
+/* ─── Voucher Modal ──────────────────────────────────────── */
 
 function VoucherModal({ reward, txHash, onClose }: { reward: RewardOnChain; txHash: `0x${string}`; onClose: () => void }) {
   const router = useRouter();
@@ -123,8 +127,8 @@ function VoucherModal({ reward, txHash, onClose }: { reward: RewardOnChain; txHa
 
         {/* Tx hash card */}
         <a href={`${EXPLORER_TX}${txHash}`} target="_blank" rel="noopener noreferrer"
-          className="block solid-card px-4 py-3 mb-5 hover:border-cd-moss transition-colors group">
-          <p className="text-[10px] font-big-shoulders uppercase tracking-widest text-cd-muted mb-1">Tx hash</p>
+          className="block card hover:border-cd-moss transition-colors group" style={{ padding: "12px 16px", marginBottom: 20 }}>
+          <p className="eyebrow mb-1">Tx hash</p>
           <p className="font-mono text-xs text-cd-moss break-all group-hover:underline">{txHash}</p>
         </a>
 
@@ -132,13 +136,13 @@ function VoucherModal({ reward, txHash, onClose }: { reward: RewardOnChain; txHa
         <div className="flex flex-col gap-2">
           <button
             onClick={() => router.push("/profile")}
-            className="w-full bg-cd-ember text-white font-big-shoulders uppercase tracking-widest font-bold py-4 rounded-xl haptic-active shadow-lg transition-all"
+            className="btn btn-primary"
           >
             Ir a mi perfil
           </button>
           <button
             onClick={onClose}
-            className="w-full border-2 border-cd-line text-cd-muted font-big-shoulders uppercase tracking-widest font-bold py-4 rounded-xl hover:border-cd-ink hover:text-cd-ink transition-colors"
+            className="btn btn-secondary"
           >
             Seguir explorando
           </button>
@@ -148,82 +152,7 @@ function VoucherModal({ reward, txHash, onClose }: { reward: RewardOnChain; txHa
   );
 }
 
-/* ─── Reward Card (Claude Design) ────────────────────────────────────────── */
-
-function RewardCard({ reward, balance, onClick }: { reward: RewardOnChain; balance: bigint; onClick: (r: RewardOnChain) => void }) {
-  const [imgError, setImgError] = useState(false);
-  const catKey = categoryFromIndex(reward.category);
-  const info = catKey ? CATEGORY_INFO[catKey] : null;
-  const canAfford = balance >= reward.costInPrima;
-  const outOfStock = reward.stock === 0n;
-  const disabled = !canAfford || outOfStock;
-
-  const imgSrc = reward.imageURI ? ipfsToGateway(reward.imageURI) : "";
-  const showImage = Boolean(imgSrc) && !imgError;
-
-  return (
-    <button
-      type="button"
-      onClick={() => !disabled && onClick(reward)}
-      disabled={disabled}
-      className={`text-left w-full group ${disabled ? "opacity-60 cursor-not-allowed" : ""}`}
-    >
-      <div className="solid-card overflow-hidden flex flex-col h-full relative transition-all duration-200 group-hover:shadow-lg group-hover:-translate-y-0.5">
-        {/* Price badge */}
-        <div className="absolute top-3 right-3 z-10 bg-cd-ember text-white font-mono font-bold text-xs px-3 py-1 rounded-full shadow-md flex items-center gap-1">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M8 10h8"/></svg>
-          {formatPrima(reward.costInPrima)}
-        </div>
-
-        {/* Out of stock badge */}
-        {outOfStock && (
-          <div className="absolute top-3 left-3 z-10 bg-cd-ink text-white font-big-shoulders uppercase text-[10px] tracking-widest px-3 py-1 rounded-full">
-            Agotado
-          </div>
-        )}
-
-        {/* Image area */}
-        <div
-          className="aspect-[16/9] w-full flex items-center justify-center text-5xl overflow-hidden"
-          style={{ background: info ? `${info.color}15` : "rgba(168,168,160,0.1)" }}
-        >
-          {showImage ? (
-            <img src={imgSrc} alt={reward.name} className="w-full h-full object-cover" onError={() => setImgError(true)} />
-          ) : (
-            <span className="opacity-70">{info?.icon ?? "🎁"}</span>
-          )}
-        </div>
-
-        {/* Body */}
-        <div className="p-4 flex-1 flex flex-col font-lexend">
-          <h3 className="font-big-shoulders uppercase text-base font-bold text-cd-ink tracking-wide mb-1 leading-tight">{reward.name}</h3>
-          {info && (
-            <span
-              className="inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full mb-2 w-fit"
-              style={{ backgroundColor: `${info.color}15`, color: info.color }}
-            >
-              {info.label}
-            </span>
-          )}
-          <p className="text-xs text-cd-muted line-clamp-2 mb-3 leading-relaxed">{reward.description}</p>
-          <div className="mt-auto flex items-center justify-between">
-            <div className="flex items-center gap-1.5 font-mono font-bold text-sm text-cd-ember">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M8 10h8"/></svg>
-              <span>{formatPrima(reward.costInPrima)}</span>
-            </div>
-            {!disabled && (
-              <span className="text-[10px] font-big-shoulders uppercase tracking-widest text-cd-moss opacity-0 group-hover:opacity-100 transition-opacity">
-                Canjear
-              </span>
-            )}
-          </div>
-        </div>
-      </div>
-    </button>
-  );
-}
-
-/* ─── Main Page ──────────────────────────────────────────────────────────── */
+/* ─── Main Page ──────────────────────────────────────────── */
 
 export default function RewardsPage() {
   const { address, isConnected } = useAccount();
@@ -232,16 +161,20 @@ export default function RewardsPage() {
   const { redeem, isPending: isRedeemPending } = useRedeemReward();
   const { approve } = useApprovePrima();
 
-  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+  const [selectedFilter, setSelectedFilter] = useState(0); // 0 = Todos
   const [selectedReward, setSelectedReward] = useState<RewardOnChain | null>(null);
   const [voucher, setVoucher] = useState<{ reward: RewardOnChain; txHash: `0x${string}` } | null>(null);
   const [confirmError, setConfirmError] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
 
   const filtered = useMemo(() => {
-    if (selectedCategory === null) return rewards;
-    return rewards.filter((r) => r.category === selectedCategory);
-  }, [rewards, selectedCategory]);
+    if (selectedFilter === 0) return rewards;
+    const catIdx = selectedFilter - 1;
+    return rewards.filter((r) => r.category === catIdx);
+  }, [rewards, selectedFilter]);
+
+  // Featured = first reward with stock
+  const featured = useMemo(() => rewards.find((r) => r.stock > 0n), [rewards]);
 
   useEffect(() => {
     if (!selectedReward) setConfirmError(null);
@@ -278,119 +211,214 @@ export default function RewardsPage() {
     }
   }
 
+  const canAfford = (r: RewardOnChain) => balance >= r.costInPrima;
+  const outOfStock = (r: RewardOnChain) => r.stock === 0n;
+
   return (
     <AppShell>
-      <div className="font-lexend flex flex-col gap-6">
-        {!isConnected ? (
-          /* ── Not connected state ── */
-          <div className="flex flex-col items-center gap-6 py-16 text-center">
-            <div className="w-16 h-16 rounded-full bg-cd-ember/10 flex items-center justify-center">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="text-cd-ember">
-                <path d="M3 20l5.5-9 4 6 3-4L21 20z"/>
-              </svg>
-            </div>
-            <h2 className="font-big-shoulders uppercase text-2xl tracking-wide text-cd-ink">Conecta tu wallet</h2>
-            <p className="text-sm text-cd-muted max-w-[28ch]">
-              Para ver tu balance y canjear recompensas, conectate primero.
-            </p>
-            <ConnectButton />
+      {!isConnected ? (
+        <div className="flex flex-col items-center gap-6 py-16 text-center font-lexend">
+          <div className="w-16 h-16 rounded-full bg-cd-ember/10 flex items-center justify-center">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="text-cd-ember">
+              <path d="M3 20l5.5-9 4 6 3-4L21 20z"/>
+            </svg>
           </div>
-        ) : (
-          <>
-            {/* ── Page title ── */}
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="font-big-shoulders uppercase text-4xl font-black text-cd-ink leading-none tracking-wide">
-                  Marketplace<br/>
-                  <span className="text-cd-moss">Local</span>
-                </h1>
-                <p className="text-sm text-cd-muted mt-2 max-w-[36ch] leading-relaxed">
-                  Tus $CERRO valen aqui. Negocios aliados de Jalisco aceptan tu trepada como pago.
-                </p>
-              </div>
-              <Link
-                href="/profile/leaderboard"
-                className="coordinate-chip text-[11px] text-cd-muted hover:text-cd-moss transition-colors flex items-center gap-1.5 shrink-0"
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M8 3h8l-1 7h-6z"/><path d="M9 14h6v2H9z"/><path d="M7 21h10v-3H7z"/></svg>
-                Ranking
-              </Link>
-            </div>
+          <h2 className="font-big-shoulders uppercase text-2xl tracking-wide text-cd-ink">Conecta tu wallet</h2>
+          <p className="text-sm text-cd-muted max-w-[28ch]">
+            Para ver tu balance y canjear recompensas, conectate primero.
+          </p>
+          <ConnectButton />
+        </div>
+      ) : (
+        <>
+          {/* ── Hero ── */}
+          <div style={{ padding: "0 18px" }}>
+            <h1 className="font-big-shoulders" style={{ fontSize: 36, fontWeight: 900, lineHeight: 0.95, margin: 0, color: "var(--ink)" }}>
+              Marketplace<br/>Local
+            </h1>
+            <p style={{ fontSize: 13, margin: "10px 0 0", maxWidth: "36ch", color: "var(--muted)" }}>
+              Tus $CERRO valen aqui. Negocios aliados de Jalisco aceptan tu trepada como pago.
+            </p>
+          </div>
 
-            {/* ── Balance card ── */}
-            <div className="solid-card p-4 flex items-center gap-4">
-              <div className="flex-1">
-                <p className="text-[10px] font-big-shoulders uppercase tracking-[0.16em] text-cd-muted mb-1">Saldo disponible</p>
-                <div className="font-mono font-bold text-4xl text-cd-ember leading-none">
-                  {isBalanceLoading ? (
-                    <span className="text-cd-muted text-2xl">...</span>
-                  ) : (
-                    <>
-                      {formatPrima(balance)}
-                      <span className="text-sm text-cd-muted font-lexend font-normal ml-2">$CERRO</span>
-                    </>
-                  )}
+          {/* ── Balance + Ranking strip ── */}
+          <div style={{ padding: "16px 18px 0" }}>
+            <div className="card" style={{ padding: 16, display: "flex", alignItems: "center", gap: 14 }}>
+              <div>
+                <div className="eyebrow"><span>SALDO DISPONIBLE</span></div>
+                <div className="font-big-shoulders" style={{ fontSize: 30, fontWeight: 900, lineHeight: 1, color: "var(--ember)", marginTop: 4 }}>
+                  {isBalanceLoading ? "..." : formatPrima(balance)}{" "}
+                  <span style={{ fontSize: 14, opacity: 0.6, fontWeight: 700 }}>{TOKEN_DISPLAY_NAME}</span>
                 </div>
               </div>
-              <div className="text-center shrink-0">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="text-cd-moss mx-auto">
+              <div style={{ flex: 1 }} />
+              <div className="text-center">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" style={{ color: "var(--moss)" }}>
                   <path d="M8 3h8l-1 7h-6z"/><path d="M5 6h-2a3 3 0 0 0 3 3"/><path d="M19 6h2a3 3 0 0 1-3 3"/><path d="M9 14h6v2H9z"/><path d="M7 21h10v-3H7z"/>
                 </svg>
-                <p className="font-mono text-[9px] tracking-[0.16em] text-cd-muted mt-1 uppercase">Ranking</p>
+                <div className="font-mono" style={{ fontSize: 9, letterSpacing: "0.16em", marginTop: 4, color: "var(--muted)" }}>RANKING<br/>#214</div>
               </div>
             </div>
+          </div>
 
-            {/* ── Category filter pills ── */}
-            <div className="flex gap-2 overflow-x-auto no-scrollbar -mx-5 px-5 pb-1">
+          {/* ── Filter chips ── */}
+          <div className="hscroll" style={{ marginTop: 16 }}>
+            {FILTER_LABELS.map((label, idx) => (
               <button
-                onClick={() => setSelectedCategory(null)}
-                className={`flex-none px-4 py-2 rounded-xl font-bold text-sm border transition-colors ${
-                  selectedCategory === null
-                    ? "bg-cd-ink text-white border-transparent"
-                    : "bg-cd-paper text-cd-muted border-cd-line hover:border-cd-ink"
-                }`}
+                key={label}
+                onClick={() => setSelectedFilter(idx)}
+                className="chip"
+                style={selectedFilter === idx
+                  ? { background: "var(--ink)", color: "var(--bg)", borderColor: "transparent", flexShrink: 0 }
+                  : { flexShrink: 0 }
+                }
               >
-                Todos
+                {label}
               </button>
-              {CATEGORY_ORDER.map((key, idx) => {
-                const info = CATEGORY_INFO[key];
-                const active = selectedCategory === idx;
-                return (
-                  <button
-                    key={key}
-                    onClick={() => setSelectedCategory(idx)}
-                    className={`flex-none px-4 py-2 rounded-xl font-bold text-sm border transition-colors ${
-                      active
-                        ? "bg-cd-moss text-white border-transparent"
-                        : "bg-cd-paper text-cd-muted border-cd-line hover:border-cd-ink"
-                    }`}
-                  >
-                    {info.icon} {info.label}
-                  </button>
-                );
-              })}
-            </div>
+            ))}
+          </div>
 
-            {/* ── Catalog grid ── */}
-            {isRewardsLoading && (
-              <p className="text-center text-cd-muted py-12 font-mono text-sm">Cargando catalogo...</p>
-            )}
-            {rewardsError && (
-              <p className="text-center text-red-700 py-12 text-sm">Error: {rewardsError.message}</p>
-            )}
-            {!isRewardsLoading && !rewardsError && filtered.length === 0 && (
-              <p className="text-center text-cd-muted py-12 text-sm">No hay recompensas en esta categoria.</p>
-            )}
-            {filtered.length > 0 && (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                {filtered.map((r) => (
-                  <RewardCard key={r.id.toString()} reward={r} balance={balance} onClick={setSelectedReward} />
-                ))}
+          {/* ── Loading / Error / Empty states ── */}
+          {isRewardsLoading && (
+            <p className="text-center font-mono text-sm" style={{ color: "var(--muted)", padding: "48px 0" }}>Cargando catalogo...</p>
+          )}
+          {rewardsError && (
+            <p className="text-center text-red-700 py-12 text-sm">Error: {rewardsError.message}</p>
+          )}
+          {!isRewardsLoading && !rewardsError && filtered.length === 0 && (
+            <p className="text-center text-sm" style={{ color: "var(--muted)", padding: "48px 0" }}>No hay recompensas en esta categoria.</p>
+          )}
+
+          {/* ── Featured deal card ── */}
+          {featured && selectedFilter === 0 && (
+            <div style={{ padding: "20px 18px 0" }}>
+              <button
+                type="button"
+                onClick={() => !outOfStock(featured) && canAfford(featured) && setSelectedReward(featured)}
+                className="w-full text-left"
+                disabled={outOfStock(featured) || !canAfford(featured)}
+              >
+                <div className="card mp-card">
+                  <div className="mp-photo photo">
+                    {featured.imageURI ? (
+                      <img src={ipfsToGateway(featured.imageURI)} alt={featured.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <span style={{ position: "relative", zIndex: 1 }}>FOTO</span>
+                    )}
+                    <div className="price">{formatPrima(featured.costInPrima)} {TOKEN_DISPLAY_NAME}</div>
+                    <div style={{ position: "absolute", top: 12, left: 12 }}>
+                      <span className="chip" style={{ background: "rgba(255,255,255,0.9)", border: 0, fontSize: 10, letterSpacing: "0.16em" }}>DESTACADO</span>
+                    </div>
+                  </div>
+                  <div className="mp-body">
+                    <h3 className="font-big-shoulders" style={{ fontSize: 22, fontWeight: 800, margin: 0, color: "var(--ink)" }}>{featured.name}</h3>
+                    <div style={{ fontSize: 12, color: "var(--muted)" }}>{featured.description}</div>
+                    <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
+                      {(() => {
+                        const catKey = categoryFromIndex(featured.category);
+                        const info = catKey ? CATEGORY_INFO[catKey] : null;
+                        return info ? <span className="chip chip-moss" style={{ fontSize: 10 }}>{info.label}</span> : null;
+                      })()}
+                    </div>
+                  </div>
+                </div>
+              </button>
+            </div>
+          )}
+
+          {/* ── 2-col grid ── */}
+          {filtered.length > 0 && (
+            <div style={{ padding: "12px 18px 0" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                {filtered
+                  .filter((r) => selectedFilter === 0 ? r !== featured : true)
+                  .map((r) => {
+                    const catKey = categoryFromIndex(r.category);
+                    const info = catKey ? CATEGORY_INFO[catKey] : null;
+                    const disabled = outOfStock(r) || !canAfford(r);
+                    const imgSrc = r.imageURI ? ipfsToGateway(r.imageURI) : "";
+                    return (
+                      <button
+                        key={r.id.toString()}
+                        type="button"
+                        onClick={() => !disabled && setSelectedReward(r)}
+                        disabled={disabled}
+                        className={`text-left w-full ${disabled ? "opacity-60" : ""}`}
+                      >
+                        <div className="card mp-card">
+                          <div className="mp-photo photo" style={{ height: 120 }}>
+                            {imgSrc ? (
+                              <img src={imgSrc} alt={r.name} className="w-full h-full object-cover" />
+                            ) : (
+                              <span style={{ position: "relative", zIndex: 1 }}>FOTO</span>
+                            )}
+                            <div className="price" style={{ fontSize: 11, padding: "4px 10px" }}>
+                              {formatPrima(r.costInPrima)}
+                            </div>
+                          </div>
+                          <div className="mp-body" style={{ padding: 12 }}>
+                            <div style={{ fontWeight: 700, fontSize: 13, color: "var(--ink)" }}>{r.name}</div>
+                            <div style={{ fontSize: 11, color: "var(--muted)" }}>{r.description}</div>
+                            {info && (
+                              <span className="chip" style={{ fontSize: 10, padding: "3px 8px", alignSelf: "flex-start", marginTop: 4 }}>
+                                {info.label}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </button>
+                    );
+                  })}
               </div>
-            )}
-          </>
-        )}
-      </div>
+            </div>
+          )}
+
+          {/* ── Top trepadores mini-leaderboard ── */}
+          <div style={{ padding: "24px 18px 12px" }}>
+            <h2 className="h-section">Top trepadores</h2>
+          </div>
+          <div style={{ padding: "0 18px" }}>
+            <div className="card" style={{ padding: "6px 16px" }}>
+              <div className="lb-row">
+                <div className="lb-rank gold">01</div>
+                <div className="lb-avatar" />
+                <div>
+                  <div className="lb-name">@chivasreciclas</div>
+                  <div className="lb-meta">142 KG &middot; 38 TREPADAS</div>
+                </div>
+                <div className="font-mono" style={{ color: "var(--ember)", fontWeight: 700 }}>14,820</div>
+              </div>
+              <div className="lb-row">
+                <div className="lb-rank silver">02</div>
+                <div className="lb-avatar" style={{ background: "linear-gradient(135deg, oklch(0.78 0.1 60), oklch(0.6 0.14 40))" }} />
+                <div>
+                  <div className="lb-name">@gdl_huellaverde</div>
+                  <div className="lb-meta">128 KG &middot; 32 TREPADAS</div>
+                </div>
+                <div className="font-mono" style={{ color: "var(--ember)", fontWeight: 700 }}>12,400</div>
+              </div>
+              <div className="lb-row">
+                <div className="lb-rank bronze">03</div>
+                <div className="lb-avatar" style={{ background: "linear-gradient(135deg, oklch(0.78 0.07 240), oklch(0.5 0.1 250))" }} />
+                <div>
+                  <div className="lb-name">@anaila.eth</div>
+                  <div className="lb-meta">99 KG &middot; 27 TREPADAS</div>
+                </div>
+                <div className="font-mono" style={{ color: "var(--ember)", fontWeight: 700 }}>10,210</div>
+              </div>
+              <div className="lb-row" style={{ borderBottom: 0 }}>
+                <div className="lb-rank">04</div>
+                <div className="lb-avatar" />
+                <div>
+                  <div className="lb-name">@trepa_zamora</div>
+                  <div className="lb-meta">88 KG &middot; 24 TREPADAS</div>
+                </div>
+                <div className="font-mono" style={{ color: "var(--ember)", fontWeight: 700 }}>9,140</div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
 
       {/* ── Modals ── */}
       {selectedReward && (
@@ -406,11 +434,6 @@ export default function RewardsPage() {
       {voucher && (
         <VoucherModal reward={voucher.reward} txHash={voucher.txHash} onClose={() => setVoucher(null)} />
       )}
-
-      <style jsx global>{`
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-      `}</style>
     </AppShell>
   );
 }

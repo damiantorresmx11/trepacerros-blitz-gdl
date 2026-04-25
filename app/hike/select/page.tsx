@@ -5,19 +5,17 @@ import { useRouter } from "next/navigation";
 import { AppShell } from "@/components/AppShell";
 import { CERROS, type Cerro } from "@/data/cerros";
 
-const DIFFICULTY_STYLES: Record<string, { bg: string; text: string }> = {
-  Baja: { bg: "bg-cd-moss", text: "text-white" },
-  Media: { bg: "bg-cd-ember", text: "text-white" },
-  Alta: { bg: "bg-red-600", text: "text-white" },
+const DIFFICULTY_COLORS: Record<string, string> = {
+  Baja: "var(--moss)",
+  Media: "var(--ember)",
+  Alta: "#dc2626",
 };
 
-const TRAIL_GRADIENTS: Record<string, string> = {
-  primavera:
-    "bg-gradient-to-br from-cd-moss/80 via-cd-leaf/60 to-cd-ember/30",
-  colli: "bg-gradient-to-br from-cd-ember/70 via-cd-moss/40 to-cd-sky/30",
-  colomos: "bg-gradient-to-br from-cd-sky/70 via-cd-moss/50 to-cd-leaf/30",
-  metropolitano:
-    "bg-gradient-to-br from-cd-moss/60 via-cd-sky/40 to-cd-ember-soft/50",
+const ELEVATION: Record<string, string> = {
+  primavera: "1,580",
+  colli: "1,960",
+  colomos: "1,700",
+  metropolitano: "1,700",
 };
 
 export default function HikeSelectPage() {
@@ -49,153 +47,209 @@ export default function HikeSelectPage() {
 
   return (
     <AppShell>
-      <div className="font-lexend flex flex-col gap-6 pb-28">
-        {/* Title */}
-        <section>
-          <h1 className="font-big-shoulders uppercase text-[36px] font-black leading-[0.95] text-cd-ink tracking-wide">
-            ELIGE TU
-            <br />
-            SENDERO
-          </h1>
-          <p className="text-[13px] text-cd-muted mt-2 max-w-[36ch] leading-relaxed">
-            Elige un sendero que necesite atención hoy y comienza tu misión de
-            limpieza.
-          </p>
-        </section>
-
-        {/* Search */}
-        <div className="relative">
-          <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-cd-muted text-[20px]">
-            search
+      {/* pad: eyebrow + title + subtitle */}
+      <div style={{ padding: "0 18px" }}>
+        <div className="eyebrow">
+          <span>
+            {selectedSlug
+              ? `${CERROS.find((c) => c.slug === selectedSlug)?.coordsCentro.lat.toFixed(3)}N, ${Math.abs(CERROS.find((c) => c.slug === selectedSlug)?.coordsCentro.lng ?? 0).toFixed(3)}W`
+              : "20.667N, 103.567W"}
           </span>
+          <span className="tick" />
+          <span>GDL</span>
+        </div>
+
+        <h1
+          className="h-display"
+          style={{ fontSize: 36, fontWeight: 900, lineHeight: 0.95, margin: "12px 0 0" }}
+        >
+          Elige tu
+          <br />
+          Sendero
+        </h1>
+        <p style={{ fontSize: 13, color: "var(--muted)", margin: "10px 0 16px", maxWidth: "36ch", lineHeight: 1.5 }}>
+          Elige un sendero que necesite atencion hoy y comienza tu mision de limpieza.
+        </p>
+
+        {/* Search bar */}
+        <div className="search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: "var(--muted)" }}>
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-3.5-3.5" />
+          </svg>
           <input
-            className="solid-card w-full pl-12 pr-4 py-4 !rounded-[16px] focus:ring-2 focus:ring-cd-ember focus:border-transparent outline-none transition-all font-lexend text-cd-ink text-sm placeholder:text-cd-muted/60"
-            placeholder="Buscar sendero o región..."
-            type="text"
+            placeholder="Buscar sendero o region..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-
-        {/* Trail Cards */}
-        <div className="flex flex-col md:grid md:grid-cols-2 gap-4">
-          {filtered.map((cerro) => {
-            const isSelected = selectedSlug === cerro.slug;
-            const diffStyle =
-              DIFFICULTY_STYLES[cerro.dificultad] || DIFFICULTY_STYLES.Baja;
-            const gradient =
-              TRAIL_GRADIENTS[cerro.slug] || TRAIL_GRADIENTS.primavera;
-
-            return (
-              <button
-                key={cerro.slug}
-                type="button"
-                onClick={() => handleSelect(cerro)}
-                className={`solid-card overflow-hidden text-left haptic-active transition-all duration-200 ${
-                  isSelected
-                    ? "!border-cd-ember !border-2 shadow-premium"
-                    : "hover:shadow-premium"
-                }`}
-              >
-                {/* Image placeholder with gradient + icon */}
-                <div
-                  className={`relative h-40 w-full ${gradient} flex items-center justify-center`}
-                >
-                  <span
-                    className="material-symbols-outlined text-white/30"
-                    style={{
-                      fontSize: "72px",
-                      fontVariationSettings: "'FILL' 1",
-                    }}
-                  >
-                    landscape
-                  </span>
-
-                  {/* Difficulty badge */}
-                  <div
-                    className={`absolute top-3 right-3 ${diffStyle.bg} ${diffStyle.text} px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase font-big-shoulders`}
-                  >
-                    {cerro.dificultad}
-                  </div>
-
-                  {/* Selected check */}
-                  {isSelected && (
-                    <div className="absolute top-3 left-3 bg-cd-ember text-white p-1.5 rounded-full shadow-lg">
-                      <span
-                        className="material-symbols-outlined text-[20px]"
-                        style={{
-                          fontVariationSettings: "'FILL' 1",
-                        }}
-                      >
-                        check_circle
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                {/* Card body */}
-                <div className="p-5 flex flex-col gap-3">
-                  <div className="flex justify-between items-start">
-                    <h3 className="font-big-shoulders uppercase text-[20px] font-extrabold text-cd-ink leading-tight tracking-wide">
-                      {cerro.nombre}
-                    </h3>
-                  </div>
-
-                  {/* Stats row */}
-                  <div className="flex items-center gap-3 flex-wrap">
-                    <div className="flex items-center gap-1 text-cd-muted">
-                      <span className="material-symbols-outlined text-[16px]">
-                        distance
-                      </span>
-                      <span className="font-mono text-xs font-bold">
-                        {cerro.distanciaTipicaKm} km
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-1 text-cd-muted">
-                      <span className="material-symbols-outlined text-[16px]">
-                        elevation
-                      </span>
-                      <span className="font-mono text-xs font-bold">
-                        {cerro.coordsCentro.lat > 20.7
-                          ? "1,580"
-                          : cerro.slug === "colli"
-                          ? "1,960"
-                          : "1,700"}{" "}
-                        msnm
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Coordinate chip */}
-                  <div className="coordinate-chip self-start">
-                    {cerro.coordsCentro.lat.toFixed(3)}°N,{" "}
-                    {Math.abs(cerro.coordsCentro.lng).toFixed(3)}°W
-                  </div>
-
-                  <p className="text-[12px] text-cd-muted line-clamp-2 leading-relaxed">
-                    {cerro.descripcion}
-                  </p>
-                </div>
-              </button>
-            );
-          })}
-        </div>
       </div>
 
-      {/* Sticky CTA at bottom */}
+      {/* Trail cards grid */}
+      <div
+        style={{
+          padding: "20px 18px 0",
+          display: "grid",
+          gridTemplateColumns: "1fr",
+          gap: 14,
+        }}
+      >
+        {filtered.map((cerro) => {
+          const isSelected = selectedSlug === cerro.slug;
+          const diffColor = DIFFICULTY_COLORS[cerro.dificultad] ?? DIFFICULTY_COLORS.Baja;
+
+          return (
+            <button
+              key={cerro.slug}
+              type="button"
+              onClick={() => handleSelect(cerro)}
+              className="card"
+              style={{
+                padding: 0,
+                overflow: "hidden",
+                textAlign: "left",
+                cursor: "pointer",
+                border: isSelected ? "2px solid var(--ember)" : "1px solid var(--line)",
+                boxShadow: isSelected ? "0 8px 30px -10px var(--ember)" : undefined,
+                transition: "border 0.2s, box-shadow 0.2s",
+              }}
+            >
+              {/* Gradient mountain placeholder */}
+              <div
+                style={{
+                  position: "relative",
+                  height: 160,
+                  background: "linear-gradient(135deg, color-mix(in oklch, var(--moss) 60%, var(--paper)), color-mix(in oklch, var(--ember) 20%, var(--paper)))",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" style={{ opacity: 0.2, color: "#fff" }}>
+                  <path d="M3 20l5.5-9 4 6 3-4L21 20z" />
+                </svg>
+
+                {/* Difficulty badge */}
+                <span
+                  style={{
+                    position: "absolute",
+                    top: 12,
+                    right: 12,
+                    background: diffColor,
+                    color: "#fff",
+                    padding: "4px 10px",
+                    borderRadius: 99,
+                    fontFamily: "var(--font-display)",
+                    fontSize: 10,
+                    fontWeight: 700,
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {cerro.dificultad}
+                </span>
+
+                {/* Selected check */}
+                {isSelected && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: 12,
+                      left: 12,
+                      background: "var(--ember)",
+                      color: "#fff",
+                      width: 32,
+                      height: 32,
+                      borderRadius: "50%",
+                      display: "grid",
+                      placeItems: "center",
+                      boxShadow: "0 4px 12px -4px var(--ember)",
+                    }}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                      <path d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+
+              {/* Card body */}
+              <div style={{ padding: "18px 18px 20px", display: "flex", flexDirection: "column", gap: 10 }}>
+                <h3
+                  className="h-display"
+                  style={{ fontSize: 20, fontWeight: 900, lineHeight: 1.05 }}
+                >
+                  {cerro.nombre}
+                </h3>
+
+                {/* Stats row */}
+                <div style={{ display: "flex", alignItems: "center", gap: 14, color: "var(--muted)" }}>
+                  <span style={{ fontFamily: "var(--font-mono-var)", fontSize: 12, fontWeight: 700 }}>
+                    {cerro.distanciaTipicaKm} km
+                  </span>
+                  <span style={{ fontFamily: "var(--font-mono-var)", fontSize: 12, fontWeight: 700 }}>
+                    {ELEVATION[cerro.slug] ?? "1,700"} msnm
+                  </span>
+                </div>
+
+                {/* Coordinate chip */}
+                <div className="chip" style={{ alignSelf: "flex-start", fontSize: 10 }}>
+                  {cerro.coordsCentro.lat.toFixed(3)}&deg;N,{" "}
+                  {Math.abs(cerro.coordsCentro.lng).toFixed(3)}&deg;W
+                </div>
+
+                <p style={{ fontSize: 12, color: "var(--muted)", lineHeight: 1.5, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                  {cerro.descripcion}
+                </p>
+              </div>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* spacer for sticky CTA */}
+      <div style={{ height: 100 }} />
+
+      {/* Sticky CTA */}
       {selectedSlug && (
-        <div className="fixed bottom-24 md:bottom-6 left-0 right-0 z-40 px-4 md:px-0 md:max-w-[480px] md:mx-auto">
+        <div
+          style={{
+            position: "fixed",
+            bottom: 90,
+            left: 0,
+            right: 0,
+            zIndex: 40,
+            padding: "0 16px",
+            maxWidth: 480,
+            margin: "0 auto",
+          }}
+        >
           <button
             onClick={handleStart}
-            className="w-full bg-cd-ember text-white py-4 rounded-card shadow-premium flex items-center justify-center gap-3 haptic-active transition-transform font-big-shoulders uppercase tracking-widest text-lg"
+            style={{
+              width: "100%",
+              background: "var(--ember)",
+              color: "#fff",
+              padding: "16px 0",
+              borderRadius: 18,
+              border: "none",
+              cursor: "pointer",
+              fontFamily: "var(--font-display)",
+              fontWeight: 800,
+              fontSize: 16,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 10,
+              boxShadow: "0 12px 30px -10px var(--ember)",
+            }}
           >
-            <span
-              className="material-symbols-outlined"
-              style={{ fontVariationSettings: "'FILL' 1" }}
-            >
-              hiking
-            </span>
-            <span>Iniciar Trepada</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            Iniciar Trepada
           </button>
         </div>
       )}
