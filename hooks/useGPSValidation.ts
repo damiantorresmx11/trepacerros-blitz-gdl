@@ -14,9 +14,10 @@ export interface HikeValidationResult {
   reason?: string;
 }
 
-const MIN_DISTANCE_METERS = 1000;
-const MIN_DURATION_SECONDS = 1800;
-const MAX_AVG_SPEED_MPS = 10;
+// Lowered for hackathon demo — production: 1000m, 1800s, 10 m/s
+const MIN_DISTANCE_METERS = 5;
+const MIN_DURATION_SECONDS = 10;
+const MAX_AVG_SPEED_MPS = 50;
 
 /**
  * Valida un hike en progreso (o terminado) según reglas anti-trampa básicas:

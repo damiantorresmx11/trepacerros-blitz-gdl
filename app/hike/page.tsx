@@ -221,8 +221,29 @@ export default function HikePage() {
                 </div>
               )}
 
+              {/* Validation feedback */}
+              {!validation.valid && validation.reason && (
+                <div className="card p-4 mt-4 flex items-center gap-3" style={{ borderColor: "var(--ember)", background: "var(--ember-soft)" }}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" style={{ color: "var(--ember)", flexShrink: 0 }}>
+                    <circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>
+                  </svg>
+                  <div>
+                    <div className="font-bold text-sm" style={{ color: "var(--ember)" }}>No se puede mintear</div>
+                    <div className="text-xs mt-0.5" style={{ color: "var(--ink)" }}>{validation.reason}</div>
+                  </div>
+                </div>
+              )}
+              {validation.valid && (
+                <div className="card p-4 mt-4 flex items-center gap-3" style={{ borderColor: "var(--moss)", background: "color-mix(in oklch, var(--moss) 10%, var(--paper))" }}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" style={{ color: "var(--moss)", flexShrink: 0 }}>
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  <div className="font-bold text-sm" style={{ color: "var(--moss)" }}>Hike valido — listo para mintear</div>
+                </div>
+              )}
+
               {/* Actions — centered on desktop */}
-              <div className="lg:max-w-md lg:mx-auto mt-5">
+              <div className="lg:max-w-md lg:mx-auto mt-4">
                 <button className="btn btn-primary w-full" onClick={handleMintClick} disabled={!validation.valid}>
                   MINTEAR NFT
                 </button>
