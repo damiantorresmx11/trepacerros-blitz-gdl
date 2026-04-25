@@ -42,7 +42,7 @@ export function BottomNav() {
               >
                 {tab.icon}
               </span>
-              <span className="font-[Lexend] text-[10px] font-semibold uppercase tracking-tighter mt-1">
+              <span className="font-lexend text-xs font-semibold uppercase tracking-tighter mt-1">
                 {tab.label}
               </span>
             </Link>

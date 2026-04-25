@@ -44,19 +44,19 @@ function TrashDetailModal({ item, onClose }: { item: TrashTypeInfo; onClose: () 
 
         <div className="space-y-3">
           <div className="bg-white rounded-xl p-4 border border-stone-100">
-            <h4 className="font-bold text-xs uppercase text-stone-500 mb-1">Degradacion</h4>
+            <h4 className="font-bold text-xs uppercase text-stone-600 mb-1">Degradacion</h4>
             <p className="text-sm">{item.tiempoDegradacion}</p>
           </div>
           <div className="bg-white rounded-xl p-4 border border-stone-100">
-            <h4 className="font-bold text-xs uppercase text-stone-500 mb-1">Como separar</h4>
+            <h4 className="font-bold text-xs uppercase text-stone-600 mb-1">Como separar</h4>
             <p className="text-sm">{item.como_separar}</p>
           </div>
           <div className="bg-white rounded-xl p-4 border border-stone-100">
-            <h4 className="font-bold text-xs uppercase text-stone-500 mb-1">Disposicion en GDL</h4>
+            <h4 className="font-bold text-xs uppercase text-stone-600 mb-1">Disposicion en GDL</h4>
             <p className="text-sm">{item.disposicionGDL}</p>
           </div>
           <div className="bg-white rounded-xl p-4 border border-stone-100">
-            <h4 className="font-bold text-xs uppercase text-stone-500 mb-1">Ruta correcta</h4>
+            <h4 className="font-bold text-xs uppercase text-stone-600 mb-1">Ruta correcta</h4>
             <p className="text-sm">{item.ruta_correcta}</p>
           </div>
         </div>
@@ -89,7 +89,7 @@ export default function WikiPage() {
       <div className="font-lexend flex flex-col gap-6">
         {/* Header */}
         <section>
-          <h1 className="text-tc-headline-lg font-semibold text-tc-primary mb-2">Wiki de Residuos</h1>
+          <h1 className="font-fraunces text-3xl font-bold text-tc-primary mb-2">Wiki de Residuos</h1>
           <p className="text-tc-body-lg text-tc-on-primary-container bg-tc-primary-container p-4 rounded-xl">
             Conoce tus materiales y aprende a darles una segunda vida.
           </p>
@@ -109,13 +109,13 @@ export default function WikiPage() {
 
         {/* Materials Grid */}
         <section>
-          <h3 className="text-tc-headline-md font-semibold text-tc-primary mb-4">Categorias de Impacto</h3>
+          <h3 className="font-fraunces text-xl font-bold text-tc-primary mb-4">Categorias de Impacto</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             {filtered.map((item, idx) => (
               <button
                 key={item.id}
                 onClick={() => setSelected(item)}
-                className={`bg-white rounded-3xl p-4 shadow-sm border border-stone-100 flex flex-col gap-3 text-left hover:shadow-md transition-shadow ${
+                className={`bg-white/80 backdrop-blur-sm rounded-2xl p-5 border border-stone-200/60 flex flex-col gap-3 text-left hover:shadow-lg hover:scale-[1.01] transition-all duration-150 ${
                   idx === 0 ? "col-span-2 md:col-span-1" : ""
                 }`}
               >
@@ -126,7 +126,7 @@ export default function WikiPage() {
                     </span>
                   </div>
                   {item.reciclable && (
-                    <span className="bg-[#FF6B00]/10 text-[#FF6B00] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+                    <span className="bg-[#FF6B00]/10 text-[#FF6B00] text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
                       {item.multiplicador > 1 ? `${item.multiplicador}x` : "Reciclable"}
                     </span>
                   )}
@@ -142,7 +142,7 @@ export default function WikiPage() {
 
         {/* Recycling Guide */}
         <section>
-          <h3 className="text-tc-headline-md font-semibold text-tc-primary mb-4">Guia de Reciclaje</h3>
+          <h3 className="font-fraunces text-xl font-bold text-tc-primary mb-4">Guia de Reciclaje</h3>
           <div className="space-y-4">
             <div className="flex items-center gap-4 bg-white p-4 rounded-2xl border-l-4 border-tc-primary shadow-sm">
               <div className="flex-shrink-0 w-10 h-10 rounded-full bg-tc-primary text-white flex items-center justify-center font-bold">1</div>

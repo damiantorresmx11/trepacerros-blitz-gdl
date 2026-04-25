@@ -22,7 +22,7 @@ export function TopNav() {
           <span className="material-symbols-outlined text-[#2D5A27]">
             landscape
           </span>
-          <span className="font-[Lexend] font-black text-[#2D5A27] tracking-widest uppercase text-lg">
+          <span className="font-lexend font-black text-[#2D5A27] tracking-widest uppercase text-lg">
             TREPACERROS
           </span>
         </Link>
@@ -33,7 +33,7 @@ export function TopNav() {
             className="bg-[#f0eded] px-3 py-1.5 rounded-full flex items-center gap-2 border border-[#c2c9bb] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B00] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FDFCF8]"
           >
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="font-['Space_Grotesk'] text-[14px] font-medium tracking-[0.05em] text-[#1b1b1c]">
+            <span className="font-space-grotesk text-sm font-medium tracking-[0.05em] text-[#1b1b1c]">
               {shortAddr}
               {!isLoading && (
                 <span className="ml-1">

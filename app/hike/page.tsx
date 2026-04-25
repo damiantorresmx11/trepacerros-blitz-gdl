@@ -87,7 +87,7 @@ export default function HikePage() {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
                     <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500" />
                   </span>
-                  <span className="font-lexend text-tc-cta text-[12px] text-tc-on-surface uppercase tracking-widest">
+                  <span className="font-lexend text-tc-cta text-xs text-tc-on-surface uppercase tracking-widest">
                     Live Mission
                   </span>
                 </div>
@@ -95,27 +95,27 @@ export default function HikePage() {
             </div>
 
             {/* Stats Glass Card */}
-            <div className="bg-white/95 backdrop-blur-xl rounded-[2rem] p-6 shadow-2xl border border-white/40 flex flex-col gap-6 -mt-16 md:mt-0 relative z-10 mx-0 md:col-span-2">
-              <div className="grid grid-cols-3 gap-2">
+            <div className="bg-white/80 backdrop-blur-xl rounded-[2rem] p-6 shadow-2xl border border-stone-200/60 flex flex-col gap-6 -mt-16 md:mt-0 relative z-10 mx-0 md:col-span-2">
+              <div className="grid grid-cols-3 gap-4">
                 <div className="flex flex-col items-center">
-                  <span className="text-stone-500 font-space-grotesk text-[10px] uppercase">Distance</span>
-                  <span className="font-lexend text-[24px] font-bold text-tc-primary">
+                  <span className="text-stone-600 font-space-grotesk text-xs uppercase tracking-wider">Distance</span>
+                  <span className="font-fraunces font-black text-4xl text-tc-primary leading-none mt-1">
                     {(stats.distanceMeters / 1000).toFixed(1)}
                   </span>
-                  <span className="text-[10px] text-stone-500">KM</span>
+                  <span className="text-xs text-stone-600 mt-1">KM</span>
                 </div>
-                <div className="flex flex-col items-center border-x border-stone-100">
-                  <span className="text-stone-500 font-space-grotesk text-[10px] uppercase">Duration</span>
-                  <span className="font-lexend text-[24px] font-bold text-tc-primary">
+                <div className="flex flex-col items-center border-x border-stone-200/60">
+                  <span className="text-stone-600 font-space-grotesk text-xs uppercase tracking-wider">Duration</span>
+                  <span className="font-fraunces font-black text-4xl text-tc-primary leading-none mt-1">
                     {formatDuration(stats.durationSeconds)}
                   </span>
                 </div>
                 <div className="flex flex-col items-center">
-                  <span className="text-stone-500 font-space-grotesk text-[10px] uppercase">Elevation</span>
-                  <span className="font-lexend text-[24px] font-bold text-[#7b4100]">
+                  <span className="text-stone-600 font-space-grotesk text-xs uppercase tracking-wider">Elevation</span>
+                  <span className="font-fraunces font-black text-4xl text-[#7b4100] leading-none mt-1">
                     +{Math.round(stats.elevationGain)}
                   </span>
-                  <span className="text-[10px] text-stone-500">M</span>
+                  <span className="text-xs text-stone-600 mt-1">M</span>
                 </div>
               </div>
 

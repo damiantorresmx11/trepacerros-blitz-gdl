@@ -108,8 +108,8 @@ function VoucherModal({ reward, txHash, onClose }: { reward: RewardOnChain; txHa
         </p>
         <a href={`${EXPLORER_TX}${txHash}`} target="_blank" rel="noopener noreferrer"
           className="block bg-tc-surface-container rounded-xl px-4 py-3 mb-4 hover:bg-tc-surface-container-high transition-colors">
-          <p className="text-[10px] text-tc-on-surface-variant uppercase mb-1">Tx hash</p>
-          <p className="font-['Space_Grotesk'] text-xs text-tc-primary break-all">{txHash}</p>
+          <p className="text-xs text-tc-on-surface-variant uppercase mb-1">Tx hash</p>
+          <p className="font-space-grotesk text-xs text-tc-primary break-all">{txHash}</p>
         </a>
         <div className="flex flex-col gap-2">
           <button onClick={() => router.push("/profile")} className="w-full bg-[#FF6B00] text-white font-bold py-4 rounded-xl uppercase tracking-widest shadow-lg active:scale-95 transition-transform">
@@ -142,11 +142,15 @@ function RewardCard({ reward, balance, onClick }: { reward: RewardOnChain; balan
       type="button"
       onClick={() => !disabled && onClick(reward)}
       disabled={disabled}
-      className={`text-left w-full ${disabled ? "opacity-60 cursor-not-allowed" : "hover:shadow-md transition-shadow"}`}
+      className={`text-left w-full ${disabled ? "opacity-60 cursor-not-allowed" : "hover:shadow-2xl hover:-translate-y-1 transition-all duration-200"}`}
     >
-      <div className="bg-white rounded-[24px] overflow-hidden shadow-sm border border-stone-100 flex flex-col h-full">
+      <div className="bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-stone-200/60 flex flex-col h-full relative">
+        {/* Price badge */}
+        <div className="absolute top-3 right-3 z-10 bg-[#FF6B00] text-white font-bold text-xs px-3 py-1 rounded-full shadow-md">
+          {formatPrima(reward.costInPrima)} {TOKEN_DISPLAY_NAME}
+        </div>
         <div
-          className="h-40 w-full flex items-center justify-center text-5xl overflow-hidden"
+          className="aspect-[16/9] w-full flex items-center justify-center text-5xl overflow-hidden"
           style={{ background: info ? `${info.color}20` : "#A8A8A020" }}
         >
           {showImage ? (
@@ -155,15 +159,20 @@ function RewardCard({ reward, balance, onClick }: { reward: RewardOnChain; balan
             <span>{info?.icon ?? "🎁"}</span>
           )}
         </div>
-        <div className="p-4 flex-1 flex flex-col font-lexend">
-          <h3 className="font-semibold text-sm text-tc-on-surface mb-1">{reward.name}</h3>
+        <div className="p-5 flex-1 flex flex-col font-lexend">
+          <h3 className="font-fraunces text-xl font-bold text-tc-on-surface mb-1">{reward.name}</h3>
+          {info && (
+            <span className="inline-block text-xs font-bold px-2 py-0.5 rounded-full mb-2 w-fit" style={{ backgroundColor: `${info.color}20`, color: info.color }}>
+              {info.label}
+            </span>
+          )}
           <p className="text-xs text-tc-on-surface-variant line-clamp-2 mb-3">{reward.description}</p>
           <div className="mt-auto flex items-center justify-between">
-            <div className="flex items-center gap-1 text-[#FF6B00] font-bold">
+            <div className="flex items-center gap-1 text-[#FF6B00] font-bold text-sm">
               <span className="material-symbols-outlined text-[18px]">token</span>
-              <span>{formatPrima(reward.costInPrima)} {TOKEN_DISPLAY_NAME}</span>
+              <span>{formatPrima(reward.costInPrima)}</span>
             </div>
-            {outOfStock && <span className="text-[10px] text-stone-500 uppercase">Agotado</span>}
+            {outOfStock && <span className="text-xs text-stone-600 uppercase font-bold">Agotado</span>}
           </div>
         </div>
       </div>
@@ -237,7 +246,7 @@ export default function RewardsPage() {
           <>
             {/* Leaderboard link */}
             <div className="flex items-center justify-between">
-              <h1 className="text-tc-headline-md font-semibold text-tc-primary">Marketplace</h1>
+              <h1 className="font-fraunces text-2xl font-bold text-tc-primary">Marketplace</h1>
               <Link href="/profile/leaderboard" className="text-[12px] text-tc-on-surface-variant hover:text-[#FF6B00] transition-colors flex items-center gap-1">
                 <span className="material-symbols-outlined text-[16px]">military_tech</span>
                 Leaderboard
