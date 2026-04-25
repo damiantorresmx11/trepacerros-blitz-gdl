@@ -15,7 +15,6 @@ import {
   type RewardOnChain,
 } from "@/hooks/useRewards";
 import { CATEGORY_INFO, type RewardCategory } from "@/data/rewards";
-import { ipfsToGateway } from "@/lib/ipfs";
 import { TOKEN_DISPLAY_NAME } from "@/lib/tokens";
 
 const CATEGORY_ORDER: RewardCategory[] = [
@@ -29,6 +28,23 @@ const FILTER_LABELS = [
 
 const APPROVE_FLAG_KEY = "rastros_prima_approved";
 const EXPLORER_TX = "https://testnet.monadexplorer.com/tx/";
+
+const CATEGORY_EMOJIS: Record<string, string> = {
+  IMMEDIATE: "🍺",
+  EXPERIENCE: "🎯",
+  OUTDOOR: "🎒",
+  SUSTAINABILITY: "🌱",
+  DONATION: "💚",
+  SERVICE: "☕",
+  MERCH: "👕",
+  EXCLUSIVE: "⭐",
+};
+
+function RewardEmoji({ category }: { category: number }) {
+  const catKey = CATEGORY_ORDER[category];
+  const emoji = catKey ? (CATEGORY_EMOJIS[catKey] ?? "🎁") : "🎁";
+  return <span style={{ fontSize: 48, position: "relative", zIndex: 1 }}>{emoji}</span>;
+}
 
 function formatPrima(amount: bigint): string {
   return (amount / 10n ** 18n).toString();
@@ -299,12 +315,8 @@ export default function RewardsPage() {
                 disabled={outOfStock(featured) || !canAfford(featured)}
               >
                 <div className="card mp-card">
-                  <div className="mp-photo photo">
-                    {featured.imageURI ? (
-                      <img src={ipfsToGateway(featured.imageURI)} alt={featured.name} className="w-full h-full object-cover" />
-                    ) : (
-                      <span style={{ position: "relative", zIndex: 1 }}>FOTO</span>
-                    )}
+                  <div className="mp-photo photo" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <RewardEmoji category={featured.category} />
                     <div className="price">{formatPrima(featured.costInPrima)} {TOKEN_DISPLAY_NAME}</div>
                     <div style={{ position: "absolute", top: 12, left: 12 }}>
                       <span className="chip" style={{ background: "rgba(255,255,255,0.9)", border: 0, fontSize: 10, letterSpacing: "0.16em" }}>DESTACADO</span>
@@ -336,7 +348,6 @@ export default function RewardsPage() {
                     const catKey = categoryFromIndex(r.category);
                     const info = catKey ? CATEGORY_INFO[catKey] : null;
                     const disabled = outOfStock(r) || !canAfford(r);
-                    const imgSrc = r.imageURI ? ipfsToGateway(r.imageURI) : "";
                     return (
                       <button
                         key={r.id.toString()}
@@ -346,12 +357,8 @@ export default function RewardsPage() {
                         className={`text-left w-full ${disabled ? "opacity-60" : ""}`}
                       >
                         <div className="card mp-card">
-                          <div className="mp-photo photo" style={{ height: 120 }}>
-                            {imgSrc ? (
-                              <img src={imgSrc} alt={r.name} className="w-full h-full object-cover" />
-                            ) : (
-                              <span style={{ position: "relative", zIndex: 1 }}>FOTO</span>
-                            )}
+                          <div className="mp-photo photo" style={{ height: 120, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                            <RewardEmoji category={r.category} />
                             <div className="price" style={{ fontSize: 11, padding: "4px 10px" }}>
                               {formatPrima(r.costInPrima)}
                             </div>

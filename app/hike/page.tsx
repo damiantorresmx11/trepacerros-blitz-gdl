@@ -75,7 +75,7 @@ export default function HikePage() {
   /* ─── NOT CONNECTED ─── */
   if (!isConnected || !address) {
     return (
-      <AppShell hideNav>
+      <AppShell>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "80vh", padding: "0 24px", textAlign: "center" }}>
           <div style={{ width: 80, height: 80, borderRadius: "50%", background: "color-mix(in oklch, var(--moss) 10%, var(--paper))", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 32 }}>
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: "var(--moss)" }}>
@@ -105,8 +105,8 @@ export default function HikePage() {
     const cerroEarned = Math.round(pickCount * 12 + elevGain * 0.2);
 
     return (
-      <AppShell hideNav>
-        <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", background: "var(--bg)", padding: "0 18px" }}>
+      <AppShell>
+        <div style={{ display: "flex", flexDirection: "column", minHeight: "80vh", padding: "0 18px" }}>
 
           {/* Header */}
           <div style={{ textAlign: "center", marginTop: 16 }}>
@@ -256,8 +256,8 @@ export default function HikePage() {
 
   /* ─── IDLE + ACTIVE STATES ─── */
   return (
-    <AppShell hideNav>
-      <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", background: "var(--bg)" }}>
+    <AppShell hideNav={isTracking}>
+      <div style={{ display: "flex", flexDirection: "column", minHeight: isTracking ? "100vh" : "80vh" }}>
 
         {/* ──── IDLE STATE ──── */}
         {!isTracking && !hasPoints && (
