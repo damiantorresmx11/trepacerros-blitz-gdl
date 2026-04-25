@@ -33,7 +33,7 @@ function categoryFromIndex(idx: number): RewardCategory | undefined {
   return CATEGORY_ORDER[idx];
 }
 
-/* ─── Confirm Modal (Stitch style) ───────────────────────────────────────── */
+/* ─── Confirm Modal (Claude Design) ──────────────────────────────────────── */
 
 function ConfirmModal({
   reward, onConfirm, onClose, isPending, errorMessage,
@@ -45,45 +45,54 @@ function ConfirmModal({
   const info = catKey ? CATEGORY_INFO[catKey] : null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="w-full max-w-[480px] bg-[#fcf9f8] text-tc-on-surface rounded-t-3xl md:rounded-3xl shadow-xl p-6 font-lexend">
-        <div className="flex items-start justify-between gap-4 mb-4">
-          <h3 className="text-tc-headline-md font-semibold">Confirmar canje</h3>
-          <button onClick={onClose} disabled={isPending} className="text-stone-400 hover:text-tc-on-surface" aria-label="Cerrar">
-            <span className="material-symbols-outlined">close</span>
+    <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center bg-black/40 backdrop-blur-sm">
+      <div className="w-full max-w-[480px] bg-cd-paper text-cd-ink rounded-t-[22px] md:rounded-[22px] shadow-xl p-6 font-lexend">
+        {/* Header */}
+        <div className="flex items-start justify-between gap-4 mb-5">
+          <h3 className="font-big-shoulders uppercase text-xl tracking-wide text-cd-ink">Confirmar canje</h3>
+          <button onClick={onClose} disabled={isPending} className="text-cd-muted hover:text-cd-ink transition-colors" aria-label="Cerrar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
           </button>
         </div>
 
+        {/* Reward info */}
         <div className="flex items-center gap-3 mb-4">
           {info && <span className="text-3xl" style={{ color: info.color }}>{info.icon}</span>}
           <div>
-            <p className="font-semibold text-lg">{reward.name}</p>
-            {info && <p className="text-xs text-tc-on-surface-variant">{info.label}</p>}
+            <p className="font-bold text-lg text-cd-ink">{reward.name}</p>
+            {info && <p className="text-xs text-cd-muted">{info.label}</p>}
           </div>
         </div>
 
-        <p className="text-sm text-tc-on-surface-variant mb-5">{reward.description}</p>
+        <p className="text-sm text-cd-muted mb-5 leading-relaxed">{reward.description}</p>
 
-        <div className="bg-tc-surface-container rounded-xl px-4 py-3 mb-5 flex items-baseline justify-between">
-          <span className="text-sm text-tc-on-surface-variant">Costo</span>
-          <span className="text-tc-headline-md font-semibold text-tc-primary">
-            {formatPrima(reward.costInPrima)} <span className="text-sm text-tc-on-surface-variant">{TOKEN_DISPLAY_NAME}</span>
+        {/* Cost card */}
+        <div className="solid-card px-4 py-3 mb-5 flex items-baseline justify-between">
+          <span className="text-sm text-cd-muted">Costo</span>
+          <span className="font-mono font-bold text-xl text-cd-ember">
+            {formatPrima(reward.costInPrima)} <span className="text-sm text-cd-muted font-lexend font-normal">{TOKEN_DISPLAY_NAME}</span>
           </span>
         </div>
 
+        {/* Error */}
         {errorMessage && (
-          <div className="mb-4 text-sm text-[#93000a] bg-[#ffdad6] rounded-lg p-3">{errorMessage}</div>
+          <div className="mb-4 text-sm text-red-800 bg-red-50 border border-red-200 rounded-xl p-3">{errorMessage}</div>
         )}
 
+        {/* Actions */}
         <div className="flex flex-col gap-2">
           <button
             onClick={onConfirm}
             disabled={isPending}
-            className="w-full bg-[#FF6B00] text-white font-bold py-4 rounded-xl uppercase tracking-widest shadow-lg active:scale-95 transition-transform disabled:opacity-50"
+            className="w-full bg-cd-ember text-white font-big-shoulders uppercase tracking-widest font-bold py-4 rounded-xl haptic-active shadow-lg disabled:opacity-50 transition-all"
           >
             {isPending ? "Procesando..." : "Confirmar canje"}
           </button>
-          <button onClick={onClose} disabled={isPending} className="w-full border-2 border-tc-primary-container text-tc-primary-container font-bold py-4 rounded-xl uppercase tracking-widest">
+          <button
+            onClick={onClose}
+            disabled={isPending}
+            className="w-full border-2 border-cd-line text-cd-muted font-big-shoulders uppercase tracking-widest font-bold py-4 rounded-xl hover:border-cd-ink hover:text-cd-ink transition-colors"
+          >
             Cancelar
           </button>
         </div>
@@ -92,30 +101,44 @@ function ConfirmModal({
   );
 }
 
-/* ─── Voucher Modal (Stitch style) ───────────────────────────────────────── */
+/* ─── Voucher Modal (Claude Design) ──────────────────────────────────────── */
 
 function VoucherModal({ reward, txHash, onClose }: { reward: RewardOnChain; txHash: `0x${string}`; onClose: () => void }) {
   const router = useRouter();
   return (
-    <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="w-full max-w-[480px] bg-[#fcf9f8] text-tc-on-surface rounded-t-3xl md:rounded-3xl shadow-xl p-6 font-lexend">
+    <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center bg-black/40 backdrop-blur-sm">
+      <div className="w-full max-w-[480px] bg-cd-paper text-cd-ink rounded-t-[22px] md:rounded-[22px] shadow-xl p-6 font-lexend">
+        {/* Success header */}
         <div className="flex items-center gap-3 mb-4">
-          <span className="material-symbols-outlined text-[#FF6B00] text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-          <h3 className="text-tc-headline-md font-semibold">Canje exitoso</h3>
+          <div className="w-10 h-10 rounded-full bg-cd-moss/10 flex items-center justify-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="text-cd-moss"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <h3 className="font-big-shoulders uppercase text-xl tracking-wide text-cd-ink">Canje exitoso</h3>
         </div>
-        <p className="text-sm text-tc-on-surface-variant mb-5">
-          Quemaste <strong className="text-tc-primary">{formatPrima(reward.costInPrima)} {TOKEN_DISPLAY_NAME}</strong> por <strong>{reward.name}</strong>.
+
+        <p className="text-sm text-cd-muted mb-5 leading-relaxed">
+          Quemaste <strong className="text-cd-ember font-mono">{formatPrima(reward.costInPrima)} {TOKEN_DISPLAY_NAME}</strong> por <strong className="text-cd-ink">{reward.name}</strong>.
         </p>
+
+        {/* Tx hash card */}
         <a href={`${EXPLORER_TX}${txHash}`} target="_blank" rel="noopener noreferrer"
-          className="block bg-tc-surface-container rounded-xl px-4 py-3 mb-4 hover:bg-tc-surface-container-high transition-colors">
-          <p className="text-xs text-tc-on-surface-variant uppercase mb-1">Tx hash</p>
-          <p className="font-space-grotesk text-xs text-tc-primary break-all">{txHash}</p>
+          className="block solid-card px-4 py-3 mb-5 hover:border-cd-moss transition-colors group">
+          <p className="text-[10px] font-big-shoulders uppercase tracking-widest text-cd-muted mb-1">Tx hash</p>
+          <p className="font-mono text-xs text-cd-moss break-all group-hover:underline">{txHash}</p>
         </a>
+
+        {/* Actions */}
         <div className="flex flex-col gap-2">
-          <button onClick={() => router.push("/profile")} className="w-full bg-[#FF6B00] text-white font-bold py-4 rounded-xl uppercase tracking-widest shadow-lg active:scale-95 transition-transform">
+          <button
+            onClick={() => router.push("/profile")}
+            className="w-full bg-cd-ember text-white font-big-shoulders uppercase tracking-widest font-bold py-4 rounded-xl haptic-active shadow-lg transition-all"
+          >
             Ir a mi perfil
           </button>
-          <button onClick={onClose} className="w-full border-2 border-tc-primary-container text-tc-primary-container font-bold py-4 rounded-xl uppercase tracking-widest">
+          <button
+            onClick={onClose}
+            className="w-full border-2 border-cd-line text-cd-muted font-big-shoulders uppercase tracking-widest font-bold py-4 rounded-xl hover:border-cd-ink hover:text-cd-ink transition-colors"
+          >
             Seguir explorando
           </button>
         </div>
@@ -124,7 +147,7 @@ function VoucherModal({ reward, txHash, onClose }: { reward: RewardOnChain; txHa
   );
 }
 
-/* ─── Reward Card (Stitch Marketplace style) ─────────────────────────────── */
+/* ─── Reward Card (Claude Design) ────────────────────────────────────────── */
 
 function RewardCard({ reward, balance, onClick }: { reward: RewardOnChain; balance: bigint; onClick: (r: RewardOnChain) => void }) {
   const [imgError, setImgError] = useState(false);
@@ -142,37 +165,56 @@ function RewardCard({ reward, balance, onClick }: { reward: RewardOnChain; balan
       type="button"
       onClick={() => !disabled && onClick(reward)}
       disabled={disabled}
-      className={`text-left w-full ${disabled ? "opacity-60 cursor-not-allowed" : "hover:shadow-2xl hover:-translate-y-1 transition-all duration-200"}`}
+      className={`text-left w-full group ${disabled ? "opacity-60 cursor-not-allowed" : ""}`}
     >
-      <div className="bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-stone-200/60 flex flex-col h-full relative">
+      <div className="solid-card overflow-hidden flex flex-col h-full relative transition-all duration-200 group-hover:shadow-lg group-hover:-translate-y-0.5">
         {/* Price badge */}
-        <div className="absolute top-3 right-3 z-10 bg-[#FF6B00] text-white font-bold text-xs px-3 py-1 rounded-full shadow-md">
-          {formatPrima(reward.costInPrima)} {TOKEN_DISPLAY_NAME}
+        <div className="absolute top-3 right-3 z-10 bg-cd-ember text-white font-mono font-bold text-xs px-3 py-1 rounded-full shadow-md flex items-center gap-1">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M8 10h8"/></svg>
+          {formatPrima(reward.costInPrima)}
         </div>
+
+        {/* Out of stock badge */}
+        {outOfStock && (
+          <div className="absolute top-3 left-3 z-10 bg-cd-ink text-white font-big-shoulders uppercase text-[10px] tracking-widest px-3 py-1 rounded-full">
+            Agotado
+          </div>
+        )}
+
+        {/* Image area */}
         <div
           className="aspect-[16/9] w-full flex items-center justify-center text-5xl overflow-hidden"
-          style={{ background: info ? `${info.color}20` : "#A8A8A020" }}
+          style={{ background: info ? `${info.color}15` : "rgba(168,168,160,0.1)" }}
         >
           {showImage ? (
             <img src={imgSrc} alt={reward.name} className="w-full h-full object-cover" onError={() => setImgError(true)} />
           ) : (
-            <span>{info?.icon ?? "🎁"}</span>
+            <span className="opacity-70">{info?.icon ?? "🎁"}</span>
           )}
         </div>
-        <div className="p-5 flex-1 flex flex-col font-lexend">
-          <h3 className="font-fraunces text-xl font-bold text-tc-on-surface mb-1">{reward.name}</h3>
+
+        {/* Body */}
+        <div className="p-4 flex-1 flex flex-col font-lexend">
+          <h3 className="font-big-shoulders uppercase text-base font-bold text-cd-ink tracking-wide mb-1 leading-tight">{reward.name}</h3>
           {info && (
-            <span className="inline-block text-xs font-bold px-2 py-0.5 rounded-full mb-2 w-fit" style={{ backgroundColor: `${info.color}20`, color: info.color }}>
+            <span
+              className="inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full mb-2 w-fit"
+              style={{ backgroundColor: `${info.color}15`, color: info.color }}
+            >
               {info.label}
             </span>
           )}
-          <p className="text-xs text-tc-on-surface-variant line-clamp-2 mb-3">{reward.description}</p>
+          <p className="text-xs text-cd-muted line-clamp-2 mb-3 leading-relaxed">{reward.description}</p>
           <div className="mt-auto flex items-center justify-between">
-            <div className="flex items-center gap-1 text-[#FF6B00] font-bold text-sm">
-              <span className="material-symbols-outlined text-[18px]">token</span>
+            <div className="flex items-center gap-1.5 font-mono font-bold text-sm text-cd-ember">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M8 10h8"/></svg>
               <span>{formatPrima(reward.costInPrima)}</span>
             </div>
-            {outOfStock && <span className="text-xs text-stone-600 uppercase font-bold">Agotado</span>}
+            {!disabled && (
+              <span className="text-[10px] font-big-shoulders uppercase tracking-widest text-cd-moss opacity-0 group-hover:opacity-100 transition-opacity">
+                Canjear
+              </span>
+            )}
           </div>
         </div>
       </div>
@@ -234,36 +276,75 @@ export default function RewardsPage() {
     <AppShell>
       <div className="font-lexend flex flex-col gap-6">
         {!isConnected ? (
-          <div className="flex flex-col items-center gap-6 py-12 text-center">
-            <span className="material-symbols-outlined text-[#FF6B00] text-5xl">storefront</span>
-            <h2 className="text-tc-headline-md font-semibold text-tc-primary">Conecta tu wallet</h2>
-            <p className="text-sm text-tc-on-surface-variant">
+          /* ── Not connected state ── */
+          <div className="flex flex-col items-center gap-6 py-16 text-center">
+            <div className="w-16 h-16 rounded-full bg-cd-ember/10 flex items-center justify-center">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="text-cd-ember">
+                <path d="M3 20l5.5-9 4 6 3-4L21 20z"/>
+              </svg>
+            </div>
+            <h2 className="font-big-shoulders uppercase text-2xl tracking-wide text-cd-ink">Conecta tu wallet</h2>
+            <p className="text-sm text-cd-muted max-w-[28ch]">
               Para ver tu balance y canjear recompensas, conectate primero.
             </p>
             <ConnectButton />
           </div>
         ) : (
           <>
-            {/* Leaderboard link */}
+            {/* ── Page title ── */}
             <div className="flex items-center justify-between">
-              <h1 className="font-fraunces text-2xl font-bold text-tc-primary">Marketplace</h1>
-              <Link href="/profile/leaderboard" className="text-[12px] text-tc-on-surface-variant hover:text-[#FF6B00] transition-colors flex items-center gap-1">
-                <span className="material-symbols-outlined text-[16px]">military_tech</span>
-                Leaderboard
+              <div>
+                <h1 className="font-big-shoulders uppercase text-4xl font-black text-cd-ink leading-none tracking-wide">
+                  Marketplace<br/>
+                  <span className="text-cd-moss">Local</span>
+                </h1>
+                <p className="text-sm text-cd-muted mt-2 max-w-[36ch] leading-relaxed">
+                  Tus $CERRO valen aqui. Negocios aliados de Jalisco aceptan tu trepada como pago.
+                </p>
+              </div>
+              <Link
+                href="/profile/leaderboard"
+                className="coordinate-chip text-[11px] text-cd-muted hover:text-cd-moss transition-colors flex items-center gap-1.5 shrink-0"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M8 3h8l-1 7h-6z"/><path d="M9 14h6v2H9z"/><path d="M7 21h10v-3H7z"/></svg>
+                Ranking
               </Link>
             </div>
 
-            {/* Category pills */}
+            {/* ── Balance card ── */}
+            <div className="solid-card p-4 flex items-center gap-4">
+              <div className="flex-1">
+                <p className="text-[10px] font-big-shoulders uppercase tracking-[0.16em] text-cd-muted mb-1">Saldo disponible</p>
+                <div className="font-mono font-bold text-4xl text-cd-ember leading-none">
+                  {isBalanceLoading ? (
+                    <span className="text-cd-muted text-2xl">...</span>
+                  ) : (
+                    <>
+                      {formatPrima(balance)}
+                      <span className="text-sm text-cd-muted font-lexend font-normal ml-2">$CERRO</span>
+                    </>
+                  )}
+                </div>
+              </div>
+              <div className="text-center shrink-0">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="text-cd-moss mx-auto">
+                  <path d="M8 3h8l-1 7h-6z"/><path d="M5 6h-2a3 3 0 0 0 3 3"/><path d="M19 6h2a3 3 0 0 1-3 3"/><path d="M9 14h6v2H9z"/><path d="M7 21h10v-3H7z"/>
+                </svg>
+                <p className="font-mono text-[9px] tracking-[0.16em] text-cd-muted mt-1 uppercase">Ranking</p>
+              </div>
+            </div>
+
+            {/* ── Category filter pills ── */}
             <div className="flex gap-2 overflow-x-auto no-scrollbar -mx-5 px-5 pb-1">
               <button
                 onClick={() => setSelectedCategory(null)}
                 className={`flex-none px-4 py-2 rounded-xl font-bold text-sm border transition-colors ${
                   selectedCategory === null
-                    ? "bg-tc-primary-container text-white border-tc-primary-container"
-                    : "bg-white text-tc-on-surface-variant border-tc-outline-variant hover:border-tc-primary-container"
+                    ? "bg-cd-ink text-white border-transparent"
+                    : "bg-cd-paper text-cd-muted border-cd-line hover:border-cd-ink"
                 }`}
               >
-                All
+                Todos
               </button>
               {CATEGORY_ORDER.map((key, idx) => {
                 const info = CATEGORY_INFO[key];
@@ -274,10 +355,9 @@ export default function RewardsPage() {
                     onClick={() => setSelectedCategory(idx)}
                     className={`flex-none px-4 py-2 rounded-xl font-bold text-sm border transition-colors ${
                       active
-                        ? "text-white border-transparent"
-                        : "bg-white text-tc-on-surface-variant border-tc-outline-variant hover:border-tc-primary-container"
+                        ? "bg-cd-moss text-white border-transparent"
+                        : "bg-cd-paper text-cd-muted border-cd-line hover:border-cd-ink"
                     }`}
-                    style={active ? { backgroundColor: info.color } : undefined}
                   >
                     {info.icon} {info.label}
                   </button>
@@ -285,18 +365,18 @@ export default function RewardsPage() {
               })}
             </div>
 
-            {/* Catalog */}
+            {/* ── Catalog grid ── */}
             {isRewardsLoading && (
-              <p className="text-center text-tc-on-surface-variant py-12">Cargando catalogo...</p>
+              <p className="text-center text-cd-muted py-12 font-mono text-sm">Cargando catalogo...</p>
             )}
             {rewardsError && (
-              <p className="text-center text-[#ba1a1a] py-12">Error: {rewardsError.message}</p>
+              <p className="text-center text-red-700 py-12 text-sm">Error: {rewardsError.message}</p>
             )}
             {!isRewardsLoading && !rewardsError && filtered.length === 0 && (
-              <p className="text-center text-tc-on-surface-variant py-12">No hay recompensas en esta categoria.</p>
+              <p className="text-center text-cd-muted py-12 text-sm">No hay recompensas en esta categoria.</p>
             )}
             {filtered.length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                 {filtered.map((r) => (
                   <RewardCard key={r.id.toString()} reward={r} balance={balance} onClick={setSelectedReward} />
                 ))}
@@ -306,6 +386,7 @@ export default function RewardsPage() {
         )}
       </div>
 
+      {/* ── Modals ── */}
       {selectedReward && (
         <ConfirmModal
           reward={selectedReward}
