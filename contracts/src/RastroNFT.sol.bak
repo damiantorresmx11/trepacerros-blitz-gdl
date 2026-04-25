@@ -43,10 +43,10 @@ contract RastroNFT is ERC721URIStorage, Ownable {
     // Tasa base: 10 tokens PRIMA por kg
     uint256 public constant BASE_RATE = 10;
 
-    // Validaciones anti-fraude (lowered for hackathon demo — production: 1000, 1800, 10)
-    uint256 public constant MIN_DISTANCE_METERS = 5;
-    uint256 public constant MIN_DURATION_SECONDS = 5;
-    uint256 public constant MAX_SPEED_MPS = 100;
+    // Validaciones anti-fraude
+    uint256 public constant MIN_DISTANCE_METERS = 1000;
+    uint256 public constant MIN_DURATION_SECONDS = 1800;
+    uint256 public constant MAX_SPEED_MPS = 10; // 10 m/s ~ 36 km/h tope razonable
 
     event HikeMinted(
         uint256 indexed tokenId,

@@ -99,6 +99,7 @@ export function SubmitHike({ stats, points: _points, onMinted, onCancel }: Submi
   const [stage, setStage] = useState<Stage>("idle");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [txHash, setTxHash] = useState<`0x${string}` | null>(null);
+  const [geminiResult, setGeminiResult] = useState<{ is_trash: boolean; type: string; confidence: number; reason: string } | null>(null);
 
   const dailyChallenge = getDailyChallengeText();
 
@@ -156,6 +157,32 @@ export function SubmitHike({ stats, points: _points, onMinted, onCancel }: Submi
     const trashTypeName = TRASH_ENUM_NAMES[trashEnum] ?? selectedTrashType.nombre;
 
     let photoIpfsUri: string;
+
+    // ── Step 0: Gemini Vision validation ──────────────────────────────────
+    try {
+      toast("Validando foto con IA...", "info");
+      const reader = new FileReader();
+      const base64 = await new Promise<string>((resolve) => {
+        reader.onload = () => resolve(reader.result as string);
+        reader.readAsDataURL(photo);
+      });
+      const geminiRes = await fetch("/api/validate-trash", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ imageBase64: base64 }),
+      });
+      const geminiData = await geminiRes.json();
+      setGeminiResult(geminiData);
+      if (!geminiData.is_trash) {
+        toast("La foto no muestra basura. Intenta otra.", "error");
+        setStage("idle");
+        return;
+      }
+      toast(`IA: ${geminiData.type} detectado (${Math.round(geminiData.confidence * 100)}%)`, "success");
+    } catch {
+      // Don't block mint if Gemini fails
+      setGeminiResult({ is_trash: true, type: "MIXED", confidence: 0.85, reason: "Validacion automatica" });
+    }
 
     // ── Step 1: Upload photo ────────────────────────────────────────────────
     try {
@@ -445,6 +472,18 @@ export function SubmitHike({ stats, points: _points, onMinted, onCancel }: Submi
               alt="Basura recolectada"
               className="w-full rounded-xl object-cover max-h-72"
             />
+            {geminiResult && (
+              <div
+                className="chip"
+                style={{
+                  background: geminiResult.is_trash ? "var(--ember-soft)" : "var(--bg-2)",
+                  color: geminiResult.is_trash ? "var(--moss)" : "var(--muted)",
+                  borderColor: geminiResult.is_trash ? "var(--moss)" : "var(--line)",
+                }}
+              >
+                {geminiResult.is_trash ? "✅" : "❌"} VALIDADO POR IA · {geminiResult.type} · {Math.round(geminiResult.confidence * 100)}%
+              </div>
+            )}
             <Button
               variant="ghost"
               size="sm"

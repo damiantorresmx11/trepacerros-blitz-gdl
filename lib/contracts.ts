@@ -89,7 +89,7 @@ export const BLITZ_COLLECTION_ABI = [
 
 export const CONTRACTS = {
   PRIMA_TOKEN: "0xd4Bf2c611f382Cd51ff484276CE6c008016de881" as const,
-  RASTRO_NFT: "0x6b4D0F9024479219af325D6Cca5aBa3AFec76952" as const,
+  RASTRO_NFT: "0xa224e1861601B2AEce025eb0999CB97833659d22" as const,
   REWARD_REGISTRY: "0x4327566658bA16a37d804e8738AD283170a53b27" as const,
 } as const;
 
@@ -97,5 +97,5 @@ export const MONAD_CHAIN_ID = 10143;
 
 // Highest reward id seeded in Deploy.s.sol (41 rewards: ids 0..40 inclusive).
 // `_nextRewardId` is private on RewardRegistry, so the frontend iterates 0..MAX_REWARD_ID.
-export const MAX_REWARD_ID = 40;
+export const MAX_REWARD_ID = 43;
 
