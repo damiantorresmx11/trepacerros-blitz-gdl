@@ -22,7 +22,7 @@ export function ProblemSection() {
               presión cada temporada seca.
             </p>
             <p>
-              La basura abandonada amplifica el riesgo. Rastros convierte cada
+              La basura abandonada amplifica el riesgo. Trepacerros convierte cada
               caminata en un acto de cuidado on-chain.
             </p>
           </div>

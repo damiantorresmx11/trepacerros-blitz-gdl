@@ -63,7 +63,7 @@ export const CATEGORY_INFO: Record<RewardCategory, { label: string; description:
   },
   MERCH: {
     label: "Merch del Proyecto",
-    description: "Identidad Rastros.",
+    description: "Identidad Trepacerros.",
     color: "#1C2430",
     icon: "👕",
   },
@@ -94,18 +94,18 @@ export const REWARDS: Reward[] = [
 
   // OUTDOOR (11-16)
   { id: 11, name: "Descuento Tienda Outdoor", description: "30% en tienda de montañismo aliada", category: "OUTDOOR", costInPrima: 50, sponsor: "Tiendas aliadas", icon: "🏔️", color: "#2A5C3E" },
-  { id: 12, name: "Botella Reutilizable Branded", description: "Botella de acero inoxidable", category: "OUTDOOR", costInPrima: 40, sponsor: "Rastros", icon: "💧", color: "#2A5C3E" },
+  { id: 12, name: "Botella Reutilizable Branded", description: "Botella de acero inoxidable", category: "OUTDOOR", costInPrima: 40, sponsor: "Trepacerros", icon: "💧", color: "#2A5C3E" },
   { id: 13, name: "Calcetines Trail", description: "Calcetines técnicos", category: "OUTDOOR", costInPrima: 30, sponsor: "Marcas aliadas", icon: "🧦", color: "#2A5C3E" },
   { id: 14, name: "Reparación de Bicicleta", description: "Servicio básico en taller aliado", category: "OUTDOOR", costInPrima: 80, sponsor: "Talleres aliados", icon: "🚴", color: "#2A5C3E" },
   { id: 15, name: "Lavado de Equipo", description: "Lavado profesional de mochila/carpa", category: "OUTDOOR", costInPrima: 45, sponsor: "Servicios aliados", icon: "🎒", color: "#2A5C3E" },
-  { id: 16, name: "Bandana Rastros", description: "Bandana multiuso del proyecto", category: "OUTDOOR", costInPrima: 25, sponsor: "Rastros", icon: "🪢", color: "#2A5C3E" },
+  { id: 16, name: "Bandana Trepacerros", description: "Bandana multiuso del proyecto", category: "OUTDOOR", costInPrima: 25, sponsor: "Trepacerros", icon: "🪢", color: "#2A5C3E" },
 
   // SUSTAINABILITY (17-21)
   { id: 17, name: "Kit Limpieza a Granel", description: "Set de productos biodegradables", category: "SUSTAINABILITY", costInPrima: 55, sponsor: "Tiendas a granel", icon: "🧼", color: "#558B2F" },
   { id: 18, name: "Shampoo Sólido", description: "Cosmética sólida eco", category: "SUSTAINABILITY", costInPrima: 35, sponsor: "Cosmética eco", icon: "🧴", color: "#558B2F" },
   { id: 19, name: "Planta Nativa de Jalisco", description: "Planta para tu jardín", category: "SUSTAINABILITY", costInPrima: 30, sponsor: "Viveros locales", icon: "🌿", color: "#558B2F" },
   { id: 20, name: "Composta Casera Kit", description: "Kit para empezar composta", category: "SUSTAINABILITY", costInPrima: 65, sponsor: "Aliados de composta", icon: "🌱", color: "#558B2F" },
-  { id: 21, name: "Bolsa Reutilizable Set", description: "3 bolsas de tela orgánica", category: "SUSTAINABILITY", costInPrima: 20, sponsor: "Rastros", icon: "🛍️", color: "#558B2F" },
+  { id: 21, name: "Bolsa Reutilizable Set", description: "3 bolsas de tela orgánica", category: "SUSTAINABILITY", costInPrima: 20, sponsor: "Trepacerros", icon: "🛍️", color: "#558B2F" },
 
   // DONATION (22-26)
   { id: 22, name: "Donación Bosque La Primavera A.C.", description: "Aporte directo a la ONG", category: "DONATION", costInPrima: 10, sponsor: "Bosque La Primavera A.C.", icon: "🌲", color: "#D4A017" },
@@ -122,17 +122,17 @@ export const REWARDS: Reward[] = [
   { id: 31, name: "Pase 1 Día Gym", description: "Entrada a estudio fitness aliado", category: "SERVICE", costInPrima: 35, sponsor: "Estudios fitness", icon: "💪", color: "#4A6FA5" },
 
   // MERCH (32-36)
-  { id: 32, name: "Playera Rastros", description: "Playera del proyecto edición limitada", category: "MERCH", costInPrima: 60, sponsor: "Rastros", icon: "👕", color: "#1C2430" },
-  { id: 33, name: "Hoodie Edición Limitada", description: "Sudadera edición Blitz GDL 2026", category: "MERCH", costInPrima: 120, sponsor: "Rastros", icon: "🧥", color: "#1C2430" },
-  { id: 34, name: "Kit de Limpieza Hiker", description: "Guantes, bolsas biodegradables, pinza", category: "MERCH", costInPrima: 35, sponsor: "Rastros", icon: "🧤", color: "#1C2430" },
-  { id: 35, name: "Sticker Pack Temporada", description: "Pack de stickers y parches", category: "MERCH", costInPrima: 15, sponsor: "Rastros", icon: "🏷️", color: "#1C2430" },
-  { id: 36, name: "NFT Especial Blitz GDL", description: "NFT coleccionable del evento", category: "MERCH", costInPrima: 100, sponsor: "Rastros x Frutero", icon: "🎨", color: "#1C2430" },
+  { id: 32, name: "Playera Trepacerros", description: "Playera del proyecto edición limitada", category: "MERCH", costInPrima: 60, sponsor: "Trepacerros", icon: "👕", color: "#1C2430" },
+  { id: 33, name: "Hoodie Edición Limitada", description: "Sudadera edición Blitz GDL 2026", category: "MERCH", costInPrima: 120, sponsor: "Trepacerros", icon: "🧥", color: "#1C2430" },
+  { id: 34, name: "Kit de Limpieza Hiker", description: "Guantes, bolsas biodegradables, pinza", category: "MERCH", costInPrima: 35, sponsor: "Trepacerros", icon: "🧤", color: "#1C2430" },
+  { id: 35, name: "Sticker Pack Temporada", description: "Pack de stickers y parches", category: "MERCH", costInPrima: 15, sponsor: "Trepacerros", icon: "🏷️", color: "#1C2430" },
+  { id: 36, name: "NFT Especial Blitz GDL", description: "NFT coleccionable del evento", category: "MERCH", costInPrima: 100, sponsor: "Trepacerros x Frutero", icon: "🎨", color: "#1C2430" },
 
   // EXCLUSIVE (37-40)
   { id: 37, name: "Ruta VIP Guiada Primavera", description: "Acceso a ruta privada con guía", category: "EXCLUSIVE", costInPrima: 180, sponsor: "Bosque La Primavera A.C.", icon: "🗺️", color: "#794BFF" },
-  { id: 38, name: "Early Access Nueva Zona", description: "Primeros en acceder a cerro nuevo", category: "EXCLUSIVE", costInPrima: 80, sponsor: "Rastros", icon: "🚀", color: "#794BFF" },
+  { id: 38, name: "Early Access Nueva Zona", description: "Primeros en acceder a cerro nuevo", category: "EXCLUSIVE", costInPrima: 80, sponsor: "Trepacerros", icon: "🚀", color: "#794BFF" },
   { id: 39, name: "Evento Sponsor Exclusivo", description: "Invitación a evento privado de marca", category: "EXCLUSIVE", costInPrima: 100, sponsor: "Sponsors rotativos", icon: "🎫", color: "#794BFF" },
-  { id: 40, name: "Membresía Premium 3 Meses", description: "Features avanzadas en la app", category: "EXCLUSIVE", costInPrima: 150, sponsor: "Rastros", icon: "⭐", color: "#794BFF" },
+  { id: 40, name: "Membresía Premium 3 Meses", description: "Features avanzadas en la app", category: "EXCLUSIVE", costInPrima: 150, sponsor: "Trepacerros", icon: "⭐", color: "#794BFF" },
 ];
 
 export function getRewardsByCategory(category: RewardCategory): Reward[] {

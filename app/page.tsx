@@ -87,7 +87,7 @@ function AuthenticatedDashboard() {
                       </div>
                       <div>
                         <p className="font-lexend font-semibold text-sm text-tc-on-surface">
-                          Rastro #{nft.tokenId.toString()}
+                          Trepada #{nft.tokenId.toString()}
                         </p>
                         <p className="text-[12px] text-stone-500">{km} km | {kg} kg</p>
                       </div>

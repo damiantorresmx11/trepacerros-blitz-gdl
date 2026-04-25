@@ -173,7 +173,7 @@ export default function ProfilePage() {
                           </div>
                           <div>
                             <p className="font-bold text-[12px] text-tc-primary">
-                              Rastro #{nft.tokenId.toString()} - {kg} kg
+                              Trepada #{nft.tokenId.toString()} - {kg} kg
                             </p>
                             <p className="text-[10px] text-stone-400">NFT minted</p>
                           </div>

@@ -1,5 +1,5 @@
 /**
- * Contenido educativo de Rastros: datos del día, mitos vs realidades
+ * Contenido educativo de Trepacerros: datos del día, mitos vs realidades
  * y onboarding de seguridad para senderistas en Jalisco.
  *
  * Tono: cálido, factual, anclado en el contexto local (La Primavera,

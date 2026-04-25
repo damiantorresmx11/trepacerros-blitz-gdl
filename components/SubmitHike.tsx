@@ -181,7 +181,7 @@ export function SubmitHike({ stats, points: _points, onMinted, onCancel }: Submi
       const shortId = Date.now().toString().slice(-6);
 
       const metadata = {
-        name: `Rastro #${shortId}`,
+        name: `Trepada #${shortId}`,
         description: `Hike de limpieza en ${trailName}. Recolectó ${trashKg.toFixed(2)} kg de ${trashTypeName}.`,
         image: photoIpfsUri,
         external_url: "https://rastros.xyz",

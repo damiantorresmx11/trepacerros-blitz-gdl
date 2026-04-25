@@ -1,5 +1,5 @@
 /**
- * Retos diarios de Rastros: una misión por día de la semana.
+ * Retos diarios de Trepacerros: una misión por día de la semana.
  * El usuario sube una foto que valida el reto y recibe el bonus en PRIMA.
  *
  * Diseño: feasibles, fotografiables, complementarios al loop principal

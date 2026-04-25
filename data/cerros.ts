@@ -1,6 +1,6 @@
 /**
  * Catálogo de áreas naturales en el Área Metropolitana de Guadalajara
- * donde opera Rastros: La Primavera, Cerro del Colli, Bosque Los Colomos
+ * donde opera Trepacerros: La Primavera, Cerro del Colli, Bosque Los Colomos
  * y Bosque Metropolitano.
  *
  * Las coordenadas son aproximadas al centro del polígono de cada área

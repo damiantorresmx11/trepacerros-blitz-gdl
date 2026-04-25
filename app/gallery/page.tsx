@@ -123,7 +123,7 @@ function NFTCard({ nft, onSelect }: NFTCardProps) {
   }, [nft.tokenURI]);
 
   const title =
-    metadata?.name ?? `Rastro #${nft.tokenId.toString()}`;
+    metadata?.name ?? `Trepada #${nft.tokenId.toString()}`;
   const trailName = getTrailName(nft.rastro.trailType);
   const imageUrl =
     metadata?.image && !imgFailed ? ipfsToGateway(metadata.image) : null;
@@ -181,7 +181,7 @@ interface NFTDetailModalProps {
 }
 
 function NFTDetailModal({ nft, metadata, onClose }: NFTDetailModalProps) {
-  const title = metadata?.name ?? `Rastro #${nft.tokenId.toString()}`;
+  const title = metadata?.name ?? `Trepada #${nft.tokenId.toString()}`;
   const imageUrl = metadata?.image ? ipfsToGateway(metadata.image) : null;
   const attrs = metadata?.attributes ?? [];
 

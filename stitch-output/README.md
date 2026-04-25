@@ -1,6 +1,6 @@
-# Stitch UI — Ola 3 (integración pendiente)
+# Stitch UI — Ola 3 (integración COMPLETA)
 
-Documenta lo que viene de Stitch para que la próxima sesión de Claude Code pueda arrancar la integración sin perder contexto.
+Documenta los assets de Stitch usados para la integración de Trepacerros UI.
 
 ## Origen
 
@@ -10,7 +10,7 @@ Documenta lo que viene de Stitch para que la próxima sesión de Claude Code pue
 
 ## Branding
 
-El proyecto en Stitch ya usa el nombre **Trepacerros**. La app local sigue como **Rastros** (commit `08abae1` y anteriores). El **rename Rastros → Trepacerros se hace AL FINAL**, junto con la integración de Stitch — no antes.
+El proyecto en Stitch usa el nombre **Trepacerros**. La app local fue renombrada de Rastros a Trepacerros en Ola 3 Fase C. Los contratos on-chain mantienen los nombres originales (RastroNFT, PrimaToken, etc.).
 
 ## Las 9 pantallas
 
