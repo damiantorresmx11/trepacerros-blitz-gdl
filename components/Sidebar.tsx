@@ -25,7 +25,7 @@ export function Sidebar() {
   return (
     <aside className="hidden md:flex fixed left-0 top-0 bottom-0 w-60 bg-[#FDFCF8] border-r border-stone-200 flex-col z-50">
       {/* Logo */}
-      <Link href="/" className="flex items-center gap-2 px-5 h-16 border-b border-stone-200">
+      <Link href="/" className="flex items-center gap-2 px-5 h-16 border-b border-stone-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B00] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FDFCF8]">
         <span className="material-symbols-outlined text-[#2D5A27]">landscape</span>
         <span className="font-lexend font-black text-[#2D5A27] tracking-widest uppercase text-lg">
           TREPACERROS
@@ -41,7 +41,7 @@ export function Sidebar() {
             <Link
               key={tab.href}
               href={tab.href}
-              className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-all ${
+              className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B00] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FDFCF8] ${
                 isActive
                   ? "bg-orange-50 text-[#FF6B00]"
                   : "text-stone-600 hover:bg-stone-100 hover:text-tc-on-surface"
@@ -64,7 +64,7 @@ export function Sidebar() {
         <div className="px-3 pb-4">
           <Link
             href="/profile"
-            className="flex items-center gap-2 bg-tc-surface-container px-3 py-3 rounded-xl border border-tc-outline-variant/30"
+            className="flex items-center gap-2 bg-tc-surface-container px-3 py-3 rounded-xl border border-tc-outline-variant/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B00] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FDFCF8]"
           >
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shrink-0" />
             <div className="min-w-0 flex-1">

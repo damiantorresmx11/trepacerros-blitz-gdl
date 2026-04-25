@@ -21,7 +21,7 @@ function AuthenticatedDashboard() {
   return (
     <div className="flex flex-col md:grid md:grid-cols-2 md:items-start gap-6 font-lexend">
       {/* Map Hero */}
-      <div className="relative w-full aspect-[4/3] md:aspect-[16/9] rounded-3xl overflow-hidden -mx-5 w-[calc(100%+40px)] md:mx-0 md:w-full md:row-span-3">
+      <div className="relative aspect-[4/3] -mx-5 w-[calc(100%+40px)] md:mx-0 md:w-full md:aspect-[16/9] overflow-hidden rounded-3xl md:row-span-3">
         <HeroIllustration className="w-full h-full" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#fcf9f8] via-transparent to-transparent" />
         <div className="absolute bottom-4 left-5 right-5">

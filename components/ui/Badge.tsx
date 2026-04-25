@@ -14,10 +14,10 @@ const base =
   'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-sans font-medium leading-none'
 
 const variants: Record<BadgeVariant, string> = {
-  default: 'bg-muted/30 text-foreground',
-  success: 'bg-primary/15 text-primary',
-  warning: 'bg-warm/15 text-warm',
-  accent: 'bg-accent/15 text-accent',
+  default: 'bg-stone-100 text-tc-on-surface',
+  success: 'bg-tc-primary-fixed text-tc-primary',
+  warning: 'bg-[#ffdcc3] text-[#5a2e00]',
+  accent: 'bg-[#FF6B00]/15 text-[#FF6B00]',
 }
 
 export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(

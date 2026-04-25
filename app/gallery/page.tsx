@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAccount } from "wagmi";
+import { AppShell } from "@/components/AppShell";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { ConnectButton } from "@/components/ConnectButton";
@@ -67,30 +68,30 @@ function StatStrip({
 
   return (
     <div className="grid grid-cols-3 gap-3 mb-6">
-      <Card className="p-3 sm:p-4 text-center bg-background/80">
-        <span className="block text-xs uppercase tracking-wide text-muted">
+      <div className="bg-white rounded-2xl p-4 shadow-sm border border-stone-100 text-center">
+        <span className="block font-space-grotesk text-[10px] uppercase text-stone-500 tracking-wider">
           NFTs
         </span>
-        <span className="block font-display text-2xl text-primary">
+        <span className="block font-lexend text-tc-headline-md text-tc-primary">
           {totalNFTs}
         </span>
-      </Card>
-      <Card className="p-3 sm:p-4 text-center bg-background/80">
-        <span className="block text-xs uppercase tracking-wide text-muted">
+      </div>
+      <div className="bg-white rounded-2xl p-4 shadow-sm border border-stone-100 text-center">
+        <span className="block font-space-grotesk text-[10px] uppercase text-stone-500 tracking-wider">
           kg limpios
         </span>
-        <span className="block font-display text-2xl text-primary">
+        <span className="block font-lexend text-tc-headline-md text-tc-primary">
           {kgValue}
         </span>
-      </Card>
-      <Card className="p-3 sm:p-4 text-center bg-background/80">
-        <span className="block text-xs uppercase tracking-wide text-muted">
+      </div>
+      <div className="bg-white rounded-2xl p-4 shadow-sm border border-stone-100 text-center">
+        <span className="block font-space-grotesk text-[10px] uppercase text-stone-500 tracking-wider">
           Hikes
         </span>
-        <span className="block font-display text-2xl text-primary">
+        <span className="block font-lexend text-tc-headline-md text-tc-primary">
           {hikeValue}
         </span>
-      </Card>
+      </div>
     </div>
   );
 }
@@ -132,10 +133,10 @@ function NFTCard({ nft, onSelect }: NFTCardProps) {
     <button
       type="button"
       onClick={() => onSelect(nft, metadata)}
-      className="text-left focus:outline-none focus:ring-2 focus:ring-primary rounded-2xl"
+      className="text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B00] focus-visible:ring-offset-2 focus-visible:ring-offset-[#fcf9f8] rounded-2xl"
     >
       <Card className="p-0 overflow-hidden h-full hover:shadow-lg transition-shadow flex flex-col">
-        <div className="aspect-square w-full bg-muted/20 relative">
+        <div className="aspect-square w-full bg-stone-100 relative">
           {imageUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -145,7 +146,7 @@ function NFTCard({ nft, onSelect }: NFTCardProps) {
               onError={() => setImgFailed(true)}
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-muted text-sm">
+            <div className="w-full h-full flex items-center justify-center text-stone-400 text-sm">
               {metaError ? "Sin imagen" : "Cargando..."}
             </div>
           )}
@@ -159,11 +160,11 @@ function NFTCard({ nft, onSelect }: NFTCardProps) {
           ) : null}
         </div>
         <div className="p-4 flex flex-col gap-2 flex-1">
-          <h3 className="font-display text-lg text-primary leading-tight line-clamp-1">
+          <h3 className="font-lexend text-lg text-tc-primary leading-tight line-clamp-1">
             {title}
           </h3>
-          <p className="text-sm text-muted">{trailName}</p>
-          <div className="mt-auto pt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-foreground/80">
+          <p className="text-sm text-stone-500">{trailName}</p>
+          <div className="mt-auto pt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-tc-on-surface/80">
             <span>{formatKm(nft.rastro.distanceMeters)} km</span>
             <span>{formatKg(nft.rastro.trashGrams)} kg</span>
             <span>{formatDate(nft.rastro.timestamp)}</span>
@@ -187,28 +188,28 @@ function NFTDetailModal({ nft, metadata, onClose }: NFTDetailModalProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-foreground/60 backdrop-blur-sm flex items-start sm:items-center justify-center overflow-y-auto"
+      className="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-end md:items-center justify-center overflow-y-auto"
       role="dialog"
       aria-modal="true"
       onClick={onClose}
     >
       <div
-        className="w-full max-w-lg m-0 sm:m-4 bg-background rounded-none sm:rounded-2xl shadow-xl min-h-screen sm:min-h-0"
+        className="w-full max-w-[480px] md:max-w-lg bg-[#fcf9f8] rounded-t-3xl md:rounded-3xl shadow-xl min-h-0 max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between px-4 py-3 border-b border-muted/30 sticky top-0 bg-background z-10">
-          <h2 className="font-display text-xl text-primary line-clamp-1">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-stone-200 sticky top-0 bg-[#fcf9f8] z-10">
+          <h2 className="font-lexend text-tc-headline-md font-semibold text-tc-primary line-clamp-1">
             {title}
           </h2>
           <button
             onClick={onClose}
-            className="text-sm text-muted hover:text-foreground ml-4 shrink-0"
+            className="text-stone-500 hover:text-tc-on-surface p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B00] rounded-lg"
             aria-label="Cerrar"
           >
-            Cerrar
+            <span className="material-symbols-outlined">close</span>
           </button>
         </div>
-        <div className="p-4 flex flex-col gap-4">
+        <div className="p-5 flex flex-col gap-4">
           {imageUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -220,64 +221,64 @@ function NFTDetailModal({ nft, metadata, onClose }: NFTDetailModalProps) {
 
           <div className="grid grid-cols-2 gap-3">
             <div className="flex flex-col">
-              <span className="text-xs uppercase text-muted">Cerro</span>
-              <span className="text-sm">
+              <span className="font-space-grotesk text-[10px] uppercase text-stone-500 tracking-wider">Cerro</span>
+              <span className="text-sm text-tc-on-surface">
                 {getTrailName(nft.rastro.trailType)}
               </span>
             </div>
             <div className="flex flex-col">
-              <span className="text-xs uppercase text-muted">Fecha</span>
-              <span className="text-sm">
+              <span className="font-space-grotesk text-[10px] uppercase text-stone-500 tracking-wider">Fecha</span>
+              <span className="text-sm text-tc-on-surface">
                 {formatDate(nft.rastro.timestamp)}
               </span>
             </div>
             <div className="flex flex-col">
-              <span className="text-xs uppercase text-muted">Distancia</span>
-              <span className="text-sm">
+              <span className="font-space-grotesk text-[10px] uppercase text-stone-500 tracking-wider">Distancia</span>
+              <span className="text-sm text-tc-on-surface">
                 {formatKm(nft.rastro.distanceMeters)} km
               </span>
             </div>
             <div className="flex flex-col">
-              <span className="text-xs uppercase text-muted">Basura</span>
-              <span className="text-sm">
+              <span className="font-space-grotesk text-[10px] uppercase text-stone-500 tracking-wider">Basura</span>
+              <span className="text-sm text-tc-on-surface">
                 {formatKg(nft.rastro.trashGrams)} kg
               </span>
             </div>
             <div className="flex flex-col">
-              <span className="text-xs uppercase text-muted">Duración</span>
-              <span className="text-sm">
+              <span className="font-space-grotesk text-[10px] uppercase text-stone-500 tracking-wider">Duración</span>
+              <span className="text-sm text-tc-on-surface">
                 {Math.floor(Number(nft.rastro.durationSeconds) / 60)} min
               </span>
             </div>
             <div className="flex flex-col">
-              <span className="text-xs uppercase text-muted">
+              <span className="font-space-grotesk text-[10px] uppercase text-stone-500 tracking-wider">
                 Checkpoint oficial
               </span>
-              <span className="text-sm">
+              <span className="text-sm text-tc-on-surface">
                 {nft.rastro.officialCheckpoint ? "Sí" : "No"}
               </span>
             </div>
           </div>
 
           {metadata?.description ? (
-            <p className="text-sm text-foreground/80">{metadata.description}</p>
+            <p className="text-sm text-tc-on-surface-variant">{metadata.description}</p>
           ) : null}
 
           {attrs.length > 0 ? (
             <div>
-              <h3 className="font-display text-base text-primary mb-2">
+              <h3 className="font-lexend text-base text-tc-primary mb-2">
                 Atributos
               </h3>
               <div className="grid grid-cols-2 gap-2">
                 {attrs.map((attr, idx) => (
                   <div
                     key={`${attr.trait_type ?? "attr"}-${idx}`}
-                    className="rounded-xl bg-muted/15 p-2"
+                    className="rounded-xl bg-stone-100 p-2"
                   >
-                    <div className="text-xs uppercase text-muted">
+                    <div className="font-space-grotesk text-[10px] uppercase text-stone-500 tracking-wider">
                       {attr.trait_type ?? "—"}
                     </div>
-                    <div className="text-sm">{String(attr.value ?? "")}</div>
+                    <div className="text-sm text-tc-on-surface">{String(attr.value ?? "")}</div>
                   </div>
                 ))}
               </div>
@@ -294,11 +295,11 @@ function SkeletonGrid() {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {Array.from({ length: 6 }).map((_, i) => (
         <Card key={i} className="p-0 overflow-hidden">
-          <div className="aspect-square w-full bg-muted/20 animate-pulse" />
+          <div className="aspect-square w-full bg-stone-100 animate-pulse" />
           <div className="p-4 flex flex-col gap-2">
-            <div className="h-4 bg-muted/30 rounded animate-pulse w-2/3" />
-            <div className="h-3 bg-muted/20 rounded animate-pulse w-1/2" />
-            <div className="h-3 bg-muted/20 rounded animate-pulse w-3/4" />
+            <div className="h-4 bg-stone-200 rounded animate-pulse w-2/3" />
+            <div className="h-3 bg-stone-100 rounded animate-pulse w-1/2" />
+            <div className="h-3 bg-stone-100 rounded animate-pulse w-3/4" />
           </div>
         </Card>
       ))}
@@ -317,24 +318,18 @@ export default function GalleryPage() {
   } | null>(null);
 
   return (
-    <main className="min-h-screen bg-background text-foreground font-sans px-4 py-6 sm:px-6">
-      <div className="max-w-5xl mx-auto">
-        <header className="flex items-center justify-between mb-6">
-          <h1 className="font-display text-3xl text-primary">Mi galería</h1>
-          <Link
-            href="/"
-            className="text-sm text-primary hover:text-primary/80 underline-offset-4 hover:underline"
-          >
-            Volver
-          </Link>
-        </header>
+    <AppShell>
+      <div className="font-lexend flex flex-col gap-6">
+        <div className="flex items-center justify-between">
+          <h1 className="text-tc-headline-lg font-semibold text-tc-primary">Mi galería</h1>
+        </div>
 
         {!isConnected || !address ? (
           <Card className="flex flex-col items-center gap-4 text-center">
-            <h2 className="font-display text-xl text-primary">
+            <h2 className="font-lexend text-tc-headline-md text-tc-primary">
               Conecta tu wallet
             </h2>
-            <p className="text-sm text-muted">
+            <p className="text-sm text-tc-on-surface-variant">
               Para ver tus NFTs necesitas estar conectado.
             </p>
             <ConnectButton />
@@ -349,24 +344,22 @@ export default function GalleryPage() {
             />
 
             {error ? (
-              <Card className="bg-warm/10 text-warm mb-4">
-                <p className="text-sm">
-                  Error al cargar tus NFTs: {error.message}
-                </p>
-              </Card>
+              <div className="bg-[#ffdad6] text-[#93000a] rounded-xl p-4 text-sm">
+                Error al cargar tus NFTs: {error.message}
+              </div>
             ) : null}
 
             {isLoading ? (
               <SkeletonGrid />
             ) : nfts.length === 0 ? (
               <Card className="text-center py-12 flex flex-col items-center gap-3">
-                <p className="font-display text-xl text-primary">
+                <p className="font-lexend text-tc-headline-md text-tc-primary">
                   Aún no tienes hikes
                 </p>
-                <p className="text-sm text-muted">empezá uno</p>
+                <p className="text-sm text-tc-on-surface-variant">empezá uno</p>
                 <Link
                   href="/hike"
-                  className="mt-2 inline-flex items-center justify-center font-sans font-medium rounded-xl bg-primary text-background hover:bg-primary/90 h-10 px-4 text-base"
+                  className="mt-2 inline-flex items-center justify-center font-lexend font-bold rounded-2xl bg-[#FF6B00] text-white hover:bg-[#e66000] h-12 px-6 text-tc-cta uppercase tracking-widest active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B00] focus-visible:ring-offset-2 focus-visible:ring-offset-[#fcf9f8]"
                 >
                   Iniciar hike
                 </Link>
@@ -393,6 +386,6 @@ export default function GalleryPage() {
           onClose={() => setSelected(null)}
         />
       ) : null}
-    </main>
+    </AppShell>
   );
 }

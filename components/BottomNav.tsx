@@ -26,9 +26,9 @@ export function BottomNav() {
             <Link
               key={tab.href}
               href={tab.href}
-              className={`flex flex-col items-center justify-center px-3 py-1 transition-all active:scale-90 duration-200 ${
+              className={`flex flex-col items-center justify-center px-3 py-1 transition-all active:scale-90 duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B00] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FDFCF8] rounded-xl ${
                 isActive
-                  ? "text-[#FF6B00] bg-orange-50 rounded-xl"
+                  ? "text-[#FF6B00] bg-orange-50"
                   : "text-stone-500 hover:text-orange-500"
               }`}
             >
