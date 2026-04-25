@@ -83,19 +83,14 @@ function TrashDetailModal({
       style={{ background: "rgba(0,0,0,.5)", backdropFilter: "blur(6px)" }}
     >
       <div
-        className="card w-full max-w-[480px] md:max-w-lg max-h-[85vh] overflow-y-auto"
-        style={{
-          padding: 24,
-          borderRadius: "20px 20px 0 0",
-        }}
+        className="card w-full max-w-[480px] md:max-w-lg max-h-[85vh] overflow-y-auto p-6 rounded-t-[20px] md:rounded-[20px]"
       >
         {/* Header */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16, marginBottom: 16 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <span style={{ fontSize: 30 }}>{item.icono}</span>
+        <div className="flex justify-between items-start gap-4 mb-4">
+          <div className="flex items-center gap-3">
+            <span className="text-[30px]">{item.icono}</span>
             <h3
-              className="h-section"
-              style={{ fontSize: 20, lineHeight: 1.1 }}
+              className="h-section text-xl leading-tight"
             >
               {item.nombre}
             </h3>
@@ -103,7 +98,8 @@ function TrashDetailModal({
           <button
             onClick={onClose}
             aria-label="Cerrar"
-            style={{ color: "var(--muted)", cursor: "pointer", background: "none", border: "none", fontSize: 22 }}
+            className="cursor-pointer bg-transparent border-none text-[22px]"
+            style={{ color: "var(--muted)" }}
           >
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M18 6L6 18M6 6l12 12" />
@@ -112,7 +108,7 @@ function TrashDetailModal({
         </div>
 
         {/* Badges */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
+        <div className="flex flex-wrap gap-2 mb-4">
           {item.reciclable && (
             <span
               className="chip"
@@ -132,12 +128,12 @@ function TrashDetailModal({
           </span>
         </div>
 
-        <p style={{ fontSize: 13, color: "var(--muted)", lineHeight: 1.6, marginBottom: 20 }}>
+        <p className="text-[13px] leading-relaxed mb-5" style={{ color: "var(--muted)" }}>
           {item.impacto}
         </p>
 
         {/* Info sections */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        <div className="flex flex-col gap-2.5">
           {[
             { title: "Degradacion", content: item.tiempoDegradacion },
             { title: "Como separar", content: item.como_separar },
@@ -146,13 +142,12 @@ function TrashDetailModal({
           ].map((section) => (
             <div
               key={section.title}
-              className="card"
-              style={{ padding: 14 }}
+              className="card p-3.5"
             >
-              <div className="eyebrow" style={{ marginBottom: 4 }}>
+              <div className="eyebrow mb-1">
                 <span>{section.title.toUpperCase()}</span>
               </div>
-              <p style={{ fontSize: 13, color: "var(--ink)", lineHeight: 1.5 }}>
+              <p className="text-[13px] leading-normal" style={{ color: "var(--ink)" }}>
                 {section.content}
               </p>
             </div>
@@ -161,20 +156,13 @@ function TrashDetailModal({
 
         <button
           onClick={onClose}
+          className="w-full mt-5 py-4 rounded-[18px] border-none cursor-pointer uppercase tracking-[0.12em]"
           style={{
-            width: "100%",
-            marginTop: 20,
             background: "var(--ember)",
             color: "#fff",
             fontFamily: "var(--font-display)",
             fontWeight: 800,
             fontSize: 16,
-            letterSpacing: "0.12em",
-            textTransform: "uppercase" as const,
-            padding: "16px 0",
-            borderRadius: 18,
-            border: "none",
-            cursor: "pointer",
           }}
         >
           Cerrar
@@ -205,7 +193,7 @@ export default function WikiPage() {
   return (
     <AppShell>
       {/* pad: title + subtitle + search */}
-      <div style={{ padding: "0 18px" }}>
+      <div className="px-[18px]">
         <div className="eyebrow">
           <span>MATERIALES</span>
           <span className="tick" />
@@ -215,19 +203,19 @@ export default function WikiPage() {
         </div>
 
         <h1
-          className="h-display"
-          style={{ fontSize: 36, fontWeight: 900, lineHeight: 0.95, margin: "12px 0 0" }}
+          className="h-display mt-3"
+          style={{ fontSize: 36, fontWeight: 900, lineHeight: 0.95 }}
         >
           Wiki de
           <br />
           Materiales
         </h1>
-        <p style={{ fontSize: 13, color: "var(--muted)", margin: "10px 0 16px", maxWidth: "36ch", lineHeight: 1.5 }}>
+        <p className="text-[13px] mt-2.5 mb-4 max-w-[36ch] leading-relaxed" style={{ color: "var(--muted)" }}>
           Aprende que reciclar, como separarlo, y cuanto multiplica tus $CERRO.
         </p>
 
         {/* Search bar */}
-        <div className="search">
+        <div className="search max-w-md">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: "var(--muted)" }}>
             <circle cx="11" cy="11" r="7" />
             <path d="m20 20-3.5-3.5" />
@@ -241,22 +229,20 @@ export default function WikiPage() {
       </div>
 
       {/* Horizontal scroll filter chips */}
-      <div className="hscroll" style={{ marginTop: 12 }}>
+      <div className="hscroll mt-3">
         {CATEGORIES.map((cat) => (
           <button
             key={cat.key}
             onClick={() => setActiveCategory(cat.key)}
-            className="chip"
+            className="chip shrink-0 cursor-pointer"
             style={
               activeCategory === cat.key
                 ? {
                     background: "var(--ink)",
                     color: "var(--bg)",
                     borderColor: "transparent",
-                    cursor: "pointer",
-                    flexShrink: 0,
                   }
-                : { cursor: "pointer", flexShrink: 0 }
+                : undefined
             }
           >
             {cat.label}
@@ -265,15 +251,12 @@ export default function WikiPage() {
       </div>
 
       {/* Featured: Material del dia */}
-      <div style={{ padding: "20px 18px 0" }}>
-        <div className="card" style={{ padding: 0, overflow: "hidden" }}>
+      <div className="pt-5 px-[18px]">
+        <div className="card p-0 overflow-hidden lg:flex lg:flex-row lg:max-h-[280px]">
           <div
+            className="h-40 flex items-center justify-center lg:w-1/2 lg:h-auto lg:min-h-[240px] shrink-0"
             style={{
-              height: 160,
               background: "repeating-linear-gradient(135deg, color-mix(in oklch, var(--moss) 18%, var(--paper)) 0 12px, color-mix(in oklch, var(--moss) 10%, var(--paper)) 12px 24px)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
               fontFamily: "var(--font-mono-var)",
               fontSize: 11,
               fontWeight: 600,
@@ -284,22 +267,22 @@ export default function WikiPage() {
           >
             FOTO &middot; BOTELLAS PET RECOLECTADAS
           </div>
-          <div style={{ padding: 18 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div className="p-[18px] lg:flex lg:flex-col lg:justify-center">
+            <div className="flex justify-between items-center">
               <span className="eyebrow"><span>MATERIAL DEL DIA</span></span>
               <span className="mult-badge">&times;{FEATURED.multiplicador}</span>
             </div>
             <h3
-              className="h-display"
-              style={{ fontSize: 24, fontWeight: 900, lineHeight: 1, marginTop: 8 }}
+              className="h-display mt-2"
+              style={{ fontSize: 24, fontWeight: 900, lineHeight: 1 }}
             >
               {FEATURED.nombre}
             </h3>
-            <p style={{ fontSize: 13, color: "var(--muted)", lineHeight: 1.5, margin: "8px 0 0" }}>
+            <p className="text-[13px] leading-relaxed mt-2" style={{ color: "var(--muted)" }}>
               Una botella PET reciclada ahorra energia equivalente a mantener un foco encendido por 6 horas.
               Aplastala antes de echarla a la bolsa.
             </p>
-            <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
+            <div className="flex gap-2 mt-3">
               <span
                 className="chip"
                 style={{
@@ -317,44 +300,35 @@ export default function WikiPage() {
       </div>
 
       {/* Categorias grid */}
-      <div style={{ padding: "24px 18px 12px" }}>
+      <div className="pt-6 px-[18px] pb-3">
         <h2 className="h-section">Categorias de Impacto</h2>
       </div>
-      <div style={{ padding: "0 18px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+      <div className="px-[18px]">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
           {filtered.map((item) => (
             <button
               key={item.id}
               onClick={() => setSelected(item)}
-              className="card"
+              className="card p-3.5 flex flex-col gap-2.5 text-left cursor-pointer transition-all duration-200 hover:scale-[1.03] hover:shadow-lg"
               style={{
-                padding: 14,
-                display: "flex",
-                flexDirection: "column",
-                gap: 10,
-                textAlign: "left",
-                cursor: "pointer",
                 border: "1px solid var(--line)",
               }}
             >
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div className="flex justify-between items-center">
                 <div className="wiki-icon">
                   <WikiCardIcon categoria={item.categoria} />
                 </div>
                 <span className="mult-badge">&times;{item.multiplicador}</span>
               </div>
               <div>
-                <div style={{ fontWeight: 700, fontSize: 14, color: "var(--ink)" }}>{item.nombre}</div>
+                <div className="font-bold text-sm" style={{ color: "var(--ink)" }}>{item.nombre}</div>
                 <div
+                  className="text-[11px] leading-snug mt-1 overflow-hidden"
                   style={{
-                    fontSize: 11,
-                    lineHeight: 1.4,
-                    marginTop: 4,
                     color: "var(--muted)",
                     display: "-webkit-box",
                     WebkitLineClamp: 2,
                     WebkitBoxOrient: "vertical",
-                    overflow: "hidden",
                   }}
                 >
                   {item.impacto}
@@ -362,13 +336,11 @@ export default function WikiPage() {
               </div>
               {item.reciclable && (
                 <span
-                  className="chip"
+                  className="chip self-start text-[10px]"
                   style={{
-                    alignSelf: "flex-start",
                     background: "color-mix(in oklch, var(--moss) 14%, var(--paper))",
                     color: "var(--moss)",
                     borderColor: "color-mix(in oklch, var(--moss) 25%, transparent)",
-                    fontSize: 10,
                   }}
                 >
                   Reciclable
@@ -380,24 +352,23 @@ export default function WikiPage() {
       </div>
 
       {/* Did you know */}
-      <div style={{ padding: "24px 18px" }}>
+      <div className="p-[18px] pt-6">
         <div
-          className="card"
+          className="card p-[18px]"
           style={{
-            padding: 18,
             border: "1px solid color-mix(in oklch, var(--moss) 30%, transparent)",
             background: "color-mix(in oklch, var(--moss) 6%, var(--paper))",
           }}
         >
           <div className="eyebrow"><span>SABIAS QUE?</span></div>
           <div
-            className="h-display"
-            style={{ fontSize: 22, fontWeight: 800, lineHeight: 1.15, marginTop: 8 }}
+            className="h-display mt-2"
+            style={{ fontSize: 22, fontWeight: 800, lineHeight: 1.15 }}
           >
             Una sola persona en Jalisco genera{" "}
             <span style={{ color: "var(--moss)" }}>1.2 kg de basura al dia</span>.
           </div>
-          <div style={{ fontSize: 12, color: "var(--muted)", lineHeight: 1.5, marginTop: 8 }}>
+          <div className="text-xs leading-relaxed mt-2" style={{ color: "var(--muted)" }}>
             La Primavera recibe ~12 toneladas de basura visitante por mes. Tu trepada cuenta.
           </div>
         </div>

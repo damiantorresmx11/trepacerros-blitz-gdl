@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Eco-Wiki - Trepacerros</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#a1d494",
+                        "tertiary": "#642600",
+                        "background": "#fafaf4",
+                        "on-tertiary-fixed": "#351000",
+                        "primary-fixed": "#bcf0ae",
+                        "on-secondary-container": "#636451",
+                        "on-tertiary-container": "#ffb08a",
+                        "surface-dim": "#dadad5",
+                        "secondary": "#5e604d",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c2c9bb",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#9dd090",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#ffb693",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f1f1ec",
+                        "surface": "#fafaf4",
+                        "on-primary-fixed": "#002201",
+                        "tertiary-container": "#893600",
+                        "secondary-fixed-dim": "#c8c8b0",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffdbcc",
+                        "outline": "#72796e",
+                        "inverse-surface": "#2f312e",
+                        "on-secondary-fixed": "#1b1d0e",
+                        "on-background": "#1a1c19",
+                        "surface-container": "#eeeee9",
+                        "on-primary": "#ffffff",
+                        "primary": "#154212",
+                        "surface-tint": "#3b6934",
+                        "inverse-primary": "#a1d494",
+                        "surface-bright": "#fafaf4",
+                        "on-tertiary-fixed-variant": "#7a3000",
+                        "secondary-fixed": "#e4e4cc",
+                        "on-surface": "#1a1c19",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#474836",
+                        "surface-container-low": "#f4f4ee",
+                        "on-surface-variant": "#42493e",
+                        "secondary-container": "#e1e1c9",
+                        "surface-container-high": "#e8e8e3",
+                        "primary-container": "#2d5a27",
+                        "on-primary-fixed-variant": "#23501e",
+                        "surface-container-highest": "#e3e3de",
+                        "surface-variant": "#e3e3de"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "0.5rem",
+                        "gutter": "1.5rem",
+                        "sm": "1rem",
+                        "xl": "4rem",
+                        "md": "1.5rem",
+                        "margin-safe": "2rem",
+                        "unit": "4px",
+                        "lg": "2.5rem"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Lexend"],
+                        "caption": ["Lexend"],
+                        "body-lg": ["Lexend"],
+                        "headline-md": ["Lexend"],
+                        "label-bold": ["Lexend"],
+                        "display-lg": ["Lexend"],
+                        "body-md": ["Lexend"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "caption": ["12px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "label-bold": ["14px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-surface {
+            background-color: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .inner-shadow-subtle {
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+        /* Custom scrollbar for web app feel */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--tw-colors-outline-variant);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md h-screen w-screen overflow-hidden flex antialiased">
+<!-- SideNavBar (Web Only) -->
+<nav class="hidden md:flex flex-col p-6 gap-y-4 bg-white/30 backdrop-blur-2xl h-screen w-72 fixed left-0 top-0 border-r border-white/10 shadow-2xl shadow-black/5 z-50">
+<div class="flex items-center gap-sm mb-lg">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-headline-md text-headline-md">
+                T
+            </div>
+<div>
+<h1 class="text-xl font-black text-primary">Trepacerros</h1>
+<p class="font-caption text-caption text-outline">High-Altitude Tech</p>
+</div>
+</div>
+<div class="flex-1 space-y-unit">
+<a class="flex items-center gap-sm px-sm py-xs rounded-xl text-primary/70 hover:text-primary hover:bg-white/20 transition-all font-lexend font-semibold uppercase tracking-widest text-[11px] cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined">map</span>
+                Map Dashboard
+            </a>
+<a class="flex items-center gap-sm px-sm py-xs rounded-xl text-primary/70 hover:text-primary hover:bg-white/20 transition-all font-lexend font-semibold uppercase tracking-widest text-[11px] cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+                Leaderboard
+            </a>
+<!-- Active State -->
+<a class="flex items-center gap-sm px-sm py-xs rounded-xl bg-white/50 text-tertiary-container shadow-inner-subtle transition-all font-lexend font-semibold uppercase tracking-widest text-[11px] cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+                Eco-Wiki
+            </a>
+<a class="flex items-center gap-sm px-sm py-xs rounded-xl text-primary/70 hover:text-primary hover:bg-white/20 transition-all font-lexend font-semibold uppercase tracking-widest text-[11px] cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined">storefront</span>
+                Marketplace
+            </a>
+<a class="flex items-center gap-sm px-sm py-xs rounded-xl text-primary/70 hover:text-primary hover:bg-white/20 transition-all font-lexend font-semibold uppercase tracking-widest text-[11px] cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined">auto_graph</span>
+                My Impact
+            </a>
+<a class="flex items-center gap-sm px-sm py-xs rounded-xl text-primary/70 hover:text-primary hover:bg-white/20 transition-all font-lexend font-semibold uppercase tracking-widest text-[11px] cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined">potted_plant</span>
+                Clean
+            </a>
+</div>
+<button class="mt-auto w-full py-sm rounded-xl bg-tertiary text-on-tertiary font-label-bold text-label-bold shadow-sm inner-shadow-subtle active:scale-95 transition-transform flex items-center justify-center gap-xs">
+            Start Expedition
+        </button>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col md:ml-72 h-screen relative bg-surface-container-lowest">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-40 flex justify-between items-center w-full px-8 h-20 bg-white/40 backdrop-blur-xl border-b border-white/20 shadow-xl shadow-green-900/5">
+<div class="font-headline-md text-headline-md text-primary tracking-tighter">
+                Trepacerros
+            </div>
+<div class="flex items-center gap-gutter font-lexend text-sm font-medium tracking-tight">
+<div class="flex items-center gap-xs bg-surface-container-high rounded-full px-sm py-xs inner-shadow-subtle cursor-pointer hover:bg-white/20 transition-all duration-300">
+<span class="material-symbols-outlined text-tertiary">account_balance_wallet</span>
+<span class="text-tertiary-container">$CERRO Balance</span>
+</div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-primary/60 hover:bg-white/20 hover:text-primary transition-all duration-300 active:scale-90">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden border-2 border-white/40 shadow-sm cursor-pointer hover:scale-105 transition-transform">
+<img alt="User profile picture" class="w-full h-full object-cover" data-alt="Portrait of a young hiker smiling with mountains in background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1qoDVJHimTxHkTyFiBXuf5klvCt6lbMYjZPH-itpuOEEvh5TSsSbN_MLoBE1a63PFvikEPTaTwKz7hVJOW85O21YTrzI05btWY6Ue0DaKDR7-wIItfD7OysFeW4e_eApq81DVlCOiedssLrfd9A3cIydHaUbchtR62pYfgRxXr95Sgp6-E6NYrNRqP_VGjvIG8OE1BLShiL7G8B5jdcI7F_M1zz-qJhbi5lzMSUTCfbIoRrbIVLqndMrWIdt7TXztrwgockDPBtU"/>
+</div>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-margin-safe space-y-xl relative z-10 pb-xl">
+<!-- Hero / Search Section -->
+<section class="max-w-4xl mx-auto text-center space-y-md">
+<h1 class="font-display-lg text-display-lg text-primary">Web Wiki de Residuos</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Master the mountain of waste. Search materials, learn proper disposal techniques, and earn rewards for keeping the trails clean.</p>
+<div class="max-w-xl mx-auto relative mt-lg">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-xl pr-sm py-sm rounded-xl bg-surface-container inner-shadow-subtle border-transparent focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md text-body-md text-on-surface placeholder:text-outline-variant" placeholder="Search for materials (e.g., PET, Batteries, Glass)..." type="text"/>
+</div>
+</section>
+<!-- Material Categories Grid -->
+<section class="max-w-6xl mx-auto">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-gutter">Categorías de Materiales</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Card 1 -->
+<div class="glass-surface rounded-xl overflow-hidden group cursor-pointer hover:-translate-y-1 transition-transform duration-300">
+<div class="h-32 bg-surface-variant relative overflow-hidden">
+<img alt="PET Bottles" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Clear plastic water bottles stacked neatly in natural sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpDAZM0hneMZJirlGNtguDZuhG-Ky6sMgXr7P2o97CCiHtW6hhAPcforPDaBCprhXAzDmHWSAcZ8z0jsLGzlh-QPwGA3vKtz4BZaivc9IDWkuIcsvPuKVoGbzJMqCnZ-XDieWtt0usWFPezxT9Weld6ZENqX-KOMPkH0HxQZHsxawFxBH1iEHQzE246wySLcyBF5F_OOCdv6JdGMjfGp8UjS-rdOgPHCsKhfIod1B9qDFKwSlph7p11vNbg_AhItXD9cQLp48-Qrg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+<span class="absolute bottom-xs left-sm font-label-bold text-label-bold text-white bg-primary-container/80 backdrop-blur-md px-2 py-1 rounded-full text-xs">High Value</span>
+</div>
+<div class="p-sm">
+<h3 class="font-headline-lg text-lg font-semibold text-primary mb-unit">Plástico PET</h3>
+<p class="font-body-md text-sm text-on-surface-variant line-clamp-2">Botellas de agua, refrescos. Requiere enjuague y aplastado antes del depósito.</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="glass-surface rounded-xl overflow-hidden group cursor-pointer hover:-translate-y-1 transition-transform duration-300">
+<div class="h-32 bg-surface-variant relative overflow-hidden">
+<img alt="Aluminum Cans" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Crushed aluminum soda cans organized in a recycling bin" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaZXy6OmzUwJMXfwDpPeIbItEWMOJFinoMfC32-wffIPtBvaFE_Sipo8AWMKaNsPfiow1EB62lec2tTCMt1YciGar9srPwnYCxQ7_vOWOkmIla4mnNqxw0rbhJwSb_kZ5pkCmd24lxy2-lGucA9o1O6q2_HMC-BvKPzmr5Ib94N_fww9CR-si-eYE5WB4SPY6lIYnyJDAeeC7rCjLerfboMhASOrP3NP2NoAyq140QWE9NPziCsKZBMKPdKYQNM4AjdUQReYUZKQ4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+<span class="absolute bottom-xs left-sm font-label-bold text-label-bold text-white bg-primary-container/80 backdrop-blur-md px-2 py-1 rounded-full text-xs">High Value</span>
+</div>
+<div class="p-sm">
+<h3 class="font-headline-lg text-lg font-semibold text-primary mb-unit">Aluminio</h3>
+<p class="font-body-md text-sm text-on-surface-variant line-clamp-2">Latas de bebidas. Altamente reciclable. Escurrir completamente.</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="glass-surface rounded-xl overflow-hidden group cursor-pointer hover:-translate-y-1 transition-transform duration-300">
+<div class="h-32 bg-surface-variant relative overflow-hidden">
+<img alt="Glass Bottles" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Empty green and clear glass bottles separated by color" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrROaFQs0oozrMAy5d-G8lS0Y3fRdIb9dn-CuERfZFSD_OmRA9mOGnu2g2Ykqw3-ND8IbQpBqNufb0eTlxVSJ-le-x6o2quifh-7XcuKg8ra0M5Hx2nF3v3cc_1buo5pU1UV1Is1IUt_i5zjwg8GbWWP1QNhoe0amyE0PymJ-4Q6cupPVQhNNP0UfHhK2sKd5e05jLDq68tNYkJWF1JkEGn7Kw_J2XL6KzIp0aUgu5GV-QxrRLSIhJZWhRGTE_3BtdUgcE7RFYd9A"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+</div>
+<div class="p-sm">
+<h3 class="font-headline-lg text-lg font-semibold text-primary mb-unit">Vidrio</h3>
+<p class="font-body-md text-sm text-on-surface-variant line-clamp-2">Botellas y frascos. Separar por color si es posible. No incluir cerámica.</p>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="glass-surface rounded-xl overflow-hidden group cursor-pointer hover:-translate-y-1 transition-transform duration-300">
+<div class="h-32 bg-surface-variant relative overflow-hidden">
+<img alt="Cardboard" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Flattened brown corrugated cardboard boxes stacked on a wooden pallet" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfBQv5p3XmeeNORzWBB6fMg03kt81aVjOb3CQa5jYnik5z-iWVbkVyPgVRwdbDKrZ7p4E_mWy9ryiNWe0IsikO0k2RdPxxRyt6r6iM7_E1PFLNRhd5eCwrngFZGH8gxEpF1ECjn4l2tmcIPyJPM9bvHCWf2piMPcWUsP7r16YP0HbgG4TAHSa_ZEhsYjm3skyY_G1PopYuqdNyTBr1p8KuO5WQab76tAxF9Ct-ZV_Pm97hKX56pZcpHOiyvTf9US3_DuJKc06d-sE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+</div>
+<div class="p-sm">
+<h3 class="font-headline-lg text-lg font-semibold text-primary mb-unit">Cartón y Papel</h3>
+<p class="font-body-md text-sm text-on-surface-variant line-clamp-2">Cajas limpias, papel mixto. Debe estar seco y libre de grasa.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Guide Steps -->
+<section class="max-w-6xl mx-auto bg-surface-container-high rounded-xl p-lg inner-shadow-subtle">
+<h2 class="font-headline-md text-headline-md text-primary mb-md text-center">Guía Rápida de Reciclaje</h2>
+<div class="flex flex-col md:flex-row gap-gutter items-start justify-center">
+<div class="flex-1 flex flex-col items-center text-center space-y-sm">
+<div class="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container shadow-md">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">water_drop</span>
+</div>
+<h4 class="font-label-bold text-label-bold text-on-surface">1. Vaciar y Limpiar</h4>
+<p class="font-body-md text-sm text-on-surface-variant">Remove all food and liquid residue to prevent contamination.</p>
+</div>
+<div class="hidden md:block w-8 h-[2px] bg-outline-variant mt-8"></div>
+<div class="flex-1 flex flex-col items-center text-center space-y-sm">
+<div class="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container shadow-md">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">category</span>
+</div>
+<h4 class="font-label-bold text-label-bold text-on-surface">2. Clasificar</h4>
+<p class="font-body-md text-sm text-on-surface-variant">Separate materials into correct categories (e.g., rigid plastics vs. film).</p>
+</div>
+<div class="hidden md:block w-8 h-[2px] bg-outline-variant mt-8"></div>
+<div class="flex-1 flex flex-col items-center text-center space-y-sm">
+<div class="w-16 h-16 rounded-full bg-tertiary-container flex items-center justify-center text-on-tertiary-container shadow-md">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<h4 class="font-label-bold text-label-bold text-on-surface">3. Depositar</h4>
+<p class="font-body-md text-sm text-on-surface-variant">Take sorted items to a verified Trepacerros collection point to log your impact.</p>
+</div>
+</div>
+</section>
+<!-- Featured Articles -->
+<section class="max-w-6xl mx-auto">
+<div class="flex justify-between items-end mb-gutter">
+<h2 class="font-headline-md text-headline-md text-on-surface">Featured Education</h2>
+<a class="font-label-bold text-label-bold text-primary hover:text-tertiary transition-colors" href="#">View All</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Article 1 -->
+<div class="glass-surface rounded-xl p-sm flex gap-md items-center group cursor-pointer hover:bg-white/50 transition-colors">
+<div class="w-32 h-32 rounded-lg overflow-hidden bg-surface-variant flex-shrink-0">
+<img alt="Composting" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Hands turning rich dark compost soil with green sprouts emerging" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnFICBlj0PYZnwgT-RhARnwT8FKwnFb6NQOexevuXLbD9BnwhO4UiDaTsVTtEjXGh40SfdhngMLBGndndL3Fvjsm0o90PD0uRK0sVnLyV_7BrS9eaSi9tRYqqVzt5batzJ3Mk4QnsH_3YlBuw2-gri0JvUjhIgDbAobK2dkPNqq2ChsHih6NLhW3_zDQGxTLafmdwDOJsAOhbx0Apnid7Xl6p8ln0FDoZS6UFrr6TqrCsc_Or4qvHU6pzZq3QZ6c_NmC8DSKWMmY0"/>
+</div>
+<div class="flex flex-col justify-center">
+<div class="flex items-center gap-xs mb-unit">
+<span class="bg-tertiary text-on-tertiary rounded-full px-2 py-[2px] font-label-bold text-[10px] uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">monetization_on</span>
+                                    Earn 50 $CERRO
+                                </span>
+<span class="font-caption text-caption text-outline">5 min read</span>
+</div>
+<h3 class="font-headline-lg text-lg font-semibold text-on-surface mb-unit group-hover:text-primary transition-colors">El Arte del Compostaje de Altura</h3>
+<p class="font-body-md text-sm text-on-surface-variant line-clamp-2">Learn how organic waste breaks down differently in high-altitude environments.</p>
+</div>
+</div>
+<!-- Article 2 -->
+<div class="glass-surface rounded-xl p-sm flex gap-md items-center group cursor-pointer hover:bg-white/50 transition-colors">
+<div class="w-32 h-32 rounded-lg overflow-hidden bg-surface-variant flex-shrink-0">
+<img alt="E-waste" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close up of discarded green electronic circuit boards and wires" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKGDYo9VDXLFOBASiV--dSSjhgFAcMkz82STBaGmsxH5dgOTNkWPwqdP0qAPnfHo_SWaQftFri7fNDvPAD9C90-zJB7LwbAfdiAAIJTn2X9dcBERkaOs31E583OxNlv2ibaS5DD0BmdUr5ArAQKdNBpcHvsZahrNfun7pdWk91Yb7VbDL57jPxSpBYtUxKQIRAadwg-c6kSwHnkM-8QmjG-SM_LjTAPtkRa6PWqcwNwCiPkUAWqhAztDbt_aCmSBW9re4NHiDWIdU"/>
+</div>
+<div class="flex flex-col justify-center">
+<div class="flex items-center gap-xs mb-unit">
+<span class="bg-tertiary text-on-tertiary rounded-full px-2 py-[2px] font-label-bold text-[10px] uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">monetization_on</span>
+                                    Earn 100 $CERRO
+                                </span>
+<span class="font-caption text-caption text-outline">8 min read</span>
+</div>
+<h3 class="font-headline-lg text-lg font-semibold text-on-surface mb-unit group-hover:text-primary transition-colors">Peligros de los Residuos Electrónicos</h3>
+<p class="font-body-md text-sm text-on-surface-variant line-clamp-2">Why batteries and old devices pose severe risks to mountain watersheds.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#2f312e",
+                    "primary-container": "#2d5a27",
+                    "tertiary-container": "#893600",
+                    "on-primary": "#ffffff",
+                    "on-background": "#1a1c19",
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#dadad5",
+                    "surface": "#fafaf4",
+                    "secondary-fixed-dim": "#c8c8b0",
+                    "primary": "#154212",
+                    "on-tertiary-container": "#ffb08a",
+                    "surface-container-high": "#e8e8e3",
+                    "inverse-on-surface": "#f1f1ec",
+                    "surface-container-highest": "#e3e3de",
+                    "on-surface-variant": "#42493e",
+                    "primary-fixed-dim": "#a1d494",
+                    "tertiary-fixed": "#ffdbcc",
+                    "on-tertiary-fixed": "#351000",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#fafaf4",
+                    "on-surface": "#1a1c19",
+                    "primary-fixed": "#bcf0ae",
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#c2c9bb",
+                    "background": "#fafaf4",
+                    "on-primary-fixed": "#002201",
+                    "tertiary": "#642600",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-secondary-container": "#636451",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed-variant": "#474836",
+                    "on-primary-fixed-variant": "#23501e",
+                    "surface-tint": "#3b6934",
+                    "secondary-container": "#e1e1c9",
+                    "on-secondary-fixed": "#1b1d0e",
+                    "on-tertiary-fixed-variant": "#7a3000",
+                    "outline": "#72796e",
+                    "on-primary-container": "#9dd090",
+                    "inverse-primary": "#a1d494",
+                    "surface-container-low": "#f4f4ee",
+                    "tertiary-fixed-dim": "#ffb693",
+                    "surface-container": "#eeeee9",
+                    "secondary-fixed": "#e4e4cc",
+                    "surface-variant": "#e3e3de",
+                    "secondary": "#5e604d",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "1.5rem",
+                    "gutter": "1.5rem",
+                    "xl": "4rem",
+                    "sm": "1rem",
+                    "unit": "4px",
+                    "margin-safe": "2rem",
+                    "xs": "0.5rem",
+                    "lg": "2.5rem"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Lexend"],
+                    "display-lg": ["Lexend"],
+                    "body-lg": ["Lexend"],
+                    "caption": ["Lexend"],
+                    "label-bold": ["Lexend"],
+                    "headline-md": ["Lexend"],
+                    "body-md": ["Lexend"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                    "label-bold": ["14px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .surface_glass {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .inner-pressed {
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen">
+<!-- Top Navigation Anchor -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-stone-50/80 dark:bg-stone-900/80 backdrop-blur-md border-b border-white/20 shadow-sm">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="User profile avatar wearing rugged outdoor tech-wear and a determined expression, mountain lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfxK5WlZo1Nea2vp9XVOG1c-2mjxSsqSE1hsrA3MmkWm1BabTGqjVOR7fFRx5I05bFDeU3DiCnMOSeE7sbzCd1GoSDVcDtMAHNLFBAK5M2tJ3pfYsI5nfoOI-C0TlbZnuOBpoB4YiNmxOj4wRDTAce5JX6JZ8fUxRxYQNBk7SGeQenpMCGrIJYpP7Qa2OW4T4TYVc5L_h4SpfraQjHojbMr8KTfOqPzA7Q0Crcm2B3rPX7YEFwFJfOvfNdm_3Hhy4qKj0k0e1joGk"/>
+</div>
+<span class="font-['Lexend'] font-semibold tracking-tight text-green-900 text-lg">Summit Clean</span>
+</div>
+<button class="active:scale-95 transition-transform duration-200 text-orange-600 p-2 rounded-xl hover:bg-stone-200/50">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+</button>
+</div>
+</header>
+<main class="pt-24 pb-32 px-margin-safe max-w-7xl mx-auto">
+<!-- Hero Section -->
+<section class="mb-lg">
+<h1 class="font-display-lg text-display-lg text-primary mb-xs">Premium Routes</h1>
+<p class="text-on-surface-variant font-body-lg max-w-2xl">Select your next cleaning mission. Real-time waste intelligence helps you choose the highest impact trail.</p>
+</section>
+<!-- Route Grid (Asymmetric) -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Main Route Card: Bosque de la Primavera -->
+<div class="md:col-span-8 group">
+<div class="surface_glass rounded-[1.5rem] overflow-hidden flex flex-col h-full shadow-[0_20px_40px_rgba(45,90,39,0.05)] transition-all duration-300 hover:shadow-xl">
+<div class="relative h-[400px]">
+<img alt="Bosque de la Primavera" class="w-full h-full object-cover" data-alt="Wide panoramic shot of a lush pine forest with sunlight filtering through tall trees and misty morning air" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM9a2zwxgEr3KLvgyPxNyE5-37FcaEyS85SdFkFZUtbqmbtqxBD8w2wVOLN2XKUFz0HHUZ1EAGv2F2J6AxjynZUHJEcChNEYQDl5LgIyjN1U54MRAHx9-jZa98osI70IN4659BkQ7oxNOeCb0041GqfPOo0HkRAAwfUJNdGCdQ0fVEQYQYlKuvud4YLhqXclhxX5vR_aI3aue7vmccPWZAwDcc8E9Em1F-Yq5YL12Oa1iIFRU7KqVT4n7-umMpeuCnLHsxWLqC7Wk"/>
+<div class="absolute top-4 left-4 flex gap-2">
+<span class="px-3 py-1 rounded-full bg-orange-100 text-orange-600 font-label-bold text-[10px] uppercase tracking-widest backdrop-blur-md border border-white/30">Difficulty: Medium</span>
+<span class="px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-bold text-[10px] uppercase tracking-widest backdrop-blur-md border border-white/30">High Priority</span>
+</div>
+</div>
+<div class="p-md flex flex-col justify-between flex-grow">
+<div>
+<div class="flex justify-between items-start mb-sm">
+<h2 class="font-headline-lg text-headline-lg text-primary">Bosque de la Primavera</h2>
+<div class="text-right">
+<span class="font-caption text-caption text-on-surface-variant block uppercase tracking-tighter">Waste Level</span>
+<span class="font-headline-md text-headline-md text-tertiary">42 Units (AI)</span>
+</div>
+</div>
+<p class="text-on-surface-variant font-body-md mb-md">Vast pine-oak ecosystems requiring immediate attention along the Rio Caliente trails. Heavy concentration of plastics detected at picnic zones.</p>
+</div>
+<button class="bg-[#ff6b00] hover:bg-[#e65a00] text-on-primary font-label-bold py-4 px-8 rounded-xl flex items-center justify-center gap-3 transition-all active:scale-[0.98] border border-white/10">
+<span class="material-symbols-outlined" data-icon="rocket_launch">rocket_launch</span>
+                            START MISSION
+                        </button>
+</div>
+</div>
+</div>
+<!-- Side Route Card: Cerro del Colli -->
+<div class="md:col-span-4 group">
+<div class="surface_glass rounded-[1.5rem] overflow-hidden flex flex-col h-full shadow-[0_20px_40px_rgba(45,90,39,0.05)] transition-all duration-300 hover:shadow-xl">
+<div class="relative h-[240px]">
+<img alt="Cerro del Colli" class="w-full h-full object-cover" data-alt="Steep mountain ridge trail under a clear blue sky with rugged volcanic rock formations" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnvt2z9mnUmXrKkaaVahlmlX7aVmJSbI_Ymx-3yDHiwyaqSdAVNy0qnCt-4SeiK-mMqk-DHl5we5VrFDINI4GXXfDJPCC64aINjWHzyTCPetZ9lNtIyKBZjgCrrDzrF548mtDP43XKNaBn7A056pMVFafrPMjRb_ZE8dCPZPGXA1GEeHg3KzdKZk_Q7nhVFNGONdGSSqPhXI_fZdYbLWsmtW289_tvw1bYbCHltSwWGNj4p1vQ9WdP7qhM2uLVr5d7z-NEAQg0fhA"/>
+<div class="absolute top-4 left-4">
+<span class="px-3 py-1 rounded-full bg-orange-200 text-orange-900 font-label-bold text-[10px] uppercase tracking-widest backdrop-blur-md border border-white/30">Difficulty: Hard</span>
+</div>
+</div>
+<div class="p-md flex flex-col justify-between flex-grow">
+<div class="mb-md">
+<h2 class="font-headline-md text-headline-md text-primary mb-xs">Cerro del Colli</h2>
+<div class="inner-pressed bg-surface-container-low p-sm rounded-xl mb-sm border border-outline-variant/30">
+<div class="flex justify-between items-center">
+<span class="font-caption text-caption text-on-surface-variant uppercase tracking-widest">Waste Index</span>
+<span class="font-label-bold text-label-bold text-tertiary">18 AIU</span>
+</div>
+<div class="w-full h-1.5 bg-outline-variant/30 rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-orange-500 w-[30%]"></div>
+</div>
+</div>
+</div>
+<button class="bg-[#ff6b00] hover:bg-[#e65a00] text-on-primary font-label-bold py-3 px-6 rounded-xl flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
+                            START MISSION
+                        </button>
+</div>
+</div>
+</div>
+<!-- Bottom Route Card: Barranca de Huentitán -->
+<div class="md:col-span-12 group">
+<div class="surface_glass rounded-[1.5rem] overflow-hidden grid md:grid-cols-2 gap-0 shadow-[0_20px_40px_rgba(45,90,39,0.05)] transition-all duration-300 hover:shadow-xl">
+<div class="relative h-[300px] md:h-full">
+<img alt="Barranca de Huentitán" class="w-full h-full object-cover" data-alt="Breathtaking view of a deep river canyon with steep green cliffs and a winding path leading down" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDGuTxF9X8enOgMmEa0KHxA284LnIfYjCHy6VB1bcmeflGYzcIso-gOLBn4URE68B2RVz2ruV0sQLw0HLXispgj3DIVBeSqAybeuDgjZHH8OXhNaesf4H3hEPM33EabmkqK0ehXAqSwbqM-opNEFapwFSbnJuQU76VJ49Qle5n43gINN8_aupkKJR_E34kQm2_O5qq5Dg6zCYvsKmmCKvn9XHw3zh0IYp_mIU0rqIqMLsXYfFHadw1X_GTCV28e3xCLX6uH1imKWo"/>
+<div class="absolute bottom-6 left-6">
+<span class="px-4 py-2 rounded-full bg-primary-container text-on-primary font-label-bold text-xs uppercase tracking-widest backdrop-blur-lg border border-white/20">Difficulty: Extreme</span>
+</div>
+</div>
+<div class="p-lg flex flex-col justify-center">
+<div class="mb-md">
+<div class="flex items-center gap-2 mb-xs">
+<span class="material-symbols-outlined text-orange-600" data-icon="trending_up">trending_up</span>
+<span class="text-orange-600 font-label-bold text-xs uppercase tracking-widest">Surge Warning</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-sm">Barranca de Huentitán</h2>
+<p class="text-on-surface-variant font-body-md mb-md">Deep canyon descent requiring high stamina. Post-weekend cleanup needed for the lower riverbank sectors. AI predicts high microplastic accumulation.</p>
+<div class="grid grid-cols-2 gap-sm">
+<div class="bg-surface-container-low border border-outline-variant/30 p-sm rounded-xl">
+<span class="font-caption text-caption text-on-surface-variant block uppercase tracking-tighter">Est. Waste</span>
+<span class="font-headline-md text-headline-md text-tertiary">85 Units</span>
+</div>
+<div class="bg-surface-container-low border border-outline-variant/30 p-sm rounded-xl">
+<span class="font-caption text-caption text-on-surface-variant block uppercase tracking-tighter">Cleaners Needed</span>
+<span class="font-headline-md text-headline-md text-primary">12+ Squad</span>
+</div>
+</div>
+</div>
+<button class="bg-[#ff6b00] hover:bg-[#e65a00] text-on-primary font-label-bold py-4 px-10 rounded-xl flex items-center justify-center gap-3 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+                            START MISSION
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Floating Glass Shell) -->
+<nav class="fixed bottom-6 left-0 right-0 z-50 flex justify-around items-center px-4 py-3 max-w-lg mx-auto bg-white/70 dark:bg-stone-900/70 backdrop-blur-2xl rounded-[1.5rem] border border-white/20 shadow-[0_20px_40px_rgba(45,90,39,0.15)]">
+<a class="flex flex-col items-center justify-center text-green-900/50 dark:text-stone-500 px-3 py-2 hover:text-orange-500 transition-all active:scale-90 cubic-bezier(0.34,1.56,0.64,1)" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-['Lexend'] text-[10px] font-bold uppercase tracking-widest mt-1">Map</span>
+</a>
+<a class="flex flex-col items-center justify-center text-orange-600 bg-orange-50 dark:bg-orange-950/30 rounded-2xl px-3 py-2 transition-all active:scale-90 cubic-bezier(0.34,1.56,0.64,1)" href="#">
+<span class="material-symbols-outlined" data-icon="cleaning_services">cleaning_services</span>
+<span class="font-['Lexend'] text-[10px] font-bold uppercase tracking-widest mt-1">Clean</span>
+</a>
+<a class="flex flex-col items-center justify-center text-green-900/50 dark:text-stone-500 px-3 py-2 hover:text-orange-500 transition-all active:scale-90 cubic-bezier(0.34,1.56,0.64,1)" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-['Lexend'] text-[10px] font-bold uppercase tracking-widest mt-1">Wiki</span>
+</a>
+<a class="flex flex-col items-center justify-center text-green-900/50 dark:text-stone-500 px-3 py-2 hover:text-orange-500 transition-all active:scale-90 cubic-bezier(0.34,1.56,0.64,1)" href="#">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span class="font-['Lexend'] text-[10px] font-bold uppercase tracking-widest mt-1">Rank</span>
+</a>
+<a class="flex flex-col items-center justify-center text-green-900/50 dark:text-stone-500 px-3 py-2 hover:text-orange-500 transition-all active:scale-90 cubic-bezier(0.34,1.56,0.64,1)" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Lexend'] text-[10px] font-bold uppercase tracking-widest mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

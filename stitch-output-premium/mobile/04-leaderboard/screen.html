@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Summit Clean - Trepacerros Leaderboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#2f312e",
+                    "primary-container": "#2d5a27",
+                    "tertiary-container": "#893600",
+                    "on-primary": "#ffffff",
+                    "on-background": "#1a1c19",
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#dadad5",
+                    "surface": "#fafaf4",
+                    "secondary-fixed-dim": "#c8c8b0",
+                    "primary": "#154212",
+                    "on-tertiary-container": "#ffb08a",
+                    "surface-container-high": "#e8e8e3",
+                    "inverse-on-surface": "#f1f1ec",
+                    "surface-container-highest": "#e3e3de",
+                    "on-surface-variant": "#42493e",
+                    "primary-fixed-dim": "#a1d494",
+                    "tertiary-fixed": "#ffdbcc",
+                    "on-tertiary-fixed": "#351000",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#fafaf4",
+                    "on-surface": "#1a1c19",
+                    "primary-fixed": "#bcf0ae",
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#c2c9bb",
+                    "background": "#fafaf4",
+                    "on-primary-fixed": "#002201",
+                    "tertiary": "#642600",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-secondary-container": "#636451",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed-variant": "#474836",
+                    "on-primary-fixed-variant": "#23501e",
+                    "surface-tint": "#3b6934",
+                    "secondary-container": "#e1e1c9",
+                    "on-secondary-fixed": "#1b1d0e",
+                    "on-tertiary-fixed-variant": "#7a3000",
+                    "outline": "#72796e",
+                    "on-primary-container": "#9dd090",
+                    "inverse-primary": "#a1d494",
+                    "surface-container-low": "#f4f4ee",
+                    "tertiary-fixed-dim": "#ffb693",
+                    "surface-container": "#eeeee9",
+                    "secondary-fixed": "#e4e4cc",
+                    "surface-variant": "#e3e3de",
+                    "secondary": "#5e604d",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "1.5rem",
+                    "gutter": "1.5rem",
+                    "xl": "4rem",
+                    "sm": "1rem",
+                    "unit": "4px",
+                    "margin-safe": "2rem",
+                    "xs": "0.5rem",
+                    "lg": "2.5rem"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Lexend"],
+                    "display-lg": ["Lexend"],
+                    "body-lg": ["Lexend"],
+                    "caption": ["Lexend"],
+                    "label-bold": ["Lexend"],
+                    "headline-md": ["Lexend"],
+                    "body-md": ["Lexend"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                    "label-bold": ["14px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .surface_glass {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body-md text-on-background min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-stone-50/80 backdrop-blur-md border-b border-white/20 shadow-sm px-6 py-4 flex justify-between items-center w-full">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img class="w-full h-full object-cover" data-alt="User avatar wearing tech-wear, futuristic goggles, and neon accented mountain gear" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCggsjprMLpFlJwkWqTkc23QMkGNjhd3ctLNKa_8G6rDquCw1kMfwWkFe6gqgg9BOwaLbryqdO9AXp4LGmOkUm0rvcg3ltlP2EugZQCZBrZDU_9xuuinlZK3n9-NtQSGUXQNPc4FWvvVfYYDBvDX-fDqDMZ0l9pyYKTZoNBEF7krz9SeY4-7x8wJxfEW_9D4sKqsCf4hk43FCZ15rsoqAvjCQ2qOUkZUngdAyI7cIN6eN644h9lD7u9OKCzzsSsR6oSOZzIcve4Ors"/>
+</div>
+<span class="text-lg font-black text-primary-container tracking-tighter font-headline-md">Summit Clean</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-tertiary active:scale-95 transition-transform duration-200" data-icon="account_balance_wallet">account_balance_wallet</button>
+</div>
+</header>
+<main class="pt-24 pb-32 px-gutter max-w-2xl mx-auto">
+<!-- Hero Section -->
+<section class="mb-lg">
+<div class="relative overflow-hidden rounded-[1.5rem] p-8 aspect-[16/9] flex flex-col justify-end text-white shadow-xl mb-md">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="majestic high altitude mountain range with jagged peaks and orange sunset glow hitting the snow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQp8RWjfDkSoyguWNpVrwZPME2KJFDYU4sT6eJj_bCWfM8IRcFLC9oBEy8mRZbr8T1VRfI9zVodLypPxYLXD7-dmvlthc51Kdd9fm8saMHJoCUZWIb6riTZHcUigcBnfMQsrW4wGCBAMdkyH2ZOyEjV8S3Sxa_R3p2G1dZO1Vhxr_xmolrrZBl2F1z70RuevSG-Rjvjw9e-zqLtLjQc_28eTKrdwqkKEksgSNogsGgnnuL-nGSuUXhzdgn2NUY5Y0BnBblsMrjyuQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+</div>
+<div class="relative z-10">
+<h1 class="font-display-lg text-display-lg mb-xs">Elite Trepacerros</h1>
+<p class="font-body-md opacity-90">Global Ranking • Unidades Recolectadas</p>
+</div>
+</div>
+<!-- Stats Bar -->
+<div class="grid grid-cols-3 gap-sm mb-lg">
+<div class="surface_glass rounded-[1.5rem] p-md text-center">
+<span class="font-caption text-secondary uppercase block mb-xs">Total Units</span>
+<span class="font-headline-md text-primary-container">128.4k</span>
+</div>
+<div class="surface_glass rounded-[1.5rem] p-md text-center border-2 border-tertiary-container/20">
+<span class="font-caption text-secondary uppercase block mb-xs">Your Rank</span>
+<span class="font-headline-md text-tertiary">#42</span>
+</div>
+<div class="surface_glass rounded-[1.5rem] p-md text-center">
+<span class="font-caption text-secondary uppercase block mb-xs">Active</span>
+<span class="font-headline-md text-primary-container">1.2k</span>
+</div>
+</div>
+</section>
+<!-- Podium Section (Top 3) -->
+<section class="flex justify-between items-end gap-sm mb-xl h-64">
+<!-- Rank 2 -->
+<div class="flex-1 flex flex-col items-center">
+<div class="relative mb-xs">
+<div class="w-16 h-16 rounded-full border-4 border-stone-300 overflow-hidden shadow-lg">
+<img class="w-full h-full object-cover" data-alt="portrait of a focused male hiker with mountain peaks reflecting in his sunglasses" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkMdEW1lG7sLA-cIJsXFUsWLUgGlt90Bez0XhW3DxEM8jvtiD5dQinvI3vN68h5oJyNoEXkWidXc56y-8fgFZX571i1x3mOE_-DyMUkg86vscEHZOXXxuSc40A1qp3NXbnAyDCs7m5kHtcEg_X_rIl5B8W-Rs8F3y6K7tXfluzX7FowZjX673faGQHpd09I6p9T92E0IT1dY17KimwTE1kW5Znax-M7LZmzrS0K4N_sBmaw0FaQW3B8qzggPyLFCewRzVqCb0MJN0"/>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-stone-300 text-on-surface text-[10px] font-bold w-6 h-6 flex items-center justify-center rounded-full">2</div>
+</div>
+<div class="surface_glass w-full h-24 rounded-t-xl flex flex-col items-center justify-center p-sm shadow-lg">
+<span class="font-label-bold truncate w-full text-center">Mateo G.</span>
+<span class="font-caption text-tertiary-container font-bold">14,202</span>
+</div>
+</div>
+<!-- Rank 1 -->
+<div class="flex-1 flex flex-col items-center">
+<div class="relative mb-xs">
+<div class="w-20 h-20 rounded-full border-4 border-yellow-400 overflow-hidden shadow-xl">
+<img class="w-full h-full object-cover" data-alt="adventurous woman with glowing skin standing on a summit with clear blue sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1rPTseygAhKxc_D8xMSDw_EIVvrsow9bQ1hSWz5wd75xMSdnqVyvg7eab6COW77UQOZU6jlZHZH5spAUY57AWlCyr8-1P8kNIFrona45GUT7xz9itpdFZ7HyMppNZs0XW-46c9Hbf6UiW8pWMBKpDK73BDcA5absyz8f_3RRiQSt1oGs6Pbgl6kCBYt-k_pVnXkEdZe5oAyKOxWMGKjl5XPm8MQBJycg195DjCZZkNo8vh1JfPuaDMycikHaJC5LyCiSldSGyZ4o"/>
+</div>
+<div class="absolute -top-4 left-1/2 -translate-x-1/2">
+<span class="material-symbols-outlined text-yellow-500 text-3xl" style="font-variation-settings: 'FILL' 1;">stars</span>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-yellow-400 text-on-surface text-[12px] font-bold w-7 h-7 flex items-center justify-center rounded-full">1</div>
+</div>
+<div class="bg-primary-container w-full h-36 rounded-t-xl flex flex-col items-center justify-center p-sm shadow-xl">
+<span class="font-label-bold text-white truncate w-full text-center">Elena Trail</span>
+<span class="font-caption text-on-primary-container font-bold">18,540</span>
+</div>
+</div>
+<!-- Rank 3 -->
+<div class="flex-1 flex flex-col items-center">
+<div class="relative mb-xs">
+<div class="w-16 h-16 rounded-full border-4 border-orange-300 overflow-hidden shadow-lg">
+<img class="w-full h-full object-cover" data-alt="outdoor athlete profile photo with blurred alpine background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9Bczf9xD9ORFDGqpVl-ltIJLTM0dRz2zuVgLGydTNvxsH8udZE1Ef8-56f3j0uWlVXu5knF9K3RQX4mW5KyvSjRhMMz1XetMo1zH6WN_x5jYUy0Kzt1zcgmFqnu80V8lvH4_c-0vG74Ihgu_M_Eu8VF4ysDMQ6UzXHtfqwvWEKFCK7CRNYmWvud5g-Gy76l-uxHxcc7yUQ8NvMzExj8uqypWx_ENBDh14X6ykel1kc9RVAoS0nTjekjKgxlbsTv5pFWK4wniuGzM"/>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-orange-300 text-on-surface text-[10px] font-bold w-6 h-6 flex items-center justify-center rounded-full">3</div>
+</div>
+<div class="surface_glass w-full h-20 rounded-t-xl flex flex-col items-center justify-center p-sm shadow-lg">
+<span class="font-label-bold truncate w-full text-center">Julian P.</span>
+<span class="font-caption text-tertiary-container font-bold">12,110</span>
+</div>
+</div>
+</section>
+<!-- Leaderboard List -->
+<div class="space-y-sm">
+<!-- Table Header -->
+<div class="flex items-center px-md py-xs text-secondary font-label-bold uppercase text-[10px] tracking-widest">
+<div class="w-10">#</div>
+<div class="flex-1">Trepacerrro</div>
+<div class="text-right w-24">Unidades</div>
+<div class="w-10 ml-4"></div>
+</div>
+<!-- Row 4 -->
+<div class="surface_glass rounded-xl p-sm flex items-center gap-md group hover:bg-white/80 transition-all cursor-pointer">
+<div class="w-10 font-label-bold text-secondary text-center">04</div>
+<div class="flex flex-1 items-center gap-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="young hiker woman profile portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBI5jrlOKHC9G5WBWyHeMfOmdiO_mThCy3Ehv0FnuYQR3ZP2A2lnBSYpdzQVPZLXH36OD1-zDLkBFaZWTQ2mfX6GCU8lkfwvm3TiUEd2OborYlYsbqsWhDiLCnpni_GLB1X4-OChpMSkNOwTE7y5YFPS55ln9oeFfCw4bOlGsrWmIs_oF6Jy6Jx453Ef87lxYV-4WdkppPKVQJMgi0ZT-878CeMjtq3zqnyMCoDW_KnUT0L5ZMQhxPivyxBdXeqSGgeITiR8cULsK4"/>
+</div>
+<div>
+<div class="font-label-bold flex items-center gap-xs">
+                            Sofia Reyes
+                            <span class="material-symbols-outlined text-[14px] text-primary-container" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div class="flex gap-1 mt-1">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="w-2 h-2 rounded-full bg-primary/40"></span>
+<span class="w-2 h-2 rounded-full bg-primary/20"></span>
+</div>
+</div>
+</div>
+<div class="w-24 text-right">
+<span class="font-headline-md text-primary-container text-[18px]">11,820</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-error/20 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="flag">flag</span>
+</button>
+</div>
+<!-- Row 5 -->
+<div class="surface_glass rounded-xl p-sm flex items-center gap-md group hover:bg-white/80 transition-all">
+<div class="w-10 font-label-bold text-secondary text-center">05</div>
+<div class="flex flex-1 items-center gap-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="professional trekker profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtmaHacM23VaPCWFpK_-PrVZxfQqAAekthTV9dgQb1uoInI5Au3qiCyUw9VRqXg5OZE_6cPAcrhXTtT-VJHRlspl-JMlqCm-y7DVUCiyLeBvXHz3Hvx_eTaMhUtUKA1Mrn5CW5ctlIzeNMs_SZBxnnHOAjbc5bqViHUssGOKZNfbCNNRnz3hTjANtg52bA2Pk6k5dr1zd6pesze5eSkPeWix_bqgP8d6hFfByavCzCZsfDh3Kb6x1Ny5GaUR0G9siaZMB5pLzPn4k"/>
+</div>
+<div>
+<div class="font-label-bold">Carlos Ruiz</div>
+<div class="flex gap-xs items-center mt-xs">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed text-[8px] font-black px-1 rounded uppercase">Summit King</span>
+</div>
+</div>
+</div>
+<div class="w-24 text-right">
+<span class="font-headline-md text-primary-container text-[18px]">9,945</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-error/20 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="flag">flag</span>
+</button>
+</div>
+<!-- Row 6 -->
+<div class="surface_glass rounded-xl p-sm flex items-center gap-md group hover:bg-white/80 transition-all">
+<div class="w-10 font-label-bold text-secondary text-center">06</div>
+<div class="flex flex-1 items-center gap-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="woman in technical outdoor clothing" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiMhVJ1xXS0zXk6FfKs3E89vUIELXOIAYvoh-ov6NyhT6FkwD3ovpS-BFWQewKlVWcvoXSVvrHKVE3iwrs71Zgy2aHDmQq27Btj_p4lZ6KCMQZj9sbcYqJpgxtU3YQZ5aPbgfKOe9ZA_L1zD223oahvnjGzOfxemeYxauCxO6bJlSOgx6AB1XLdHmnOY4sY1jX0lW7YSVoGyU9iCyo8OLlnhTT5mNX8Ffy0IULicR_7OTxwijHmV6Fn-pmClb0zATOMp4cl82tmJU"/>
+</div>
+<div>
+<div class="font-label-bold">Ana Morales</div>
+<div class="text-[10px] text-secondary">Peak Purist LVL 4</div>
+</div>
+</div>
+<div class="w-24 text-right">
+<span class="font-headline-md text-primary-container text-[18px]">8,310</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-error/20 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="flag">flag</span>
+</button>
+</div>
+<!-- Row 7 -->
+<div class="surface_glass rounded-xl p-sm flex items-center gap-md group hover:bg-white/80 transition-all">
+<div class="w-10 font-label-bold text-secondary text-center">07</div>
+<div class="flex flex-1 items-center gap-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="male hiker in forest setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwx5wGsj0ZFOo2HmruYdw5yY9psaecOlUr__PPo3mofBV1lr7zZ6YuMGygrV6PXbHtf8cDHWGiNunYTW6I8BIlOQa3o6IPucUnYUo7ZWcUr911-u_so8gGwPMCK7gdkup_LV_4FtqLBRyM70rC_HRLxx0gPJWEouNaokFoglLT6Ao7s1KqMlvNiwPLP__ZxVxjEyIiO4PAFIgx8fiYeSmhonCv-2SqHLKeIhJTowR8gc8XY_VdKTjCODSoocV31Ha2R8TWOpO3vnE"/>
+</div>
+<div>
+<div class="font-label-bold">David S.</div>
+<div class="text-[10px] text-secondary">Eco-Warrior</div>
+</div>
+</div>
+<div class="w-24 text-right">
+<span class="font-headline-md text-primary-container text-[18px]">7,290</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-error/20 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="flag">flag</span>
+</button>
+</div>
+<!-- Separation for long list -->
+<div class="flex justify-center py-md">
+<div class="w-2 h-2 rounded-full bg-stone-300 mx-1"></div>
+<div class="w-2 h-2 rounded-full bg-stone-300 mx-1"></div>
+<div class="w-2 h-2 rounded-full bg-stone-300 mx-1"></div>
+</div>
+<!-- User Row (Example of highlight) -->
+<div class="surface_glass border-2 border-primary-container rounded-xl p-sm flex items-center gap-md shadow-lg scale-[1.02]">
+<div class="w-10 font-label-bold text-primary-container text-center">42</div>
+<div class="flex flex-1 items-center gap-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img class="w-full h-full object-cover" data-alt="user current profile photo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnOQP_exzFcL-AU7p9fzxRbuBieOWtQStbquv7U22XSt5fTxmslAIGSuMcP3-lUgz1zCiC_59IkK4FlNjHPslcifNfAdxQ1kjZGOdcIwS44uQsR5Po-mxSaUw4AzexzkAthACA0p6SeyVsjvJ-Mh2I7xxeJGs9NDJRhJ2vajEnEs1nyjmfsl6461PiUZLJM1DgSFttkdVHZ2Wy7a8VM6m08xxOV1y9UenjtcUG9JlPEuAzINZqvUGqvb934j82rMZ3cZvcAnEdxY0"/>
+</div>
+<div>
+<div class="font-label-bold text-primary">You (Trepacerrro)</div>
+<div class="text-[10px] text-tertiary-container font-bold uppercase tracking-tighter">Rising Star</div>
+</div>
+</div>
+<div class="w-24 text-right">
+<span class="font-headline-md text-primary-container text-[18px]">1,204</span>
+</div>
+<div class="w-10"></div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-lg z-50 rounded-[1.5rem] bg-white/70 dark:bg-stone-900/70 backdrop-blur-2xl border border-white/20 shadow-[0_20px_40px_rgba(45,90,39,0.15)] flex justify-around items-center px-4 py-3">
+<div class="flex flex-col items-center justify-center text-green-900/50 hover:text-orange-500 transition-all px-3 py-2 active:scale-90 transition-all cubic-bezier(0.34,1.56,0.64,1)">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-['Lexend'] text-[10px] font-bold uppercase tracking-widest mt-1">Map</span>
+</div>
+<div class="flex flex-col items-center justify-center text-green-900/50 hover:text-orange-500 transition-all px-3 py-2 active:scale-90 transition-all cubic-bezier(0.34,1.56,0.64,1)">
+<span class="material-symbols-outlined" data-icon="cleaning_services">cleaning_services</span>
+<span class="font-['Lexend'] text-[10px] font-bold uppercase tracking-widest mt-1">Clean</span>
+</div>
+<div class="flex flex-col items-center justify-center text-green-900/50 hover:text-orange-500 transition-all px-3 py-2 active:scale-90 transition-all cubic-bezier(0.34,1.56,0.64,1)">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-['Lexend'] text-[10px] font-bold uppercase tracking-widest mt-1">Wiki</span>
+</div>
+<!-- ACTIVE TAB -->
+<div class="flex flex-col items-center justify-center text-orange-600 bg-orange-50 dark:bg-orange-950/30 rounded-2xl px-3 py-2 active:scale-90 transition-all cubic-bezier(0.34,1.56,0.64,1)">
+<span class="material-symbols-outlined" data-icon="leaderboard" style="font-variation-settings: 'FILL' 1;">leaderboard</span>
+<span class="font-['Lexend'] text-[10px] font-bold uppercase tracking-widest mt-1">Rank</span>
+</div>
+<div class="flex flex-col items-center justify-center text-green-900/50 hover:text-orange-500 transition-all px-3 py-2 active:scale-90 transition-all cubic-bezier(0.34,1.56,0.64,1)">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Lexend'] text-[10px] font-bold uppercase tracking-widest mt-1">Profile</span>
+</div>
+</nav>
+</body></html>

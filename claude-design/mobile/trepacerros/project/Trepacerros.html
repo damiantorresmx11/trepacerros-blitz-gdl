@@ -1,0 +1,2037 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Trepacerros — App</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800;900&family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:        oklch(0.975 0.012 90);
+    --bg-2:      oklch(0.94 0.014 90);
+    --paper:     oklch(0.99 0.008 90);
+    --ink:       oklch(0.22 0.045 150);
+    --ink-2:     oklch(0.32 0.05 150);
+    --moss:      oklch(0.42 0.09 150);
+    --moss-2:    oklch(0.55 0.09 150);
+    --leaf:      oklch(0.78 0.08 150);
+    --ember:     oklch(0.68 0.18 50);
+    --ember-2:   oklch(0.74 0.16 60);
+    --ember-soft:oklch(0.93 0.04 60);
+    --sky:       oklch(0.85 0.04 220);
+    --line:      oklch(0.22 0.045 150 / .12);
+    --line-2:    oklch(0.22 0.045 150 / .07);
+    --muted:     oklch(0.45 0.02 150);
+    --shadow-1:  0 1px 0 rgba(255,255,255,.8) inset, 0 1px 2px rgba(34,52,40,.06);
+    --shadow-2:  0 1px 0 rgba(255,255,255,.8) inset, 0 12px 30px -16px rgba(34,52,40,.35);
+    --r-card: 22px;
+    --r-pill: 999px;
+    --font-display: "Big Shoulders Display", "Bebas Neue", system-ui, sans-serif;
+    --font-ui: "Geist", "Inter", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg:        oklch(0.18 0.02 150);
+    --bg-2:      oklch(0.22 0.025 150);
+    --paper:     oklch(0.24 0.025 150);
+    --ink:       oklch(0.96 0.012 90);
+    --ink-2:     oklch(0.85 0.015 90);
+    --moss:      oklch(0.78 0.09 150);
+    --moss-2:    oklch(0.68 0.09 150);
+    --leaf:      oklch(0.55 0.09 150);
+    --ember:     oklch(0.74 0.18 55);
+    --ember-2:   oklch(0.78 0.16 60);
+    --ember-soft:oklch(0.32 0.06 50);
+    --line:      oklch(0.96 0.012 90 / .14);
+    --line-2:    oklch(0.96 0.012 90 / .07);
+    --muted:     oklch(0.7 0.02 150);
+    --shadow-1: 0 1px 0 rgba(255,255,255,.04) inset, 0 1px 2px rgba(0,0,0,.3);
+    --shadow-2: 0 1px 0 rgba(255,255,255,.04) inset, 0 16px 30px -14px rgba(0,0,0,.6);
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  html{background:#0d0e0c}
+  body{
+    font-family:var(--font-ui);
+    color:var(--ink);
+    background:#0d0e0c;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overscroll-behavior-y:none;
+  }
+
+  /* ─── Phone shell ─────────────────────────────────────── */
+  .phone{
+    width:min(100vw, 430px);
+    margin:0 auto;
+    min-height:100vh;
+    background:var(--bg);
+    color:var(--ink);
+    position:relative;
+    overflow:hidden;
+    isolation:isolate;
+    box-shadow: 0 0 80px rgba(0,0,0,.4);
+  }
+  .scroll{
+    height:100vh;
+    overflow-y:auto;
+    overflow-x:hidden;
+    padding-bottom:108px;
+    scroll-behavior:smooth;
+    scrollbar-width:none;
+  }
+  .scroll::-webkit-scrollbar{display:none}
+
+  /* ─── Topographic background ──────────────────────────── */
+  .topo{
+    position:absolute;inset:0;pointer-events:none;z-index:0;
+    opacity:.4;
+    background-image:
+      radial-gradient(1100px 600px at -20% -10%, oklch(0.92 0.04 150 / .6), transparent 60%),
+      radial-gradient(900px 500px at 120% 110%, oklch(0.93 0.05 80 / .5), transparent 55%);
+  }
+  [data-theme="dark"] .topo{opacity:.5}
+
+  /* ─── Status bar (faux) ──────────────────────────────── */
+  .statusbar{
+    height:44px; padding: 0 22px;
+    display:flex;align-items:center;justify-content:space-between;
+    font-family:var(--font-ui); font-size:14px; font-weight:600;
+    color:var(--ink);
+    position:relative;z-index:5;
+  }
+  .statusbar .right{display:flex; gap:6px; align-items:center}
+  .sb-icon{width:14px;height:14px;display:inline-block}
+
+  /* ─── App header ─────────────────────────────────────── */
+  .appbar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:8px 18px 14px;
+    position:sticky; top:0; z-index:30;
+    background:linear-gradient(var(--bg) 70%, transparent);
+    backdrop-filter:blur(8px);
+  }
+  .brand{
+    display:flex;align-items:center;gap:8px;
+    font-family:var(--font-display); font-weight:800; font-size:22px; letter-spacing:.04em;
+    color:var(--ink);
+  }
+  .brand-mark{
+    width:28px;height:28px;border-radius:8px;
+    background:var(--ink); color:var(--bg);
+    display:grid;place-items:center;
+    box-shadow:var(--shadow-1);
+  }
+  .wallet-chip{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:7px 12px 7px 8px;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:var(--r-pill);
+    font-family:var(--font-mono); font-size:11px; font-weight:500;
+    color:var(--ink);
+    box-shadow:var(--shadow-1);
+    cursor:pointer;
+  }
+  .wallet-chip .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:oklch(0.7 0.18 145);
+    box-shadow:0 0 0 3px oklch(0.7 0.18 145 / .25);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{
+    0%,100%{box-shadow:0 0 0 3px oklch(0.7 0.18 145 / .25)}
+    50%{box-shadow:0 0 0 6px oklch(0.7 0.18 145 / 0)}
+  }
+  .wallet-chip .sep{opacity:.3}
+  .wallet-chip .bal{color:var(--ember); font-weight:600}
+
+  /* ─── Bottom nav ─────────────────────────────────────── */
+  .navwrap{
+    position:fixed; bottom:0; left:50%; transform:translateX(-50%);
+    width:min(100vw, 430px);
+    padding: 6px 12px 18px;
+    z-index:40;
+    pointer-events:none;
+  }
+  .nav{
+    pointer-events:auto;
+    display:grid; grid-template-columns:repeat(5, 1fr); gap:2px;
+    background:color-mix(in oklch, var(--paper) 92%, transparent);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border:1px solid var(--line);
+    border-radius:24px;
+    padding:8px;
+    box-shadow: var(--shadow-2);
+  }
+  .nav-btn{
+    appearance:none;border:0;background:transparent;
+    display:flex;flex-direction:column;align-items:center;gap:3px;
+    padding:8px 4px;
+    border-radius:16px;
+    cursor:pointer;
+    color:var(--muted);
+    transition:background .2s, color .2s, transform .2s;
+    font-family:var(--font-ui); font-size:10px; font-weight:600; letter-spacing:.05em;
+    text-transform:uppercase;
+  }
+  .nav-btn svg{width:22px;height:22px}
+  .nav-btn.active{
+    background:color-mix(in oklch, var(--ember) 18%, transparent);
+    color:var(--ember);
+  }
+  .nav-btn.active.center{
+    background:var(--ember);
+    color:#fff;
+    transform:translateY(-14px) scale(1.05);
+    box-shadow: 0 8px 22px -6px var(--ember);
+  }
+  .nav-btn:active{transform:scale(0.94)}
+
+  /* ─── Buttons ────────────────────────────────────────── */
+  .btn{
+    appearance:none;border:0;cursor:pointer;
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    height:56px; padding:0 22px;
+    border-radius:18px;
+    font-family:var(--font-ui); font-weight:700; font-size:15px; letter-spacing:.02em;
+    transition:transform .15s, filter .15s, box-shadow .2s;
+    width:100%;
+  }
+  .btn:active{transform:scale(0.98)}
+  .btn-primary{
+    background: linear-gradient(180deg, var(--ember-2), var(--ember));
+    color:#fff;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.4) inset,
+      0 -1px 0 rgba(0,0,0,.15) inset,
+      0 12px 22px -10px var(--ember);
+  }
+  .btn-primary:hover{filter:brightness(1.04)}
+  .btn-secondary{
+    background:var(--paper); color:var(--ink);
+    border:1px solid var(--line);
+    box-shadow:var(--shadow-1);
+  }
+  .btn-ghost{
+    background:transparent; color:var(--ink);
+  }
+  .btn-danger{
+    background: oklch(0.55 0.18 25); color:#fff;
+    box-shadow: 0 12px 22px -10px oklch(0.55 0.18 25);
+  }
+
+  /* ─── Cards ─────────────────────────────────────────── */
+  .card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:var(--r-card);
+    box-shadow:var(--shadow-1);
+  }
+  .stat{
+    padding:14px;
+    display:flex;flex-direction:column;gap:4px;
+  }
+  .stat .lbl{
+    font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--muted);
+  }
+  .stat .val{
+    font-family:var(--font-display); font-weight:800; font-size:32px; line-height:1;
+    color:var(--ink);
+  }
+  .stat .sub{
+    font-family:var(--font-mono); font-size:10px; color:var(--ember);
+    font-weight:600; letter-spacing:.05em;
+  }
+
+  /* ─── Headings ───────────────────────────────────────── */
+  .h-display{
+    font-family:var(--font-display); font-weight:900;
+    line-height:.86; letter-spacing:-0.01em;
+    color:var(--ink);
+  }
+  .h-section{
+    font-family:var(--font-display); font-weight:800;
+    font-size:26px; letter-spacing:.01em; color:var(--ink);
+    margin:0;
+  }
+  .eyebrow{
+    font-family:var(--font-mono); font-size:10px; font-weight:600;
+    letter-spacing:.18em; text-transform:uppercase;
+    color:var(--moss); display:flex;align-items:center;gap:8px;
+  }
+  .eyebrow .tick{flex:1; height:1px; background:var(--line)}
+
+  /* ─── Tags / chips ───────────────────────────────────── */
+  .chip{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:5px 10px; border-radius:var(--r-pill);
+    font-size:11px; font-weight:600; letter-spacing:.02em;
+    background:var(--bg-2); color:var(--ink-2);
+    border:1px solid var(--line);
+  }
+  .chip-ember{ background:color-mix(in oklch, var(--ember) 14%, var(--paper)); color:var(--ember); border-color:color-mix(in oklch, var(--ember) 25%, transparent)}
+  .chip-moss{ background:color-mix(in oklch, var(--moss) 14%, var(--paper)); color:var(--moss); border-color:color-mix(in oklch, var(--moss) 25%, transparent)}
+
+  /* ─── Mountain hero ──────────────────────────────────── */
+  .mtn-hero{
+    position:relative;
+    border-radius:var(--r-card);
+    overflow:hidden;
+    background:
+      linear-gradient(180deg,
+        oklch(0.88 0.05 80) 0%,
+        oklch(0.84 0.06 70) 40%,
+        oklch(0.62 0.09 145) 100%);
+  }
+  [data-theme="dark"] .mtn-hero{
+    background:
+      linear-gradient(180deg,
+        oklch(0.32 0.05 240) 0%,
+        oklch(0.38 0.07 70) 50%,
+        oklch(0.28 0.06 145) 100%);
+  }
+  .mtn-hero .sun{
+    position:absolute; top:18%; right:14%;
+    width:54px;height:54px; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, oklch(0.92 0.16 75), oklch(0.72 0.18 50));
+    box-shadow:0 0 50px 10px oklch(0.78 0.15 60 / .55);
+  }
+  .mtn-hero svg{position:absolute; left:0; right:0; bottom:-1px; width:100%; display:block}
+  .mtn-hero .haze{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, transparent 30%, oklch(0.22 0.04 150 / .25) 100%);
+  }
+
+  /* ─── Topo lines (decoration) ─────────────────────────── */
+  .topolines{
+    position:absolute; inset:0; pointer-events:none; opacity:.18;
+    background-image:
+      radial-gradient(closest-side, transparent 70%, var(--ink) 71%, transparent 73%),
+      radial-gradient(closest-side, transparent 60%, var(--ink) 61%, transparent 63%),
+      radial-gradient(closest-side, transparent 50%, var(--ink) 51%, transparent 53%);
+    background-size: 220px 220px, 180px 180px, 140px 140px;
+    background-position: 30% 50%, 30% 50%, 30% 50%;
+    background-repeat:no-repeat;
+    mix-blend-mode:multiply;
+  }
+  [data-theme="dark"] .topolines{mix-blend-mode:screen; opacity:.22}
+
+  /* ─── Photo placeholder ──────────────────────────────── */
+  .photo{
+    background:
+      repeating-linear-gradient( 135deg,
+        oklch(0.86 0.04 100) 0 12px,
+        oklch(0.82 0.05 100) 12px 24px);
+    color:oklch(0.4 0.05 150);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-mono); font-size:11px; letter-spacing:.06em;
+    text-transform:uppercase;
+    border-radius:14px;
+    overflow:hidden;
+    position:relative;
+  }
+  .photo::after{
+    content:""; position:absolute; inset:0;
+    background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,.25));
+  }
+  [data-theme="dark"] .photo{
+    background:
+      repeating-linear-gradient(135deg,
+        oklch(0.34 0.04 100) 0 12px,
+        oklch(0.30 0.05 100) 12px 24px);
+    color:oklch(0.78 0.05 90);
+  }
+
+  /* ─── Screen view system ─────────────────────────────── */
+  .view{ display:none; position:relative; min-height:100vh; }
+  .view.active{ display:block; animation: fade .35s ease-out }
+  @keyframes fade{
+    from{opacity:0; transform:translateY(8px)}
+    to{opacity:1; transform:translateY(0)}
+  }
+
+  .pad{ padding: 0 18px; }
+
+  /* ─── Hike active ─────────────────────────────────────── */
+  .map-stage{
+    position:relative; height:380px; overflow:hidden;
+    border-radius:var(--r-card); border:1px solid var(--line);
+    background:
+      linear-gradient(135deg, oklch(0.94 0.02 100), oklch(0.9 0.03 90));
+  }
+  [data-theme="dark"] .map-stage{
+    background: linear-gradient(135deg, oklch(0.26 0.025 150), oklch(0.22 0.03 145));
+  }
+  .map-grid{
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(var(--line-2) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-2) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .map-park{
+    position:absolute; border-radius:50%;
+    background: oklch(0.85 0.08 145 / .55);
+  }
+  .map-roads{
+    position:absolute; inset:0;
+    color:oklch(0.78 0.02 150);
+  }
+
+  .pulse-dot{
+    position:absolute; width:18px;height:18px; border-radius:50%;
+    background:var(--ember); border:3px solid #fff;
+    box-shadow: 0 0 0 0 oklch(0.68 0.18 50 / .45);
+    animation: ringp 1.6s infinite;
+    transform:translate(-50%,-50%);
+    z-index:5;
+  }
+  @keyframes ringp{
+    0%{box-shadow:0 0 0 0 oklch(0.68 0.18 50 / .55)}
+    100%{box-shadow:0 0 0 22px oklch(0.68 0.18 50 / 0)}
+  }
+
+  /* contour for elevation */
+  .elev{
+    height:48px; position:relative;
+    background:linear-gradient(180deg, transparent, oklch(0.85 0.08 145 / .35));
+    border-bottom:1px dashed var(--line);
+  }
+  .elev svg{position:absolute; inset:0; width:100%; height:100%}
+
+  /* ─── HUD numbers ────────────────────────────────────── */
+  .hud-num{
+    font-family:var(--font-display); font-weight:800;
+    font-size:42px; line-height:.9; letter-spacing:.01em;
+    color:var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .hud-num.tone-ember{color:var(--ember)}
+
+  /* ─── Trash counter ──────────────────────────────────── */
+  .pickbar{
+    background: oklch(0.22 0.045 150);
+    color:#fff;
+    border-radius:22px;
+    padding:14px;
+    display:flex; align-items:center; gap:14px;
+    box-shadow: 0 12px 30px -16px oklch(0.22 0.045 150);
+  }
+  [data-theme="dark"] .pickbar{
+    background: oklch(0.32 0.045 150);
+  }
+  .pickbar .count{
+    font-family:var(--font-display); font-weight:900;
+    font-size:44px; line-height:1;
+  }
+  .pickbar .small{ font-size:10px; letter-spacing:.18em; text-transform:uppercase; opacity:.6 }
+  .pick-btn{
+    appearance:none;border:0;cursor:pointer;
+    width:56px;height:56px; border-radius:50%;
+    background:var(--ember); color:#fff;
+    font-family:var(--font-display); font-weight:900; font-size:28px;
+    box-shadow: 0 8px 18px -4px var(--ember);
+    transition: transform .1s;
+  }
+  .pick-btn:active{ transform:scale(0.92) }
+
+  /* ─── Wiki cards ─────────────────────────────────────── */
+  .wiki-card{
+    padding:16px;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .wiki-icon{
+    width:46px;height:46px; border-radius:14px;
+    background: color-mix(in oklch, var(--moss) 22%, var(--paper));
+    color:var(--moss);
+    display:grid;place-items:center;
+  }
+  .mult{
+    font-family:var(--font-mono); font-size:11px; font-weight:700;
+    color:var(--ember);
+    background:var(--ember-soft); border:1px solid color-mix(in oklch, var(--ember) 30%, transparent);
+    padding:3px 8px; border-radius:var(--r-pill);
+  }
+
+  /* ─── Marketplace cards ──────────────────────────────── */
+  .mp-card{
+    overflow:hidden;
+    display:flex; flex-direction:column;
+  }
+  .mp-photo{
+    height:160px; position:relative;
+  }
+  .price{
+    position:absolute; top:12px; right:12px;
+    background:var(--ember); color:#fff;
+    padding:6px 12px; border-radius:var(--r-pill);
+    font-family:var(--font-mono); font-weight:700; font-size:12px;
+    box-shadow: 0 8px 18px -6px var(--ember);
+  }
+  .mp-body{
+    padding:14px 16px 16px;
+    display:flex;flex-direction:column;gap:8px;
+  }
+
+  /* ─── Profile ────────────────────────────────────────── */
+  .avatar{
+    width:96px;height:96px;border-radius:50%;
+    background:
+      linear-gradient(135deg, oklch(0.75 0.09 145), oklch(0.55 0.12 150));
+    margin: 0 auto;
+    position:relative;
+    border:3px solid var(--paper);
+    box-shadow: var(--shadow-2);
+    display:grid;place-items:center;
+    color:#fff;
+    font-family:var(--font-display); font-weight:900; font-size:36px;
+  }
+  .rank-pill{
+    margin: -14px auto 0;
+    width:fit-content;
+    background:var(--ember); color:#fff;
+    padding:6px 14px; border-radius:var(--r-pill);
+    font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+    box-shadow: 0 8px 18px -6px var(--ember);
+    position:relative; z-index:2;
+  }
+
+  .ledger-row{
+    display:grid; grid-template-columns: auto 1fr auto; gap:12px;
+    padding:12px 0;
+    border-bottom:1px dashed var(--line);
+    align-items:center;
+  }
+  .ledger-row:last-child{border-bottom:0}
+  .ledger-icon{
+    width:36px;height:36px; border-radius:10px;
+    background:var(--bg-2); color:var(--ink-2);
+    display:grid;place-items:center;
+  }
+  .ledger-amt{
+    font-family:var(--font-mono); font-size:13px; font-weight:700;
+  }
+  .ledger-amt.pos{color: oklch(0.55 0.16 145)}
+  .ledger-amt.neg{color: var(--ember)}
+
+  .progressbar{
+    height:8px; border-radius:99px; background:var(--bg-2);
+    overflow:hidden;
+  }
+  .progressbar > span{
+    display:block; height:100%;
+    background: linear-gradient(90deg, var(--moss), var(--ember));
+    border-radius:99px;
+  }
+
+  /* ─── Toast ──────────────────────────────────────────── */
+  .toast{
+    position:fixed; left:50%; top:88px; transform:translateX(-50%);
+    background: var(--ink); color:var(--bg);
+    padding:10px 16px; border-radius:14px;
+    font-size:12px; font-weight:600;
+    z-index:200;
+    box-shadow: 0 18px 40px -16px rgba(0,0,0,.5);
+    display:flex; gap:8px; align-items:center;
+    animation: tin .25s ease-out;
+  }
+  @keyframes tin{ from{opacity:0; transform:translate(-50%,-10px)} }
+
+  /* utility */
+  .row{display:flex; gap:10px}
+  .col{display:flex; flex-direction:column; gap:10px}
+  .between{justify-content:space-between}
+  .center{align-items:center}
+  .grow{flex:1}
+  .gap-4{gap:4px} .gap-8{gap:8px} .gap-12{gap:12px} .gap-16{gap:16px} .gap-20{gap:20px} .gap-24{gap:24px}
+  .mt-8{margin-top:8px} .mt-12{margin-top:12px} .mt-16{margin-top:16px} .mt-20{margin-top:20px} .mt-24{margin-top:24px}
+  .mb-8{margin-bottom:8px} .mb-12{margin-bottom:12px} .mb-16{margin-bottom:16px} .mb-20{margin-bottom:20px}
+  .text-center{text-align:center}
+  .muted{color:var(--muted)}
+  .mono{font-family:var(--font-mono)}
+  .display{font-family:var(--font-display)}
+
+  /* keyboard arrows etc nav */
+  .seg{
+    display:inline-flex; gap:4px; padding:4px;
+    background:var(--bg-2); border-radius:var(--r-pill); border:1px solid var(--line);
+  }
+  .seg button{
+    appearance:none;border:0; background:transparent; color:var(--muted);
+    padding:7px 14px; border-radius:var(--r-pill);
+    font: 600 12px/1 var(--font-ui); cursor:pointer;
+    transition: background .2s, color .2s;
+  }
+  .seg button.on{ background:var(--paper); color:var(--ink); box-shadow: var(--shadow-1) }
+
+  /* horizontal scroll filters */
+  .hscroll{
+    display:flex; gap:8px; overflow-x:auto; padding: 0 18px 4px;
+    scrollbar-width:none;
+  }
+  .hscroll::-webkit-scrollbar{display:none}
+
+  /* search */
+  .search{
+    display:flex; align-items:center; gap:10px;
+    height:48px; padding: 0 16px;
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+  }
+  .search input{
+    border:0; outline:0; background:transparent; flex:1;
+    font: 500 14px var(--font-ui); color:var(--ink);
+  }
+  .search input::placeholder{color:var(--muted)}
+
+  /* leaderboard item */
+  .lb-row{
+    display:grid; grid-template-columns: 28px 36px 1fr auto; gap:12px;
+    align-items:center;
+    padding:12px 0;
+    border-bottom:1px dashed var(--line);
+  }
+  .lb-rank{
+    font-family:var(--font-display); font-weight:900; font-size:18px;
+    color:var(--muted); width:28px; text-align:center;
+  }
+  .lb-rank.gold{color: oklch(0.78 0.16 80)}
+  .lb-rank.silver{color: oklch(0.7 0.02 230)}
+  .lb-rank.bronze{color: oklch(0.6 0.12 50)}
+  .lb-avatar{ width:36px;height:36px;border-radius:50%; background:linear-gradient(135deg, oklch(0.7 0.1 145), oklch(0.5 0.12 150)) }
+  .lb-name{ font-weight:600; font-size:13px}
+  .lb-meta{ font: 500 11px var(--font-mono); color:var(--muted)}
+
+  /* map polyline anim */
+  .route-line{
+    fill:none; stroke:var(--ember); stroke-width:4; stroke-linecap:round; stroke-linejoin:round;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,.15));
+  }
+
+  /* Floating action shadow when scrolling */
+  .floating{
+    position:absolute; left:18px; right:18px;
+    z-index:6;
+  }
+
+  .scrollbar-hide{scrollbar-width:none}
+  .scrollbar-hide::-webkit-scrollbar{display:none}
+
+  .img-wide{ aspect-ratio: 16/10; }
+  .img-square{ aspect-ratio: 1/1 }
+  .img-photo-tall{ aspect-ratio: 4/5 }
+
+  /* Buddies list */
+  .buddy{
+    display:flex; align-items:center; gap:10px;
+    padding:8px; border-radius:14px;
+    background:var(--bg-2);
+  }
+  .buddy .av{
+    width:34px;height:34px; border-radius:50%;
+    background:linear-gradient(135deg, oklch(0.78 0.08 145), oklch(0.5 0.12 150));
+  }
+  .buddy .av.b{background:linear-gradient(135deg, oklch(0.78 0.1 60), oklch(0.6 0.14 40))}
+  .buddy .av.c{background:linear-gradient(135deg, oklch(0.78 0.07 240), oklch(0.5 0.1 250))}
+
+  /* edit-mode toggle styles handled by tweaks panel */
+
+  /* quest cards */
+  .quest{
+    padding:14px;
+    display:flex; flex-direction:column; gap:10px;
+    position:relative; overflow:hidden;
+  }
+  .quest .reward{
+    position:absolute; top:14px; right:14px;
+    font-family:var(--font-mono); font-size:11px; font-weight:700;
+    color:var(--ember);
+  }
+
+  /* badges grid */
+  .badge{
+    aspect-ratio:1;
+    border-radius:14px;
+    background:var(--bg-2);
+    border:1px solid var(--line);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;
+    text-align:center;
+    color:var(--ink);
+  }
+  .badge.locked{
+    color: var(--muted);
+    background:transparent;
+    border-style:dashed;
+  }
+  .badge .b-name{ font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.08em }
+
+  /* Hex stamp */
+  .stamp{
+    width:64px;height:72px;
+    background: var(--ember);
+    color:#fff;
+    -webkit-clip-path: polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+    clip-path: polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+    display:grid;place-items:center;
+    font-family:var(--font-display); font-weight:900; font-size:18px;
+    letter-spacing:.04em;
+  }
+
+  /* hide bottom nav on landing */
+  body[data-route="landing"] .navwrap{display:none}
+
+  /* skeleton-y bar background for chip on hike active */
+  .liveheader{
+    position:absolute; top:14px; left:14px; right:14px;
+    display:flex; gap:8px; align-items:center; justify-content:space-between;
+    z-index:6;
+  }
+  .live-tag{
+    display:inline-flex; gap:6px; align-items:center;
+    padding:6px 10px;
+    background: oklch(0.22 0.045 150); color:#fff;
+    border-radius:99px;
+    font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+  }
+  .live-tag .pulse{
+    width:6px;height:6px;border-radius:50%; background:#ff5252;
+    animation: pulse2 1s infinite;
+  }
+  @keyframes pulse2{ 50%{opacity:.3} }
+
+  /* tappable feedback */
+  .tap{ cursor:pointer; transition: transform .15s ease, background .2s ease }
+  .tap:active{ transform: scale(0.98) }
+
+  /* stats banner numbers */
+  .num-stack{ display:flex; align-items:baseline; gap:6px }
+  .num-stack .unit{ font-family:var(--font-mono); font-size:12px; color:var(--muted); font-weight:600 }
+</style>
+</head>
+<body data-theme="light" data-route="landing">
+
+<div class="phone" id="phone">
+  <div class="topo"></div>
+
+  <!-- Faux status bar -->
+  <div class="statusbar">
+    <span class="mono">3:42</span>
+    <span class="right">
+      <svg class="sb-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M2 16.5h2v3H2zm5-3h2v6H7zm5-3h2v9h-2zm5-3h2v12h-2z"/></svg>
+      <svg class="sb-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 0 0-9 9c0 5 4 9 9 9s9-4 9-9-4-9-9-9zm0 16a7 7 0 0 1-7-7 7 7 0 0 1 7-7v14z"/></svg>
+      <svg class="sb-icon" viewBox="0 0 26 14" fill="none"><rect x=".5" y=".5" width="22" height="13" rx="3" stroke="currentColor"/><rect x="2" y="2" width="14" height="10" rx="1.5" fill="currentColor"/><rect x="23.5" y="4.5" width="2" height="5" rx="1" fill="currentColor"/></svg>
+    </span>
+  </div>
+
+  <!-- ─── LANDING ─────────────────────────────────────────── -->
+  <div class="view" data-view="landing" id="view-landing">
+    <div class="pad" style="padding-top:8px">
+      <div class="brand" style="font-size:20px">
+        <span class="brand-mark">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20l5.5-9 4 6 3-4L21 20z"/></svg>
+        </span>
+        <span>TREPACERROS</span>
+      </div>
+    </div>
+
+    <!-- Big poster headline -->
+    <div class="pad mt-24" style="padding-bottom:20px">
+      <div class="eyebrow"><span>EST. GDL · 2026</span><span class="tick"></span><span>v1.0</span></div>
+      <h1 class="h-display mt-12" style="font-size:78px">
+        TREPA<br/>EL CERRO,<br/><span style="color:var(--ember)">GANA</span><br/>$CERRO.
+      </h1>
+      <p style="font-size:15px; color:var(--ink-2); margin:14px 0 0; line-height:1.5; max-width:32ch">
+        Sal, recolecta basura en los senderos de Guadalajara, y monetiza tu trepada en la red Monad.
+      </p>
+    </div>
+
+    <!-- Hero Mountain Card -->
+    <div class="pad">
+      <div class="mtn-hero" style="height:280px">
+        <div class="sun"></div>
+        <svg viewBox="0 0 400 200" preserveAspectRatio="none" style="height:100%">
+          <path d="M0 200 L0 130 L60 90 L100 110 L160 50 L210 100 L260 70 L320 120 L360 90 L400 110 L400 200 Z" fill="oklch(0.55 0.07 150)" opacity=".7"/>
+          <path d="M0 200 L0 150 L40 130 L90 100 L140 130 L200 80 L260 130 L320 100 L400 140 L400 200 Z" fill="oklch(0.42 0.08 150)" opacity=".85"/>
+          <path d="M0 200 L0 170 L60 160 L120 140 L180 160 L240 130 L300 150 L360 140 L400 160 L400 200 Z" fill="oklch(0.32 0.08 150)"/>
+        </svg>
+        <div class="haze"></div>
+        <!-- floating coordinate stamps -->
+        <div style="position:absolute; top:20px; left:20px; color:#fff; font: 500 11px var(--font-mono); letter-spacing:.04em; opacity:.85">
+          20.6736°N<br/>103.3500°W
+        </div>
+        <div style="position:absolute; top:20px; right:30px; color:#fff; font: 500 11px var(--font-mono); letter-spacing:.04em; opacity:.85; text-align:right">
+          BOSQUE LA PRIMAVERA<br/>· EL DIENTE
+        </div>
+        <!-- contour lines -->
+        <svg style="position:absolute; left:0; bottom:8%; width:100%; height:48%; opacity:.35" viewBox="0 0 400 100" preserveAspectRatio="none">
+          <path d="M0 30 Q 100 10, 200 30 T 400 30" stroke="#fff" fill="none" stroke-width="1" stroke-dasharray="3 5"/>
+          <path d="M0 50 Q 100 30, 200 50 T 400 50" stroke="#fff" fill="none" stroke-width="1" stroke-dasharray="3 5"/>
+          <path d="M0 70 Q 100 50, 200 70 T 400 70" stroke="#fff" fill="none" stroke-width="1" stroke-dasharray="3 5"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Quick stat row -->
+    <div class="pad mt-16">
+      <div class="row" style="gap:8px">
+        <div class="card grow" style="padding:12px;">
+          <div class="lbl mono" style="font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)">Tokens minteados</div>
+          <div class="num-stack mt-8"><span class="display" style="font-size:22px; font-weight:900">142,031</span><span class="unit">$CERRO</span></div>
+        </div>
+        <div class="card grow" style="padding:12px;">
+          <div class="lbl mono" style="font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)">Basura recogida</div>
+          <div class="num-stack mt-8"><span class="display" style="font-size:22px; font-weight:900">2,847</span><span class="unit">KG</span></div>
+        </div>
+        <div class="card grow" style="padding:12px;">
+          <div class="lbl mono" style="font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)">Trepadores</div>
+          <div class="num-stack mt-8"><span class="display" style="font-size:22px; font-weight:900">684</span><span class="unit">HIKERS</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="pad mt-20">
+      <button class="btn btn-primary" id="connectWallet">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h13a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3z"/><path d="M16 12h3"/><path d="M3 7l3-3h10v3"/></svg>
+        CONECTAR WALLET
+      </button>
+      <button class="btn btn-ghost mt-12" style="height:auto; padding:10px;">
+        Tengo dudas — ¿cómo funciona? →
+      </button>
+    </div>
+
+    <!-- How it works -->
+    <div class="pad mt-24">
+      <div class="eyebrow"><span>CÓMO FUNCIONA</span><span class="tick"></span><span>3 PASOS</span></div>
+      <div class="col mt-16" style="gap:14px">
+        <div class="card" style="padding:16px; display:flex; gap:14px; align-items:center">
+          <div class="stamp">01</div>
+          <div>
+            <div class="display" style="font-size:20px; font-weight:800">TREPA EL CERRO</div>
+            <div class="muted" style="font-size:13px; line-height:1.45">Inicia tu sesión en cualquier sendero de GDL: La Primavera, El Diente, La Reina.</div>
+          </div>
+        </div>
+        <div class="card" style="padding:16px; display:flex; gap:14px; align-items:center">
+          <div class="stamp" style="background:var(--moss)">02</div>
+          <div>
+            <div class="display" style="font-size:20px; font-weight:800">RECOLECTA BASURA</div>
+            <div class="muted" style="font-size:13px; line-height:1.45">Toma foto de cada pieza y registra el material. Multiplicadores hasta 2x.</div>
+          </div>
+        </div>
+        <div class="card" style="padding:16px; display:flex; gap:14px; align-items:center">
+          <div class="stamp" style="background:var(--ink)">03</div>
+          <div>
+            <div class="display" style="font-size:20px; font-weight:800">REDIME LOCAL</div>
+            <div class="muted" style="font-size:13px; line-height:1.45">Tus $CERRO valen chelas, café y entradas en negocios aliados de Jalisco.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trust footer -->
+    <div class="pad mt-24 mb-20">
+      <div class="card" style="padding:16px; display:flex; gap:12px; align-items:center">
+        <div style="width:42px;height:42px;border-radius:12px;background:var(--bg-2); display:grid; place-items:center; color:var(--moss)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div style="line-height:1.4">
+          <div style="font-weight:700; font-size:13px">Verificado on-chain</div>
+          <div class="muted" style="font-size:12px">Cada trepada se firma en Monad. Tu impacto, on-chain.</div>
+        </div>
+      </div>
+      <div class="text-center muted mono" style="font-size:10px; letter-spacing:.16em; margin-top:24px">
+        HECHO EN GDL · CON ❤ POR HUELLA VERDE
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── HOME ──────────────────────────────────────────── -->
+  <div class="view" data-view="home" id="view-home">
+    <div class="appbar">
+      <div class="brand">
+        <span class="brand-mark">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20l5.5-9 4 6 3-4L21 20z"/></svg>
+        </span>
+        <span>TREPACERROS</span>
+      </div>
+      <div class="wallet-chip" data-action="profile">
+        <span class="dot"></span>
+        <span>0x3D…119f</span>
+        <span class="sep">|</span>
+        <span class="bal" id="home-balance">0 $CERRO</span>
+      </div>
+    </div>
+
+    <div class="pad">
+      <!-- greeting + status -->
+      <div class="row between center mb-12">
+        <div>
+          <div class="eyebrow" style="margin-bottom:6px">SAB · 25 ABR · 6:42AM</div>
+          <h1 class="display" style="font-size:34px; font-weight:900; line-height:1; margin:0">Buenos días,<br/>Trepador.</h1>
+        </div>
+      </div>
+
+      <!-- WEATHER + TRAIL pill row -->
+      <div class="row mt-16" style="gap:8px">
+        <div class="chip chip-moss"><span>☀</span> 18°C · Soleado</div>
+        <div class="chip">AQI 42 · Limpio</div>
+        <div class="chip">Viento 6 km/h</div>
+      </div>
+
+      <!-- Big start card -->
+      <div class="card mt-16" style="overflow:hidden; padding:0">
+        <div class="mtn-hero" style="height:170px;">
+          <div class="sun"></div>
+          <svg viewBox="0 0 400 160" preserveAspectRatio="none" style="height:100%">
+            <path d="M0 160 L0 100 L60 70 L120 90 L180 40 L240 80 L300 60 L360 90 L400 80 L400 160Z" fill="oklch(0.5 0.07 150)" opacity=".75"/>
+            <path d="M0 160 L0 130 L60 110 L130 80 L200 110 L260 90 L340 120 L400 110 L400 160Z" fill="oklch(0.32 0.08 150)"/>
+          </svg>
+          <div class="haze"></div>
+          <div style="position:absolute; left:18px; top:14px; color:#fff; font:500 10px var(--font-mono); letter-spacing:.18em; text-transform:uppercase; opacity:.8">
+            HOY · LA PRIMAVERA
+          </div>
+        </div>
+        <div style="padding:16px;">
+          <div class="row between center">
+            <div>
+              <div class="display" style="font-size:24px; font-weight:900; line-height:1.05">¿Listo para trepar?</div>
+              <div class="muted" style="font-size:13px; margin-top:4px">El sendero te espera. Promedio 4.2km · 1h 12min</div>
+            </div>
+          </div>
+          <button class="btn btn-primary mt-16" id="goHike">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            START TREPADA
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats row -->
+      <div class="row mt-16" style="gap:8px">
+        <div class="stat card grow">
+          <span class="lbl">Balance</span>
+          <span class="val mono" id="home-cerro">0</span>
+          <span class="sub">$CERRO</span>
+        </div>
+        <div class="stat card grow">
+          <span class="lbl">Recolectado</span>
+          <span class="val mono" id="home-kg">0.0</span>
+          <span class="sub">KG TOTAL</span>
+        </div>
+        <div class="stat card grow">
+          <span class="lbl">Trepadas</span>
+          <span class="val mono" id="home-hikes">0</span>
+          <span class="sub">SESIONES</span>
+        </div>
+      </div>
+
+      <!-- LEVEL progression -->
+      <div class="card mt-16" style="padding:16px">
+        <div class="row between center">
+          <div>
+            <div class="eyebrow" style="margin-bottom:4px">NIVEL 03 · TREPADOR NOVATO</div>
+            <div class="display" style="font-size:18px; font-weight:800">Próximo: Caminante</div>
+          </div>
+          <div class="display" style="font-size:18px; font-weight:800; color:var(--ember)">320<span style="opacity:.3">/500</span></div>
+        </div>
+        <div class="progressbar mt-12"><span style="width:64%"></span></div>
+        <div class="muted mono" style="font-size:10px; letter-spacing:.12em; margin-top:8px">180 XP MÁS · LIMPIA 2 SENDEROS</div>
+      </div>
+
+      <!-- Today's quests -->
+      <div class="row between center mt-24 mb-12">
+        <h2 class="h-section">Retos de hoy</h2>
+        <a class="muted mono" style="font-size:11px; letter-spacing:.1em">VER TODOS →</a>
+      </div>
+
+      <div class="col" style="gap:10px">
+        <div class="card quest">
+          <div class="reward">+50 $CERRO</div>
+          <div class="row gap-12 center">
+            <div class="wiki-icon" style="background:color-mix(in oklch, var(--ember) 18%, var(--paper)); color:var(--ember)">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            </div>
+            <div class="grow">
+              <div style="font-weight:700; font-size:14px">Treprano</div>
+              <div class="muted" style="font-size:12px">Inicia una trepada antes de las 8:00 AM</div>
+            </div>
+          </div>
+          <div class="progressbar"><span style="width:0%"></span></div>
+        </div>
+
+        <div class="card quest">
+          <div class="reward">+120 $CERRO</div>
+          <div class="row gap-12 center">
+            <div class="wiki-icon" style="background:color-mix(in oklch, var(--moss) 18%, var(--paper)); color:var(--moss)">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18l-2 13H5z"/><path d="M9 10v6M15 10v6"/></svg>
+            </div>
+            <div class="grow">
+              <div style="font-weight:700; font-size:14px">Cazador de PET</div>
+              <div class="muted" style="font-size:12px">Recolecta 10 botellas PET esta semana</div>
+            </div>
+            <div class="mono muted" style="font-size:11px">3/10</div>
+          </div>
+          <div class="progressbar"><span style="width:30%"></span></div>
+        </div>
+
+        <div class="card quest">
+          <div class="reward">+300 $CERRO</div>
+          <div class="row gap-12 center">
+            <div class="wiki-icon" style="background:color-mix(in oklch, var(--ink) 18%, var(--paper)); color:var(--ink)">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20l5.5-9 4 6 3-4L21 20z"/></svg>
+            </div>
+            <div class="grow">
+              <div style="font-weight:700; font-size:14px">Conquista La Reina</div>
+              <div class="muted" style="font-size:12px">Llega a la cumbre del Cerro de la Reina</div>
+            </div>
+            <div class="mono muted" style="font-size:11px">0/1</div>
+          </div>
+          <div class="progressbar"><span style="width:0%"></span></div>
+        </div>
+      </div>
+
+      <!-- Mini map of nearby trails -->
+      <div class="row between center mt-24 mb-12">
+        <h2 class="h-section">Senderos cerca</h2>
+        <a class="muted mono" style="font-size:11px; letter-spacing:.1em">MAPA →</a>
+      </div>
+      <div class="col" style="gap:10px">
+        <div class="card tap" style="padding:14px; display:flex; gap:14px; align-items:center" onclick="goView('hike')">
+          <div class="photo" style="width:64px; height:64px; flex:none">FOTO</div>
+          <div class="grow">
+            <div style="font-weight:700; font-size:14px">Bosque La Primavera</div>
+            <div class="muted mono" style="font-size:11px; letter-spacing:.05em">2.3 KM · 87 TREPADAS · 1.5x</div>
+          </div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="muted"><path d="M9 6l6 6-6 6"/></svg>
+        </div>
+        <div class="card tap" style="padding:14px; display:flex; gap:14px; align-items:center" onclick="goView('hike')">
+          <div class="photo" style="width:64px; height:64px; flex:none">FOTO</div>
+          <div class="grow">
+            <div style="font-weight:700; font-size:14px">Cerro El Diente</div>
+            <div class="muted mono" style="font-size:11px; letter-spacing:.05em">5.8 KM · 142 TREPADAS · 2x</div>
+          </div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="muted"><path d="M9 6l6 6-6 6"/></svg>
+        </div>
+        <div class="card tap" style="padding:14px; display:flex; gap:14px; align-items:center" onclick="goView('hike')">
+          <div class="photo" style="width:64px; height:64px; flex:none">FOTO</div>
+          <div class="grow">
+            <div style="font-weight:700; font-size:14px">Cerro de la Reina</div>
+            <div class="muted mono" style="font-size:11px; letter-spacing:.05em">3.1 KM · 64 TREPADAS · 1.8x</div>
+          </div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="muted"><path d="M9 6l6 6-6 6"/></svg>
+        </div>
+      </div>
+
+      <!-- Community impact -->
+      <div class="card mt-24" style="padding:16px; background: linear-gradient(135deg, oklch(0.96 0.02 150), oklch(0.92 0.04 145)); border:1px solid color-mix(in oklch, var(--moss) 25%, transparent)">
+        <div class="eyebrow">IMPACTO COMUNITARIO · ESTA SEMANA</div>
+        <div class="display mt-12" style="font-size:34px; font-weight:900; line-height:1; color:var(--moss)">186 KG</div>
+        <div class="muted mt-8" style="font-size:13px">Recolectados por 84 trepadores en 23 senderos</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── HIKE ──────────────────────────────────────────── -->
+  <div class="view" data-view="hike" id="view-hike">
+    <div class="appbar">
+      <div class="brand">
+        <span class="brand-mark">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20l5.5-9 4 6 3-4L21 20z"/></svg>
+        </span>
+        <span>TREPADA</span>
+      </div>
+      <div class="seg" id="hikeStateSeg">
+        <button class="on" data-state="idle">Idle</button>
+        <button data-state="active">Activa</button>
+        <button data-state="ended">Final</button>
+      </div>
+    </div>
+
+    <div class="pad">
+      <!-- IDLE STATE -->
+      <div class="hike-idle">
+        <div class="eyebrow"><span>SENDERO SELECCIONADO</span><span class="tick"></span><span>2X</span></div>
+        <h1 class="display mt-8" style="font-size:36px; font-weight:900; line-height:.95">Cerro<br/>El Diente</h1>
+        <div class="muted mono mt-8" style="font-size:11px; letter-spacing:.1em">5.8 KM · DIFICULTAD MEDIA · ~1H 45M</div>
+
+        <div class="map-stage mt-16" style="height:240px;">
+          <div class="map-grid"></div>
+          <svg style="position:absolute;inset:0" viewBox="0 0 400 240" preserveAspectRatio="none">
+            <ellipse cx="120" cy="180" rx="110" ry="60" fill="oklch(0.85 0.08 145 / .55)"/>
+            <ellipse cx="290" cy="80" rx="100" ry="50" fill="oklch(0.85 0.08 145 / .55)"/>
+            <path d="M40 200 Q100 140 180 130 T 360 50" stroke="oklch(0.78 0.02 150)" stroke-width="3" fill="none"/>
+            <path d="M40 200 Q100 140 180 130 T 360 50" stroke="var(--ember)" stroke-width="3" fill="none" stroke-dasharray="6 6" opacity=".6"/>
+            <circle cx="40" cy="200" r="6" fill="var(--moss)"/>
+            <circle cx="360" cy="50" r="8" fill="var(--ember)"/>
+          </svg>
+          <div style="position:absolute; bottom:12px; left:14px; right:14px; display:flex; gap:8px; justify-content:space-between">
+            <div class="chip" style="background:rgba(255,255,255,.8)"><span class="mono">START</span></div>
+            <div class="chip chip-ember"><span class="mono">CUMBRE 1,820m</span></div>
+          </div>
+        </div>
+
+        <!-- Elevation profile -->
+        <div class="card mt-12" style="padding:14px">
+          <div class="eyebrow" style="margin-bottom:8px"><span>PERFIL ELEVACIÓN</span><span class="tick"></span><span class="mono">+420M</span></div>
+          <svg viewBox="0 0 320 80" style="width:100%; height:80px">
+            <defs>
+              <linearGradient id="ele" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="oklch(0.7 0.1 145)" stop-opacity=".6"/>
+                <stop offset="1" stop-color="oklch(0.7 0.1 145)" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path d="M0 70 L20 60 L50 50 L90 30 L130 38 L170 22 L210 28 L250 14 L290 6 L320 12 L320 80 L0 80 Z" fill="url(#ele)"/>
+            <path d="M0 70 L20 60 L50 50 L90 30 L130 38 L170 22 L210 28 L250 14 L290 6 L320 12" fill="none" stroke="var(--moss)" stroke-width="2"/>
+          </svg>
+          <div class="row between mono muted" style="font-size:10px; letter-spacing:.1em">
+            <span>1,400 M</span><span>1,820 M</span>
+          </div>
+        </div>
+
+        <!-- Buddies nearby -->
+        <div class="row between center mt-20 mb-8">
+          <h2 class="h-section" style="font-size:20px">Trepadores cerca</h2>
+          <span class="chip chip-moss"><span class="dot" style="width:6px;height:6px;border-radius:50%;background:currentColor"></span>3 ACTIVOS</span>
+        </div>
+        <div class="col" style="gap:8px">
+          <div class="buddy">
+            <div class="av"></div>
+            <div class="grow">
+              <div style="font-weight:700; font-size:13px">@chivasreciclas</div>
+              <div class="muted mono" style="font-size:10px; letter-spacing:.05em">EN RUTA · 1.2 KM</div>
+            </div>
+            <button class="btn-secondary" style="height:32px; padding:0 12px; font-size:11px; border-radius:99px; border:1px solid var(--line); background:var(--paper); cursor:pointer">SALUDAR</button>
+          </div>
+          <div class="buddy">
+            <div class="av b"></div>
+            <div class="grow">
+              <div style="font-weight:700; font-size:13px">@gdl_huellaverde</div>
+              <div class="muted mono" style="font-size:10px; letter-spacing:.05em">CUMBRE · 0.4 KM</div>
+            </div>
+            <button class="btn-secondary" style="height:32px; padding:0 12px; font-size:11px; border-radius:99px; border:1px solid var(--line); background:var(--paper); cursor:pointer">SALUDAR</button>
+          </div>
+        </div>
+
+        <button class="btn btn-primary mt-20" id="startHikeBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          INICIAR TREPADA
+        </button>
+        <div class="muted text-center mt-8" style="font-size:11px">El GPS empezará a registrar tu ruta y bolsas recolectadas.</div>
+      </div>
+
+      <!-- ACTIVE STATE -->
+      <div class="hike-active" style="display:none">
+        <div class="map-stage" style="height:340px;">
+          <div class="liveheader">
+            <div class="live-tag"><span class="pulse"></span>EN VIVO</div>
+            <div class="chip" style="background:rgba(255,255,255,.85)" id="hikeTimer">⏱ <span class="mono">00:42:18</span></div>
+          </div>
+          <div class="map-grid"></div>
+          <svg style="position:absolute;inset:0" viewBox="0 0 400 340" preserveAspectRatio="none">
+            <ellipse cx="120" cy="280" rx="130" ry="70" fill="oklch(0.85 0.08 145 / .55)"/>
+            <ellipse cx="290" cy="100" rx="100" ry="60" fill="oklch(0.85 0.08 145 / .55)"/>
+            <path d="M40 290 L80 250 L120 240 L160 200 L210 180" class="route-line" id="routePath"/>
+            <circle cx="40" cy="290" r="6" fill="var(--moss)" stroke="#fff" stroke-width="2"/>
+            <!-- pickups markers -->
+            <g>
+              <circle cx="80" cy="250" r="5" fill="oklch(0.6 0.18 50)" stroke="#fff" stroke-width="2"/>
+              <circle cx="160" cy="200" r="5" fill="oklch(0.6 0.18 50)" stroke="#fff" stroke-width="2"/>
+            </g>
+          </svg>
+          <div class="pulse-dot" style="left:53%; top:53%"></div>
+          <div style="position:absolute; bottom:12px; right:14px;">
+            <div class="chip" style="background:rgba(255,255,255,.85); font-family:var(--font-mono)">↑ +280M</div>
+          </div>
+        </div>
+
+        <!-- Live HUD -->
+        <div class="row mt-12" style="gap:8px">
+          <div class="card stat grow">
+            <span class="lbl">Distancia</span>
+            <span class="hud-num mono" id="liveDist">2.43</span>
+            <span class="sub">KM</span>
+          </div>
+          <div class="card stat grow">
+            <span class="lbl">Pace</span>
+            <span class="hud-num mono">12'45"</span>
+            <span class="sub">MIN/KM</span>
+          </div>
+          <div class="card stat grow">
+            <span class="lbl">Elevación</span>
+            <span class="hud-num mono">+280</span>
+            <span class="sub">MTS</span>
+          </div>
+        </div>
+
+        <!-- Pickup counter -->
+        <div class="pickbar mt-12">
+          <div>
+            <div class="small">RECOLECTADO</div>
+            <div class="row gap-8 center">
+              <span class="count mono" id="pickCount">7</span>
+              <span style="font-family:var(--font-mono); font-size:11px; opacity:.6">×<span id="pickKg">1.2</span>KG</span>
+            </div>
+          </div>
+          <div class="grow"></div>
+          <div style="text-align:right">
+            <div class="small" style="opacity:.5">GANADO HOY</div>
+            <div class="row gap-4 center" style="justify-content:flex-end">
+              <span class="count mono" style="font-size:30px; color:var(--ember)" id="liveCerro">+84</span>
+              <span style="font-family:var(--font-mono); font-size:11px; opacity:.6; padding-bottom:6px">$CERRO</span>
+            </div>
+          </div>
+          <button class="pick-btn" id="addPick">+1</button>
+        </div>
+
+        <!-- Recent pickup -->
+        <div class="card mt-12" style="padding:14px;">
+          <div class="row between center mb-12">
+            <span class="eyebrow"><span>ÚLTIMA RECOLECCIÓN</span></span>
+            <span class="mult">×1.5</span>
+          </div>
+          <div class="row gap-12 center">
+            <div class="photo" style="width:72px; height:72px; flex:none">FOTO</div>
+            <div class="grow">
+              <div style="font-weight:700; font-size:14px">Botella PET — 600ml</div>
+              <div class="muted mono" style="font-size:11px; letter-spacing:.05em">HACE 2 MIN · 20.6731°N</div>
+              <div class="row gap-8 mt-8">
+                <span class="chip chip-ember mono">+12 $CERRO</span>
+                <span class="chip">PET #1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-danger mt-20" id="endHikeBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+          TERMINAR TREPADA
+        </button>
+      </div>
+
+      <!-- ENDED STATE -->
+      <div class="hike-ended" style="display:none">
+        <div class="text-center mt-16">
+          <div class="eyebrow" style="justify-content:center"><span>TREPADA COMPLETADA</span></div>
+          <h1 class="display mt-12" style="font-size:48px; font-weight:900; line-height:.9">¡Buena<br/>trepada!</h1>
+          <div class="mono muted mt-8" style="font-size:11px; letter-spacing:.1em">EL DIENTE · SAB 25 ABR · 1H 23M</div>
+        </div>
+
+        <!-- Big reward -->
+        <div class="card mt-20" style="padding:24px; text-align:center; background: linear-gradient(180deg, oklch(0.96 0.04 80), oklch(0.92 0.06 60));">
+          <div class="eyebrow" style="justify-content:center"><span>RECOMPENSA MINTEADA</span></div>
+          <div class="display mt-8" style="font-size:64px; font-weight:900; line-height:1; color:var(--ember)">+184</div>
+          <div class="mono" style="font-size:14px; font-weight:600; color:var(--ember)">$CERRO</div>
+          <div class="row gap-8 mt-16" style="justify-content:center">
+            <span class="chip">+38 XP</span>
+            <span class="chip chip-moss">2x MULTIPLIER</span>
+            <span class="chip chip-ember">⚡ TX FIRMADA</span>
+          </div>
+        </div>
+
+        <!-- Summary stats -->
+        <div class="row mt-16" style="gap:8px; flex-wrap:wrap">
+          <div class="card stat grow" style="min-width:42%">
+            <span class="lbl">Distancia</span>
+            <span class="val mono">5.82</span>
+            <span class="sub">KM</span>
+          </div>
+          <div class="card stat grow" style="min-width:42%">
+            <span class="lbl">Tiempo</span>
+            <span class="val mono">1:23</span>
+            <span class="sub">HORAS</span>
+          </div>
+          <div class="card stat grow" style="min-width:42%">
+            <span class="lbl">Recogido</span>
+            <span class="val mono">14</span>
+            <span class="sub">PIEZAS · 3.2 KG</span>
+          </div>
+          <div class="card stat grow" style="min-width:42%">
+            <span class="lbl">Elevación</span>
+            <span class="val mono">+420</span>
+            <span class="sub">METROS</span>
+          </div>
+        </div>
+
+        <!-- Material breakdown -->
+        <div class="card mt-16" style="padding:16px">
+          <div class="eyebrow" style="margin-bottom:12px"><span>DESGLOSE DE MATERIALES</span></div>
+          <div class="col gap-12">
+            <div class="row between center">
+              <div class="row gap-8 center">
+                <div class="wiki-icon" style="width:32px;height:32px;border-radius:10px">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 2h6l-1 5h-4z"/><rect x="7" y="7" width="10" height="14" rx="2"/></svg>
+                </div>
+                <span style="font-weight:600; font-size:13px">Botellas PET</span>
+              </div>
+              <div class="row gap-8 center">
+                <span class="mult">×1.5</span>
+                <span class="mono" style="font-size:13px; font-weight:700">8 · +96</span>
+              </div>
+            </div>
+            <div class="row between center">
+              <div class="row gap-8 center">
+                <div class="wiki-icon" style="width:32px;height:32px;border-radius:10px; background:color-mix(in oklch, var(--ember) 18%, var(--paper)); color:var(--ember)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="3" width="12" height="18" rx="2"/></svg>
+                </div>
+                <span style="font-weight:600; font-size:13px">Latas aluminio</span>
+              </div>
+              <div class="row gap-8 center">
+                <span class="mult">×2.0</span>
+                <span class="mono" style="font-size:13px; font-weight:700">4 · +64</span>
+              </div>
+            </div>
+            <div class="row between center">
+              <div class="row gap-8 center">
+                <div class="wiki-icon" style="width:32px;height:32px;border-radius:10px">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l4-5h6l4 5v13H5z"/></svg>
+                </div>
+                <span style="font-weight:600; font-size:13px">Vidrio</span>
+              </div>
+              <div class="row gap-8 center">
+                <span class="mult">×1.5</span>
+                <span class="mono" style="font-size:13px; font-weight:700">2 · +24</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary mt-20" onclick="setHikeState('idle'); goView('home')">
+          REGRESAR A HOME
+        </button>
+        <button class="btn btn-secondary mt-12">COMPARTIR EN FARCASTER</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── WIKI ──────────────────────────────────────────── -->
+  <div class="view" data-view="wiki" id="view-wiki">
+    <div class="appbar">
+      <div class="brand">
+        <span class="brand-mark">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20l5.5-9 4 6 3-4L21 20z"/></svg>
+        </span>
+        <span>WIKI</span>
+      </div>
+      <div class="wallet-chip">
+        <span class="dot"></span>
+        <span class="bal">0 $CERRO</span>
+      </div>
+    </div>
+
+    <div class="pad">
+      <h1 class="display" style="font-size:36px; font-weight:900; line-height:.95; margin:0">Wiki de<br/>Materiales</h1>
+      <p class="muted" style="font-size:13px; margin:10px 0 16px; max-width:36ch">
+        Aprende qué reciclar, cómo separarlo, y cuánto multiplica tus $CERRO.
+      </p>
+
+      <div class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="muted"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input placeholder="Busca un material (ej. PET, vidrio, papel)" />
+      </div>
+    </div>
+
+    <div class="hscroll mt-12">
+      <span class="chip" style="background:var(--ink); color:var(--bg); border-color:transparent">Todos</span>
+      <span class="chip">Plásticos</span>
+      <span class="chip">Vidrio</span>
+      <span class="chip">Metal</span>
+      <span class="chip">Papel</span>
+      <span class="chip">Orgánico</span>
+      <span class="chip">Electrónica</span>
+    </div>
+
+    <!-- Featured -->
+    <div class="pad mt-20">
+      <div class="card" style="padding:0; overflow:hidden">
+        <div class="photo img-wide" style="border-radius:0">FOTO · BOTELLAS PET RECOLECTADAS</div>
+        <div style="padding:18px">
+          <div class="row between center">
+            <span class="eyebrow"><span>MATERIAL DEL DÍA</span></span>
+            <span class="mult">×1.5</span>
+          </div>
+          <h3 class="display mt-8" style="font-size:24px; font-weight:900; line-height:1">Botellas PET</h3>
+          <p class="muted" style="font-size:13px; line-height:1.5; margin:8px 0 0">
+            Una botella PET reciclada ahorra energía equivalente a mantener un foco encendido por 6 horas.
+            Aplástala antes de echarla a la bolsa.
+          </p>
+          <div class="row gap-8 mt-12">
+            <span class="chip chip-moss">100% reciclable</span>
+            <span class="chip">Resina #1</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Categorias grid -->
+    <div class="pad mt-24 mb-12">
+      <h2 class="h-section">Categorías de Impacto</h2>
+    </div>
+    <div class="pad">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px">
+        <div class="card wiki-card">
+          <div class="row between center">
+            <div class="wiki-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M9 7h6"/></svg>
+            </div>
+            <span class="mult">×2.0</span>
+          </div>
+          <div>
+            <div style="font-weight:700; font-size:14px">Latas aluminio</div>
+            <div class="muted" style="font-size:11px; line-height:1.4; margin-top:4px">Reciclar aluminio ahorra 95% de la energía…</div>
+          </div>
+        </div>
+        <div class="card wiki-card">
+          <div class="row between center">
+            <div class="wiki-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l4-5h6l4 5v13H5z"/></svg>
+            </div>
+            <span class="mult">×1.5</span>
+          </div>
+          <div>
+            <div style="font-weight:700; font-size:14px">Vidrio</div>
+            <div class="muted" style="font-size:11px; line-height:1.4; margin-top:4px">100% reciclable infinitamente sin perder calidad.</div>
+          </div>
+        </div>
+        <div class="card wiki-card">
+          <div class="row between center">
+            <div class="wiki-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h12l4 4v12H4z"/><path d="M16 4v4h4"/></svg>
+            </div>
+            <span class="mult">×1.0</span>
+          </div>
+          <div>
+            <div style="font-weight:700; font-size:14px">Cartón y papel</div>
+            <div class="muted" style="font-size:11px; line-height:1.4; margin-top:4px">Sécalo bien antes de bolsearlo.</div>
+          </div>
+        </div>
+        <div class="card wiki-card">
+          <div class="row between center">
+            <div class="wiki-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3h8v6H8z"/><rect x="6" y="9" width="12" height="12" rx="2"/></svg>
+            </div>
+            <span class="mult">×3.0</span>
+          </div>
+          <div>
+            <div style="font-weight:700; font-size:14px">Electrónicos</div>
+            <div class="muted" style="font-size:11px; line-height:1.4; margin-top:4px">Pilas, cables, baterías. Multiplicador máximo.</div>
+          </div>
+        </div>
+        <div class="card wiki-card">
+          <div class="row between center">
+            <div class="wiki-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4c4 5 4 9 0 16-4-7-4-11 0-16z"/></svg>
+            </div>
+            <span class="mult">×1.0</span>
+          </div>
+          <div>
+            <div style="font-weight:700; font-size:14px">Orgánico</div>
+            <div class="muted" style="font-size:11px; line-height:1.4; margin-top:4px">Composta en estaciones aliadas.</div>
+          </div>
+        </div>
+        <div class="card wiki-card">
+          <div class="row between center">
+            <div class="wiki-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h18l-2 13H5z"/></svg>
+            </div>
+            <span class="mult">×0.5</span>
+          </div>
+          <div>
+            <div style="font-weight:700; font-size:14px">Plásticos mixtos</div>
+            <div class="muted" style="font-size:11px; line-height:1.4; margin-top:4px">Más difíciles de procesar localmente.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Did you know -->
+    <div class="pad mt-24">
+      <div class="card" style="padding:18px; border:1px solid color-mix(in oklch, var(--moss) 30%, transparent); background: color-mix(in oklch, var(--moss) 6%, var(--paper))">
+        <div class="eyebrow"><span>¿SABÍAS QUE?</span></div>
+        <div class="display mt-8" style="font-size:22px; font-weight:800; line-height:1.15">
+          Una sola persona en Jalisco genera <span style="color:var(--moss)">1.2 kg de basura al día</span>.
+        </div>
+        <div class="muted mt-8" style="font-size:12px; line-height:1.5">
+          La Primavera recibe ~12 toneladas de basura visitante por mes. Tu trepada cuenta.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── REWARDS ──────────────────────────────────────── -->
+  <div class="view" data-view="rewards" id="view-rewards">
+    <div class="appbar">
+      <div class="brand">
+        <span class="brand-mark">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20l5.5-9 4 6 3-4L21 20z"/></svg>
+        </span>
+        <span>RECOMPENSAS</span>
+      </div>
+      <div class="wallet-chip">
+        <span class="dot"></span>
+        <span class="bal" id="rewards-balance">0 $CERRO</span>
+      </div>
+    </div>
+
+    <div class="pad">
+      <h1 class="display" style="font-size:36px; font-weight:900; line-height:.95; margin:0">Marketplace<br/>Local</h1>
+      <p class="muted" style="font-size:13px; margin:10px 0 0; max-width:36ch">
+        Tus $CERRO valen aquí. Negocios aliados de Jalisco aceptan tu trepada como pago.
+      </p>
+    </div>
+
+    <!-- balance + leaderboard hint -->
+    <div class="pad mt-16">
+      <div class="card" style="padding:16px; display:flex; align-items:center; gap:14px">
+        <div>
+          <div class="eyebrow"><span>SALDO DISPONIBLE</span></div>
+          <div class="display mt-4" style="font-size:30px; font-weight:900; line-height:1; color:var(--ember)">0 <span style="font-size:14px; opacity:.6; font-weight:700">$CERRO</span></div>
+        </div>
+        <div class="grow"></div>
+        <div class="text-center">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--moss)"><path d="M8 3h8l-1 7h-6z"/><path d="M5 6h-2a3 3 0 0 0 3 3"/><path d="M19 6h2a3 3 0 0 1-3 3"/><path d="M9 14h6v2H9z"/><path d="M7 21h10v-3H7z"/></svg>
+          <div class="mono" style="font-size:9px; letter-spacing:.16em; margin-top:4px; color:var(--muted)">RANKING<br/>#214</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- filter chips -->
+    <div class="hscroll mt-16">
+      <span class="chip" style="background:var(--ink); color:var(--bg); border-color:transparent">Todos</span>
+      <span class="chip">Chelas y Café</span>
+      <span class="chip">Comida</span>
+      <span class="chip">Eventos</span>
+      <span class="chip">Equipo Outdoor</span>
+      <span class="chip">Donaciones</span>
+    </div>
+
+    <!-- featured deal -->
+    <div class="pad mt-20">
+      <div class="card mp-card">
+        <div class="mp-photo photo">
+          FOTO · CERVEZA ARTESANAL
+          <div class="price">20 $CERRO</div>
+          <div style="position:absolute; top:12px; left:12px;">
+            <span class="chip" style="background:rgba(255,255,255,.9); border:0; font-size:10px; letter-spacing:.16em">⚡ DESTACADO</span>
+          </div>
+        </div>
+        <div class="mp-body">
+          <div class="row between center">
+            <h3 class="display" style="font-size:22px; font-weight:800; margin:0">Chela Cervecería Minerva</h3>
+          </div>
+          <div class="muted" style="font-size:12px">1 cerveza artesanal · canjeable en bares aliados de Chapultepec</div>
+          <div class="row gap-8 mt-8">
+            <span class="chip chip-moss">5 ALIADOS</span>
+            <span class="chip">★ 4.8 · 230 redenciones</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 col grid -->
+    <div class="pad mt-12">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px">
+        <div class="card mp-card">
+          <div class="mp-photo photo" style="height:120px">
+            FOTO
+            <div class="price" style="font-size:11px; padding:4px 10px">15</div>
+          </div>
+          <div class="mp-body" style="padding:12px">
+            <div style="font-weight:700; font-size:13px">Café de Especialidad</div>
+            <div class="muted" style="font-size:11px">Café Capilla</div>
+            <span class="chip" style="font-size:10px; padding:3px 8px; align-self:flex-start; margin-top:4px">Café</span>
+          </div>
+        </div>
+        <div class="card mp-card">
+          <div class="mp-photo photo" style="height:120px">
+            FOTO
+            <div class="price" style="font-size:11px; padding:4px 10px">80</div>
+          </div>
+          <div class="mp-body" style="padding:12px">
+            <div style="font-weight:700; font-size:13px">Pase Cineteca</div>
+            <div class="muted" style="font-size:11px">2 entradas dom</div>
+            <span class="chip" style="font-size:10px; padding:3px 8px; align-self:flex-start; margin-top:4px">Eventos</span>
+          </div>
+        </div>
+        <div class="card mp-card">
+          <div class="mp-photo photo" style="height:120px">
+            FOTO
+            <div class="price" style="font-size:11px; padding:4px 10px">120</div>
+          </div>
+          <div class="mp-body" style="padding:12px">
+            <div style="font-weight:700; font-size:13px">Tortas Toño</div>
+            <div class="muted" style="font-size:11px">Combo familiar</div>
+            <span class="chip" style="font-size:10px; padding:3px 8px; align-self:flex-start; margin-top:4px">Comida</span>
+          </div>
+        </div>
+        <div class="card mp-card">
+          <div class="mp-photo photo" style="height:120px">
+            FOTO
+            <div class="price" style="font-size:11px; padding:4px 10px">450</div>
+          </div>
+          <div class="mp-body" style="padding:12px">
+            <div style="font-weight:700; font-size:13px">Botella térmica</div>
+            <div class="muted" style="font-size:11px">Edición Trepacerros</div>
+            <span class="chip" style="font-size:10px; padding:3px 8px; align-self:flex-start; margin-top:4px">Outdoor</span>
+          </div>
+        </div>
+        <div class="card mp-card">
+          <div class="mp-photo photo" style="height:120px">
+            FOTO
+            <div class="price" style="font-size:11px; padding:4px 10px">200</div>
+          </div>
+          <div class="mp-body" style="padding:12px">
+            <div style="font-weight:700; font-size:13px">Donación La Primavera</div>
+            <div class="muted" style="font-size:11px">Reforestación</div>
+            <span class="chip chip-moss" style="font-size:10px; padding:3px 8px; align-self:flex-start; margin-top:4px">Donar</span>
+          </div>
+        </div>
+        <div class="card mp-card">
+          <div class="mp-photo photo" style="height:120px">
+            FOTO
+            <div class="price" style="font-size:11px; padding:4px 10px">35</div>
+          </div>
+          <div class="mp-body" style="padding:12px">
+            <div style="font-weight:700; font-size:13px">Tianguis Cultural</div>
+            <div class="muted" style="font-size:11px">Entrada VIP sáb</div>
+            <span class="chip" style="font-size:10px; padding:3px 8px; align-self:flex-start; margin-top:4px">Eventos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pad mt-24 mb-12">
+      <h2 class="h-section">Top trepadores</h2>
+    </div>
+    <div class="pad">
+      <div class="card" style="padding:6px 16px">
+        <div class="lb-row">
+          <div class="lb-rank gold">01</div>
+          <div class="lb-avatar"></div>
+          <div>
+            <div class="lb-name">@chivasreciclas</div>
+            <div class="lb-meta">142 KG · 38 TREPADAS</div>
+          </div>
+          <div class="mono" style="color:var(--ember); font-weight:700">14,820</div>
+        </div>
+        <div class="lb-row">
+          <div class="lb-rank silver">02</div>
+          <div class="lb-avatar" style="background:linear-gradient(135deg, oklch(0.78 0.1 60), oklch(0.6 0.14 40))"></div>
+          <div>
+            <div class="lb-name">@gdl_huellaverde</div>
+            <div class="lb-meta">128 KG · 32 TREPADAS</div>
+          </div>
+          <div class="mono" style="color:var(--ember); font-weight:700">12,400</div>
+        </div>
+        <div class="lb-row">
+          <div class="lb-rank bronze">03</div>
+          <div class="lb-avatar" style="background:linear-gradient(135deg, oklch(0.78 0.07 240), oklch(0.5 0.1 250))"></div>
+          <div>
+            <div class="lb-name">@anaila.eth</div>
+            <div class="lb-meta">99 KG · 27 TREPADAS</div>
+          </div>
+          <div class="mono" style="color:var(--ember); font-weight:700">10,210</div>
+        </div>
+        <div class="lb-row">
+          <div class="lb-rank">04</div>
+          <div class="lb-avatar"></div>
+          <div>
+            <div class="lb-name">@trepa_zamora</div>
+            <div class="lb-meta">88 KG · 24 TREPADAS</div>
+          </div>
+          <div class="mono" style="color:var(--ember); font-weight:700">9,140</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── PROFILE ──────────────────────────────────────── -->
+  <div class="view" data-view="profile" id="view-profile">
+    <div class="appbar">
+      <div class="brand">
+        <span class="brand-mark">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20l5.5-9 4 6 3-4L21 20z"/></svg>
+        </span>
+        <span>PERFIL</span>
+      </div>
+      <button class="wallet-chip" style="cursor:pointer">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 1 1-14 0 7 7 0 0 1 14 0z" stroke-dasharray="2 3"/></svg>
+        <span class="bal" style="color:var(--ink)">Ajustes</span>
+      </button>
+    </div>
+
+    <div class="pad">
+      <div class="text-center mt-12">
+        <div class="avatar">N</div>
+        <div class="rank-pill">⛰ TREPADOR LV3</div>
+        <div class="display mt-12" style="font-size:24px; font-weight:900">0x3D4D…119f</div>
+        <div class="row gap-8 center mt-8" style="justify-content:center">
+          <span class="chip chip-moss">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+            VERIFIED ON MONAD
+          </span>
+        </div>
+      </div>
+
+      <!-- Balance card -->
+      <div class="card mt-20" style="padding:18px; display:flex; align-items:center; gap:14px">
+        <div>
+          <div class="eyebrow"><span>BALANCE TOTAL</span></div>
+          <div class="row mt-4" style="align-items:baseline; gap:8px">
+            <span class="display" style="font-size:42px; font-weight:900; line-height:1; color:var(--ink)" id="profile-cerro">0</span>
+            <span class="mono" style="font-weight:700; color:var(--ember)">$CERRO</span>
+          </div>
+          <div class="muted" style="font-size:11px; margin-top:4px">≈ $0.00 MXN</div>
+        </div>
+        <div class="grow"></div>
+        <div class="col gap-8">
+          <button class="btn-secondary" style="height:36px; padding:0 12px; font-size:11px; border-radius:10px; border:1px solid var(--line); background:var(--paper); cursor:pointer; font-weight:700">DEPOSITAR</button>
+          <button class="btn-secondary" style="height:36px; padding:0 12px; font-size:11px; border-radius:10px; border:1px solid var(--line); background:var(--paper); cursor:pointer; font-weight:700">RETIRAR</button>
+        </div>
+      </div>
+
+      <!-- KG / Hikes feature row -->
+      <div class="row mt-12" style="gap:8px">
+        <div class="card stat grow" style="background:var(--ink); color:#fff; border-color:transparent">
+          <span class="lbl" style="color:rgba(255,255,255,.6)">KG Recolectados</span>
+          <span class="val mono" style="color:#fff" id="profile-kg">0.0</span>
+          <span class="sub" style="color:var(--leaf)">↑ MEDIO AMBIENTE</span>
+        </div>
+        <div class="card stat grow">
+          <span class="lbl">Trepadas</span>
+          <span class="val mono" id="profile-hikes">0</span>
+          <span class="sub">SESIONES</span>
+        </div>
+      </div>
+
+      <!-- Big leaderboard CTA -->
+      <button class="btn btn-primary mt-16">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 3h8l-1 7h-6z"/><path d="M5 6h-2a3 3 0 0 0 3 3M19 6h2a3 3 0 0 1-3 3"/><path d="M9 14h6v6H9z"/></svg>
+        VER LEADERBOARD
+        <span style="font-family:var(--font-mono); font-weight:600; font-size:12px; opacity:.85; margin-left:auto">#214</span>
+      </button>
+
+      <!-- Badges -->
+      <div class="row between center mt-24 mb-12">
+        <h2 class="h-section">Insignias</h2>
+        <span class="muted mono" style="font-size:11px; letter-spacing:.1em">3 / 12</span>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:8px">
+        <div class="badge"><div style="font-size:24px">🌱</div><span class="b-name">Brote</span></div>
+        <div class="badge"><div style="font-size:24px">🥾</div><span class="b-name">1ra trepada</span></div>
+        <div class="badge"><div style="font-size:24px">♻</div><span class="b-name">PET ×10</span></div>
+        <div class="badge locked"><div style="font-size:22px">🔒</div><span class="b-name">Cumbre</span></div>
+        <div class="badge locked"><div style="font-size:22px">🔒</div><span class="b-name">Madruga</span></div>
+        <div class="badge locked"><div style="font-size:22px">🔒</div><span class="b-name">10 KG</span></div>
+        <div class="badge locked"><div style="font-size:22px">🔒</div><span class="b-name">Veterano</span></div>
+        <div class="badge locked"><div style="font-size:22px">🔒</div><span class="b-name">7 días</span></div>
+      </div>
+
+      <!-- On-chain activity -->
+      <div class="row between center mt-24 mb-12">
+        <h2 class="h-section">Actividad on-chain</h2>
+        <span class="muted mono" style="font-size:11px; letter-spacing:.1em">MONAD</span>
+      </div>
+      <div class="card" style="padding:6px 16px">
+        <div class="ledger-row">
+          <div class="ledger-icon" style="background:color-mix(in oklch, var(--moss) 16%, var(--paper)); color:var(--moss)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20l5.5-9 4 6 3-4L21 20z"/></svg>
+          </div>
+          <div>
+            <div style="font-weight:600; font-size:13px">Trepada El Diente</div>
+            <div class="lb-meta">SAB 25 ABR · 6:42 · 0xa83…f12</div>
+          </div>
+          <div class="ledger-amt pos">+184</div>
+        </div>
+        <div class="ledger-row">
+          <div class="ledger-icon" style="background:color-mix(in oklch, var(--ember) 16%, var(--paper)); color:var(--ember)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18l-2 13H5z"/></svg>
+          </div>
+          <div>
+            <div style="font-weight:600; font-size:13px">Redención · Café Capilla</div>
+            <div class="lb-meta">VIE 24 ABR · 0x71b…29c</div>
+          </div>
+          <div class="ledger-amt neg">−15</div>
+        </div>
+        <div class="ledger-row">
+          <div class="ledger-icon" style="background:color-mix(in oklch, var(--moss) 16%, var(--paper)); color:var(--moss)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20l5.5-9 4 6 3-4L21 20z"/></svg>
+          </div>
+          <div>
+            <div style="font-weight:600; font-size:13px">Trepada La Primavera</div>
+            <div class="lb-meta">JUE 23 ABR · 0x3c9…ab2</div>
+          </div>
+          <div class="ledger-amt pos">+92</div>
+        </div>
+        <div class="ledger-row">
+          <div class="ledger-icon" style="background:color-mix(in oklch, var(--moss) 16%, var(--paper)); color:var(--moss)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>
+          </div>
+          <div>
+            <div style="font-weight:600; font-size:13px">Bonus Multiplicador 2x</div>
+            <div class="lb-meta">MAR 21 ABR · 0xff8…d4e</div>
+          </div>
+          <div class="ledger-amt pos">+40</div>
+        </div>
+      </div>
+
+      <div class="text-center muted mono" style="font-size:10px; letter-spacing:.16em; margin-top:32px; margin-bottom:16px">
+        VER TODAS LAS TX EN MONADSCAN ↗
+      </div>
+    </div>
+  </div>
+
+</div> <!-- /phone -->
+
+<!-- ─── BOTTOM NAV ─────────────────────────────────────── -->
+<div class="navwrap" id="navwrap">
+  <div class="nav">
+    <button class="nav-btn" data-nav="home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+      <span>Home</span>
+    </button>
+    <button class="nav-btn" data-nav="hike">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="4.5" r="1.5"/><path d="M11 22l1-7 4-3-2-4 5 1"/><path d="M11 22l-3-7 5-3"/></svg>
+      <span>Hike</span>
+    </button>
+    <button class="nav-btn center" data-nav="wiki">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5a2 2 0 0 1 2-2h6v18H5a2 2 0 0 1-2-2z"/><path d="M21 5a2 2 0 0 0-2-2h-6v18h6a2 2 0 0 0 2-2z"/></svg>
+      <span>Wiki</span>
+    </button>
+    <button class="nav-btn" data-nav="rewards">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M3 8l3-4h12l3 4"/><path d="M12 8v13"/></svg>
+      <span>Rewards</span>
+    </button>
+    <button class="nav-btn" data-nav="profile">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+      <span>Profile</span>
+    </button>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<!-- React + Babel + Tweaks -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+
+<!-- App logic -->
+<script>
+  // Defaults that survive page reload via the host
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "theme": "dark",
+    "accent": "pink",
+    "fontDisplay": "Space Grotesk",
+    "hikeState": "idle"
+  }/*EDITMODE-END*/;
+
+  // App routing state
+  const state = {
+    route: 'landing',
+    hikeState: 'idle',
+    pickCount: 0,
+    cerro: 0,
+    kg: 0,
+    hikes: 0,
+  };
+
+  function showToast(msg, ms=1600){
+    const t = document.getElementById('toast');
+    t.innerHTML = `<div class="toast">${msg}</div>`;
+    setTimeout(()=>{ t.innerHTML=''; }, ms);
+  }
+
+  function setRoute(name){
+    state.route = name;
+    document.body.dataset.route = name;
+    document.querySelectorAll('.view').forEach(v=>{
+      v.classList.toggle('active', v.dataset.view === name);
+    });
+    document.querySelectorAll('.nav-btn').forEach(btn=>{
+      btn.classList.toggle('active', btn.dataset.nav === name || (name === 'hike' && btn.dataset.nav === 'hike'));
+    });
+    // scroll the active view to top
+    const v = document.querySelector('.view.active');
+    if (v) v.scrollTop = 0;
+    window.scrollTo(0,0);
+  }
+  window.goView = setRoute;
+
+  function setHikeState(s){
+    state.hikeState = s;
+    const view = document.querySelector('[data-view="hike"]');
+    view.querySelector('.hike-idle').style.display = s==='idle' ? '' : 'none';
+    view.querySelector('.hike-active').style.display = s==='active' ? '' : 'none';
+    view.querySelector('.hike-ended').style.display = s==='ended' ? '' : 'none';
+    document.querySelectorAll('#hikeStateSeg button').forEach(b=>b.classList.toggle('on', b.dataset.state===s));
+
+    if (s === 'active') startLiveSim();
+    else stopLiveSim();
+  }
+  window.setHikeState = setHikeState;
+
+  // Live simulation while hike is active
+  let liveTimer = null;
+  function startLiveSim(){
+    stopLiveSim();
+    liveTimer = setInterval(()=>{
+      const distEl = document.getElementById('liveDist');
+      const cur = parseFloat(distEl.textContent);
+      distEl.textContent = (cur + 0.01).toFixed(2);
+    }, 1500);
+  }
+  function stopLiveSim(){
+    if (liveTimer) clearInterval(liveTimer);
+    liveTimer = null;
+  }
+
+  // wire nav
+  document.querySelectorAll('.nav-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=> setRoute(btn.dataset.nav));
+  });
+
+  // landing → home
+  document.getElementById('connectWallet').addEventListener('click', ()=>{
+    showToast('✓ Wallet conectada en Monad');
+    state.cerro = 184; state.kg = 3.2; state.hikes = 1;
+    refreshNumbers();
+    setTimeout(()=> setRoute('home'), 600);
+  });
+
+  // home → hike (start)
+  document.getElementById('goHike').addEventListener('click', ()=>{
+    setRoute('hike'); setHikeState('idle');
+  });
+
+  // start hike button
+  document.getElementById('startHikeBtn').addEventListener('click', ()=>{
+    setHikeState('active');
+    showToast('▶ Trepada iniciada · GPS activo');
+  });
+
+  // end hike
+  document.getElementById('endHikeBtn').addEventListener('click', ()=>{
+    setHikeState('ended');
+    state.cerro += 184; state.kg += 3.2; state.hikes += 1;
+    refreshNumbers();
+    showToast('⛰ +184 $CERRO minteado en Monad');
+  });
+
+  // pick +1
+  document.getElementById('addPick').addEventListener('click', ()=>{
+    state.pickCount = parseInt(document.getElementById('pickCount').textContent,10) + 1;
+    document.getElementById('pickCount').textContent = state.pickCount;
+    const cerro = parseInt(document.getElementById('liveCerro').textContent.replace('+',''),10) + 12;
+    document.getElementById('liveCerro').textContent = '+' + cerro;
+    document.getElementById('pickKg').textContent = (state.pickCount*0.18).toFixed(1);
+    showToast('+12 $CERRO · botella PET registrada');
+  });
+
+  // segmented hike state
+  document.querySelectorAll('#hikeStateSeg button').forEach(b=>{
+    b.addEventListener('click', ()=> setHikeState(b.dataset.state));
+  });
+
+  function refreshNumbers(){
+    const fmt = (n,d=0) => n.toLocaleString('en-US', {minimumFractionDigits:d, maximumFractionDigits:d});
+    document.querySelectorAll('#home-balance, #rewards-balance').forEach(e=>{
+      e.textContent = fmt(state.cerro) + ' $CERRO';
+    });
+    const setText = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+    setText('home-cerro', fmt(state.cerro));
+    setText('home-kg', fmt(state.kg, 1));
+    setText('home-hikes', state.hikes);
+    setText('profile-cerro', fmt(state.cerro));
+    setText('profile-kg', fmt(state.kg, 1));
+    setText('profile-hikes', state.hikes);
+  }
+
+  // init
+  setRoute('landing');
+  refreshNumbers();
+</script>
+
+<!-- Tweaks panel -->
+<script type="text/babel">
+  const { useState, useEffect } = React;
+
+  function TweakApp(){
+    const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+    useEffect(()=>{
+      document.body.dataset.theme = t.theme;
+    }, [t.theme]);
+
+    useEffect(()=>{
+      document.documentElement.style.setProperty('--ember',
+        t.accent === 'orange' ? 'oklch(0.68 0.18 50)' :
+        t.accent === 'pink'   ? 'oklch(0.68 0.2 0)' :
+        t.accent === 'blue'   ? 'oklch(0.62 0.15 240)' :
+        t.accent === 'lime'   ? 'oklch(0.78 0.18 130)' :
+        'oklch(0.68 0.18 50)'
+      );
+      document.documentElement.style.setProperty('--ember-2',
+        t.accent === 'orange' ? 'oklch(0.74 0.16 60)' :
+        t.accent === 'pink'   ? 'oklch(0.76 0.18 5)' :
+        t.accent === 'blue'   ? 'oklch(0.7 0.13 235)' :
+        t.accent === 'lime'   ? 'oklch(0.84 0.16 130)' :
+        'oklch(0.74 0.16 60)'
+      );
+    }, [t.accent]);
+
+    useEffect(()=>{
+      const map = {
+        'Big Shoulders Display': "'Big Shoulders Display', system-ui, sans-serif",
+        'Bebas Neue': "'Bebas Neue', system-ui, sans-serif",
+        'Inter Heavy': "'Inter', system-ui, sans-serif",
+        'Space Grotesk': "'Space Grotesk', system-ui, sans-serif",
+      };
+      document.documentElement.style.setProperty('--font-display', map[t.fontDisplay] || map['Big Shoulders Display']);
+    }, [t.fontDisplay]);
+
+    useEffect(()=>{
+      // when host changes hikeState via tweaks, sync the screen
+      if (state.route === 'hike' && state.hikeState !== t.hikeState){
+        setHikeState(t.hikeState);
+      }
+    }, [t.hikeState]);
+
+    return (
+      <TweaksPanel>
+        <TweakSection label="Apariencia" />
+        <TweakRadio label="Tema" value={t.theme}
+                    options={['light','dark']}
+                    onChange={(v)=>setTweak('theme', v)} />
+        <TweakRadio label="Acento" value={t.accent}
+                    options={['orange','pink','blue','lime']}
+                    onChange={(v)=>setTweak('accent', v)} />
+        <TweakSelect label="Tipografía display" value={t.fontDisplay}
+                     options={['Big Shoulders Display','Bebas Neue','Inter Heavy','Space Grotesk']}
+                     onChange={(v)=>setTweak('fontDisplay', v)} />
+
+        <TweakSection label="Estado prototipo" />
+        <TweakRadio label="Ruta" value={state.route}
+                    options={['landing','home','hike','wiki','rewards','profile']}
+                    onChange={(v)=>{ setRoute(v); }} />
+        <TweakRadio label="Estado trepada" value={t.hikeState}
+                    options={['idle','active','ended']}
+                    onChange={(v)=>{ setTweak('hikeState', v); setRoute('hike'); setHikeState(v); }} />
+      </TweaksPanel>
+    );
+  }
+
+  const root = document.createElement('div');
+  document.body.appendChild(root);
+  ReactDOM.createRoot(root).render(<TweakApp />);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trepacerros - Premium Web Dashboard</title>
+<!-- Google Fonts: Lexend -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#a1d494",
+                        "tertiary": "#642600",
+                        "background": "#fafaf4",
+                        "on-tertiary-fixed": "#351000",
+                        "primary-fixed": "#bcf0ae",
+                        "on-secondary-container": "#636451",
+                        "on-tertiary-container": "#ffb08a",
+                        "surface-dim": "#dadad5",
+                        "secondary": "#5e604d",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c2c9bb",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#9dd090",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#ffb693",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f1f1ec",
+                        "surface": "#fafaf4",
+                        "on-primary-fixed": "#002201",
+                        "tertiary-container": "#893600",
+                        "secondary-fixed-dim": "#c8c8b0",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffdbcc",
+                        "outline": "#72796e",
+                        "inverse-surface": "#2f312e",
+                        "on-secondary-fixed": "#1b1d0e",
+                        "on-background": "#1a1c19",
+                        "surface-container": "#eeeee9",
+                        "on-primary": "#ffffff",
+                        "primary": "#154212",
+                        "surface-tint": "#3b6934",
+                        "inverse-primary": "#a1d494",
+                        "surface-bright": "#fafaf4",
+                        "on-tertiary-fixed-variant": "#7a3000",
+                        "secondary-fixed": "#e4e4cc",
+                        "on-surface": "#1a1c19",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#474836",
+                        "surface-container-low": "#f4f4ee",
+                        "on-surface-variant": "#42493e",
+                        "secondary-container": "#e1e1c9",
+                        "surface-container-high": "#e8e8e3",
+                        "primary-container": "#2d5a27",
+                        "on-primary-fixed-variant": "#23501e",
+                        "surface-container-highest": "#e3e3de",
+                        "surface-variant": "#e3e3de"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "0.5rem",
+                        "gutter": "1.5rem",
+                        "sm": "1rem",
+                        "xl": "4rem",
+                        "md": "1.5rem",
+                        "margin-safe": "2rem",
+                        "unit": "4px",
+                        "lg": "2.5rem"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Lexend"],
+                        "caption": ["Lexend"],
+                        "body-lg": ["Lexend"],
+                        "headline-md": ["Lexend"],
+                        "label-bold": ["Lexend"],
+                        "display-lg": ["Lexend"],
+                        "body-md": ["Lexend"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "caption": ["12px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "label-bold": ["14px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Base application of typography pairings */
+        body {
+            font-family: 'Lexend', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background h-screen w-screen overflow-hidden relative font-body-md text-body-md">
+<!-- High-Fidelity Map Background -->
+<img alt="Map Background" class="absolute inset-0 w-full h-full object-cover z-0" data-alt="High fidelity aerial satellite view of a rugged green mountain landscape with dense forests and distinct topographic ridge lines under clear daylight" data-location="Bosque de la Primavera" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_aMgpm4Er3GzgzAVR28HMD2kd3EFxFbqXQwe2kH4gQhr4e45Y5Xu8TGh-NBX63JU7EO-260uQE4RnzCIWngxHRAxYYdhlYGNqn-h7un9jhPqR8j3a-LE9NtQs1hBUUlg844xaFwrxS41cjjw2fV6Ac4oeWSqsT1h6bcagpYXPu7KQwe45j49dRnjbYn4eicCx8wGaa2AaZw5hNoQe5N1VIFkUEKLx_APWlypmVNp0omvYfLlVRbjlY9N32tp6HoBwFCWpF4ZOB1A"/>
+<!-- App Shell Container -->
+<div class="absolute inset-0 z-10 flex">
+<!-- SideNavBar (Shared Component JSON) -->
+<aside class="hidden md:flex flex-col p-6 gap-y-4 h-screen w-72 fixed left-0 top-0 border-r border-white/10 dark:border-zinc-800/50 bg-white/30 dark:bg-zinc-950/30 backdrop-blur-2xl shadow-2xl shadow-black/5 z-50">
+<!-- Header Identity -->
+<div class="flex items-center gap-sm mb-lg px-2">
+<img alt="Trepacerros Logo" class="w-10 h-10 rounded-full border-2 border-white/40 shadow-sm object-cover" data-alt="Minimalist abstract mountain peak logo in vibrant green and orange tones on a white circular badge" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmxPSjkE6HdR7GQVmLwj90u2R5v-zzC3VY21j0BNQpn8osgL2wsFuGqG7ONffb6ohHXNBiI3lA_teleaQ1Rhx_R7n-F4weaOGCah5sJm7_kJf5cr8MjHuN7qSDOztAUzt17xqRUGYvIrbtB9mWtM4Mo3a-9DzjnOR19Z3YmrCMnEMCE8hvUjJYmb9BHD7dyMgtcb4vw1fwpCbRhQTT7U_lAmvVsxT6f_PFeDUtLrkhY04Z0mkiO6LwVUUz1WKM7UqIu054t9J2Rlg"/>
+<div>
+<h1 class="text-xl font-black text-green-900 dark:text-green-50 tracking-tighter">Trepacerros</h1>
+<p class="font-caption text-caption text-primary/70 uppercase tracking-widest">High-Altitude Tech</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-1 flex flex-col gap-y-2">
+<!-- Active Item -->
+<a class="flex items-center gap-3 px-4 py-3 bg-white/50 dark:bg-zinc-800/50 text-orange-600 dark:text-orange-400 rounded-xl shadow-inner-sm hover:translate-x-1 transition-transform duration-200 cursor-pointer active:scale-98" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">map</span>
+<span class="font-lexend font-semibold uppercase tracking-widest text-[11px]">Map Dashboard</span>
+</a>
+<!-- Inactive Items -->
+<a class="flex items-center gap-3 px-4 py-3 text-green-900/70 dark:text-zinc-500 hover:text-green-900 dark:hover:text-zinc-200 hover:translate-x-1 transition-transform duration-200 cursor-pointer active:scale-98" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-lexend font-semibold uppercase tracking-widest text-[11px]">Leaderboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-green-900/70 dark:text-zinc-500 hover:text-green-900 dark:hover:text-zinc-200 hover:translate-x-1 transition-transform duration-200 cursor-pointer active:scale-98" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-lexend font-semibold uppercase tracking-widest text-[11px]">Eco-Wiki</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-green-900/70 dark:text-zinc-500 hover:text-green-900 dark:hover:text-zinc-200 hover:translate-x-1 transition-transform duration-200 cursor-pointer active:scale-98" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-lexend font-semibold uppercase tracking-widest text-[11px]">Marketplace</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-green-900/70 dark:text-zinc-500 hover:text-green-900 dark:hover:text-zinc-200 hover:translate-x-1 transition-transform duration-200 cursor-pointer active:scale-98" href="#">
+<span class="material-symbols-outlined">auto_graph</span>
+<span class="font-lexend font-semibold uppercase tracking-widest text-[11px]">My Impact</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-green-900/70 dark:text-zinc-500 hover:text-green-900 dark:hover:text-zinc-200 hover:translate-x-1 transition-transform duration-200 cursor-pointer active:scale-98" href="#">
+<span class="material-symbols-outlined">potted_plant</span>
+<span class="font-lexend font-semibold uppercase tracking-widest text-[11px]">Clean</span>
+</a>
+</nav>
+<!-- SideNav CTA -->
+<button class="mt-auto w-full bg-surface-tint text-on-primary font-label-bold text-label-bold py-md rounded-xl hover:bg-primary-container transition-colors shadow-lg">
+                Start Expedition
+            </button>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col md:ml-72 w-full h-full relative">
+<!-- TopNavBar (Shared Component JSON) -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-8 h-20 bg-white/40 dark:bg-zinc-900/40 backdrop-blur-xl backdrop-blur-md border-b border-white/10 dark:border-zinc-800/50 shadow-xl shadow-green-900/5">
+<!-- Spacer for left side on desktop to balance -->
+<div class="hidden md:block w-32"></div>
+<!-- Mobile Logo (Visible only on mobile) -->
+<div class="md:hidden flex items-center">
+<h1 class="text-2xl font-bold text-green-900 dark:text-green-50 tracking-tighter">Trepacerros</h1>
+</div>
+<!-- Right Actions -->
+<div class="flex items-center gap-sm">
+<!-- Balance -->
+<div class="flex items-center gap-xs px-4 py-2 bg-surface/60 backdrop-blur-md rounded-full border border-white/30 shadow-inner">
+<span class="material-symbols-outlined text-tertiary">account_balance_wallet</span>
+<span class="font-label-bold text-label-bold text-tertiary">$CERRO Balance</span>
+<span class="font-headline-md text-headline-md text-primary ml-2">1,240</span>
+</div>
+<!-- Notifications -->
+<button class="w-10 h-10 flex items-center justify-center bg-surface/60 backdrop-blur-md rounded-full border border-white/30 text-green-900/60 dark:text-zinc-400 hover:bg-white/20 dark:hover:bg-zinc-800/40 transition-all duration-300 scale-95 active:scale-90 shadow-sm relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-3 h-3 bg-error rounded-full border-2 border-surface"></span>
+</button>
+<!-- Profile -->
+<button class="w-10 h-10 rounded-full overflow-hidden border-2 border-white/40 shadow-sm hover:scale-105 transition-transform duration-200">
+<img alt="User profile picture" class="w-full h-full object-cover" data-alt="Portrait of an adventurous young woman with windblown hair looking confidently toward the camera in natural outdoor lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4xT6n5zPAvNNoLfkZBtZBhPRglpuNpgsbdxphb88r-zNk-MZSRjKJHsWgSfmGcrbmYAoJ0m7jlM9EussOHFjEaYrPfsFKXhmgA6l23beVIEhaa6r6lBbU-thKxs-hF-dHSguTGbL6wJ4cYrnZcRBJiFpj67MJIOiJ0LLjjzICsUMeyNtkzTGY2Y66_90JcKfzrOlwHNRzjVvF95Vh1-TW9go_aF02KxGQO0HNqcjqcwoFrA0Mcf-lYQpQB4MZbgoqAXnaNNUEIB4"/>
+</button>
+</div>
+</header>
+<!-- Dashboard Overlay Canvas (Bento/Floating layout) -->
+<div class="flex-1 p-gutter md:p-xl flex flex-col md:flex-row gap-gutter pointer-events-none items-start">
+<!-- Left Column (Floating Stats) -->
+<div class="w-full md:w-80 flex flex-col gap-gutter z-20 pointer-events-auto">
+<!-- Daily Challenge Card (Glassmorphism) -->
+<article class="bg-surface/80 backdrop-blur-xl rounded-xl p-md border border-white/30 shadow-lg shadow-black/5 relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-tertiary-container"></div>
+<div class="flex items-center justify-between mb-sm">
+<h2 class="font-headline-md text-headline-md text-on-surface">Daily Challenge</h2>
+<span class="material-symbols-outlined text-tertiary">military_tech</span>
+</div>
+<div class="mb-md">
+<p class="font-body-lg text-body-lg text-on-surface-variant font-semibold">Identify Native Oak</p>
+<p class="font-body-md text-body-md text-outline mt-1">Find and scan a Quercus Rugosa leaf along the main ascent.</p>
+</div>
+<div class="flex items-center justify-between bg-surface-container/50 rounded-lg p-2 border border-white/20">
+<div class="flex items-center gap-xs text-primary">
+<span class="material-symbols-outlined text-sm">toll</span>
+<span class="font-label-bold text-label-bold">+50 $CERRO</span>
+</div>
+<span class="font-caption text-caption text-secondary bg-secondary-container px-2 py-1 rounded-full">0/1 Found</span>
+</div>
+</article>
+<!-- Trail Health Card -->
+<article class="bg-surface/80 backdrop-blur-xl rounded-xl p-md border border-white/30 shadow-lg shadow-black/5 pointer-events-auto">
+<div class="flex items-center gap-sm mb-md">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined">health_and_safety</span>
+</div>
+<div>
+<h2 class="font-label-bold text-label-bold text-on-surface uppercase tracking-widest">Trail Health</h2>
+<p class="font-caption text-caption text-on-surface-variant">Bosque de la Primavera</p>
+</div>
+</div>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between font-caption text-caption mb-1">
+<span class="text-on-surface-variant">Litter Index</span>
+<span class="text-primary font-bold">Good</span>
+</div>
+<div class="w-full bg-surface-dim rounded-full h-2 overflow-hidden shadow-inner">
+<div class="bg-primary h-full rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-caption text-caption mb-1">
+<span class="text-on-surface-variant">Erosion Risk</span>
+<span class="text-tertiary font-bold">Moderate</span>
+</div>
+<div class="w-full bg-surface-dim rounded-full h-2 overflow-hidden shadow-inner">
+<div class="bg-tertiary h-full rounded-full" style="width: 45%"></div>
+</div>
+</div>
+</div>
+</article>
+</div>
+<!-- Spacer to let the map breathe in the center -->
+<div class="flex-1"></div>
+</div>
+<!-- Floating Global Action (START TREPADA) -->
+<div class="absolute bottom-xl left-1/2 -translate-x-1/2 z-30 pointer-events-auto">
+<button class="bg-tertiary-container hover:bg-tertiary text-on-tertiary-container hover:text-on-tertiary font-headline-md text-headline-md px-12 py-4 rounded-full shadow-2xl border border-white/20 transition-all duration-300 flex items-center gap-sm group">
+<span class="material-symbols-outlined group-hover:-translate-y-1 transition-transform">hiking</span>
+                    START TREPADA
+                </button>
+</div>
+</main>
+</div>
+</body></html>

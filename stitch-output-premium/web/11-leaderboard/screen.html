@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Leaderboard - Trepacerros</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .material-symbols-outlined {
+                font-family: 'Material Symbols Outlined';
+                font-weight: normal;
+                font-style: normal;
+                font-size: 24px;
+                line-height: 1;
+                letter-spacing: normal;
+                text-transform: none;
+                display: inline-block;
+                white-space: nowrap;
+                word-wrap: normal;
+                direction: ltr;
+                -webkit-font-smoothing: antialiased;
+            }
+            .backdrop-blur-xl { backdrop-filter: blur(20px); }
+            .backdrop-blur-2xl { backdrop-filter: blur(40px); }
+            .shadow-inner-sm { box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#a1d494",
+                        "tertiary": "#642600",
+                        "background": "#fafaf4",
+                        "on-tertiary-fixed": "#351000",
+                        "primary-fixed": "#bcf0ae",
+                        "on-secondary-container": "#636451",
+                        "on-tertiary-container": "#ffb08a",
+                        "surface-dim": "#dadad5",
+                        "secondary": "#5e604d",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c2c9bb",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#9dd090",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#ffb693",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f1f1ec",
+                        "surface": "#fafaf4",
+                        "on-primary-fixed": "#002201",
+                        "tertiary-container": "#893600",
+                        "secondary-fixed-dim": "#c8c8b0",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffdbcc",
+                        "outline": "#72796e",
+                        "inverse-surface": "#2f312e",
+                        "on-secondary-fixed": "#1b1d0e",
+                        "on-background": "#1a1c19",
+                        "surface-container": "#eeeee9",
+                        "on-primary": "#ffffff",
+                        "primary": "#154212",
+                        "surface-tint": "#3b6934",
+                        "inverse-primary": "#a1d494",
+                        "surface-bright": "#fafaf4",
+                        "on-tertiary-fixed-variant": "#7a3000",
+                        "secondary-fixed": "#e4e4cc",
+                        "on-surface": "#1a1c19",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#474836",
+                        "surface-container-low": "#f4f4ee",
+                        "on-surface-variant": "#42493e",
+                        "secondary-container": "#e1e1c9",
+                        "surface-container-high": "#e8e8e3",
+                        "primary-container": "#2d5a27",
+                        "on-primary-fixed-variant": "#23501e",
+                        "surface-container-highest": "#e3e3de",
+                        "surface-variant": "#e3e3de"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "card": "1.5rem"
+                    },
+                    "spacing": {
+                        "xs": "0.5rem",
+                        "gutter": "1.5rem",
+                        "sm": "1rem",
+                        "xl": "4rem",
+                        "md": "1.5rem",
+                        "margin-safe": "2rem",
+                        "unit": "4px",
+                        "lg": "2.5rem"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Lexend"],
+                        "caption": ["Lexend"],
+                        "body-lg": ["Lexend"],
+                        "headline-md": ["Lexend"],
+                        "label-bold": ["Lexend"],
+                        "display-lg": ["Lexend"],
+                        "body-md": ["Lexend"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "caption": ["12px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "label-bold": ["14px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex font-body-md overflow-x-hidden">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col p-6 gap-y-4 h-screen w-72 fixed left-0 top-0 border-r border-white/10 shadow-2xl shadow-black/5 bg-white/30 backdrop-blur-2xl z-40 border-r border-white/10">
+<div class="flex items-center gap-xs mb-xl">
+<img alt="Trepacerros Logo" class="w-10 h-10 rounded-xl object-cover border border-white/20" data-alt="minimalist abstract mountain logo icon in deep green" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHuwOrB-Go_4Ezk_57YHpkc9_kmiFwBDDmRrfyTPjfihaU03O2hry1VHMG50ai6eZDxFY2IRrNgSBFfkVRsOQ-uR9dKYlMnsaz7E8NK6WpxyegOLHjwxLSxfrvkDAOlLnCRlhCfV9r-b7KKPjWpFzynI3T99Eqa_ZopyPaIe66gbFDd-1qn_Y37CmrEuqAcUzdLVRK6D_XBjBBKrFExy3wCKXxM9H9dh3Jk99DokDETVHFQR5suqAst-48MP22maP8MUZeK7zr1qU"/>
+<div>
+<h1 class="text-xl font-black text-green-900 tracking-tighter">Trepacerros</h1>
+<p class="font-caption text-caption text-secondary">High-Altitude Tech</p>
+</div>
+</div>
+<div class="flex-1 flex flex-col gap-xs">
+<a class="flex items-center gap-sm p-sm rounded-xl text-green-900/70 hover:text-green-900 font-lexend font-semibold uppercase tracking-widest text-[11px] hover:translate-x-1 transition-transform duration-200 cursor-pointer active:scale-98 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+                Map Dashboard
+            </a>
+<a class="flex items-center gap-sm p-sm rounded-xl bg-white/50 text-orange-600 shadow-inner-sm font-lexend font-semibold uppercase tracking-widest text-[11px] hover:translate-x-1 transition-transform duration-200 cursor-pointer active:scale-98 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="leaderboard" data-weight="fill" style="font-variation-settings: 'FILL' 1;">leaderboard</span>
+                Leaderboard
+            </a>
+<a class="flex items-center gap-sm p-sm rounded-xl text-green-900/70 hover:text-green-900 font-lexend font-semibold uppercase tracking-widest text-[11px] hover:translate-x-1 transition-transform duration-200 cursor-pointer active:scale-98 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+                Eco-Wiki
+            </a>
+<a class="flex items-center gap-sm p-sm rounded-xl text-green-900/70 hover:text-green-900 font-lexend font-semibold uppercase tracking-widest text-[11px] hover:translate-x-1 transition-transform duration-200 cursor-pointer active:scale-98 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+                Marketplace
+            </a>
+<a class="flex items-center gap-sm p-sm rounded-xl text-green-900/70 hover:text-green-900 font-lexend font-semibold uppercase tracking-widest text-[11px] hover:translate-x-1 transition-transform duration-200 cursor-pointer active:scale-98 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="auto_graph">auto_graph</span>
+                My Impact
+            </a>
+<a class="flex items-center gap-sm p-sm rounded-xl text-green-900/70 hover:text-green-900 font-lexend font-semibold uppercase tracking-widest text-[11px] hover:translate-x-1 transition-transform duration-200 cursor-pointer active:scale-98 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="potted_plant">potted_plant</span>
+                Clean
+            </a>
+</div>
+<button class="mt-auto bg-[#ea580c] text-white font-label-bold text-label-bold py-sm px-md rounded-xl w-full border border-white/20 shadow-sm hover:opacity-90 active:scale-95 transition-all">
+            Start Expedition
+        </button>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-72 flex flex-col min-h-screen relative">
+<!-- TopAppBar (Web) -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-8 h-20 bg-white/40 backdrop-blur-xl border-b border-white/20 shadow-xl shadow-green-900/5 backdrop-blur-md border-b border-white/10 hidden md:flex">
+<div class="flex items-center gap-md">
+<!-- Nav hidden on web as side nav takes precedence for this layout style, but maintaining the shell structure if needed -->
+</div>
+<div class="flex items-center gap-md">
+<button class="text-orange-600 font-lexend text-sm font-medium tracking-tight hover:bg-white/20 transition-all duration-300 px-sm py-xs rounded-lg scale-95 active:scale-90 transition-transform">
+                    $CERRO Balance
+                </button>
+<div class="flex items-center gap-xs">
+<button class="text-green-900/60 hover:bg-white/20 transition-all duration-300 p-xs rounded-full scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-green-900/60 hover:bg-white/20 transition-all duration-300 p-xs rounded-full scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+</button>
+</div>
+<img alt="User profile picture" class="w-10 h-10 rounded-full border-2 border-white shadow-sm object-cover" data-alt="portrait of an outdoor enthusiast with mountain gear" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpjXLiBN9OsQA5WgPBbbhYypYZ2EQjEYedZBVCafAWFttF4MyBB2RtWypBW13L1I_NKni4cVEO7H_rOVzenenSI7KGzjz1_PBOxXdImpuwGS_W0_Mn1VWI9e8AtEz4yloEF0YISPxkczS76m0oLowMuXhFjRxOcac0e9H4VBNB0WQHKaSE0qIBzNfcydoj5ydj6X8hpwGy-MsvGi8Pj7uc8UHQ5SyNagdmDqAiT82Fy6JEiIdrV9dvF76fJ-zm3LPl3_YpcCf77wE"/>
+</div>
+</header>
+<!-- Canvas -->
+<div class="p-gutter md:p-margin-safe flex-1 max-w-[1200px] w-full mx-auto flex flex-col gap-xl">
+<!-- Podium Header -->
+<section class="flex flex-col items-center justify-center pt-xl pb-lg relative">
+<!-- Background ambient glow -->
+<div class="absolute inset-0 bg-gradient-to-b from-orange-500/5 to-transparent rounded-3xl -z-10 blur-3xl"></div>
+<h2 class="font-display-lg text-display-lg text-primary text-center mb-xs">Global Guardians</h2>
+<p class="font-body-lg text-body-lg text-secondary text-center max-w-2xl mb-xl">The vanguard of high-altitude impact. Rankings based on collected units, sustained integrity, and expedition consistency.</p>
+<!-- Podium Layout -->
+<div class="flex items-end justify-center gap-sm md:gap-gutter h-64 w-full max-w-3xl px-sm">
+<!-- Rank 2 -->
+<div class="flex flex-col items-center w-1/3 relative z-10 translate-y-4">
+<div class="relative mb-md">
+<img alt="Rank 2 Guardian" class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-surface shadow-lg object-cover" data-alt="portrait of a rugged mountaineer in bright daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqFd2e89ou4-RHUsiQb71pSBnaW2ljRoyMbiUJrmnkiSYY20Aq7tFl5EE9Nv1ek62w72t53GFjwxHc_g7BW2rjeE9JcXNgPaJExsucwfK3qJkRqtUezaOUAQcT6obdBrtrEIpfQ-JIMwYnswTJzPE57F4AuelHmMnkLDtwScolt-ai_ekisjlluozCDIp8B9_rTEjAa7afzMOZnZKZ5211ITllSzZeN8KJ_5bA_diUtml8hBiq2xtfagygo-rNBW0uC1Plnif3JDQ"/>
+<div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-surface-container-high text-primary font-label-bold text-caption px-3 py-1 rounded-full border border-white shadow-sm">2nd</div>
+</div>
+<div class="bg-white/60 backdrop-blur-md border border-white/40 shadow-xl shadow-black/5 rounded-t-2xl w-full flex flex-col items-center py-md h-32 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-t from-secondary-fixed/50 to-transparent"></div>
+<span class="font-headline-md text-body-lg text-primary relative z-10 truncate w-full text-center px-xs">AlexMnt</span>
+<span class="font-caption text-caption text-secondary relative z-10">14.2k Units</span>
+</div>
+</div>
+<!-- Rank 1 -->
+<div class="flex flex-col items-center w-1/3 relative z-20">
+<div class="relative mb-md">
+<div class="absolute -inset-2 bg-gradient-to-tr from-orange-400 to-yellow-300 rounded-full blur opacity-40"></div>
+<img alt="Rank 1 Guardian" class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-[#ea580c] shadow-2xl object-cover relative z-10" data-alt="confident woman climber with summit gear at high altitude" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfGeoNn4oNyyobnn0O_iouiaDwrj2jjJzoXibbb0F7JOr3NUQ8gV1SRdCVRSn4hvQaLxGre-LnanMq16br-DmR-2oXqn4qiPRA9Fw-qisoaOLkiNzzR8QUfKPv_unLvkkaz_9CjgGjiMWjjbEpmDI_L0PWU4XHaYVQtJa20aqFXGuF7aSbUAEpAvgCXFfFO4HuSbV4yjZTEDvDY2dGANCKqAZWlxF5W-UK9EavRn0rxrPDLlJyQU-uTSwdrWgcyFryapS-ow1SfeY"/>
+<div class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-[#ea580c] text-white font-label-bold text-label-bold px-4 py-1 rounded-full shadow-md z-20 border border-white/20">1st</div>
+<span class="material-symbols-outlined absolute -top-4 -right-2 text-yellow-500 drop-shadow-md z-20" data-icon="military_tech" data-weight="fill" style="font-variation-settings: 'FILL' 1; font-size: 32px;">military_tech</span>
+</div>
+<div class="bg-white/80 backdrop-blur-xl border border-white/50 shadow-2xl shadow-orange-500/10 rounded-t-2xl w-full flex flex-col items-center py-md h-40 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-t from-orange-100/50 to-transparent"></div>
+<span class="font-headline-md text-headline-md text-primary relative z-10 truncate w-full text-center px-xs">ElenaPeak</span>
+<span class="font-label-bold text-label-bold text-[#ea580c] relative z-10 mt-1">18.5k Units</span>
+</div>
+</div>
+<!-- Rank 3 -->
+<div class="flex flex-col items-center w-1/3 relative z-10 translate-y-8">
+<div class="relative mb-md">
+<img alt="Rank 3 Guardian" class="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-surface shadow-md object-cover" data-alt="determined hiker looking at mountain view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHxlCc7UhEKLsCO_o2K5uf239AxDju5tYxqJn4loUDmMHNHvF3lIuLzsAhIVVnGYec29c7gKleRW9fgEKOHRM_xCO-wvlyDXiVTFI3Wh9BLadCmgBtilfW3b_q6CSZm8eqHUkXbysqd7KfeeZDVqctRvqlD43TX1AuVG0Z54hADfOKm2aUsdgR6ZCI3dhu9pYWCap4s5GJ56XKl2Uv7QQbTHvpnHnmt5l_OQ9MW6doMaQs2_O8BER_ehOfcepT-uI83ZKE-Mwk6jY"/>
+<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-surface-container-high text-primary font-label-bold text-caption px-2 py-1 rounded-full border border-white shadow-sm">3rd</div>
+</div>
+<div class="bg-white/50 backdrop-blur-md border border-white/30 shadow-lg shadow-black/5 rounded-t-2xl w-full flex flex-col items-center py-md h-24 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-t from-tertiary-fixed/30 to-transparent"></div>
+<span class="font-headline-md text-body-md text-primary relative z-10 truncate w-full text-center px-xs">SamRock</span>
+<span class="font-caption text-caption text-secondary relative z-10">12.8k Units</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Detailed Table -->
+<section class="bg-white/40 backdrop-blur-xl rounded-card border border-white/20 shadow-xl shadow-green-900/5 overflow-hidden">
+<div class="p-md border-b border-white/20 flex justify-between items-center bg-white/20">
+<h3 class="font-headline-md text-headline-md text-primary">Full Standings</h3>
+<div class="flex gap-xs">
+<button class="bg-white/50 text-secondary font-caption text-caption px-3 py-1 rounded-lg border border-white/40 hover:bg-white transition-colors">Global</button>
+<button class="bg-transparent text-secondary font-caption text-caption px-3 py-1 rounded-lg border border-transparent hover:bg-white/30 transition-colors">Local</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-white/10 bg-white/10">
+<th class="p-sm font-label-bold text-caption text-secondary uppercase tracking-wider w-16 text-center">Rank</th>
+<th class="p-sm font-label-bold text-caption text-secondary uppercase tracking-wider">Guardian</th>
+<th class="p-sm font-label-bold text-caption text-secondary uppercase tracking-wider hidden md:table-cell">Badges</th>
+<th class="p-sm font-label-bold text-caption text-secondary uppercase tracking-wider text-center">Integrity</th>
+<th class="p-sm font-label-bold text-caption text-secondary uppercase tracking-wider text-right">Units Collected</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/10">
+<!-- Row 4 -->
+<tr class="hover:bg-white/20 transition-colors group">
+<td class="p-sm font-headline-md text-body-lg text-primary text-center">4</td>
+<td class="p-sm">
+<div class="flex items-center gap-sm">
+<img alt="Guardian 4" class="w-8 h-8 rounded-full object-cover" data-alt="smiling trekker with backpack" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDH-BwQjTSff7SvHHi10r0YZccxpVsPvTnqkVcX1q2UE5iMg9gzGKvDU3N5i3o6jFIAk4ibOe3JTf-lN1mCFIrWwrm1OqZIZ0v3bBGp7Mu0H1r4vV6utixaV33xrAWgwAjaZeVoJAZ7wernRYpp1bLtuwITrkvGK6lqsFSlHxV35LE5AqoRqDXK0U5nlQ9iNcKD0OJd9aeitmZgTM3mFCzq7CAWAmsFRzBEATHaSytvqCB4Tsq1xoljZ-ccABVT-ovARLOypJ_FQVA"/>
+<span class="font-label-bold text-body-md text-primary">SarahTrails</span>
+</div>
+</td>
+<td class="p-sm hidden md:table-cell">
+<div class="flex gap-xs">
+<span class="bg-primary-fixed-dim/30 text-primary font-caption text-[10px] px-2 py-0.5 rounded-full">Explorer</span>
+<span class="bg-tertiary-fixed-dim/30 text-tertiary font-caption text-[10px] px-2 py-0.5 rounded-full">Cleaner</span>
+</div>
+</td>
+<td class="p-sm text-center">
+<span class="material-symbols-outlined text-green-600" data-icon="flag" data-weight="fill" style="font-variation-settings: 'FILL' 1;">flag</span>
+</td>
+<td class="p-sm font-body-md text-body-md text-right text-secondary">11,240</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-white/20 transition-colors group">
+<td class="p-sm font-headline-md text-body-lg text-primary text-center">5</td>
+<td class="p-sm">
+<div class="flex items-center gap-sm">
+<img alt="Guardian 5" class="w-8 h-8 rounded-full object-cover" data-alt="focused male hiker looking at map" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXaUOnKnQ8bnX7KOGw5IqhZqDX1BsA2dyZn45J2H70h8Wx5ywULWFCpkN0P3N-Q6CqVi69_l3trsAI4weM6EdZAaEVSSNmi8hWVXfFGK_MkBc7GdeEGBJI6Kyohh02k2ZD7xi34TAY8tIGRJxXOKKWw-qsEeaK-_Z0zjmtNHadYBXJdiyp8jJBHjp72X7Xo6wC4-cekSFzxHrKxoAY-V5OjVKNLipEcr2GCQ6CL5MIssAWHd6hOHFzvdEujM5g0S9N9DubK-OMPzA"/>
+<span class="font-label-bold text-body-md text-primary">MikePeak</span>
+</div>
+</td>
+<td class="p-sm hidden md:table-cell">
+<div class="flex gap-xs">
+<span class="bg-primary-fixed-dim/30 text-primary font-caption text-[10px] px-2 py-0.5 rounded-full">Guide</span>
+</div>
+</td>
+<td class="p-sm text-center">
+<span class="material-symbols-outlined text-green-600" data-icon="flag" data-weight="fill" style="font-variation-settings: 'FILL' 1;">flag</span>
+</td>
+<td class="p-sm font-body-md text-body-md text-right text-secondary">9,850</td>
+</tr>
+<!-- Row 6 -->
+<tr class="hover:bg-white/20 transition-colors group">
+<td class="p-sm font-headline-md text-body-lg text-primary text-center">6</td>
+<td class="p-sm">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-primary font-label-bold">J</div>
+<span class="font-label-bold text-body-md text-primary">JClimb</span>
+</div>
+</td>
+<td class="p-sm hidden md:table-cell">
+<div class="flex gap-xs">
+<span class="bg-surface-variant text-secondary font-caption text-[10px] px-2 py-0.5 rounded-full">Novice</span>
+</div>
+</td>
+<td class="p-sm text-center">
+<span class="material-symbols-outlined text-outline" data-icon="flag">flag</span>
+</td>
+<td class="p-sm font-body-md text-body-md text-right text-secondary">8,100</td>
+</tr>
+<!-- Current User Row (Sticky at bottom if needed, or just highlighted) -->
+<tr class="bg-orange-50/50 hover:bg-orange-50/80 transition-colors border-t-2 border-[#ea580c]/30 shadow-inner-sm">
+<td class="p-sm font-headline-md text-body-lg text-[#ea580c] text-center">142</td>
+<td class="p-sm">
+<div class="flex items-center gap-sm">
+<img alt="Current User" class="w-8 h-8 rounded-full object-cover border border-[#ea580c]" data-alt="portrait of an outdoor enthusiast with mountain gear" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtHCEWKGfewF96WF4bHjlWbn7NtslbowLWmHh1qQ9lolQ8bVCw-bm4Z-Q01mbj6XYmDD7jPT4Oh7W1VH1W3sumtJMcIWNvzSZXtdgI6A4EEZvt4uJ5cnWLkMYyVo0XeT9W9aVUJTsA4sTrnuhVm_9rFlEpFeoxJio1U5SjrBYK33XZtovIvQWhoY_KqgNyK76izKIPr8fec0KMjHcb7Bo4tmfUK7rogRMuIWZ8vBzxsBWDola0Cn-0gKdH5-Z9RH2BJGUmeS4nyfo"/>
+<span class="font-label-bold text-body-md text-[#ea580c]">You</span>
+</div>
+</td>
+<td class="p-sm hidden md:table-cell">
+<div class="flex gap-xs">
+<span class="bg-orange-200/50 text-[#ea580c] font-caption text-[10px] px-2 py-0.5 rounded-full">Trekker</span>
+</div>
+</td>
+<td class="p-sm text-center">
+<span class="material-symbols-outlined text-green-600" data-icon="flag" data-weight="fill" style="font-variation-settings: 'FILL' 1;">flag</span>
+</td>
+<td class="p-sm font-body-md text-body-md text-right text-secondary font-medium">2,450</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Global Impact Footer Stats -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-md pb-xl">
+<div class="bg-white/40 backdrop-blur-md rounded-card p-md border border-white/20 shadow-md shadow-black/5 flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined" data-icon="public">public</span>
+</div>
+<div>
+<p class="font-caption text-caption text-secondary uppercase tracking-wider">Total Units</p>
+<p class="font-display-lg text-headline-lg text-primary">1.2M</p>
+</div>
+</div>
+<div class="bg-white/40 backdrop-blur-md rounded-card p-md border border-white/20 shadow-md shadow-black/5 flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-tertiary-container/20 flex items-center justify-center text-tertiary-container">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+</div>
+<div>
+<p class="font-caption text-caption text-secondary uppercase tracking-wider">Active Guardians</p>
+<p class="font-display-lg text-headline-lg text-primary">8,402</p>
+</div>
+</div>
+<div class="bg-white/40 backdrop-blur-md rounded-card p-md border border-white/20 shadow-md shadow-black/5 flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-green-900/10 flex items-center justify-center text-green-900">
+<span class="material-symbols-outlined" data-icon="terrain">terrain</span>
+</div>
+<div>
+<p class="font-caption text-caption text-secondary uppercase tracking-wider">Peaks Cleared</p>
+<p class="font-display-lg text-headline-lg text-primary">342</p>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>

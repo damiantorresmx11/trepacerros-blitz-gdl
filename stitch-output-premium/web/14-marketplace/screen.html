@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trepacerros Marketplace</title>
+<!-- Google Fonts: Lexend -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed-dim": "#a1d494",
+                    "tertiary": "#642600",
+                    "background": "#fafaf4",
+                    "on-tertiary-fixed": "#351000",
+                    "primary-fixed": "#bcf0ae",
+                    "on-secondary-container": "#636451",
+                    "on-tertiary-container": "#ffb08a",
+                    "surface-dim": "#dadad5",
+                    "secondary": "#5e604d",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#c2c9bb",
+                    "error-container": "#ffdad6",
+                    "on-primary-container": "#9dd090",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#ffb693",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#f1f1ec",
+                    "surface": "#fafaf4",
+                    "on-primary-fixed": "#002201",
+                    "tertiary-container": "#893600",
+                    "secondary-fixed-dim": "#c8c8b0",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed": "#ffdbcc",
+                    "outline": "#72796e",
+                    "inverse-surface": "#2f312e",
+                    "on-secondary-fixed": "#1b1d0e",
+                    "on-background": "#1a1c19",
+                    "surface-container": "#eeeee9",
+                    "on-primary": "#ffffff",
+                    "primary": "#154212",
+                    "surface-tint": "#3b6934",
+                    "inverse-primary": "#a1d494",
+                    "surface-bright": "#fafaf4",
+                    "on-tertiary-fixed-variant": "#7a3000",
+                    "secondary-fixed": "#e4e4cc",
+                    "on-surface": "#1a1c19",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed-variant": "#474836",
+                    "surface-container-low": "#f4f4ee",
+                    "on-surface-variant": "#42493e",
+                    "secondary-container": "#e1e1c9",
+                    "surface-container-high": "#e8e8e3",
+                    "primary-container": "#2d5a27",
+                    "on-primary-fixed-variant": "#23501e",
+                    "surface-container-highest": "#e3e3de",
+                    "surface-variant": "#e3e3de"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "0.5rem",
+                    "gutter": "1.5rem",
+                    "sm": "1rem",
+                    "xl": "4rem",
+                    "md": "1.5rem",
+                    "margin-safe": "2rem",
+                    "unit": "4px",
+                    "lg": "2.5rem"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Lexend"],
+                    "caption": ["Lexend"],
+                    "body-lg": ["Lexend"],
+                    "headline-md": ["Lexend"],
+                    "label-bold": ["Lexend"],
+                    "display-lg": ["Lexend"],
+                    "body-md": ["Lexend"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "label-bold": ["14px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex antialiased">
+<!-- SideNavBar (JSON Controlled) -->
+<nav class="hidden md:flex h-screen w-72 fixed left-0 top-0 border-r border-white/10 flex-col p-6 gap-y-4 bg-white/30 dark:bg-zinc-950/30 backdrop-blur-2xl shadow-2xl shadow-black/5 z-50">
+<!-- Header -->
+<div class="flex items-center gap-sm mb-lg px-2">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary-container shadow-inner">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">landscape</span>
+</div>
+<div>
+<h1 class="text-xl font-black text-green-900 dark:text-green-50 tracking-tighter">Trepacerros</h1>
+<p class="font-lexend font-semibold uppercase tracking-widest text-[9px] text-green-900/60">High-Altitude Tech</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex flex-col gap-y-1 flex-1">
+<a class="flex items-center gap-md px-4 py-3 font-lexend font-semibold uppercase tracking-widest text-[11px] text-green-900/70 dark:text-zinc-500 hover:text-green-900 dark:hover:text-zinc-200 hover:translate-x-1 transition-transform duration-200 cursor-pointer active:scale-98 transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">map</span>
+                Map Dashboard
+            </a>
+<a class="flex items-center gap-md px-4 py-3 font-lexend font-semibold uppercase tracking-widest text-[11px] text-green-900/70 dark:text-zinc-500 hover:text-green-900 dark:hover:text-zinc-200 hover:translate-x-1 transition-transform duration-200 cursor-pointer active:scale-98 transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">leaderboard</span>
+                Leaderboard
+            </a>
+<a class="flex items-center gap-md px-4 py-3 font-lexend font-semibold uppercase tracking-widest text-[11px] text-green-900/70 dark:text-zinc-500 hover:text-green-900 dark:hover:text-zinc-200 hover:translate-x-1 transition-transform duration-200 cursor-pointer active:scale-98 transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">menu_book</span>
+                Eco-Wiki
+            </a>
+<!-- Active State -->
+<a class="flex items-center gap-md px-4 py-3 font-lexend font-semibold uppercase tracking-widest text-[11px] bg-white/50 dark:bg-zinc-800/50 text-orange-600 dark:text-orange-400 rounded-xl shadow-inner-sm cursor-pointer active:scale-98 transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">storefront</span>
+                Marketplace
+            </a>
+<a class="flex items-center gap-md px-4 py-3 font-lexend font-semibold uppercase tracking-widest text-[11px] text-green-900/70 dark:text-zinc-500 hover:text-green-900 dark:hover:text-zinc-200 hover:translate-x-1 transition-transform duration-200 cursor-pointer active:scale-98 transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">auto_graph</span>
+                My Impact
+            </a>
+<a class="flex items-center gap-md px-4 py-3 font-lexend font-semibold uppercase tracking-widest text-[11px] text-green-900/70 dark:text-zinc-500 hover:text-green-900 dark:hover:text-zinc-200 hover:translate-x-1 transition-transform duration-200 cursor-pointer active:scale-98 transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">potted_plant</span>
+                Clean
+            </a>
+</div>
+<!-- CTA -->
+<button class="mt-auto w-full py-4 rounded-xl bg-orange-600 text-white font-lexend font-semibold tracking-wide text-sm shadow-md hover:bg-orange-700 transition-colors shadow-inner border border-white/20">
+            Start Expedition
+        </button>
+</nav>
+<!-- Main Content Canvas -->
+<main class="md:ml-72 flex-1 flex flex-col min-h-screen relative w-full">
+<!-- TopNavBar (JSON Controlled) -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-8 h-20 bg-white/40 dark:bg-zinc-900/40 backdrop-blur-xl border-b border-white/20 backdrop-blur-md shadow-xl shadow-green-900/5">
+<div class="flex items-center gap-sm">
+<!-- Mobile Menu Trigger -->
+<button class="md:hidden p-2 text-green-900/60 hover:bg-white/20 transition-all duration-300 rounded-lg">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<span class="text-2xl font-bold text-green-900 dark:text-green-50 tracking-tighter md:hidden">Trepacerros</span>
+</div>
+<div class="flex items-center gap-md font-lexend text-sm font-medium tracking-tight">
+<div class="flex items-center gap-xs px-4 py-2 rounded-full bg-white/50 border border-white/40 shadow-inner">
+<span class="material-symbols-outlined text-orange-600 dark:text-orange-500 text-[18px]">account_balance_wallet</span>
+<span class="text-orange-600 dark:text-orange-500 font-bold">2,450 $CERRO</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-green-900/60 dark:text-zinc-400 hover:bg-white/20 dark:hover:bg-zinc-800/40 transition-all duration-300 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-high border border-white overflow-hidden shadow-sm">
+<img alt="User profile picture" class="w-full h-full object-cover" data-alt="close up portrait of a young woman with natural lighting outdoors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCcfNOqYp7aYDQdSNzwUV6WIQhA5jlyCQC-3nmkbc4xo_gjJbdnEg-EZpLwyB8j-F5zcFb5yesnkVVlvFhZXCN8cM5hUQWdxyVKSxHxJ5kQGnURHKyGNACeCBB2aqc2eM5EMED-Aofwk6FgkA_GENJQPJXB0Rm6ZJ-IEeWJ-qFRjsXys3UzAjeN4pKwnqauxsYvWcww2aYFB0VxhWjwdtdEMb99qNFVRddITM8iiTSowlO0yho9ZOnPo8hzQlaDa_524Bp8q4CkxI"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-margin-safe max-w-[1400px] mx-auto w-full flex-1 flex flex-col">
+<!-- Hero / Header -->
+<div class="mb-xl">
+<h2 class="font-display-lg text-display-lg text-primary tracking-tight">Partner Catalog</h2>
+<p class="font-body-lg text-body-lg text-secondary mt-xs max-w-2xl">Redeem your expedition rewards for exclusive high-altitude gear, local experiences, and community perks.</p>
+</div>
+<!-- Categories Filter -->
+<div class="flex items-center gap-xs mb-lg overflow-x-auto pb-2 scrollbar-hide">
+<button class="px-md py-2 rounded-full bg-primary text-on-primary font-label-bold text-label-bold whitespace-nowrap shadow-sm shadow-[inset_0_2px_4px_rgba(0,0,0,0.1)]">All Rewards</button>
+<button class="px-md py-2 rounded-full bg-surface-container/50 backdrop-blur-md text-on-surface-variant font-label-bold text-label-bold whitespace-nowrap border border-outline-variant/30 hover:bg-surface-container transition-colors">Breweries</button>
+<button class="px-md py-2 rounded-full bg-surface-container/50 backdrop-blur-md text-on-surface-variant font-label-bold text-label-bold whitespace-nowrap border border-outline-variant/30 hover:bg-surface-container transition-colors">Gear &amp; Tech</button>
+<button class="px-md py-2 rounded-full bg-surface-container/50 backdrop-blur-md text-on-surface-variant font-label-bold text-label-bold whitespace-nowrap border border-outline-variant/30 hover:bg-surface-container transition-colors">Experiences</button>
+<button class="px-md py-2 rounded-full bg-surface-container/50 backdrop-blur-md text-on-surface-variant font-label-bold text-label-bold whitespace-nowrap border border-outline-variant/30 hover:bg-surface-container transition-colors">Digital Collectibles</button>
+</div>
+<!-- Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Featured Card (Large) -->
+<div class="col-span-1 md:col-span-8 bg-surface-container-low/60 backdrop-blur-xl border border-white/40 shadow-sm rounded-xl overflow-hidden flex flex-col md:flex-row group">
+<div class="w-full md:w-1/2 h-64 md:h-auto relative overflow-hidden">
+<img alt="Brewery Tour" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="warm inviting interior of a rustic craft brewery with wooden barrels and soft ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJwoa24LTNEPtDqS0VziB35oyQkvNSAgO1kbhMwd767x6SUSf1aXNrEnFS069GCSshdf_GRfD0KCXLptFxRm9JNTdxdrpcQyJDc19u1-gChHsJPXcLueNpayCMliAh0TXJqunPxm67QWYm8tTEueDLdo9vd5yCRzDYmxGh_rTun6jL4D8jIzHcK9ukx-K75MXOeJEfbiBUKrGxuw-gEBFKcbRZLohX8DHIJHUzGkyWCbXsq5xv_CzIsPiU2hhXn176mPl5lJH3Iu8"/>
+<div class="absolute top-4 left-4 px-3 py-1 bg-white/80 backdrop-blur-md rounded-full font-caption text-caption text-primary flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">local_drink</span> Experience
+                        </div>
+</div>
+<div class="p-lg flex flex-col justify-center w-full md:w-1/2">
+<div class="mb-auto">
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Summit Brewery Tasting Tour</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Exclusive behind-the-scenes access to the high-altitude fermentation process, including a flight of 4 seasonal IPAs and a souvenir glass.</p>
+</div>
+<div class="mt-xl flex items-center justify-between">
+<div class="flex items-center gap-unit text-tertiary-container font-headline-md text-headline-md">
+<span class="material-symbols-outlined text-[28px]">account_balance_wallet</span>
+                                1,200
+                            </div>
+<button class="px-lg py-3 rounded-xl bg-tertiary text-on-tertiary font-label-bold text-label-bold shadow-[inset_0_2px_4px_rgba(255,255,255,0.2)] hover:opacity-90 transition-opacity">Redeem</button>
+</div>
+</div>
+</div>
+<!-- Standard Card 1 -->
+<div class="col-span-1 md:col-span-4 bg-surface-container-low/60 backdrop-blur-xl border border-white/40 shadow-sm rounded-xl overflow-hidden flex flex-col group">
+<div class="h-48 relative overflow-hidden">
+<img alt="Tech Tee" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="close up of premium high performance athletic fabric in dark green color with subtle texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCL-yEHm_IXnncYi0PqjLAnQN5PcNcvc6opFwf-s6oKgLX0l-pByY_MT2HfTKoWV8Vbr8XNuRt3gdzIDZip2WVi4U_cU8jB3tlTGcz6JZtL-jOKV4OFdGcz7qVHeqH7pDXl-Z5lMW46aDyU5SBHc5w7rCbTv27yNnLH5ZuWXJqZh33kcs5NBd5HACxJEIhgDN1ylVEDU0AWXz4T0F1D74cWRHVVwTiCngt_r8fTkcigsJO8ean4rsjDUgstMQaI7GpsbkjUxWE5z1c"/>
+<div class="absolute top-4 left-4 px-3 py-1 bg-white/80 backdrop-blur-md rounded-full font-caption text-caption text-primary flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">checkroom</span> Gear
+                        </div>
+</div>
+<div class="p-md flex flex-col flex-1">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Trepacerros Tech Base Layer</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2 mb-md">Moisture-wicking, odor-resistant merino blend designed for multi-day ascents.</p>
+<div class="mt-auto pt-md border-t border-outline-variant/20 flex items-center justify-between">
+<span class="font-label-bold text-label-bold text-tertiary-container flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">account_balance_wallet</span> 850
+                            </span>
+<button class="px-md py-2 rounded-lg bg-surface-tint/10 text-primary font-label-bold text-label-bold border border-primary/20 hover:bg-surface-tint/20 transition-colors">Redeem</button>
+</div>
+</div>
+</div>
+<!-- Standard Card 2 -->
+<div class="col-span-1 md:col-span-4 bg-surface-container-low/60 backdrop-blur-xl border border-white/40 shadow-sm rounded-xl overflow-hidden flex flex-col group">
+<div class="h-48 relative overflow-hidden">
+<img alt="Carabiner" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="macro shot of a bright orange heavy duty climbing carabiner attached to a dynamic rope" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2mO4yeSxArigBXgrgpf6n3MtHA9zzs0UnupeplFGRBX99qfsyICLup5BNFjHB-nj4PIQshnK5grslZTlfMWOGwLbacMELpIaOQ3VOo1Rf7D_99q4BqOE7P445dxNliwgPjwxEmZePyXjPCVFWSF2yML--LAoDLVwr1yaKdANgZdY0G7IuKNqOcWL_scYpK9zwWk7byCYDc2r5OviYxwrEqgakguawcoT1fcLMeHiX2oPEI5NnRnzaPduvdPNAXKwP2oijtOE0g5k"/>
+<div class="absolute top-4 left-4 px-3 py-1 bg-white/80 backdrop-blur-md rounded-full font-caption text-caption text-primary flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">hardware</span> Tech
+                        </div>
+</div>
+<div class="p-md flex flex-col flex-1">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Ultra-Light Auto-Locking Carabiner</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2 mb-md">Forged aerospace-grade aluminum. 24kN major axis strength. Web3 authenticated serial.</p>
+<div class="mt-auto pt-md border-t border-outline-variant/20 flex items-center justify-between">
+<span class="font-label-bold text-label-bold text-tertiary-container flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">account_balance_wallet</span> 350
+                            </span>
+<button class="px-md py-2 rounded-lg bg-surface-tint/10 text-primary font-label-bold text-label-bold border border-primary/20 hover:bg-surface-tint/20 transition-colors">Redeem</button>
+</div>
+</div>
+</div>
+<!-- Wide Card -->
+<div class="col-span-1 md:col-span-8 bg-surface-container-low/60 backdrop-blur-xl border border-white/40 shadow-sm rounded-xl overflow-hidden flex flex-col sm:flex-row group">
+<div class="w-full sm:w-2/5 h-48 sm:h-auto relative overflow-hidden">
+<img alt="Coffee" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="freshly poured artisan pour over coffee in a ceramic mug on a wooden table outdoors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2F2Pt3xUDxwMA8O5qjE7118BmD2sfilTGjPSInlEMdoLmq6IMlPH-lgewSEbVY4UePFrJohjyyQP_lZKwvxAskz8Ffr5NNFhFsZ_mM8IFyUQl2jN7SZmyUiHop69ptbqHXPWG6Jc_Yad8mxPP400jV3ZdCpfV3Z0ZocsrctLdkruY-6MWiRa3GaInISlMqolRcy5h_9VcZnZikbp1lZrUnGB-XCVT3COIH_vFRfi-LPBue9rq1X6osMDEUgDmaiNRDcti-cSgFXA"/>
+<div class="absolute top-4 left-4 px-3 py-1 bg-white/80 backdrop-blur-md rounded-full font-caption text-caption text-primary flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">local_cafe</span> Local Shop
+                        </div>
+</div>
+<div class="p-lg flex flex-col justify-center w-full sm:w-3/5">
+<div class="mb-auto">
+<div class="flex items-center gap-xs mb-unit">
+<span class="w-2 h-2 rounded-full bg-primary-fixed-dim"></span>
+<span class="font-caption text-caption text-secondary uppercase tracking-wider">Pioneer Roasters</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Basecamp Espresso Beans (1lb)</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Sustainably sourced, high-altitude grown beans roasted locally. Rich notes of dark chocolate and mountain berry.</p>
+</div>
+<div class="mt-md flex items-center justify-between">
+<span class="font-headline-md text-headline-md text-tertiary-container flex items-center gap-unit">
+<span class="material-symbols-outlined text-[24px]">account_balance_wallet</span> 180
+                            </span>
+<button class="px-md py-2 rounded-lg bg-transparent text-primary font-label-bold text-label-bold border border-primary/30 hover:bg-surface-container transition-colors">Redeem</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom spacing for mobile navigation if it were present, though TopNav covers it here -->
+<div class="h-xl md:h-8 w-full"></div>
+</div>
+</main>
+</body></html>

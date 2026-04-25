@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trepacerros - My Impact Profile &amp; Wallet</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#a1d494",
+                        "tertiary": "#642600",
+                        "background": "#fafaf4",
+                        "on-tertiary-fixed": "#351000",
+                        "primary-fixed": "#bcf0ae",
+                        "on-secondary-container": "#636451",
+                        "on-tertiary-container": "#ffb08a",
+                        "surface-dim": "#dadad5",
+                        "secondary": "#5e604d",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c2c9bb",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#9dd090",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#ffb693",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f1f1ec",
+                        "surface": "#fafaf4",
+                        "on-primary-fixed": "#002201",
+                        "tertiary-container": "#893600",
+                        "secondary-fixed-dim": "#c8c8b0",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffdbcc",
+                        "outline": "#72796e",
+                        "inverse-surface": "#2f312e",
+                        "on-secondary-fixed": "#1b1d0e",
+                        "on-background": "#1a1c19",
+                        "surface-container": "#eeeee9",
+                        "on-primary": "#ffffff",
+                        "primary": "#154212",
+                        "surface-tint": "#3b6934",
+                        "inverse-primary": "#a1d494",
+                        "surface-bright": "#fafaf4",
+                        "on-tertiary-fixed-variant": "#7a3000",
+                        "secondary-fixed": "#e4e4cc",
+                        "on-surface": "#1a1c19",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#474836",
+                        "surface-container-low": "#f4f4ee",
+                        "on-surface-variant": "#42493e",
+                        "secondary-container": "#e1e1c9",
+                        "surface-container-high": "#e8e8e3",
+                        "primary-container": "#2d5a27",
+                        "on-primary-fixed-variant": "#23501e",
+                        "surface-container-highest": "#e3e3de",
+                        "surface-variant": "#e3e3de"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "0.5rem",
+                        "gutter": "1.5rem",
+                        "sm": "1rem",
+                        "xl": "4rem",
+                        "md": "1.5rem",
+                        "margin-safe": "2rem",
+                        "unit": "4px",
+                        "lg": "2.5rem"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Lexend"],
+                        "caption": ["Lexend"],
+                        "body-lg": ["Lexend"],
+                        "headline-md": ["Lexend"],
+                        "label-bold": ["Lexend"],
+                        "display-lg": ["Lexend"],
+                        "body-md": ["Lexend"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "caption": ["12px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "label-bold": ["14px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05), 0 8px 32px rgba(45, 90, 39, 0.05);
+        }
+        .btn-primary {
+            background-color: #ff6b00; /* Safety Orange */
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar (Mobile Only) -->
+<nav class="md:hidden sticky top-0 z-50 flex justify-between items-center w-full px-8 h-20 bg-white/40 dark:bg-zinc-900/40 backdrop-blur-xl backdrop-blur-md border-b border-white/10 dark:border-zinc-800/50 shadow-xl shadow-green-900/5">
+<div class="text-2xl font-bold text-green-900 dark:text-green-50 tracking-tighter">Trepacerros</div>
+<div class="flex items-center gap-sm">
+<span class="font-lexend text-sm font-medium tracking-tight text-orange-600 dark:text-orange-500">$CERRO Balance</span>
+<button class="text-green-900/60 hover:bg-white/20 transition-all duration-300 rounded-full p-xs">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-green-900/60 hover:bg-white/20 transition-all duration-300 rounded-full p-xs">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</button>
+<img alt="User profile picture" class="w-8 h-8 rounded-full ml-xs" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9C5m9oleTPX6yyEuds_RGSbOJ8ikuLsR0NaD0h6ufzn_KmYkp7IB2s3LmkQvo3KS3qbiE7PEAohju1mDq-5r0KM4i_iCu8VqiBdR7RfMoaOnxWYwA32s3o8imhzpHZ1ceSW0mxTnNTOOuXkBlL3ek6GAx1QuO_j5OvJOjkQ7Z90mdg2UmAoZTd4DLtmse7L6JRW7SlMxjbQIzGedPcBEIGPdMDE1e8QEPi4N7HFKpcFlbmJAqVmny4rFJIuADnqo3ONHOPC_3YJw"/>
+</div>
+</nav>
+<!-- SideNavBar (Desktop Only) -->
+<aside class="hidden md:flex flex-col p-6 gap-y-4 h-screen w-72 fixed left-0 top-0 border-r border-white/10 bg-white/30 dark:bg-zinc-950/30 backdrop-blur-2xl border-r border-white/10 dark:border-zinc-800/50 shadow-2xl shadow-black/5 z-40">
+<div class="flex items-center gap-sm mb-lg">
+<img alt="Trepacerros Logo" class="w-10 h-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlB_vcKlAefZKFw4mscOASnW-fEHesEKzLcwhh5eWpF5CzS06fjJOEAOLwFJ9m_2aU8Ru4XDVyXqvdCOJM7r9a7ocHE3XxP2smeP5-yHkogBBgxQ2grejtdud_isiquVs2i224t-VJds4m5oE8YXSkxJdOBK0uXTYALcew3qyDHepoOIiv1l-YtnYyivs3_tDvPlYJQGkh89kX9tK5UKxWd9zeCTLrYQGJXL7Rjli2-dXw0O1yxipQFl_xSoWd55ZpMl3z8OW4X58"/>
+<div>
+<h1 class="text-xl font-black text-green-900 dark:text-green-50">Trepacerros</h1>
+<p class="font-lexend font-semibold uppercase tracking-widest text-[11px] text-orange-600 dark:text-orange-500">High-Altitude Tech</p>
+</div>
+</div>
+<nav class="flex flex-col gap-xs flex-1">
+<a class="flex items-center gap-sm px-4 py-3 rounded-xl text-green-900/70 dark:text-zinc-500 hover:text-green-900 dark:hover:text-zinc-200 hover:translate-x-1 transition-transform duration-200 cursor-pointer active:scale-98 transition-all font-label-bold text-label-bold" href="#">
+<span class="material-symbols-outlined">map</span> Map Dashboard
+            </a>
+<a class="flex items-center gap-sm px-4 py-3 rounded-xl text-green-900/70 dark:text-zinc-500 hover:text-green-900 dark:hover:text-zinc-200 hover:translate-x-1 transition-transform duration-200 cursor-pointer active:scale-98 transition-all font-label-bold text-label-bold" href="#">
+<span class="material-symbols-outlined">leaderboard</span> Leaderboard
+            </a>
+<a class="flex items-center gap-sm px-4 py-3 rounded-xl text-green-900/70 dark:text-zinc-500 hover:text-green-900 dark:hover:text-zinc-200 hover:translate-x-1 transition-transform duration-200 cursor-pointer active:scale-98 transition-all font-label-bold text-label-bold" href="#">
+<span class="material-symbols-outlined">menu_book</span> Eco-Wiki
+            </a>
+<a class="flex items-center gap-sm px-4 py-3 rounded-xl text-green-900/70 dark:text-zinc-500 hover:text-green-900 dark:hover:text-zinc-200 hover:translate-x-1 transition-transform duration-200 cursor-pointer active:scale-98 transition-all font-label-bold text-label-bold" href="#">
+<span class="material-symbols-outlined">storefront</span> Marketplace
+            </a>
+<a class="flex items-center gap-sm px-4 py-3 rounded-xl bg-white/50 dark:bg-zinc-800/50 text-orange-600 dark:text-orange-400 shadow-inner-sm hover:translate-x-1 transition-transform duration-200 cursor-pointer active:scale-98 transition-all font-label-bold text-label-bold" href="#">
+<span class="material-symbols-outlined">auto_graph</span> My Impact
+            </a>
+<a class="flex items-center gap-sm px-4 py-3 rounded-xl text-green-900/70 dark:text-zinc-500 hover:text-green-900 dark:hover:text-zinc-200 hover:translate-x-1 transition-transform duration-200 cursor-pointer active:scale-98 transition-all font-label-bold text-label-bold" href="#">
+<span class="material-symbols-outlined">potted_plant</span> Clean
+            </a>
+</nav>
+<button class="mt-auto w-full py-3 px-4 rounded-xl btn-primary text-white font-label-bold text-label-bold hover:opacity-90 transition-opacity">
+            Start Expedition
+        </button>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-72 p-margin-safe max-w-7xl mx-auto w-full">
+<!-- Profile Header Area -->
+<header class="flex flex-col md:flex-row items-start md:items-center justify-between gap-lg mb-xl relative">
+<div class="flex items-center gap-md">
+<div class="relative">
+<img alt="User Avatar" class="w-24 h-24 rounded-full border-4 border-surface shadow-lg" data-alt="close-up portrait of young active woman in outdoor gear, natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBajKnGNseGEGOmW6paaQ3ozMu8Wy68oMFalQNiRY3A2F6mthd3kb3gek6bAXXimoxaRZFCrquF2HhXPIalJD3bv4a-dKwG45Qj8um7jNNF7aAEsoE5JoHZ0eoHhJT5yj0KVAlKfl3U8vcDu8YifOvGj458P3gZSvNAAQVY0zryj3IflnMx3y3997nZEhmYlLG-Y66Q3IPIG8qds6hlTpiwy88-mtbP_mUENEfoywIy8Foo230qFn88vUa1oley8K57RHB0O-VDhw0"/>
+<div class="absolute -bottom-2 -right-2 bg-primary text-on-primary font-label-bold text-label-bold px-3 py-1 rounded-full border-2 border-surface shadow-sm">
+                        Lvl 42
+                    </div>
+</div>
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Elena Ríos</h2>
+<div class="flex items-center gap-xs text-secondary font-caption text-caption">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+<span>Andes Basecamp</span>
+<span class="w-1 h-1 rounded-full bg-outline mx-xs"></span>
+<span class="text-[#ff6b00] font-semibold">Pioneer Rank</span>
+</div>
+<div class="mt-sm flex gap-xs">
+<span class="px-2 py-1 rounded bg-[#ff6b00]/10 text-[#ff6b00] font-caption text-caption border border-[#ff6b00]/20">Web3 Connected</span>
+<span class="px-2 py-1 rounded bg-primary-container/20 text-primary font-caption text-caption border border-primary-container/30">Monad Native</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Wallet & Stats -->
+<div class="lg:col-span-5 flex flex-col gap-gutter">
+<!-- Wallet Card -->
+<div class="glass-card rounded-xl p-md relative overflow-hidden group">
+<div class="absolute -right-10 -top-10 w-40 h-40 bg-gradient-to-br from-[#ff6b00]/20 to-transparent rounded-full blur-2xl opacity-50 group-hover:opacity-70 transition-opacity"></div>
+<div class="flex justify-between items-start mb-lg">
+<h3 class="font-headline-md text-headline-md text-on-surface">Monad Wallet</h3>
+<span class="material-symbols-outlined text-outline">account_balance_wallet</span>
+</div>
+<div class="mb-lg">
+<p class="font-caption text-caption text-secondary mb-xs">Total Balance</p>
+<div class="flex items-end gap-xs">
+<span class="font-display-lg text-display-lg text-on-surface">12,450</span>
+<span class="font-body-lg text-body-lg text-[#ff6b00] font-semibold mb-2">$CERRO</span>
+</div>
+<p class="font-caption text-caption text-outline mt-1">≈ $1,245.00 USD</p>
+</div>
+<div class="grid grid-cols-2 gap-sm">
+<button class="btn-primary text-white py-3 rounded-lg font-label-bold text-label-bold flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">send</span> Send
+                        </button>
+<button class="bg-primary/10 text-primary border border-primary/20 py-3 rounded-lg font-label-bold text-label-bold flex items-center justify-center gap-xs hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-[18px]">swap_horiz</span> Swap
+                        </button>
+</div>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-2 gap-sm">
+<div class="glass-card rounded-xl p-sm">
+<div class="flex items-center gap-xs mb-sm">
+<div class="w-8 h-8 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">terrain</span>
+</div>
+<span class="font-caption text-caption text-secondary">Trail Coverage</span>
+</div>
+<p class="font-headline-lg text-headline-lg text-on-surface">420<span class="text-body-md text-outline ml-1">km</span></p>
+</div>
+<div class="glass-card rounded-xl p-sm">
+<div class="flex items-center gap-xs mb-sm">
+<div class="w-8 h-8 rounded-full bg-[#ff6b00]/10 flex items-center justify-center text-[#ff6b00]">
+<span class="material-symbols-outlined text-[18px]">recycling</span>
+</div>
+<span class="font-caption text-caption text-secondary">Units Collected</span>
+</div>
+<p class="font-headline-lg text-headline-lg text-on-surface">1,850</p>
+</div>
+</div>
+</div>
+<!-- Right Column: Passports & Activity -->
+<div class="lg:col-span-7 flex flex-col gap-gutter">
+<!-- Digital Passport Grid -->
+<div class="glass-card rounded-xl p-md">
+<div class="flex justify-between items-end mb-md">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Digital Passport</h3>
+<p class="font-caption text-caption text-secondary">Earned NFT Badges</p>
+</div>
+<button class="text-primary font-label-bold text-label-bold hover:underline">View All</button>
+</div>
+<div class="grid grid-cols-3 md:grid-cols-4 gap-sm">
+<!-- Badge 1 -->
+<div class="flex flex-col items-center gap-xs p-xs rounded-lg hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#ff6b00] to-[#ffb08a] p-[2px] shadow-sm">
+<div class="w-full h-full rounded-full bg-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[#ff6b00] text-3xl" style="font-variation-settings: 'FILL' 1;">landscape</span>
+</div>
+</div>
+<span class="font-caption text-caption text-center leading-tight">First Summit</span>
+</div>
+<!-- Badge 2 -->
+<div class="flex flex-col items-center gap-xs p-xs rounded-lg hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary-fixed-dim p-[2px] shadow-sm">
+<div class="w-full h-full rounded-full bg-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">forest</span>
+</div>
+</div>
+<span class="font-caption text-caption text-center leading-tight">Eco Warrior</span>
+</div>
+<!-- Badge 3 -->
+<div class="flex flex-col items-center gap-xs p-xs rounded-lg hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="w-16 h-16 rounded-full bg-gradient-to-br from-secondary to-outline-variant p-[2px] shadow-sm">
+<div class="w-full h-full rounded-full bg-surface flex items-center justify-center opacity-50">
+<span class="material-symbols-outlined text-secondary text-3xl">route</span>
+</div>
+</div>
+<span class="font-caption text-caption text-center leading-tight text-outline">Trailblazer</span>
+</div>
+<!-- Empty Slot -->
+<div class="flex flex-col items-center justify-center gap-xs p-xs rounded-lg border border-dashed border-outline-variant h-full">
+<span class="material-symbols-outlined text-outline-variant">add</span>
+</div>
+</div>
+</div>
+<!-- Transaction History -->
+<div class="glass-card rounded-xl p-md flex-1">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-md">Recent Activity on Monad</h3>
+<div class="flex flex-col gap-sm">
+<!-- Transaction 1 -->
+<div class="flex items-center justify-between p-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-[#ff6b00]/10 flex items-center justify-center text-[#ff6b00]">
+<span class="material-symbols-outlined">call_received</span>
+</div>
+<div>
+<p class="font-label-bold text-label-bold text-on-surface">Clean-up Reward</p>
+<p class="font-caption text-caption text-secondary">Today, 10:42 AM</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-bold text-label-bold text-[#ff6b00]">+50 $CERRO</p>
+<p class="font-caption text-caption text-primary">Confirmed</p>
+</div>
+</div>
+<!-- Transaction 2 -->
+<div class="flex items-center justify-between p-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">call_made</span>
+</div>
+<div>
+<p class="font-label-bold text-label-bold text-on-surface">Marketplace Purchase</p>
+<p class="font-caption text-caption text-secondary">Yesterday, 14:15 PM</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-bold text-label-bold text-on-surface">-120 $CERRO</p>
+<p class="font-caption text-caption text-primary">Confirmed</p>
+</div>
+</div>
+<!-- Transaction 3 -->
+<div class="flex items-center justify-between p-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-[#ff6b00]/10 flex items-center justify-center text-[#ff6b00]">
+<span class="material-symbols-outlined">workspace_premium</span>
+</div>
+<div>
+<p class="font-label-bold text-label-bold text-on-surface">NFT Minted</p>
+<p class="font-caption text-caption text-secondary">Oct 12, 2023</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-bold text-label-bold text-on-surface">Eco Warrior Badge</p>
+<a class="font-caption text-caption text-outline hover:underline flex items-center justify-end gap-[2px]" href="#">View Tx <span class="material-symbols-outlined text-[12px]">open_in_new</span></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

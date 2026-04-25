@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#2f312e",
+                    "primary-container": "#2d5a27",
+                    "tertiary-container": "#893600",
+                    "on-primary": "#ffffff",
+                    "on-background": "#1a1c19",
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#dadad5",
+                    "surface": "#fafaf4",
+                    "secondary-fixed-dim": "#c8c8b0",
+                    "primary": "#154212",
+                    "on-tertiary-container": "#ffb08a",
+                    "surface-container-high": "#e8e8e3",
+                    "inverse-on-surface": "#f1f1ec",
+                    "surface-container-highest": "#e3e3de",
+                    "on-surface-variant": "#42493e",
+                    "primary-fixed-dim": "#a1d494",
+                    "tertiary-fixed": "#ffdbcc",
+                    "on-tertiary-fixed": "#351000",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#fafaf4",
+                    "on-surface": "#1a1c19",
+                    "primary-fixed": "#bcf0ae",
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#c2c9bb",
+                    "background": "#fafaf4",
+                    "on-primary-fixed": "#002201",
+                    "tertiary": "#642600",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-secondary-container": "#636451",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed-variant": "#474836",
+                    "on-primary-fixed-variant": "#23501e",
+                    "surface-tint": "#3b6934",
+                    "secondary-container": "#e1e1c9",
+                    "on-secondary-fixed": "#1b1d0e",
+                    "on-tertiary-fixed-variant": "#7a3000",
+                    "outline": "#72796e",
+                    "on-primary-container": "#9dd090",
+                    "inverse-primary": "#a1d494",
+                    "surface-container-low": "#f4f4ee",
+                    "tertiary-fixed-dim": "#ffb693",
+                    "surface-container": "#eeeee9",
+                    "secondary-fixed": "#e4e4cc",
+                    "surface-variant": "#e3e3de",
+                    "secondary": "#5e604d",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "1.5rem",
+                    "gutter": "1.5rem",
+                    "xl": "4rem",
+                    "sm": "1rem",
+                    "unit": "4px",
+                    "margin-safe": "2rem",
+                    "xs": "0.5rem",
+                    "lg": "2.5rem"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Lexend"],
+                    "display-lg": ["Lexend"],
+                    "body-lg": ["Lexend"],
+                    "caption": ["Lexend"],
+                    "label-bold": ["Lexend"],
+                    "headline-md": ["Lexend"],
+                    "body-md": ["Lexend"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                    "label-bold": ["14px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .surface_glass {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .inner-shadow-subtle {
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .safety-orange-bg {
+            background-color: #ff5c00; /* Safety Orange Brand Color */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body-md text-on-background min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-stone-50/80 backdrop-blur-md border-b border-white/20 px-6 py-4 flex justify-between items-center w-full">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Close-up of a person wearing rugged grey tech-wear and a beanie, professional outdoor photographer aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1V4e44tJ0J5hHXH2hPJQb4ruF8d6SVlqGc5ptGCr9vLs_XQ8ADgiwob8THx4Kw3nEPWi2rg1nsyXwbQUA-Jp9bMbm6cX5KP4I7zBXxvdv3BZzirPJJKY-Z_ZrNM17j9JGYdh8ztK7QBgtG7zt8hN_els_ux3_4IQN63wp9lK1WGq4DQtzP16fsx3kAn6t5OpQF-g-9d9-up5KIfX69PvawsFgHidT0qzZUlnggT9__nzjhfl3QnkPecc3pfuU7paVZZ1Pp1CfRIY"/>
+</div>
+<span class="text-green-900 font-headline-md tracking-tighter">Summit Clean</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-50 border border-orange-200">
+<span class="material-symbols-outlined text-orange-600 text-sm">payments</span>
+<span class="font-label-bold text-orange-600">1,240 $CERRO</span>
+</div>
+<button class="material-symbols-outlined text-green-900 p-2 rounded-full hover:bg-stone-200/50 transition-colors">account_balance_wallet</button>
+</div>
+</header>
+<main class="mt-24 px-margin-safe max-w-7xl mx-auto">
+<!-- Hero Section -->
+<section class="mb-lg">
+<div class="relative rounded-[1.5rem] overflow-hidden aspect-[21/9] md:aspect-[3/1] flex items-end p-8">
+<img alt="Mountain Landscape" class="absolute inset-0 w-full h-full object-cover" data-alt="Wide majestic mountain range at sunrise with deep orange light hitting the peaks and cool blue shadows in the valley" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBsnRasupmsQYz9L9WeF4xH2K1gsnwgzYuCEaBTLzwHLWAGr3tYDQfb5rd1t-tD0OSTd3G7c1xGTLTfmUJLRKsaR604g3W8-GGxRQa2kUao3gc5BYMY1WW7z_5IlcTWZZZnKp1UWsDL0l9oWU6DeVzmFYdqTqckG2eT384kKdd4w_7QZqwO0U69TpWx7ypNv1rbM59Cj6ekdqXKlxNbosZ3AFwH0pEBS07q2sY8GQx7bKKpffONHfvvNKGHKXcyro-KPDN2md98JA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="relative z-10">
+<h1 class="text-white font-display-lg mb-2">Partner Marketplace</h1>
+<p class="text-white/80 font-body-lg max-w-lg">Redeem your hard-earned tokens for premium gear and local experiences.</p>
+</div>
+</div>
+</section>
+<!-- Category Chips -->
+<div class="flex gap-sm overflow-x-auto pb-md no-scrollbar mb-md">
+<button class="whitespace-nowrap px-md py-xs rounded-full bg-primary-container text-on-primary font-label-bold">All Rewards</button>
+<button class="whitespace-nowrap px-md py-xs rounded-full surface_glass text-primary font-label-bold hover:bg-white/80 transition-all">Breweries</button>
+<button class="whitespace-nowrap px-md py-xs rounded-full surface_glass text-primary font-label-bold hover:bg-white/80 transition-all">Coffee Shops</button>
+<button class="whitespace-nowrap px-md py-xs rounded-full surface_glass text-primary font-label-bold hover:bg-white/80 transition-all">Outdoor Gear</button>
+<button class="whitespace-nowrap px-md py-xs rounded-full surface_glass text-primary font-label-bold hover:bg-white/80 transition-all">Workshops</button>
+</div>
+<!-- Bento Marketplace Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Reward Card 1: Brewery -->
+<div class="surface_glass rounded-[1.5rem] p-xs flex flex-col group">
+<div class="relative rounded-[1.2rem] overflow-hidden aspect-video">
+<img alt="Craft Beer" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Professional flat lay of a craft beer glass with condensation and local brewery branding on a rustic wooden table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzmo5pLSoLps7BKO-YXWModG6RcDuGEUW4oeLceOcqlyBdvNTisY7JtZCOmv3AkOYcxk77qFSIOydiRgOSNXs8VzDSiHpinCui0pUcdLUcup2sXUHNhLfly5CpJo1FT2xR2rt3QxM404SazvANjYs908G4QXnlTU8JLQQIklG55E5yjIbSeO_vXgjpFi_vx3YnkLDt8Hj5drkDXFv0_0CO3sIc0FcvaJDK3JpBsVV-Sq5KVStbpkn5IKGsz2kWk2iQk-Roadxh8dc"/>
+<div class="absolute top-sm right-sm px-3 py-1 rounded-full bg-white/90 text-primary text-[10px] font-bold uppercase tracking-widest">Limited</div>
+</div>
+<div class="p-md flex flex-col h-full">
+<div class="flex justify-between items-start mb-xs">
+<h3 class="font-headline-md text-primary">Summit Lager 4-Pack</h3>
+<div class="w-10 h-10 rounded-lg bg-white p-1.5 shadow-sm border border-stone-100">
+<img alt="Brewery Logo" class="w-full h-full object-contain" data-alt="Minimalist geometric logo of a mountain peak in dark green on a clean white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsJboSodwDRm9qutQnmVEsOIRo-6Sx6fQWQO5CpMeHdP2OuRV1PxqDl4kh6PGNCPahH-wgwEhHVkpjiiTGIaXjv42gCVdvRxzGunGNRjYucEQiqwKrSU0zQhutbq2wpozOpUTY9p-IBai_uBQcAWBfG5ShIUv66Vq2Q79poY_ByjRbchdCZWckE9pbxm9em8TTXNkKaWcayhabTamNfYKqzPFbkHMq2NTI41kPhSJKozdme0uWv6WXrD56zF_RlYLBU8VoTK57JXU"/>
+</div>
+</div>
+<p class="text-on-surface-variant font-body-md mb-md flex-grow">A crisp, mountain-filtered lager from Peak Brewing Co. perfect after a long trek.</p>
+<div class="flex items-center justify-between mt-auto pt-md border-t border-white/20">
+<div class="flex flex-col">
+<span class="text-caption text-on-surface-variant uppercase tracking-wider">Price</span>
+<span class="font-headline-md text-primary">450 <span class="text-caption">$CERRO</span></span>
+</div>
+<button class="safety-orange-bg text-white font-label-bold px-lg py-sm rounded-xl active:scale-95 transition-all inner-shadow-subtle">Redeem</button>
+</div>
+</div>
+</div>
+<!-- Reward Card 2: Outdoor Gear -->
+<div class="surface_glass rounded-[1.5rem] p-xs flex flex-col group">
+<div class="relative rounded-[1.2rem] overflow-hidden aspect-video">
+<img alt="Trail Runners" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="High-performance trail running shoes with orange accents on a rocky mountain path, dramatic low-angle shot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmyYs9azbp8DF_O30Q-5_7peRiUfOxWTqToeTndNEyW86fEza0SliVPnuWBvEywJiQ-NFb7sGE7iiDSEReQB1oVd0TbI26NSXAm9bnRY18T7YtuuDM-AjB4NAzVAhHSq08mIKtZMK8JMBcRQ2VRI-6s4Nf1B8D2qgz_YgWFpSf0H2EIChGh1lL7t39HdKjL9t25c1E5ww630I-6cAoluTFYXy0hWnvQdKFt6m4fSuN-F-BP9R8KlrAfipWa3aVXISnJic0kKShhSo"/>
+<div class="absolute top-sm left-sm px-3 py-1 rounded-full bg-orange-500 text-white text-[10px] font-bold uppercase tracking-widest">Exclusive</div>
+</div>
+<div class="p-md flex flex-col h-full">
+<div class="flex justify-between items-start mb-xs">
+<h3 class="font-headline-md text-primary">Arc'teryx Apex Shell</h3>
+<div class="w-10 h-10 rounded-lg bg-stone-900 p-1.5 shadow-sm">
+<img alt="Outdoor Brand" class="w-full h-full object-contain" data-alt="Simple sleek white brand icon of a bird skeleton on a black background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs36MVxbEPCR7nPg41I_IrWtvJcj0tAPYzoVS9rhJvb5z4felrWD6LJGIBrNij1un9Cyo9OcmNFjxGs34bLfCASNElcU7hHCPwB4eG4zNbyKF_vT3_N0SFcU2yKF8MJk4Xv4kX2b5ytvBKNnAK0iX-Yo9-4pikUj2FxOcAGoag2oEZsifCT03kT560Uoczr8fTgKXren9exWTkNnSFg5m9-X5bNM0BObtK02qK_z53600eOz8PN9YtXIyXxQ9v8pmVyBdyUf-VV6w"/>
+</div>
+</div>
+<p class="text-on-surface-variant font-body-md mb-md flex-grow">Ultra-lightweight technical shell designed for high-altitude weather protection.</p>
+<div class="flex items-center justify-between mt-auto pt-md border-t border-white/20">
+<div class="flex flex-col">
+<span class="text-caption text-on-surface-variant uppercase tracking-wider">Price</span>
+<span class="font-headline-md text-primary">2,200 <span class="text-caption">$CERRO</span></span>
+</div>
+<button class="safety-orange-bg text-white font-label-bold px-lg py-sm rounded-xl active:scale-95 transition-all inner-shadow-subtle">Redeem</button>
+</div>
+</div>
+</div>
+<!-- Reward Card 3: Coffee -->
+<div class="surface_glass rounded-[1.5rem] p-xs flex flex-col group">
+<div class="relative rounded-[1.2rem] overflow-hidden aspect-video">
+<img alt="Espresso" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Pour-over coffee being prepared in a minimalist modern cafe with steam rising and soft window light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUiRWNgmpRo100CdXaGA-6wrK5mX3eSAFFoZCuNgne65lZsLJMg-oKEEBiN2YXoV67Xbi74aA1nhUb38qsKhdNAqk4d-PvM46EBNxo47DasQ_W15A55p9b5WIae65OKhzg2XZ6P5EbiAv-tYbpEmkrKMfwoOXjOLRsD5DljmGobgWKXavd66ZNsY7NfqjvQcqpveZhp1dk5sfrZK877zM9ljXbSb6inBmXQvAL_FJCYwXPdTLIGruXP3otIgoQVK9WS6MSfwYTplM"/>
+</div>
+<div class="p-md flex flex-col h-full">
+<div class="flex justify-between items-start mb-xs">
+<h3 class="font-headline-md text-primary">Weekly Brew Pass</h3>
+<div class="w-10 h-10 rounded-lg bg-white p-1.5 shadow-sm border border-stone-100">
+<img alt="Cafe Logo" class="w-full h-full object-contain" data-alt="Brown minimalist coffee cup icon on a warm cream background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHPcVuXCG6kkIGikFmVQGLP9CI4aNk53phvoFg1gk3YyVLXEfaPkjK6wUHb_VmKtfSCw-1q73nZLnxoPTwcqrL2zmOK-a-Sr69z6ps0YyZTpF0CYWYfh1B0OWr-ro0KAV3pibKSbDGQzfK7_8Lbz9OvF1issnk0ZHb4C6O6xT4OUrOM-RWR-79_gY4A2w2FaMBVycvqXc5aA_-HqZy1p0mPro-gyhQV3DNPbmySBKiTaHAlSpHorImdMI9mwd31EP3SA85yTuIHgQ"/>
+</div>
+</div>
+<p class="text-on-surface-variant font-body-md mb-md flex-grow">Get one free barista-crafted drink every day for 7 days at any Nomad Coffee location.</p>
+<div class="flex items-center justify-between mt-auto pt-md border-t border-white/20">
+<div class="flex flex-col">
+<span class="text-caption text-on-surface-variant uppercase tracking-wider">Price</span>
+<span class="font-headline-md text-primary">150 <span class="text-caption">$CERRO</span></span>
+</div>
+<button class="safety-orange-bg text-white font-label-bold px-lg py-sm rounded-xl active:scale-95 transition-all inner-shadow-subtle">Redeem</button>
+</div>
+</div>
+</div>
+<!-- Reward Card 4: Gear Accessory -->
+<div class="surface_glass rounded-[1.5rem] p-xs flex flex-col group">
+<div class="relative rounded-[1.2rem] overflow-hidden aspect-video">
+<img alt="Water Bottle" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Insulated titanium water bottle standing on a jagged rock surface with a misty forest background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-Ut33hsvEw4QWCioLYxxiHU14RKIQywi9sC89fmC3TPC_KkXLXokLfCN9iTtzqIevQGhmV__LNAyiqeGD39x00k93VB-T00VzzFKJsNYyNld0xKtRi-Z2S4g2DdiK_O7k2xLCOKw6pOR66svhoizLS0L-p7rhMKW6PLsYQtBHV_dU7IeG4Zfd2KAPWZKplY_PA5doUZZgmdEmsaPvBvXL-hwoeYJq-SeWoY3LVxyqQs2vwwNa4frhV5WUc-sSYMsjmfZpm2KVXtk"/>
+</div>
+<div class="p-md flex flex-col h-full">
+<div class="flex justify-between items-start mb-xs">
+<h3 class="font-headline-md text-primary">Titanium Flask 800ml</h3>
+<div class="w-10 h-10 rounded-lg bg-stone-50 p-1.5 shadow-sm border border-stone-100">
+<img alt="Brand" class="w-full h-full object-contain" data-alt="Modern sans-serif typography logo for an outdoor lifestyle brand" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoKyYA14L6qYJk_WP_ch3ZNUzshncv-S9X5Limo1QJRQfsoCR4_bTCDRN1cffbbFatP87Xba0RUNg8yrdvC58pJMQFpWjDs7BD3weEOvMEPAqzAGNTzoNgzRfwstAL6Tj_0sYoIzRkMyo4afEdu6HsRsYapZcSVC2IIIlPVkXOFnt6ylqFnsaI8vAXiHEDRZ8PyKSXIuha975hoQI3itgUPMF8v6mM-9HcZChxs3oR56-LtyJzK8om0_Qkwq6V9Q4voSHnxp-djYA"/>
+</div>
+</div>
+<p class="text-on-surface-variant font-body-md mb-md flex-grow">Featherweight titanium hydration. Keeps liquids cold for 24h or hot for 12h.</p>
+<div class="flex items-center justify-between mt-auto pt-md border-t border-white/20">
+<div class="flex flex-col">
+<span class="text-caption text-on-surface-variant uppercase tracking-wider">Price</span>
+<span class="font-headline-md text-primary">850 <span class="text-caption">$CERRO</span></span>
+</div>
+<button class="safety-orange-bg text-white font-label-bold px-lg py-sm rounded-xl active:scale-95 transition-all inner-shadow-subtle">Redeem</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-6 left-0 right-0 z-50 flex justify-around items-center px-4 py-3 max-w-lg mx-auto bg-white/70 backdrop-blur-2xl rounded-[1.5rem] border border-white/20 shadow-[0_20px_40px_rgba(45,90,39,0.15)]">
+<a class="flex flex-col items-center justify-center text-green-900/50 px-3 py-2 hover:text-orange-500 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1">explore</span>
+<span class="font-['Lexend'] text-[10px] font-bold uppercase tracking-widest">Map</span>
+</a>
+<a class="flex flex-col items-center justify-center text-green-900/50 px-3 py-2 hover:text-orange-500 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1">cleaning_services</span>
+<span class="font-['Lexend'] text-[10px] font-bold uppercase tracking-widest">Clean</span>
+</a>
+<a class="flex flex-col items-center justify-center text-orange-600 bg-orange-50 rounded-2xl px-3 py-2 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1">menu_book</span>
+<span class="font-['Lexend'] text-[10px] font-bold uppercase tracking-widest">Wiki</span>
+</a>
+<a class="flex flex-col items-center justify-center text-green-900/50 px-3 py-2 hover:text-orange-500 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1">leaderboard</span>
+<span class="font-['Lexend'] text-[10px] font-bold uppercase tracking-widest">Rank</span>
+</a>
+<a class="flex flex-col items-center justify-center text-green-900/50 px-3 py-2 hover:text-orange-500 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-['Lexend'] text-[10px] font-bold uppercase tracking-widest">Profile</span>
+</a>
+</nav>
+<!-- FAB -->
+<button class="fixed bottom-24 right-6 w-14 h-14 bg-primary-container text-on-primary rounded-full shadow-lg flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+</body></html>

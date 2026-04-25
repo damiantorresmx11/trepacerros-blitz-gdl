@@ -30,20 +30,20 @@ const APPROVE_FLAG_KEY = "rastros_prima_approved";
 const EXPLORER_TX = "https://testnet.monadexplorer.com/tx/";
 
 const CATEGORY_EMOJIS: Record<string, string> = {
-  IMMEDIATE: "🍺",
-  EXPERIENCE: "🎯",
-  OUTDOOR: "🎒",
-  SUSTAINABILITY: "🌱",
-  DONATION: "💚",
-  SERVICE: "☕",
-  MERCH: "👕",
-  EXCLUSIVE: "⭐",
+  IMMEDIATE: "\u{1F37A}",
+  EXPERIENCE: "\u{1F3AF}",
+  OUTDOOR: "\u{1F392}",
+  SUSTAINABILITY: "\u{1F331}",
+  DONATION: "\u{1F49A}",
+  SERVICE: "\u2615",
+  MERCH: "\u{1F455}",
+  EXCLUSIVE: "\u2B50",
 };
 
 function RewardEmoji({ category }: { category: number }) {
   const catKey = CATEGORY_ORDER[category];
-  const emoji = catKey ? (CATEGORY_EMOJIS[catKey] ?? "🎁") : "🎁";
-  return <span style={{ fontSize: 48, position: "relative", zIndex: 1 }}>{emoji}</span>;
+  const emoji = catKey ? (CATEGORY_EMOJIS[catKey] ?? "\u{1F381}") : "\u{1F381}";
+  return <span className="text-[48px] relative z-[1]">{emoji}</span>;
 }
 
 function formatPrima(amount: bigint): string {
@@ -54,7 +54,7 @@ function categoryFromIndex(idx: number): RewardCategory | undefined {
   return CATEGORY_ORDER[idx];
 }
 
-/* ─── Confirm Modal ──────────────────────────────────────── */
+/* --- Confirm Modal ------------------------------------------ */
 
 function ConfirmModal({
   reward, onConfirm, onClose, isPending, errorMessage,
@@ -88,7 +88,7 @@ function ConfirmModal({
         <p className="text-sm text-cd-muted mb-5 leading-relaxed">{reward.description}</p>
 
         {/* Cost card */}
-        <div className="card" style={{ padding: "12px 16px", marginBottom: 20, display: "flex", alignItems: "baseline", justifyContent: "space-between" }}>
+        <div className="card flex items-baseline justify-between px-4 py-3 mb-5">
           <span className="text-sm text-cd-muted">Costo</span>
           <span className="font-mono font-bold text-xl text-cd-ember">
             {formatPrima(reward.costInPrima)} <span className="text-sm text-cd-muted font-lexend font-normal">{TOKEN_DISPLAY_NAME}</span>
@@ -122,7 +122,7 @@ function ConfirmModal({
   );
 }
 
-/* ─── Voucher Modal ──────────────────────────────────────── */
+/* --- Voucher Modal ------------------------------------------ */
 
 function VoucherModal({ reward, txHash, onClose }: { reward: RewardOnChain; txHash: `0x${string}`; onClose: () => void }) {
   const router = useRouter();
@@ -143,7 +143,7 @@ function VoucherModal({ reward, txHash, onClose }: { reward: RewardOnChain; txHa
 
         {/* Tx hash card */}
         <a href={`${EXPLORER_TX}${txHash}`} target="_blank" rel="noopener noreferrer"
-          className="block card hover:border-cd-moss transition-colors group" style={{ padding: "12px 16px", marginBottom: 20 }}>
+          className="block card hover:border-cd-moss transition-colors group px-4 py-3 mb-5">
           <p className="eyebrow mb-1">Tx hash</p>
           <p className="font-mono text-xs text-cd-moss break-all group-hover:underline">{txHash}</p>
         </a>
@@ -168,7 +168,7 @@ function VoucherModal({ reward, txHash, onClose }: { reward: RewardOnChain; txHa
   );
 }
 
-/* ─── Main Page ──────────────────────────────────────────── */
+/* --- Main Page ---------------------------------------------- */
 
 export default function RewardsPage() {
   const { address, isConnected } = useAccount();
@@ -247,46 +247,48 @@ export default function RewardsPage() {
         </div>
       ) : (
         <>
-          {/* ── Hero ── */}
-          <div style={{ padding: "0 18px" }}>
-            <h1 className="font-big-shoulders" style={{ fontSize: 36, fontWeight: 900, lineHeight: 0.95, margin: 0, color: "var(--ink)" }}>
-              Marketplace<br/>Local
-            </h1>
-            <p style={{ fontSize: 13, margin: "10px 0 0", maxWidth: "36ch", color: "var(--muted)" }}>
-              Tus $CERRO valen aqui. Negocios aliados de Jalisco aceptan tu trepada como pago.
-            </p>
-          </div>
+          {/* -- Hero + Balance: flex-col mobile, flex-row on lg -- */}
+          <div className="px-[18px] md:px-0 lg:flex lg:items-end lg:justify-between lg:gap-8">
+            <div>
+              <h1 className="font-big-shoulders font-black leading-[0.95] m-0 text-[36px] lg:text-[48px]" style={{ color: "var(--ink)" }}>
+                Marketplace<br/>Local
+              </h1>
+              <p className="text-[13px] mt-2.5 max-w-[36ch]" style={{ color: "var(--muted)" }}>
+                Tus $CERRO valen aqui. Negocios aliados de Jalisco aceptan tu trepada como pago.
+              </p>
+            </div>
 
-          {/* ── Balance + Ranking strip ── */}
-          <div style={{ padding: "16px 18px 0" }}>
-            <div className="card" style={{ padding: 16, display: "flex", alignItems: "center", gap: 14 }}>
-              <div>
-                <div className="eyebrow"><span>SALDO DISPONIBLE</span></div>
-                <div className="font-big-shoulders" style={{ fontSize: 30, fontWeight: 900, lineHeight: 1, color: "var(--ember)", marginTop: 4 }}>
-                  {isBalanceLoading ? "..." : formatPrima(balance)}{" "}
-                  <span style={{ fontSize: 14, opacity: 0.6, fontWeight: 700 }}>{TOKEN_DISPLAY_NAME}</span>
+            {/* Balance card inline on desktop */}
+            <div className="mt-4 lg:mt-0 lg:min-w-[320px]">
+              <div className="card flex items-center gap-3.5 p-4 transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-lg">
+                <div>
+                  <div className="eyebrow"><span>SALDO DISPONIBLE</span></div>
+                  <div className="font-big-shoulders mt-1 text-[30px] font-black leading-none" style={{ color: "var(--ember)" }}>
+                    {isBalanceLoading ? "..." : formatPrima(balance)}{" "}
+                    <span className="text-sm opacity-60 font-bold">{TOKEN_DISPLAY_NAME}</span>
+                  </div>
                 </div>
-              </div>
-              <div style={{ flex: 1 }} />
-              <div className="text-center">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" style={{ color: "var(--moss)" }}>
-                  <path d="M8 3h8l-1 7h-6z"/><path d="M5 6h-2a3 3 0 0 0 3 3"/><path d="M19 6h2a3 3 0 0 1-3 3"/><path d="M9 14h6v2H9z"/><path d="M7 21h10v-3H7z"/>
-                </svg>
-                <div className="font-mono" style={{ fontSize: 9, letterSpacing: "0.16em", marginTop: 4, color: "var(--muted)" }}>RANKING<br/>#214</div>
+                <div className="flex-1" />
+                <div className="text-center">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" style={{ color: "var(--moss)" }}>
+                    <path d="M8 3h8l-1 7h-6z"/><path d="M5 6h-2a3 3 0 0 0 3 3"/><path d="M19 6h2a3 3 0 0 1-3 3"/><path d="M9 14h6v2H9z"/><path d="M7 21h10v-3H7z"/>
+                  </svg>
+                  <div className="font-mono text-[9px] tracking-[0.16em] mt-1" style={{ color: "var(--muted)" }}>RANKING<br/>#214</div>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* ── Filter chips ── */}
-          <div className="hscroll" style={{ marginTop: 16 }}>
+          {/* -- Filter chips -- */}
+          <div className="hscroll mt-4">
             {FILTER_LABELS.map((label, idx) => (
               <button
                 key={label}
                 onClick={() => setSelectedFilter(idx)}
-                className="chip"
+                className="chip shrink-0"
                 style={selectedFilter === idx
-                  ? { background: "var(--ink)", color: "var(--bg)", borderColor: "transparent", flexShrink: 0 }
-                  : { flexShrink: 0 }
+                  ? { background: "var(--ink)", color: "var(--bg)", borderColor: "transparent" }
+                  : undefined
                 }
               >
                 {label}
@@ -294,42 +296,42 @@ export default function RewardsPage() {
             ))}
           </div>
 
-          {/* ── Loading / Error / Empty states ── */}
+          {/* -- Loading / Error / Empty states -- */}
           {isRewardsLoading && (
-            <p className="text-center font-mono text-sm" style={{ color: "var(--muted)", padding: "48px 0" }}>Cargando catalogo...</p>
+            <p className="text-center font-mono text-sm py-12" style={{ color: "var(--muted)" }}>Cargando catalogo...</p>
           )}
           {rewardsError && (
             <p className="text-center text-red-700 py-12 text-sm">Error: {rewardsError.message}</p>
           )}
           {!isRewardsLoading && !rewardsError && filtered.length === 0 && (
-            <p className="text-center text-sm" style={{ color: "var(--muted)", padding: "48px 0" }}>No hay recompensas en esta categoria.</p>
+            <p className="text-center text-sm py-12" style={{ color: "var(--muted)" }}>No hay recompensas en esta categoria.</p>
           )}
 
-          {/* ── Featured deal card ── */}
+          {/* -- Featured deal card -- */}
           {featured && selectedFilter === 0 && (
-            <div style={{ padding: "20px 18px 0" }}>
+            <div className="px-[18px] md:px-0 pt-5">
               <button
                 type="button"
                 onClick={() => !outOfStock(featured) && canAfford(featured) && setSelectedReward(featured)}
                 className="w-full text-left"
                 disabled={outOfStock(featured) || !canAfford(featured)}
               >
-                <div className="card mp-card">
-                  <div className="mp-photo photo" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div className="card mp-card transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-lg">
+                  <div className="mp-photo photo flex items-center justify-center max-h-[240px]">
                     <RewardEmoji category={featured.category} />
                     <div className="price">{formatPrima(featured.costInPrima)} {TOKEN_DISPLAY_NAME}</div>
-                    <div style={{ position: "absolute", top: 12, left: 12 }}>
-                      <span className="chip" style={{ background: "rgba(255,255,255,0.9)", border: 0, fontSize: 10, letterSpacing: "0.16em" }}>DESTACADO</span>
+                    <div className="absolute top-3 left-3">
+                      <span className="chip border-0 text-[10px] tracking-[0.16em]" style={{ background: "rgba(255,255,255,0.9)" }}>DESTACADO</span>
                     </div>
                   </div>
                   <div className="mp-body">
-                    <h3 className="font-big-shoulders" style={{ fontSize: 22, fontWeight: 800, margin: 0, color: "var(--ink)" }}>{featured.name}</h3>
-                    <div style={{ fontSize: 12, color: "var(--muted)" }}>{featured.description}</div>
-                    <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
+                    <h3 className="font-big-shoulders text-[22px] font-extrabold m-0" style={{ color: "var(--ink)" }}>{featured.name}</h3>
+                    <div className="text-xs" style={{ color: "var(--muted)" }}>{featured.description}</div>
+                    <div className="flex gap-2 mt-2">
                       {(() => {
                         const catKey = categoryFromIndex(featured.category);
                         const info = catKey ? CATEGORY_INFO[catKey] : null;
-                        return info ? <span className="chip chip-moss" style={{ fontSize: 10 }}>{info.label}</span> : null;
+                        return info ? <span className="chip chip-moss text-[10px]">{info.label}</span> : null;
                       })()}
                     </div>
                   </div>
@@ -338,10 +340,10 @@ export default function RewardsPage() {
             </div>
           )}
 
-          {/* ── 2-col grid ── */}
+          {/* -- Responsive reward grid: 2-col / 3-col md / 4-col lg -- */}
           {filtered.length > 0 && (
-            <div style={{ padding: "12px 18px 0" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+            <div className="px-[18px] md:px-0 pt-3">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 md:gap-4">
                 {filtered
                   .filter((r) => selectedFilter === 0 ? r !== featured : true)
                   .map((r) => {
@@ -356,18 +358,18 @@ export default function RewardsPage() {
                         disabled={disabled}
                         className={`text-left w-full ${disabled ? "opacity-60" : ""}`}
                       >
-                        <div className="card mp-card">
-                          <div className="mp-photo photo" style={{ height: 120, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <div className="card mp-card h-full transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-lg">
+                          <div className="mp-photo photo h-[120px] flex items-center justify-center">
                             <RewardEmoji category={r.category} />
-                            <div className="price" style={{ fontSize: 11, padding: "4px 10px" }}>
+                            <div className="price text-[11px] px-2.5 py-1">
                               {formatPrima(r.costInPrima)}
                             </div>
                           </div>
-                          <div className="mp-body" style={{ padding: 12 }}>
-                            <div style={{ fontWeight: 700, fontSize: 13, color: "var(--ink)" }}>{r.name}</div>
-                            <div style={{ fontSize: 11, color: "var(--muted)" }}>{r.description}</div>
+                          <div className="mp-body p-3">
+                            <div className="font-bold text-[13px]" style={{ color: "var(--ink)" }}>{r.name}</div>
+                            <div className="text-[11px]" style={{ color: "var(--muted)" }}>{r.description}</div>
                             {info && (
-                              <span className="chip" style={{ fontSize: 10, padding: "3px 8px", alignSelf: "flex-start", marginTop: 4 }}>
+                              <span className="chip text-[10px] px-2 py-[3px] self-start mt-1">
                                 {info.label}
                               </span>
                             )}
@@ -380,12 +382,12 @@ export default function RewardsPage() {
             </div>
           )}
 
-          {/* ── Top trepadores mini-leaderboard ── */}
-          <div style={{ padding: "24px 18px 12px" }}>
+          {/* -- Top trepadores mini-leaderboard -- */}
+          <div className="px-[18px] md:px-0 pt-6 pb-3">
             <h2 className="h-section">Top trepadores</h2>
           </div>
-          <div style={{ padding: "0 18px" }}>
-            <div className="card" style={{ padding: "6px 16px" }}>
+          <div className="px-[18px] md:px-0 pb-4">
+            <div className="card px-4 py-1.5 transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-lg">
               <div className="lb-row">
                 <div className="lb-rank gold">01</div>
                 <div className="lb-avatar" />
@@ -427,7 +429,7 @@ export default function RewardsPage() {
         </>
       )}
 
-      {/* ── Modals ── */}
+      {/* -- Modals -- */}
       {selectedReward && (
         <ConfirmModal
           reward={selectedReward}

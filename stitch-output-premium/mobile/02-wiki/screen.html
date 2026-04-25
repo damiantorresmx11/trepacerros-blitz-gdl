@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-primary": "#a1d494",
+                        "surface-bright": "#fafaf4",
+                        "secondary-fixed": "#e4e4cc",
+                        "on-tertiary-fixed-variant": "#7a3000",
+                        "on-surface": "#1a1c19",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#3b6934",
+                        "primary": "#154212",
+                        "secondary-container": "#e1e1c9",
+                        "on-primary-fixed-variant": "#23501e",
+                        "primary-container": "#2d5a27",
+                        "surface-container-high": "#e8e8e3",
+                        "surface-container-highest": "#e3e3de",
+                        "surface-variant": "#e3e3de",
+                        "on-secondary-fixed-variant": "#474836",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#42493e",
+                        "surface-container-low": "#f4f4ee",
+                        "primary-fixed": "#bcf0ae",
+                        "on-secondary-container": "#636451",
+                        "on-tertiary-fixed": "#351000",
+                        "surface-dim": "#dadad5",
+                        "secondary": "#5e604d",
+                        "on-tertiary-container": "#ffb08a",
+                        "outline-variant": "#c2c9bb",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#a1d494",
+                        "tertiary": "#642600",
+                        "background": "#fafaf4",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#893600",
+                        "secondary-fixed-dim": "#c8c8b0",
+                        "outline": "#72796e",
+                        "inverse-surface": "#2f312e",
+                        "tertiary-fixed": "#ffdbcc",
+                        "on-background": "#1a1c19",
+                        "on-secondary-fixed": "#1b1d0e",
+                        "surface-container": "#eeeee9",
+                        "on-primary-container": "#9dd090",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f1f1ec",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb693",
+                        "on-primary-fixed": "#002201",
+                        "surface": "#fafaf4",
+                        "safety-orange": "#FF6B00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "1.5rem",
+                        "xl": "4rem",
+                        "sm": "1rem",
+                        "gutter": "1.5rem",
+                        "xs": "0.5rem",
+                        "lg": "2.5rem",
+                        "unit": "4px",
+                        "margin-safe": "2rem"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Lexend"],
+                        "headline-md": ["Lexend"],
+                        "caption": ["Lexend"],
+                        "body-lg": ["Lexend"],
+                        "display-lg": ["Lexend"],
+                        "body-md": ["Lexend"],
+                        "label-bold": ["Lexend"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-bold": ["14px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .surface_glass {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-stone-50/80 backdrop-blur-xl border-b border-white/20 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-primary/20">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a young adult hiker with a friendly expression, natural lighting, outdoors background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdmSn3unO9zdKHYFWoUa3DjuDfWF5eSfFBM6EBxkrJG_4-VyHg1hswTHL7J6ixRaaX0wA5qa67AVq2xMSN33xZsE-sBoTWcB1QDQkidogv17lDjyQGg0F0228frNC3VL3a1RUYMnUxFTJBjeLMYg1OmgJODSRVxBBZqkjleyE_ZGPT9jxafV14JDxvIQHADttn_mff5W0WiPewTrCr8G6BbZgEgL3mjazWtjvzcc9WcDU8nhyvw8w5ttNGI7lmy4TOi3qvCRwZ0Pc"/>
+</div>
+<h1 class="text-xl font-extrabold tracking-widest text-emerald-900 font-headline-md uppercase">TREPACERROS</h1>
+</div>
+<div class="px-3 py-1 rounded-full bg-primary/5 border border-primary/10">
+<span class="text-emerald-900 font-label-bold text-caption">0x...4F2</span>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-2xl mx-auto space-y-lg">
+<!-- Hero Section -->
+<section class="space-y-xs">
+<h2 class="font-display-lg text-headline-lg text-primary">Wiki de Residuos</h2>
+<p class="text-on-surface-variant font-body-md leading-relaxed">Convierte tus residuos en impacto. Aprende a preparar cada material antes de subir al cerro.</p>
+</section>
+<!-- Categories Section -->
+<section class="grid grid-cols-1 gap-md">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-primary">Categorías</h3>
+<span class="text-caption font-label-bold text-tertiary">3 TIPOS</span>
+</div>
+<!-- PET Card -->
+<div class="surface_glass rounded-[1.5rem] overflow-hidden group">
+<div class="relative h-40">
+<img alt="PET Plastic" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Clean transparent plastic bottles stacked neatly, bright studio lighting with eco-friendly aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAomL_cbW6iogWlv7yDeKT6dnXRLEV-VFkYL84NFJdPJOsE77JHB7GkBPgrA2oSU24Yc_MwbZ3xcvL6Fu-ipbpjuM3JZ4DInqjJgOgHqhkzdNGC0q30NAKz9dEWdlnXnbOY4m4RYNAJ9JNQhWGkSO-R7Rg-CubsSdrkubCILd45B31BQJQvfVAsejjlLB4QdQCEw2r-VYHVrzZrUXjea1p_KFNVftphggDUCCxw_VdZP83BgbXqWkPn7b8W2LuzA9BTChL8avQfrlk"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-4 left-6">
+<span class="text-white font-headline-md">PET</span>
+</div>
+</div>
+<div class="p-md space-y-sm">
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded-lg text-caption font-label-bold">PLÁSTICO #1</span>
+<span class="px-2 py-1 bg-orange-100 text-orange-800 rounded-lg text-caption font-label-bold">ALTA CIRCULARIDAD</span>
+</div>
+<p class="text-on-surface-variant font-body-md">Envases de bebidas, jugos y aguas. El material más común en senderos.</p>
+<div class="pt-2 border-t border-primary/5">
+<p class="text-caption font-label-bold text-primary mb-2">TIPS DE PREPARACIÓN:</p>
+<ul class="space-y-1">
+<li class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-primary">check_circle</span>
+<span class="text-caption">Lavar y secar completamente</span>
+</li>
+<li class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-primary">check_circle</span>
+<span class="text-caption">Aplastar para reducir volumen</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Aluminio Card -->
+<div class="surface_glass rounded-[1.5rem] overflow-hidden group">
+<div class="relative h-40">
+<img alt="Aluminium Cans" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Metallic soda cans crushed and arranged in a pattern, cool blue and silver tones, professional product photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqb0lq0X3T6mQD02Hcw4jXN5h9NUMdaHbTNiOCM2svY7v7F3PpSWZhT3TiyCuXnrKtYx-J5pKUx7YhLI9BB5gwCtIK2KT6MW2AbTKdK-R59I781ueu4qcrh9AUFrgJdK8OG4-1mZU9wkqhEy1NCqA25OZ79L2S7hx7_ws9QbT56vTG1UonlNnjjAKhecJtAHsy2vWKuva3l8cZ7u1hXFEZtndYNwGHfFmxJJFpzkhCdjdjKTI5x3xO-SC01CEMWtSqmvYWawMHN68"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-4 left-6">
+<span class="text-white font-headline-md">Aluminio</span>
+</div>
+</div>
+<div class="p-md space-y-sm">
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded-lg text-caption font-label-bold">METAL</span>
+<span class="px-2 py-1 bg-orange-100 text-orange-800 rounded-lg text-caption font-label-bold">INFINITAMENTE RECICLABLE</span>
+</div>
+<p class="text-on-surface-variant font-body-md">Latas de refresco y cerveza. Su reciclaje ahorra 95% de energía.</p>
+<div class="pt-2 border-t border-primary/5">
+<p class="text-caption font-label-bold text-primary mb-2">TIPS DE PREPARACIÓN:</p>
+<ul class="space-y-1">
+<li class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-primary">check_circle</span>
+<span class="text-caption">Enjuagar restos de líquido</span>
+</li>
+<li class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-primary">check_circle</span>
+<span class="text-caption">No es necesario quitar etiquetas</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Vidrio Card -->
+<div class="surface_glass rounded-[1.5rem] overflow-hidden group">
+<div class="relative h-40">
+<img alt="Glass Bottles" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Green and clear glass bottles in a wooden crate, soft diffused natural light, rustic and clean" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpKY9YMkL6jdZXefA1ane8gQTZcKlPhmhBLlTV1GplKueIu758M6DaHAZdyjctmloMZmYY1Cp9Lh7bwH_Gi2dyNWFfXoVrzd3j7ScNrSMLyuIgYUyV0kKfXRuSfUCpuxJ5cMWqOaSNkSxxN1ctcruD1-Ec1YXYJMZZzxiNnCpXvsjF6qMyqwKyCKQkjZ7BP0AUh1Y0qdgBGWsKDsTvsS-c7u5RnVrYfBLJejGWR9zOfxoLpLz6B4qUA7_7A3r6x5APl5Uq-tXs0m8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-4 left-6">
+<span class="text-white font-headline-md">Vidrio</span>
+</div>
+</div>
+<div class="p-md space-y-sm">
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded-lg text-caption font-label-bold">VIDRIO</span>
+<span class="px-2 py-1 bg-orange-100 text-orange-800 rounded-lg text-caption font-label-bold">FRÁGIL</span>
+</div>
+<p class="text-on-surface-variant font-body-md">Botellas y frascos. Recuerda que el vidrio roto es un peligro en el cerro.</p>
+<div class="pt-2 border-t border-primary/5">
+<p class="text-caption font-label-bold text-primary mb-2">TIPS DE PREPARACIÓN:</p>
+<ul class="space-y-1">
+<li class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-primary">check_circle</span>
+<span class="text-caption">Retirar tapas de metal o plástico</span>
+</li>
+<li class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-primary">check_circle</span>
+<span class="text-caption">Asegurar transporte sin roturas</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Recycling Guide Section -->
+<section class="space-y-md">
+<h3 class="font-headline-md text-primary">Recycling Guide</h3>
+<div class="relative pl-8 space-y-lg before:content-[''] before:absolute before:left-3 before:top-2 before:bottom-2 before:w-[2px] before:bg-orange-600/30">
+<!-- Step 1 -->
+<div class="relative">
+<div class="absolute -left-8 top-1 w-6 h-6 rounded-full bg-orange-600 flex items-center justify-center text-white font-label-bold text-[10px] z-10">1</div>
+<div class="space-y-xs">
+<h4 class="font-label-bold text-on-surface uppercase">Clean</h4>
+<p class="text-on-surface-variant text-body-md">Elimina cualquier residuo orgánico o líquido. Los materiales sucios contaminan todo el lote de reciclaje.</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="relative">
+<div class="absolute -left-8 top-1 w-6 h-6 rounded-full bg-orange-600 flex items-center justify-center text-white font-label-bold text-[10px] z-10">2</div>
+<div class="space-y-xs">
+<h4 class="font-label-bold text-on-surface uppercase">Sort</h4>
+<p class="text-on-surface-variant text-body-md">Separa por material en tu mochila. Evita mezclar PET con aluminio para facilitar la descarga en puntos limpios.</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="relative">
+<div class="absolute -left-8 top-1 w-6 h-6 rounded-full bg-orange-600 flex items-center justify-center text-white font-label-bold text-[10px] z-10">3</div>
+<div class="space-y-xs">
+<h4 class="font-label-bold text-on-surface uppercase">Trepa &amp; Validate</h4>
+<p class="text-on-surface-variant text-body-md">Escanea el código QR en el punto de validación Trepacerros al finalizar tu ruta para mintear tus recompensas.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Pro-Tips Card -->
+<section class="pb-12">
+<div class="bg-primary-container text-on-primary-container p-lg rounded-[1.5rem] shadow-xl relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 blur-2xl"></div>
+<div class="relative z-10 space-y-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-orange-500" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+<h3 class="font-headline-md text-white">Pro-Tips</h3>
+</div>
+<p class="text-on-primary-container/80 text-body-md">
+                        ¿Sabías que una lata de aluminio puede estar de vuelta en el estante de la tienda en menos de 60 días después de ser reciclada? 
+                    </p>
+<div class="pt-4 flex flex-wrap gap-2">
+<div class="px-3 py-1 bg-white/10 rounded-full border border-white/20 text-caption text-white font-label-bold">#ImpactoReal</div>
+<div class="px-3 py-1 bg-white/10 rounded-full border border-white/20 text-caption text-white font-label-bold">#EcoHiker</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-md z-50 flex justify-around items-center p-2 bg-stone-50/70 backdrop-blur-2xl rounded-[1.5rem] border border-white/20 shadow-2xl shadow-emerald-900/10">
+<!-- Map -->
+<a class="flex flex-col items-center justify-center text-emerald-900/40 py-2 px-4 hover:text-orange-500 transition-all" href="#">
+<span class="material-symbols-outlined mb-1">explore</span>
+<span class="font-lexend text-[10px] font-semibold uppercase tracking-wider">Map</span>
+</a>
+<!-- Clean -->
+<a class="flex flex-col items-center justify-center text-emerald-900/40 py-2 px-4 hover:text-orange-500 transition-all" href="#">
+<span class="material-symbols-outlined mb-1">mop</span>
+<span class="font-lexend text-[10px] font-semibold uppercase tracking-wider">Clean</span>
+</a>
+<!-- Wiki (Active) -->
+<a class="flex flex-col items-center justify-center text-orange-600 bg-white/40 rounded-2xl py-2 px-4" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<span class="font-lexend text-[10px] font-semibold uppercase tracking-wider">Wiki</span>
+</a>
+<!-- Impact -->
+<a class="flex flex-col items-center justify-center text-emerald-900/40 py-2 px-4 hover:text-orange-500 transition-all" href="#">
+<span class="material-symbols-outlined mb-1">eco</span>
+<span class="font-lexend text-[10px] font-semibold uppercase tracking-wider">Impact</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-emerald-900/40 py-2 px-4 hover:text-orange-500 transition-all" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-lexend text-[10px] font-semibold uppercase tracking-wider">Profile</span>
+</a>
+</nav>
+</body></html>

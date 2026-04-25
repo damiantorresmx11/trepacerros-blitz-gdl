@@ -48,29 +48,30 @@ export default function LeaderboardPage() {
   // Podium visual order: 2nd, 1st, 3rd
   const podiumOrder = [top3[1], top3[0], top3[2]];
   const podiumSizes = [
-    { avatarSize: 64, rank: 2, color: "silver" },
-    { avatarSize: 80, rank: 1, color: "gold" },
-    { avatarSize: 64, rank: 3, color: "bronze" },
+    { avatarSize: 64, avatarSizeLg: 80, rank: 2, color: "silver" },
+    { avatarSize: 80, avatarSizeLg: 100, rank: 1, color: "gold" },
+    { avatarSize: 64, avatarSizeLg: 80, rank: 3, color: "bronze" },
   ];
 
   return (
     <AppShell>
-      <div style={{ padding: "0 18px" }}>
+      <div className="px-[18px]">
         {/* ── Header with back arrow ── */}
-        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+        <div className="flex items-center gap-3 mb-4">
           <Link
             href="/profile"
-            style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 40, height: 40, borderRadius: 12, border: "1px solid var(--line)", background: "var(--paper)", color: "var(--ink)" }}
+            className="flex items-center justify-center w-10 h-10 rounded-xl"
+            style={{ border: "1px solid var(--line)", background: "var(--paper)", color: "var(--ink)" }}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
           </Link>
-          <h1 className="font-big-shoulders" style={{ fontSize: 26, fontWeight: 900, margin: 0, color: "var(--ink)" }}>Leaderboard</h1>
+          <h1 className="font-big-shoulders text-[26px] font-black m-0" style={{ color: "var(--ink)" }}>Leaderboard</h1>
         </div>
 
         {/* ── Segment control ── */}
-        <div className="seg" style={{ width: "100%", display: "flex" }}>
+        <div className="seg w-full flex">
           {SEGMENTS.map((label, idx) => (
             <button
               key={label}
@@ -84,37 +85,43 @@ export default function LeaderboardPage() {
         </div>
 
         {/* ── Podium top 3 ── */}
-        <div className="card" style={{ marginTop: 16, padding: "24px 16px 16px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, alignItems: "end" }}>
+        <div className="card mt-4 px-4 pt-6 pb-4 md:px-8 lg:px-12">
+          <div className="grid grid-cols-3 gap-2 md:gap-6 lg:gap-10 items-end">
             {podiumOrder.map((entry, idx) => {
               const config = podiumSizes[idx];
               const isFirst = config.rank === 1;
+              const borderColor =
+                config.color === "gold"
+                  ? "oklch(0.78 0.16 80)"
+                  : config.color === "silver"
+                    ? "oklch(0.7 0.02 230)"
+                    : "oklch(0.6 0.12 50)";
               return (
-                <div key={entry.rank} className="text-center" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <div key={entry.rank} className="text-center flex flex-col items-center">
                   {/* Crown for #1 */}
                   {isFirst && (
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="oklch(0.78 0.16 80)" style={{ marginBottom: 4 }}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="oklch(0.78 0.16 80)" className="mb-1 lg:w-8 lg:h-8">
                       <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5z"/>
                     </svg>
                   )}
                   <div
-                    className="lb-avatar"
+                    className="lb-avatar transition-transform duration-200 hover:scale-110"
                     style={{
                       width: config.avatarSize,
                       height: config.avatarSize,
-                      border: `3px solid ${config.color === "gold" ? "oklch(0.78 0.16 80)" : config.color === "silver" ? "oklch(0.7 0.02 230)" : "oklch(0.6 0.12 50)"}`,
+                      border: `3px solid ${borderColor}`,
                       background: entry.avatarGradient || undefined,
                     }}
                   />
-                  <div className="lb-rank" style={{ marginTop: 6, width: "auto" }}>
+                  <div className="mt-1.5 w-auto">
                     <span className={`lb-rank ${RANK_COLORS[entry.rank] || ""}`}>
                       {String(entry.rank).padStart(2, "0")}
                     </span>
                   </div>
-                  <div className="lb-name" style={{ marginTop: 2, fontSize: 11, textAlign: "center", width: "100%" }}>
+                  <div className="lb-name mt-0.5 text-[11px] md:text-xs text-center w-full truncate">
                     {entry.name}
                   </div>
-                  <div className="font-mono" style={{ fontWeight: 700, fontSize: isFirst ? 18 : 14, color: "var(--ember)", marginTop: 2 }}>
+                  <div className="font-mono mt-0.5" style={{ fontWeight: 700, fontSize: isFirst ? 18 : 14, color: "var(--ember)" }}>
                     {entry.cerro}
                   </div>
                   <div className="lb-meta">{entry.kg} KG &middot; {entry.hikes} TREPADAS</div>
@@ -125,18 +132,18 @@ export default function LeaderboardPage() {
         </div>
 
         {/* ── Ranked list (4+) ── */}
-        <div className="card" style={{ marginTop: 12, padding: "6px 16px" }}>
+        <div className="card mt-3 py-1.5 px-4 md:px-6 lg:px-8">
           {rest.map((entry) => (
-            <div key={entry.rank} className="lb-row">
+            <div key={entry.rank} className="lb-row transition-colors duration-150 hover:bg-black/[0.03] rounded-lg md:py-3 md:px-2 lg:px-4">
               <div className={`lb-rank ${RANK_COLORS[entry.rank] || ""}`}>
                 {String(entry.rank).padStart(2, "0")}
               </div>
-              <div className="lb-avatar" style={entry.avatarGradient ? { background: entry.avatarGradient } : undefined} />
-              <div>
-                <div className="lb-name">{entry.name}</div>
+              <div className="lb-avatar transition-transform duration-200 hover:scale-110" style={entry.avatarGradient ? { background: entry.avatarGradient } : undefined} />
+              <div className="min-w-0 flex-1">
+                <div className="lb-name truncate">{entry.name}</div>
                 <div className="lb-meta">{entry.kg} KG &middot; {entry.hikes} TREPADAS</div>
               </div>
-              <div className="font-mono" style={{ color: "var(--ember)", fontWeight: 700 }}>{entry.cerro}</div>
+              <div className="font-mono shrink-0" style={{ color: "var(--ember)", fontWeight: 700 }}>{entry.cerro}</div>
             </div>
           ))}
         </div>
@@ -144,26 +151,21 @@ export default function LeaderboardPage() {
         {/* ── Current user highlighted row ── */}
         {address && (
           <div
-            className="card"
+            className="card mt-3 p-4 flex items-center justify-between mx-auto max-w-lg transition-shadow duration-200 hover:shadow-lg"
             style={{
-              marginTop: 12,
-              padding: 16,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
               borderWidth: 2,
               borderColor: "var(--ember)",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <div className="flex items-center gap-3">
               <div
-                className="avatar-cd"
-                style={{ width: 44, height: 44, fontSize: 18, margin: 0 }}
+                className="avatar-cd m-0"
+                style={{ width: 44, height: 44, fontSize: 18 }}
               >
                 {(address.slice(2, 3) || "T").toUpperCase()}
               </div>
               <div>
-                <div style={{ fontWeight: 700, fontSize: 13, color: "var(--ink)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                <div className="font-bold text-[13px] uppercase tracking-wider" style={{ color: "var(--ink)" }}>
                   TU
                 </div>
                 <div className="lb-meta">
@@ -173,8 +175,7 @@ export default function LeaderboardPage() {
             </div>
             <Link
               href="/hike"
-              className="btn btn-primary"
-              style={{ width: "auto", height: 40, fontSize: 12, padding: "0 16px", textDecoration: "none" }}
+              className="btn btn-primary w-auto h-10 text-xs px-4 no-underline transition-transform duration-200 hover:scale-105"
             >
               TREPAR
             </Link>
@@ -182,7 +183,7 @@ export default function LeaderboardPage() {
         )}
 
         {/* ── Footer stats ── */}
-        <div className="text-center font-mono" style={{ fontSize: 10, letterSpacing: "0.16em", marginTop: 32, marginBottom: 16, color: "var(--muted)" }}>
+        <div className="text-center font-mono text-[10px] tracking-[0.16em] mt-8 mb-4" style={{ color: "var(--muted)" }}>
           VER TODAS LAS TX EN MONADSCAN &nearr;
         </div>
       </div>
