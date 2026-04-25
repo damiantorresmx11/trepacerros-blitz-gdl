@@ -110,6 +110,11 @@ export function useRewardsList(): UseRewardsListReturn {
   const query = useQuery<RewardOnChain[], Error>({
     queryKey: ["rewardsList", CONTRACTS.REWARD_REGISTRY, MAX_REWARD_ID],
     enabled: Boolean(publicClient),
+    staleTime: 120_000,
+    refetchInterval: 300_000,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    retry: 1,
     queryFn: async (): Promise<RewardOnChain[]> => {
       if (!publicClient) return [];
 
@@ -218,6 +223,11 @@ export function useUserRedemptions(
   const query = useQuery<UserRedemption[], Error>({
     queryKey: ["userRedemptions", CONTRACTS.REWARD_REGISTRY, address],
     enabled: Boolean(address) && Boolean(publicClient),
+    staleTime: 60_000,
+    refetchInterval: 120_000,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    retry: 1,
     queryFn: async (): Promise<UserRedemption[]> => {
       if (!address || !publicClient) return [];
 

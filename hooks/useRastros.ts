@@ -139,8 +139,9 @@ export function usePrimaBalance(
     args: address ? [address] : undefined,
     query: {
       enabled: Boolean(address),
-      staleTime: 10_000,
-      refetchInterval: 15_000,
+      staleTime: 30_000,
+      refetchInterval: 60_000,
+      refetchOnWindowFocus: false,
     },
   });
 
@@ -229,9 +230,11 @@ export function useUserNFTs(
   const query = useQuery<UserNFT[], Error>({
     queryKey: ["userNFTs", CONTRACTS.RASTRO_NFT, address],
     enabled: Boolean(address) && Boolean(publicClient),
-    staleTime: 30_000,
-    refetchInterval: 60_000,
-    retry: 2,
+    staleTime: 60_000,
+    refetchInterval: 120_000,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    retry: 1,
     queryFn: async (): Promise<UserNFT[]> => {
       if (!address || !publicClient) return [];
 
@@ -353,8 +356,9 @@ export function useHikerStats(
     args: address ? [address] : undefined,
     query: {
       enabled: Boolean(address),
-      staleTime: 10_000,
-      refetchInterval: 15_000,
+      staleTime: 30_000,
+      refetchInterval: 60_000,
+      refetchOnWindowFocus: false,
     },
   });
 
