@@ -35,11 +35,9 @@ export function Sidebar() {
 
   return (
     <aside
-      className="hidden md:flex fixed left-0 top-0 bottom-0 w-72 flex-col z-40 p-6 topo-bg"
+      className="hidden md:flex fixed left-0 top-0 bottom-0 w-72 flex-col z-40 p-6 overflow-y-auto"
       style={{
-        background: "color-mix(in oklch, var(--paper) 80%, transparent)",
-        backdropFilter: "blur(40px) saturate(150%)",
-        WebkitBackdropFilter: "blur(40px) saturate(150%)",
+        background: "var(--paper)",
         borderRight: "1px solid var(--line)",
         boxShadow: "var(--shadow-2)",
       }}
