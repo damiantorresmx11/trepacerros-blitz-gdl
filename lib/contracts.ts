@@ -95,3 +95,7 @@ export const CONTRACTS = {
 
 export const MONAD_CHAIN_ID = 10143;
 
+// Highest reward id seeded in Deploy.s.sol (41 rewards: ids 0..40 inclusive).
+// `_nextRewardId` is private on RewardRegistry, so the frontend iterates 0..MAX_REWARD_ID.
+export const MAX_REWARD_ID = 40;
+
