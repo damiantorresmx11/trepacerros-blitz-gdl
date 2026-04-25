@@ -82,3 +82,16 @@ export const BLITZ_COLLECTION_ABI = [
     "type": "function"
   }
 ] as const
+
+// ============================================================
+// Rastros — deployed to Monad testnet (chain id 10143)
+// ============================================================
+
+export const CONTRACTS = {
+  PRIMA_TOKEN: "0xd4Bf2c611f382Cd51ff484276CE6c008016de881" as const,
+  RASTRO_NFT: "0x6b4D0F9024479219af325D6Cca5aBa3AFec76952" as const,
+  REWARD_REGISTRY: "0x4327566658bA16a37d804e8738AD283170a53b27" as const,
+} as const;
+
+export const MONAD_CHAIN_ID = 10143;
+
