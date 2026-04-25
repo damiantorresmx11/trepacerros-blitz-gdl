@@ -65,7 +65,7 @@ export function BottomNav() {
       <nav
         className="pointer-events-auto grid grid-cols-5 gap-[2px] rounded-3xl p-2"
         style={{
-          background: "color-mix(in oklch, var(--paper) 92%, transparent)",
+          background: "var(--paper)",
           backdropFilter: "blur(20px) saturate(150%)",
           WebkitBackdropFilter: "blur(20px) saturate(150%)",
           border: "1px solid var(--line)",
@@ -83,15 +83,14 @@ export function BottomNav() {
               key={tab.href}
               href={tab.href}
               aria-current={isActive ? "page" : undefined}
-              className="flex flex-col items-center gap-[3px] py-2 px-1 rounded-2xl tap"
+              className={`flex flex-col items-center gap-[3px] py-2 px-1 rounded-2xl transition-all duration-200 ${isActive && isCenter ? "-translate-y-3.5 scale-105" : ""}`}
               style={{
                 background: isActive
                   ? isCenter
                     ? "var(--ember)"
-                    : "color-mix(in oklch, var(--ember) 18%, transparent)"
+                    : "var(--ember-soft)"
                   : "transparent",
                 color: isActive ? (isCenter ? "#fff" : "var(--ember)") : "var(--muted)",
-                transform: isActive && isCenter ? "translateY(-14px) scale(1.05)" : undefined,
                 boxShadow: isActive && isCenter ? "0 8px 22px -6px var(--ember)" : undefined,
               }}
             >

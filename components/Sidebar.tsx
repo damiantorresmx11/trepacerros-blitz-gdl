@@ -81,12 +81,13 @@ export function Sidebar() {
               <Link
                 href={tab.href}
                 aria-current={isActive ? "page" : undefined}
-                className="flex items-center gap-3 px-4 py-3 rounded-2xl tap"
+                className="relative flex items-center gap-3 px-4 py-3 rounded-2xl transition-colors duration-200"
                 style={{
-                  background: isActive ? "color-mix(in oklch, var(--ember) 18%, transparent)" : "transparent",
+                  background: isActive ? "var(--ember-soft)" : "transparent",
                   color: isActive ? "var(--ember)" : "var(--muted)",
                 }}
               >
+                {isActive && <span className="nav-active-bar" />}
                 <span className={`material-symbols-outlined text-[22px] ${isActive ? "icon-fill" : ""}`}>
                   {tab.icon}
                 </span>

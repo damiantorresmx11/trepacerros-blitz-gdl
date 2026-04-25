@@ -58,12 +58,13 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.95 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
-              className="solid-card rounded-xl px-4 py-3 flex items-center gap-3 pointer-events-auto shadow-premium"
+              className="card rounded-[16px] px-4 py-3 flex items-center gap-3 pointer-events-auto"
+              style={{ boxShadow: "var(--shadow-2)" }}
             >
               <span className={`material-symbols-outlined icon-fill ${colorMap[t.type]}`}>
                 {iconMap[t.type]}
               </span>
-              <p className="font-lexend text-sm text-tc-on-surface flex-1">{t.message}</p>
+              <p className="font-lexend text-sm flex-1" style={{ color: "var(--ink)" }}>{t.message}</p>
             </motion.div>
           ))}
         </AnimatePresence>
