@@ -7,53 +7,44 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Legacy Monad Blitz (keep for /blitz-demo)
-        monad: {
-          purple: '#836EF9',
-          dark: '#1a1a2e',
+        // Legacy (keep for /blitz-demo)
+        monad: { purple: '#836EF9', dark: '#1a1a2e' },
+        // ─── Claude Design palette (oklch → hex) ───
+        cd: {
+          bg: '#f7f5ef',
+          ink: '#1a2e1f',
+          moss: '#2d5a3e',
+          ember: '#d4742a',
+          'ember-soft': '#f5e6d4',
+          sky: '#c0d5e8',
+          leaf: '#3d7a52',
+          paper: '#fdfcf7',
+          muted: '#5c6b5f',
+          line: 'rgba(26,46,31,0.12)',
+          // Dark mode
+          'bg-dark': '#1a2820',
+          'ink-dark': '#f5f3ed',
+          'moss-dark': '#8abf9a',
+          'ember-dark': '#e8a36a',
         },
-        // Legacy Rastros palette (keep for backward compat)
-        primary: '#2A5C3E',
-        accent: '#B8572C',
-        background: '#F5F1E8',
-        foreground: '#1A1A1A',
-        warm: '#FF6B35',
-        muted: '#A8A8A0',
-        // ─── Stitch Premium / Trepacerros design tokens (Material 3) ───
+        // ─── Stitch / M3 tokens (kept for compatibility) ───
         tc: {
-          // Primary
           primary: '#154212',
           'on-primary': '#ffffff',
           'primary-container': '#2d5a27',
           'on-primary-container': '#9dd090',
           'primary-fixed': '#bcf0ae',
           'primary-fixed-dim': '#a1d494',
-          'on-primary-fixed': '#002201',
-          'on-primary-fixed-variant': '#23501e',
-          // Secondary
           secondary: '#5e604d',
           'on-secondary': '#ffffff',
           'secondary-container': '#e1e1c9',
-          'on-secondary-container': '#636451',
-          'secondary-fixed': '#e4e4cc',
-          'secondary-fixed-dim': '#c8c8b0',
-          'on-secondary-fixed': '#1b1d0e',
-          'on-secondary-fixed-variant': '#474836',
-          // Tertiary
           tertiary: '#642600',
           'on-tertiary': '#ffffff',
           'tertiary-container': '#893600',
-          'on-tertiary-container': '#ffb08a',
-          'tertiary-fixed': '#ffdbcc',
-          'tertiary-fixed-dim': '#ffb693',
-          'on-tertiary-fixed': '#351000',
-          'on-tertiary-fixed-variant': '#7a3000',
-          // Error
           error: '#ba1a1a',
           'on-error': '#ffffff',
           'error-container': '#ffdad6',
           'on-error-container': '#93000a',
-          // Surfaces (updated to Stitch Premium values)
           surface: '#fafaf4',
           'on-surface': '#1a1c19',
           'on-surface-variant': '#42493e',
@@ -62,28 +53,26 @@ module.exports = {
           'surface-container-high': '#e8e8e3',
           'surface-container-highest': '#e3e3de',
           'surface-container-lowest': '#ffffff',
-          'surface-dim': '#dadad5',
-          'surface-bright': '#fafaf4',
-          'surface-tint': '#3b6934',
-          'surface-variant': '#e3e3de',
-          'on-background': '#1a1c19',
-          // Outline
           outline: '#72796e',
           'outline-variant': '#c2c9bb',
-          // Inverse
           'inverse-surface': '#2f312e',
           'inverse-on-surface': '#f1f1ec',
           'inverse-primary': '#a1d494',
-          // Brand
           orange: '#FF6B00',
         },
       },
       fontFamily: {
-        display: ['var(--font-fraunces)', 'serif'],
+        // Claude Design fonts (primary)
+        'display': ['var(--font-big-shoulders)', 'var(--font-fraunces)', 'system-ui', 'sans-serif'],
+        'body': ['var(--font-lexend)', 'system-ui', 'sans-serif'],
+        'mono': ['var(--font-jetbrains)', 'var(--font-space-grotesk)', 'ui-monospace', 'monospace'],
+        // Keep aliases
         fraunces: ['var(--font-fraunces)', 'serif'],
-        sans: ['var(--font-dm-sans)', 'system-ui', 'sans-serif'],
         lexend: ['var(--font-lexend)', 'sans-serif'],
         'space-grotesk': ['var(--font-space-grotesk)', 'sans-serif'],
+        'big-shoulders': ['var(--font-big-shoulders)', 'system-ui', 'sans-serif'],
+        'jetbrains': ['var(--font-jetbrains)', 'ui-monospace', 'monospace'],
+        sans: ['var(--font-dm-sans)', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         'tc-display': ['48px', { lineHeight: '1.1', letterSpacing: '-0.02em', fontWeight: '700' }],
@@ -92,10 +81,9 @@ module.exports = {
         'tc-body-lg': ['18px', { lineHeight: '1.6', fontWeight: '400' }],
         'tc-body-md': ['16px', { lineHeight: '1.6', fontWeight: '400' }],
         'tc-label': ['14px', { lineHeight: '1.0', letterSpacing: '0.05em', fontWeight: '600' }],
+        'tc-label-web3': ['14px', { lineHeight: '1.0', letterSpacing: '0.05em', fontWeight: '600' }],
         'tc-caption': ['12px', { lineHeight: '1.4', fontWeight: '500' }],
         'tc-cta': ['16px', { lineHeight: '1.0', fontWeight: '700' }],
-        // Keep old alias
-        'tc-label-web3': ['14px', { lineHeight: '1.0', letterSpacing: '0.05em', fontWeight: '600' }],
       },
       spacing: {
         'tc-xs': '4px',
@@ -115,7 +103,8 @@ module.exports = {
         'inner-sm': 'inset 0 1px 2px rgba(0,0,0,0.04)',
       },
       borderRadius: {
-        'card': '1.5rem',
+        'card': '22px',
+        'pill': '999px',
       },
     },
   },

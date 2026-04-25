@@ -15,12 +15,9 @@ const tabs = [
 export function BottomNav() {
   const pathname = usePathname();
 
-  // Hide bottom nav during active tracking
-  if (pathname === "/hike") return null;
-
   return (
     <nav
-      className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-md z-50 bg-stone-50/70 backdrop-blur-2xl rounded-card border border-white/20 shadow-2xl"
+      className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-md z-50 bg-cd-paper/70 backdrop-blur-2xl rounded-card border border-cd-line shadow-2xl"
       aria-label="Main navigation"
     >
       <div className="flex justify-around items-center p-2">
@@ -34,10 +31,10 @@ export function BottomNav() {
               key={tab.href}
               href={tab.href}
               aria-current={isActive ? "page" : undefined}
-              className={`flex flex-col items-center justify-center px-2 py-1.5 rounded-2xl transition-colors duration-200 haptic-active focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B00] ${
+              className={`flex flex-col items-center justify-center px-2 py-1.5 rounded-2xl transition-colors duration-200 haptic-active focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cd-ember ${
                 isActive
-                  ? "bg-white/40 text-orange-600"
-                  : "text-emerald-900/40 hover:text-orange-500"
+                  ? "bg-cd-ember/10 text-cd-ember"
+                  : "text-cd-ink/40 hover:text-cd-ember"
               }`}
             >
               <span

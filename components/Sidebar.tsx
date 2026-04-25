@@ -17,20 +17,20 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden md:flex fixed left-0 top-0 bottom-0 w-72 flex-col z-40 bg-white/30 backdrop-blur-2xl border-r border-white/10 shadow-2xl shadow-black/5 p-6">
+    <aside className="hidden md:flex fixed left-0 top-0 bottom-0 w-72 flex-col z-40 bg-cd-paper/80 backdrop-blur-2xl border-r border-cd-line shadow-2xl shadow-cd-ink/5 p-6 topo-bg">
       {/* Brand */}
       <Link
         href="/"
-        className="flex items-center gap-3 mb-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B00] rounded-lg"
+        className="flex items-center gap-3 mb-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cd-ember rounded-lg"
       >
-        <div className="w-10 h-10 rounded-lg bg-tc-primary-container flex items-center justify-center">
+        <div className="w-10 h-10 rounded-lg bg-cd-moss flex items-center justify-center">
           <span className="material-symbols-outlined text-white text-xl">landscape</span>
         </div>
         <div>
-          <h1 className="font-fraunces text-xl font-black text-green-900 tracking-tighter leading-none">
+          <h1 className="font-big-shoulders text-xl font-extrabold text-cd-ink tracking-tight leading-none uppercase">
             Trepacerros
           </h1>
-          <p className="font-space-grotesk text-tc-caption text-tc-outline mt-0.5">
+          <p className="font-mono text-[10px] text-cd-muted tracking-wider mt-0.5">
             HIGH-ALTITUDE TECH
           </p>
         </div>
@@ -53,10 +53,10 @@ export function Sidebar() {
               <Link
                 href={tab.href}
                 aria-current={isActive ? "page" : undefined}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-transform duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B00] ${
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-transform duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cd-ember ${
                   isActive
-                    ? "bg-white/50 text-orange-600 shadow-inner-sm"
-                    : "text-green-900/70 hover:text-green-900 hover:translate-x-1"
+                    ? "bg-cd-ember/10 text-cd-ember shadow-inner-sm"
+                    : "text-cd-ink/60 hover:text-cd-ink hover:translate-x-1"
                 }`}
               >
                 <span
@@ -76,9 +76,9 @@ export function Sidebar() {
       {/* CTA Button */}
       <Link
         href="/hike"
-        className="mt-auto w-full py-3 px-4 bg-[#FF6B00] text-white rounded-xl font-lexend text-tc-label font-semibold uppercase tracking-widest text-center shadow-lg border border-white/20 hover:opacity-90 transition-opacity duration-200 haptic-active focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B00] focus-visible:ring-offset-2"
+        className="mt-auto w-full py-3 px-4 bg-cd-ember text-white rounded-xl font-big-shoulders text-lg font-bold uppercase tracking-wide text-center shadow-lg border border-white/20 hover:opacity-90 transition-opacity duration-200 haptic-active focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cd-ember focus-visible:ring-offset-2"
       >
-        Start Expedition
+        Start Trepada
       </Link>
     </aside>
   );

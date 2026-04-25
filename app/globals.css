@@ -11,13 +11,10 @@
   src: url('/fonts/material-symbols-outlined.woff2') format('woff2');
 }
 
-:root {
-  --monad-purple: #836EF9;
-}
-
+/* ─── Base ─── */
 body {
-  background: #fafaf4;
-  color: #1a1c19;
+  background: #f7f5ef;
+  color: #1a2e1f;
 }
 
 /* ─── Material Symbols ─── */
@@ -42,7 +39,7 @@ body {
   font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
-/* ─── Glass morphism utilities ─── */
+/* ─── Glass morphism ─── */
 .glass-card {
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(16px);
@@ -66,9 +63,41 @@ body {
 }
 
 .solid-card {
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(194, 201, 187, 0.4);
-  box-shadow: 0 8px 32px rgba(45, 90, 39, 0.05);
+  background: #fdfcf7;
+  border: 1px solid rgba(26, 46, 31, 0.12);
+  border-radius: 22px;
+}
+
+/* ─── Claude Design: Topographic pattern ─── */
+.topo-bg {
+  background-image: url("data:image/svg+xml,%3Csvg width='400' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 200 Q100 180 200 200 Q300 220 400 200' fill='none' stroke='%232d5a3e' stroke-opacity='0.06' stroke-width='1'/%3E%3Cpath d='M0 160 Q100 140 200 160 Q300 180 400 160' fill='none' stroke='%232d5a3e' stroke-opacity='0.04' stroke-width='1'/%3E%3Cpath d='M0 240 Q100 220 200 240 Q300 260 400 240' fill='none' stroke='%232d5a3e' stroke-opacity='0.04' stroke-width='1'/%3E%3Cpath d='M0 120 Q100 100 200 120 Q300 140 400 120' fill='none' stroke='%232d5a3e' stroke-opacity='0.03' stroke-width='1'/%3E%3Cpath d='M0 280 Q100 260 200 280 Q300 300 400 280' fill='none' stroke='%232d5a3e' stroke-opacity='0.03' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 400px 400px;
+}
+
+/* ─── Claude Design: Dawn gradient ─── */
+.dawn-gradient {
+  background: linear-gradient(135deg, #f7f5ef 0%, #f5e6d4 30%, #fdfcf7 60%, #c0d5e8 100%);
+}
+
+/* ─── Coordinate chip ─── */
+.coordinate-chip {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: #5c6b5f;
+  background: rgba(26, 46, 31, 0.06);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* ─── Passport stamp (hexagonal badge) ─── */
+.passport-stamp {
+  width: 64px;
+  height: 64px;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ─── Interaction states ─── */
@@ -77,7 +106,6 @@ body {
   transition: transform 0.1s ease;
 }
 
-/* ─── GPS glow (tracking) ─── */
 .gps-glow {
   filter: drop-shadow(0 0 8px #4ade80);
 }
@@ -103,20 +131,19 @@ body {
   animation: pulse-marker 2s ease-in-out infinite;
 }
 
+@keyframes counter-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-counter-up {
+  animation: counter-up 0.4s ease-out;
+}
+
 /* ─── Custom scrollbar ─── */
-::-webkit-scrollbar {
-  width: 6px;
-}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #c2c9bb; border-radius: 10px; }
 
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #c2c9bb;
-  border-radius: 10px;
-}
-
-/* ─── No scrollbar utility ─── */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

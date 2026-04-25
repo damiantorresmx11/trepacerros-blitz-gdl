@@ -22,20 +22,19 @@ function CerroBalancePillInner() {
     prevRef.current = deferredValue;
   }, [deferredValue]);
 
-  // Hide on tracking page and when not authenticated
   if (pathname === "/hike" || !authenticated || !address) return null;
 
   return (
     <button
       onClick={() => router.push("/profile")}
-      className="fixed top-4 right-4 md:top-6 md:right-8 z-50 glass-pill rounded-full px-4 py-2 flex items-center gap-2 haptic-active cursor-pointer hover:bg-white/80 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B00]"
+      className="fixed top-4 right-4 md:top-6 md:right-8 z-50 glass-pill rounded-full px-4 py-2 flex items-center gap-2 haptic-active cursor-pointer hover:bg-white/80 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cd-ember"
       aria-label={`${TOKEN_DISPLAY_NAME} balance: ${deferredValue}. Tap to view profile.`}
     >
-      <span className="material-symbols-outlined text-[#FF6B00] text-lg icon-fill">toll</span>
-      <span className="font-space-grotesk font-bold text-sm text-tc-on-surface tabular-nums">
+      <span className="material-symbols-outlined text-cd-ember text-lg icon-fill">toll</span>
+      <span className="font-mono font-bold text-sm text-cd-ink tabular-nums">
         {isLoading ? "..." : deferredValue.toLocaleString()}
       </span>
-      <span className="font-space-grotesk text-xs text-tc-on-surface-variant">
+      <span className="font-mono text-xs text-cd-muted">
         {TOKEN_DISPLAY_NAME}
       </span>
     </button>

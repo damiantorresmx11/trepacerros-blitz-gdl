@@ -11,14 +11,14 @@ interface AppShellProps {
 export function AppShell({ children, hideNav = false }: AppShellProps) {
   if (hideNav) {
     return (
-      <div className="min-h-screen bg-tc-surface">
+      <div className="min-h-screen bg-cd-bg">
         {children}
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-tc-surface text-tc-on-surface">
+    <div className="min-h-screen bg-cd-bg text-cd-ink topo-bg">
       <Sidebar />
       <div className="md:ml-72">
         <main className="w-full max-w-[480px] mx-auto md:max-w-6xl pt-4 md:pt-8 pb-32 md:pb-8 px-5 md:px-8">
