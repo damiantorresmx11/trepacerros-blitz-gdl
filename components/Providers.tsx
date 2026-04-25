@@ -4,6 +4,8 @@ import { PrivyProvider } from '@privy-io/react-auth'
 import { WagmiProvider } from '@privy-io/wagmi'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { wagmiConfig, monadTestnet } from '@/lib/wagmi'
+import { ToastProvider } from '@/components/ui/Toast'
+import { CerroBalancePill } from '@/components/CerroBalancePill'
 
 const queryClient = new QueryClient()
 
@@ -27,7 +29,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
     >
       <QueryClientProvider client={queryClient}>
         <WagmiProvider config={wagmiConfig}>
-          {children}
+          <ToastProvider>
+            {/* CerroBalancePill persists across all route changes (R11 mitigation) */}
+            <CerroBalancePill key="cerro-pill" />
+            {children}
+          </ToastProvider>
         </WagmiProvider>
       </QueryClientProvider>
     </PrivyProvider>

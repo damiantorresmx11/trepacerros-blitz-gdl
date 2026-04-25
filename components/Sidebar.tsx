@@ -2,82 +2,84 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { usePrivy } from "@privy-io/react-auth";
-import { useAccount } from "wagmi";
-import { usePrimaBalance } from "@/hooks/useRastros";
-import { TOKEN_DISPLAY_NAME } from "@/lib/tokens";
+import { motion } from "framer-motion";
 
 const tabs = [
-  { href: "/", label: "Home", icon: "home" },
-  { href: "/hike", label: "Hike", icon: "hiking" },
-  { href: "/wiki", label: "Wiki", icon: "menu_book" },
-  { href: "/rewards", label: "Rewards", icon: "storefront" },
-  { href: "/profile", label: "Profile", icon: "person" },
+  { href: "/", label: "Map Dashboard", icon: "map" },
+  { href: "/hike/select", label: "Clean", icon: "potted_plant" },
+  { href: "/wiki", label: "Eco-Wiki", icon: "menu_book" },
+  { href: "/rewards", label: "Marketplace", icon: "storefront" },
+  { href: "/profile/leaderboard", label: "Leaderboard", icon: "leaderboard" },
+  { href: "/profile", label: "My Impact", icon: "auto_graph" },
 ] as const;
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { authenticated } = usePrivy();
-  const { address } = useAccount();
-  const { formatted, isLoading } = usePrimaBalance(address);
-  const shortAddr = address ? `${address.slice(0, 4)}...${address.slice(-4)}` : "";
 
   return (
-    <aside className="hidden md:flex fixed left-0 top-0 bottom-0 w-60 bg-[#FDFCF8] border-r border-stone-200 flex-col z-50">
-      {/* Logo */}
-      <Link href="/" className="flex items-center gap-2 px-5 h-16 border-b border-stone-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B00] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FDFCF8]">
-        <span className="material-symbols-outlined text-[#2D5A27]">landscape</span>
-        <span className="font-lexend font-black text-[#2D5A27] tracking-widest uppercase text-lg">
-          TREPACERROS
-        </span>
+    <aside className="hidden md:flex fixed left-0 top-0 bottom-0 w-72 flex-col z-40 bg-white/30 backdrop-blur-2xl border-r border-white/10 shadow-2xl shadow-black/5 p-6">
+      {/* Brand */}
+      <Link
+        href="/"
+        className="flex items-center gap-3 mb-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B00] rounded-lg"
+      >
+        <div className="w-10 h-10 rounded-lg bg-tc-primary-container flex items-center justify-center">
+          <span className="material-symbols-outlined text-white text-xl">landscape</span>
+        </div>
+        <div>
+          <h1 className="font-fraunces text-xl font-black text-green-900 tracking-tighter leading-none">
+            Trepacerros
+          </h1>
+          <p className="font-space-grotesk text-tc-caption text-tc-outline mt-0.5">
+            HIGH-ALTITUDE TECH
+          </p>
+        </div>
       </Link>
 
       {/* Nav Items */}
-      <nav className="flex-1 flex flex-col gap-1 px-3 py-4">
-        {tabs.map((tab) => {
+      <nav className="flex-1 flex flex-col gap-1" aria-label="Main navigation">
+        {tabs.map((tab, i) => {
           const isActive =
-            tab.href === "/" ? pathname === "/" : pathname.startsWith(tab.href);
+            tab.href === "/"
+              ? pathname === "/"
+              : pathname.startsWith(tab.href);
           return (
-            <Link
+            <motion.div
               key={tab.href}
-              href={tab.href}
-              className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B00] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FDFCF8] ${
-                isActive
-                  ? "bg-orange-50 text-[#FF6B00]"
-                  : "text-stone-600 hover:bg-stone-100 hover:text-tc-on-surface"
-              }`}
+              initial={{ opacity: 0, x: -12 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: i * 0.05, duration: 0.2, ease: "easeOut" }}
             >
-              <span
-                className="material-symbols-outlined text-[22px]"
-                style={isActive ? { fontVariationSettings: "'FILL' 1" } : undefined}
+              <Link
+                href={tab.href}
+                aria-current={isActive ? "page" : undefined}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-transform duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B00] ${
+                  isActive
+                    ? "bg-white/50 text-orange-600 shadow-inner-sm"
+                    : "text-green-900/70 hover:text-green-900 hover:translate-x-1"
+                }`}
               >
-                {tab.icon}
-              </span>
-              <span className="font-lexend text-sm font-semibold">{tab.label}</span>
-            </Link>
+                <span
+                  className={`material-symbols-outlined text-xl ${isActive ? "icon-fill" : ""}`}
+                >
+                  {tab.icon}
+                </span>
+                <span className="font-lexend font-semibold uppercase tracking-widest text-[11px]">
+                  {tab.label}
+                </span>
+              </Link>
+            </motion.div>
           );
         })}
       </nav>
 
-      {/* Wallet Pill */}
-      {authenticated && address && (
-        <div className="px-3 pb-4">
-          <Link
-            href="/profile"
-            className="flex items-center gap-2 bg-tc-surface-container px-3 py-3 rounded-xl border border-tc-outline-variant/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B00] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FDFCF8]"
-          >
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shrink-0" />
-            <div className="min-w-0 flex-1">
-              <p className="font-space-grotesk text-[12px] text-tc-on-surface truncate">{shortAddr}</p>
-              {!isLoading && (
-                <p className="font-space-grotesk text-[12px] font-bold text-[#FF6B00]">
-                  {Math.floor(Number(formatted))} {TOKEN_DISPLAY_NAME}
-                </p>
-              )}
-            </div>
-          </Link>
-        </div>
-      )}
+      {/* CTA Button */}
+      <Link
+        href="/hike"
+        className="mt-auto w-full py-3 px-4 bg-[#FF6B00] text-white rounded-xl font-lexend text-tc-label font-semibold uppercase tracking-widest text-center shadow-lg border border-white/20 hover:opacity-90 transition-opacity duration-200 haptic-active focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B00] focus-visible:ring-offset-2"
+      >
+        Start Expedition
+      </Link>
     </aside>
   );
 }
